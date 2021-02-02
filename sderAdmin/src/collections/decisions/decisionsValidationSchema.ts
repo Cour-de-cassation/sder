@@ -4,7 +4,7 @@ const decisionsValidationSchema = {
   $jsonSchema: {
     bsonType: 'object',
     additionalProperties: false,
-    required: ['name'],
+    required: [],
     properties: {
       _id: { bsonType: 'objectId' },
       _rev: { bsonType: 'int' },

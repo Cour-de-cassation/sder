@@ -1,0 +1,32 @@
+{
+  "dependencies": {
+    "mongodb": "^3.6.1"
+  },
+  "description": "Administration of SDER database",
+  "devDependencies": {
+    "@types/mongodb": "3.6.3",
+    "@typescript-eslint/eslint-plugin": "^4.14.0",
+    "@typescript-eslint/parser": "^4.14.0",
+    "eslint": "^7.18.0",
+    "eslint-config-prettier": "^7.2.0",
+    "eslint-plugin-prettier": "^3.3.1",
+    "prettier": "^2.2.1",
+    "rimraf": "~3.0.2",
+    "typescript": "^4.1.3"
+  },
+  "name": "sder-admin",
+  "private": true,
+  "resolutions": {
+    "**/@typescript-eslint/eslint-plugin": "^4.4.1",
+    "**/@typescript-eslint/parser": "^4.4.1"
+  },
+  "scripts": {
+    "build": "yarn clean && yarn compile",
+    "clean": "rimraf -rf ./dist",
+    "cleanAll": "rimraf -rf ./dist && rimraf -rf ./node_modules",
+    "compile": "tsc -p tsconfig.json",
+    "format": "prettier --write \"src/**/*.ts\"",
+    "lint": "eslint 'src/**/*.{js,ts,tsx}' --quiet",
+    "test": "jest --passWithNoTests"
+  }
+}

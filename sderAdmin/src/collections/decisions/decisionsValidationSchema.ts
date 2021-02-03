@@ -4,14 +4,14 @@ const decisionsValidationSchema = {
   $jsonSchema: {
     bsonType: 'object',
     additionalProperties: false,
-    required: [],
+    //    required: [],
     properties: {
       _id: { bsonType: 'objectId' },
       _rev: { bsonType: 'int' },
       analysis: {
         bsonType: 'object',
         additionalProperties: false,
-        required: ['name'],
+        //       required: [],
         properties: {
           doctrine: { bsonType: 'string' },
           link: { bsonType: 'string' },

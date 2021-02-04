@@ -8,7 +8,11 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-latest:
+
+    defaults:
+      run:
+        working-directory: sderAdmin
 
     strategy:
       matrix:
@@ -20,15 +24,7 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: ${{ matrix.node-version }}
-      - run: |
-        cd sderAdmin
-        yarn install
-      - run: |
-        cd sderAdmin
-        yarn compile
-      - run: |
-        cd sderAdmin
-        yarn test
-      - run: |
-        cd sderAdmin
-        yarn lint
+      - run: yarn install
+      - run: yarn compile
+      - run: yarn test
+      - run: yarn lint

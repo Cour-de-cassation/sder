@@ -1,4 +1,4 @@
-name: LABEL CI
+name: SDER CI
 
 on:
   push:

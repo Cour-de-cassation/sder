@@ -1,21 +1,19 @@
 import { MongoClient } from 'mongodb';
 import { collectionType, decisionsCollection } from '../collections';
-
-const SDER_DB_URL = 'mongodb://bkpanonym:27017';
-const SDER_DB_NAME = 'SDER';
+import { environment } from '../environment';
 
 const collections = [decisionsCollection];
 
 setValidationOnAllCollections();
 
 async function setValidationOnAllCollections() {
-  console.log(`Connecting to MongoDb: ${SDER_DB_URL}`);
-  const mongo = await new MongoClient(SDER_DB_URL, {
+  console.log(`Connecting to MongoDb: ${environment.SDER_DB_URL}`);
+  const mongo = await new MongoClient(environment.SDER_DB_URL, {
     useUnifiedTopology: true,
   }).connect();
 
-  console.log(`Setting validation on the ${SDER_DB_NAME} DB`);
-  const db = mongo.db(SDER_DB_NAME);
+  console.log(`Setting validation on the ${environment.SDER_DB_NAME} DB`);
+  const db = mongo.db(environment.SDER_DB_NAME);
 
   for (const collection of collections) {
     console.log(`Setting validation on collection ${collection.name}`);

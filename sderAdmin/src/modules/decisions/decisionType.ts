@@ -19,6 +19,7 @@ type decisionType = {
   chamberName: string;
   dateCreation: Date;
   dateDecision: Date;
+  isLoadedInLabel: boolean;
   jurisdictionCode: string;
   jurisdictionId: string;
   jurisdictionName: string;

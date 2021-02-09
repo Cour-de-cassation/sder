@@ -23,6 +23,16 @@ type decisionType = {
   jurisdictionCode: string;
   jurisdictionId: string;
   jurisdictionName: string;
+  labelTreatments: Array<{
+    annotations: Array<{
+      category: string;
+      entityId: string;
+      start: number;
+      text: string;
+    }>;
+    source: string;
+    order: number;
+  }>;
   locked: string;
   originalText: string;
   parties: string;

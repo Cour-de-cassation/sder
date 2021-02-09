@@ -47,6 +47,28 @@ const decisionsValidationSchema = {
       jurisdictionCode: { bsonType: 'string' },
       jurisdictionId: { bsonType: 'string' },
       jurisdictionName: { bsonType: 'string' },
+      labelTreatments: {
+        bsonType: 'array',
+        additionalProperties: false,
+        items: {
+          bsonType: 'object',
+          additionalProperties: false,
+          properties: {
+            annotations: {
+              bsonType: 'array',
+              additionalProperties: false,
+              items: {
+                category: { bsonType: 'string' },
+                entityId: { bsonType: 'string' },
+                start: { bsonType: 'int' },
+                text: { bsonType: 'string' },
+              },
+            },
+            source: { bsonType: 'string' },
+            order: { bsonType: 'int' },
+          },
+        },
+      },
       locked: { bsonType: 'bool' },
       originalText: { bsonType: 'string' },
       parties: { bsonType: 'string' },

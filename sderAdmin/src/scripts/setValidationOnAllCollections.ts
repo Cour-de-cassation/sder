@@ -1,6 +1,6 @@
-import { MongoClient } from 'mongodb';
 import { collectionType, decisionsCollection } from '../collections';
 import { environment } from '../environment';
+import { buildMongo } from '../utils';
 
 const collections = [decisionsCollection];
 
@@ -8,13 +8,9 @@ setValidationOnAllCollections();
 
 async function setValidationOnAllCollections() {
   console.log(`Connecting to MongoDb: ${environment.SDER_DB_URL}`);
-  const mongo = await new MongoClient(environment.SDER_DB_URL, {
-    useUnifiedTopology: true,
-  }).connect();
+  const db = await buildMongo();
 
   console.log(`Setting validation on the ${environment.SDER_DB_NAME} DB`);
-  const db = mongo.db(environment.SDER_DB_NAME);
-
   for (const collection of collections) {
     console.log(`Setting validation on collection ${collection.name}`);
     await setValidation(collection);

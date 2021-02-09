@@ -1,7 +1,7 @@
 import { buildDecisionRepository } from '../../modules';
 
 (async () => {
-  await addNewFieldsToDecisions();
+  addNewFieldsToDecisions();
 })();
 
 async function addNewFieldsToDecisions() {

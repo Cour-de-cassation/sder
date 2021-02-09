@@ -1,3 +1,5 @@
-import { buildMongo } from './buildMongo';
+import { buildMongo, mongoIdType } from './buildMongo';
 
 export { buildMongo };
+
+export type { mongoIdType };

@@ -13,12 +13,15 @@ function buildDecisionService(decisionRepositoryBuilder: () => Promise<decisionR
       return decisionRepository.findAllToPseudonymiseSince(date);
     },
 
-    async setDecisionLoadedInLabel({ decisionId }: { decisionId: string }) {
+    async setDecisionsLoadedInLabel({ decisionIds }: { decisionIds: string[] }) {
       const decisionRepository = await decisionRepositoryBuilder();
 
-      const decision = await decisionRepository.findByDecisionId(decisionId);
+      const decisions = await decisionRepository.findAllByDecisionIds(decisionIds);
 
-      await decisionRepository.updateById(decision._id, { isLoadedInLabel: true });
+      await decisionRepository.updateByIds(
+        decisions.map((decision) => decision._id),
+        { isLoadedInLabel: true },
+      );
     },
 
     async updateDecisionPseudonymisation({

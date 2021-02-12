@@ -17,6 +17,10 @@ async function buildDecisionFakeRepository(): Promise<decisionRepositoryType> {
       return collection;
     },
 
+    async findAllByDecisionIds(decisionIds) {
+      return collection.filter((decision) => decisionIds.includes(decision.sourceId));
+    },
+
     async findAllToPseudonymiseSince(date) {
       return collection.filter(
         (decision) =>
@@ -51,6 +55,12 @@ async function buildDecisionFakeRepository(): Promise<decisionRepositoryType> {
     async updateById(id, decisionField) {
       collection = collection.map((decision) =>
         areMongoIdEqual(decision._id, id) ? { ...decision, ...decisionField } : decision,
+      );
+    },
+
+    async updateByIds(ids, decisionField) {
+      await collection.map((decision) =>
+        ids.some((id) => areMongoIdEqual(id, decision._id)) ? { ...decision, ...decisionField } : decision,
       );
     },
   };

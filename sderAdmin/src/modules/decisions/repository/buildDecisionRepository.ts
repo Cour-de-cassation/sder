@@ -18,6 +18,10 @@ async function buildDecisionRepository(): Promise<decisionRepositoryType> {
       return collection.find().toArray();
     },
 
+    async findAllByDecisionIds(decisionIds) {
+      return collection.find({ sourceId: { $in: decisionIds } }).toArray();
+    },
+
     async findAllToPseudonymiseSince(date) {
       return collection
         .find({
@@ -60,6 +64,10 @@ async function buildDecisionRepository(): Promise<decisionRepositoryType> {
 
     async updateById(id, decisionField) {
       await collection.updateOne({ _id: id }, decisionField);
+    },
+
+    async updateByIds(ids, decisionField) {
+      await collection.updateOne({ _id: { $in: ids } }, decisionField);
     },
   };
 }

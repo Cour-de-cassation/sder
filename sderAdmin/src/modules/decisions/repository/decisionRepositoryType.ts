@@ -6,9 +6,11 @@ export type { decisionRepositoryType };
 type decisionRepositoryType = {
   clear: () => void;
   findAll: () => Promise<decisionType[]>;
+  findAllByDecisionIds: (decisionIds: string[]) => Promise<decisionType[]>;
   findAllToPseudonymiseSince: (date: Date) => Promise<decisionType[]>;
   findById: (id: mongoIdType) => Promise<decisionType>;
   findByDecisionId: (decisionId: string) => Promise<decisionType>;
   insert: (decision: decisionType) => Promise<void>;
   updateById: (id: mongoIdType, decisionField: Partial<decisionType>) => Promise<void>;
+  updateByIds: (ids: mongoIdType[], decisionField: Partial<decisionType>) => Promise<void>;
 };

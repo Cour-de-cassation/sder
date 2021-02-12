@@ -18,7 +18,7 @@ app.get(
 
 app.patch(
   '/label/decisions-to-pseudonymise',
-  buildHandlingErrorController(async (req: any) => decisionService.setDecisionLoadedInLabel(req.body)),
+  buildHandlingErrorController(async (req: any) => decisionService.setDecisionsLoadedInLabel(req.body)),
 );
 
 app.patch(

@@ -1,3 +1,7 @@
+import { buildDecisionFakeRepository } from './buildDecisionFakeRepository';
 import { buildDecisionRepository } from './buildDecisionRepository';
+import { decisionRepositoryType } from './decisionRepositoryType';
 
-export { buildDecisionRepository };
+export { buildDecisionFakeRepository, buildDecisionRepository };
+
+export type { decisionRepositoryType };

@@ -1,5 +1,6 @@
-import { buildMongo, mongoIdType } from './buildMongo';
+import { areMongoIdEqual, buildMongo, buildObjectId, mongoIdType } from './buildMongo';
+import { buildHandlingErrorController } from './express';
 
-export { buildMongo };
+export { areMongoIdEqual, buildHandlingErrorController, buildMongo, buildObjectId };
 
 export type { mongoIdType };

@@ -1,3 +1,4 @@
-import { buildDecisionRepository } from './repository';
+import { buildDecisionFakeRepository, buildDecisionRepository } from './repository';
+import { decisionService } from './service';
 
-export { buildDecisionRepository };
+export { buildDecisionFakeRepository, buildDecisionRepository, decisionService };

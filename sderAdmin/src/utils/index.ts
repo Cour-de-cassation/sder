@@ -1,5 +1,5 @@
-import { buildMongo, mongoIdType } from './buildMongo';
+import { areMongoIdEqual, buildMongo, buildObjectId, mongoIdType } from './buildMongo';
 
-export { buildMongo };
+export { areMongoIdEqual, buildMongo, buildObjectId };
 
 export type { mongoIdType };

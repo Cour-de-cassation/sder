@@ -1,6 +1,6 @@
 import { mongoIdType } from '../../utils';
 
-export type { decisionType };
+export type { decisionType, labelTreatmentsType };
 
 type decisionType = {
   _id: mongoIdType;
@@ -23,16 +23,7 @@ type decisionType = {
   jurisdictionCode: string;
   jurisdictionId: string;
   jurisdictionName: string;
-  labelTreatments: Array<{
-    annotations: Array<{
-      category: string;
-      entityId: string;
-      start: number;
-      text: string;
-    }>;
-    source: string;
-    order: number;
-  }>;
+  labelTreatments: labelTreatmentsType;
   locked: string;
   originalText: string;
   parties: string;
@@ -44,3 +35,14 @@ type decisionType = {
   sourceId: string;
   sourceName: string;
 };
+
+type labelTreatmentsType = Array<{
+  annotations: Array<{
+    category: string;
+    entityId: string;
+    start: number;
+    text: string;
+  }>;
+  source: string;
+  order: number;
+}>;

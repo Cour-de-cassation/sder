@@ -9,7 +9,7 @@ async function addNewFieldsToDecisions() {
 
   const decisionRepository = await buildDecisionRepository();
 
-  console.log('Fetching deicisons');
+  console.log('Fetching decisions');
   const decisions = await decisionRepository.findAll();
   console.log(`${decisions} decisions to update`);
 

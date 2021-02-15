@@ -68,11 +68,11 @@ async function buildDecisionRepository(): Promise<decisionRepositoryType> {
     },
 
     async updateById(id, decisionField) {
-      await collection.updateOne({ _id: id }, decisionField);
+      await collection.updateOne({ _id: id }, { $set: decisionField });
     },
 
     async updateByIds(ids, decisionField) {
-      await collection.updateOne({ _id: { $in: ids } }, decisionField);
+      await collection.update({ _id: { $in: ids } }, { $set: decisionField });
     },
   };
 }

@@ -58,10 +58,14 @@ const decisionsValidationSchema = {
               bsonType: 'array',
               additionalProperties: false,
               items: {
-                category: { bsonType: 'string' },
-                entityId: { bsonType: 'string' },
-                start: { bsonType: 'int' },
-                text: { bsonType: 'string' },
+                bsonType: 'object',
+                additionalProperties: false,
+                properties: {
+                  category: { bsonType: 'string' },
+                  entityId: { bsonType: 'string' },
+                  start: { bsonType: 'int' },
+                  text: { bsonType: 'string' },
+                },
               },
             },
             source: { bsonType: 'string' },

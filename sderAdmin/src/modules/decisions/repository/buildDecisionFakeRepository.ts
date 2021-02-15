@@ -21,6 +21,10 @@ async function buildDecisionFakeRepository(): Promise<decisionRepositoryType> {
       return collection.filter((decision) => decisionIds.includes(decision.sourceId));
     },
 
+    async findAllIds() {
+      return collection.map((decision) => decision._id);
+    },
+
     async findAllToPseudonymiseSince(date) {
       return collection.filter(
         (decision) =>

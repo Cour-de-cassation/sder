@@ -22,6 +22,11 @@ async function buildDecisionRepository(): Promise<decisionRepositoryType> {
       return collection.find({ sourceId: { $in: decisionIds } }).toArray();
     },
 
+    async findAllIds() {
+      const decisionFieldsIds = await collection.find().project({ _id: 1 }).toArray();
+      return decisionFieldsIds.map(({ _id }) => _id);
+    },
+
     async findAllToPseudonymiseSince(date) {
       return collection
         .find({

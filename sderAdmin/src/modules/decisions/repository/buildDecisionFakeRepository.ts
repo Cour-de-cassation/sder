@@ -13,12 +13,12 @@ async function buildDecisionFakeRepository(): Promise<decisionRepositoryType> {
       collection = [];
     },
 
-    async findAll() {
-      return collection;
-    },
-
     async findAllByDecisionIds(decisionIds) {
       return collection.filter((decision) => decisionIds.includes(decision.sourceId));
+    },
+
+    async findAllIds() {
+      return collection.map((decision) => decision._id);
     },
 
     async findAllToPseudonymiseSince(date) {

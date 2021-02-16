@@ -14,12 +14,13 @@ async function buildDecisionRepository(): Promise<decisionRepositoryType> {
       await collection.deleteMany({});
     },
 
-    async findAll() {
-      return collection.find().toArray();
-    },
-
     async findAllByDecisionIds(decisionIds) {
       return collection.find({ sourceId: { $in: decisionIds } }).toArray();
+    },
+
+    async findAllIds() {
+      const decisionFieldsIds = await collection.find().project({ _id: 1 }).toArray();
+      return decisionFieldsIds.map(({ _id }) => _id);
     },
 
     async findAllToPseudonymiseSince(date) {
@@ -63,11 +64,11 @@ async function buildDecisionRepository(): Promise<decisionRepositoryType> {
     },
 
     async updateById(id, decisionField) {
-      await collection.updateOne({ _id: id }, decisionField);
+      await collection.updateOne({ _id: id }, { $set: decisionField });
     },
 
     async updateByIds(ids, decisionField) {
-      await collection.updateOne({ _id: { $in: ids } }, decisionField);
+      await collection.update({ _id: { $in: ids } }, { $set: decisionField });
     },
   };
 }

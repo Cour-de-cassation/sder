@@ -1,6 +1,6 @@
 import { generateDecision } from '../lib';
-import { buildDecisionFakeRepository } from '../repository';
-import { buildDecisionService } from './decisionService';
+import { buildDecisionRepository } from '../repository';
+import { decisionService } from './decisionService';
 
 describe('decisionService', () => {
   describe('updateDecisionPseudonymisation', () => {
@@ -14,9 +14,8 @@ describe('decisionService', () => {
     ];
 
     it('should update decision pseudonymisation text and treatments', async () => {
-      const decisionFakeRepository = await buildDecisionFakeRepository();
-      const decisionService = buildDecisionService(buildDecisionFakeRepository);
-      await decisionFakeRepository.insert(decision);
+      const decisionRepository = await buildDecisionRepository();
+      await decisionRepository.insert(decision);
 
       await decisionService.updateDecisionPseudonymisation({
         decisionId: decision.sourceId,
@@ -24,15 +23,14 @@ describe('decisionService', () => {
         labelTreatments: treatmenst,
       });
 
-      const updatedDecision = await decisionFakeRepository.findById(decision._id);
+      const updatedDecision = await decisionRepository.findById(decision._id);
       expect(updatedDecision.pseudoText).toEqual('NEW_PSEUDONYMISATION');
       expect(updatedDecision.labelTreatments).toEqual(treatmenst);
     });
 
     it('should update decision _rev field', async () => {
-      const decisionFakeRepository = await buildDecisionFakeRepository();
-      const decisionService = buildDecisionService(buildDecisionFakeRepository);
-      await decisionFakeRepository.insert(decision);
+      const decisionRepository = await buildDecisionRepository();
+      await decisionRepository.insert(decision);
 
       await decisionService.updateDecisionPseudonymisation({
         decisionId: decision.sourceId,
@@ -40,7 +38,7 @@ describe('decisionService', () => {
         labelTreatments: treatmenst,
       });
 
-      const updatedDecision = await decisionFakeRepository.findById(decision._id);
+      const updatedDecision = await decisionRepository.findById(decision._id);
       expect(updatedDecision._rev).toEqual(decision._rev + 1);
     });
   });

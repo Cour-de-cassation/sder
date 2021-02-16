@@ -1,5 +1,5 @@
 import { labelTreatmentsType } from '../decisionType';
-import { buildDecisionRepository, decisionRepositoryType } from '../repository';
+import { buildDecisionRepository } from '../repository';
 
 export { decisionService };
 

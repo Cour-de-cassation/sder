@@ -1,7 +1,6 @@
 const supertest = require('supertest');
 
-import { decisionModule, decisionType } from '../modules';
-import { dateBuilder } from '../utils';
+import { decisionModule } from '../modules';
 import { server } from './server';
 
 const request = supertest(server);

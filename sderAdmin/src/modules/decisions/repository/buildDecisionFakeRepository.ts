@@ -59,7 +59,7 @@ async function buildDecisionFakeRepository(): Promise<decisionRepositoryType> {
     },
 
     async updateByIds(ids, decisionField) {
-      await collection.map((decision) =>
+      collection = collection.map((decision) =>
         ids.some((id) => areMongoIdEqual(id, decision._id)) ? { ...decision, ...decisionField } : decision,
       );
     },

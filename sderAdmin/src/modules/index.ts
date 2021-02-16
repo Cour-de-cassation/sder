@@ -1,3 +1,5 @@
-import { decisionModule } from './decisions';
+import { decisionModule, decisionType } from './decisions';
 
 export { decisionModule };
+
+export type { decisionType };

@@ -1,4 +1,4 @@
-import { buildDecisionRepository } from '../../modules';
+import { decisionModule } from '../../modules';
 
 (async () => {
   addNewFieldsToDecisions();
@@ -7,7 +7,7 @@ import { buildDecisionRepository } from '../../modules';
 async function addNewFieldsToDecisions() {
   console.log('addNewFieldsToDecisions');
 
-  const decisionRepository = await buildDecisionRepository();
+  const decisionRepository = await decisionModule.buildRepository();
 
   console.log('Fetching decisions');
   const decisionIds = await decisionRepository.findAllIds();

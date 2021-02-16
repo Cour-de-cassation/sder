@@ -13,10 +13,6 @@ async function buildDecisionFakeRepository(): Promise<decisionRepositoryType> {
       collection = [];
     },
 
-    async findAll() {
-      return collection;
-    },
-
     async findAllByDecisionIds(decisionIds) {
       return collection.filter((decision) => decisionIds.includes(decision.sourceId));
     },

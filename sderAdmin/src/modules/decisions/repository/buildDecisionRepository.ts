@@ -14,10 +14,6 @@ async function buildDecisionRepository(): Promise<decisionRepositoryType> {
       await collection.deleteMany({});
     },
 
-    async findAll() {
-      return collection.find().toArray();
-    },
-
     async findAllByDecisionIds(decisionIds) {
       return collection.find({ sourceId: { $in: decisionIds } }).toArray();
     },

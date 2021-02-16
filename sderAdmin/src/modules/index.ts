@@ -1,1 +1,3 @@
-export * from './decisions';
+import { decisionModule } from './decisions';
+
+export { decisionModule };

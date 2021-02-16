@@ -1,6 +1,6 @@
-import { buildDecisionRepository } from '../modules';
+import { decisionModule } from '../modules';
 
 global.beforeEach(async () => {
-  const decisionRepository = await buildDecisionRepository();
+  const decisionRepository = await decisionModule.buildRepository();
   await decisionRepository.clear();
 });

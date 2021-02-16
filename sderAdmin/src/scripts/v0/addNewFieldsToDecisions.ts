@@ -5,8 +5,6 @@ import { decisionModule } from '../../modules';
 })();
 
 async function addNewFieldsToDecisions() {
-  console.log('addNewFieldsToDecisions');
-
   const decisionRepository = await decisionModule.buildRepository();
 
   console.log('Fetching decisions');

@@ -1,5 +1,5 @@
 import { decisionType } from './decisionType';
-import { generateDecision } from './lib';
+import { buildDecision, generateDecision } from './lib';
 import { buildDecisionRepository } from './repository';
 import { decisionService } from './service';
 
@@ -9,6 +9,6 @@ export type { decisionType };
 
 const decisionModule = {
   buildRepository: buildDecisionRepository,
-  lib: { generateDecision },
+  lib: { buildDecision, generateDecision },
   service: decisionService,
 };

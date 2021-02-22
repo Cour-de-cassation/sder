@@ -31,3 +31,14 @@ server.patch(
   '/label/update-decision-pseudonymisation',
   buildHandlingErrorController(async (req: any) => decisionModule.service.updateDecisionPseudonymisation(req.body)),
 );
+
+server.post(
+  '/create-decision',
+  buildHandlingErrorController(async (req: any) =>
+    decisionModule.service.createDecision({
+      ...req.body,
+      dateCreation: new Date(req.body.dateCreation),
+      dateDecision: new Date(req.body.dateDecision),
+    }),
+  ),
+);

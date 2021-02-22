@@ -1,3 +1,4 @@
+import { buildDecision } from './buildDecision';
 import { generateDecision } from './generateDecision';
 
-export { generateDecision };
+export { buildDecision, generateDecision };

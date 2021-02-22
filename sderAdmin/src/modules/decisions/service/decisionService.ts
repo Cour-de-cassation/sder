@@ -1,9 +1,17 @@
-import { labelTreatmentsType } from '../decisionType';
+import { decisionType, labelTreatmentsType } from '../decisionType';
+import { buildDecision } from '../lib';
 import { buildDecisionRepository } from '../repository';
 
 export { decisionService };
 
 const decisionService = {
+  async createDecision(decisionFields: Omit<decisionType, '_id' | '_rev' | 'isLoadedInLabel' | 'labelTreatments'>) {
+    const decisionRepository = await buildDecisionRepository();
+
+    const decision = buildDecision(decisionFields);
+    await decisionRepository.insert(decision);
+  },
+
   async fetchDecisionsToPseudonymise({ date }: { date: Date }) {
     const decisionRepository = await buildDecisionRepository();
 

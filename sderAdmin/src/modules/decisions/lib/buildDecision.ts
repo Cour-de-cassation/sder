@@ -4,10 +4,10 @@ import { decisionType } from '../decisionType';
 export { buildDecision };
 
 function buildDecision(
-  treatmentFields: Omit<decisionType, '_id' | '_rev' | 'isLoadedInLabel' | 'labelTreatments'>,
+  decisionFields: Omit<decisionType, '_id' | '_rev' | 'isLoadedInLabel' | 'labelTreatments'>,
 ): decisionType {
   return {
-    ...treatmentFields,
+    ...decisionFields,
     _id: buildObjectId(),
     _rev: 0,
     isLoadedInLabel: false,

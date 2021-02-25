@@ -40,8 +40,14 @@ server.patch(
 );
 
 server.patch(
-  '/label/update-decision-pseudonymisation',
-  buildHandlingErrorController(async (req: any) => decisionModule.service.updateDecisionPseudonymisation(req.body)),
+  '/update-decision-pseudonymisation',
+  buildHandlingErrorController(async (req: any) =>
+    decisionModule.service.updateDecisionPseudonymisation({
+      decisionId: req.body.decisionId,
+      decisionPseudonymisedText: req.body.decisionPseudonymisedText,
+      labelTreatments: req.body.labelTreatments,
+    }),
+  ),
 );
 
 server.post(

@@ -29,7 +29,7 @@ async function buildDecisionRepository(): Promise<decisionRepositoryType> {
         .project({ sourceId: 1, pseudoText: 1 })
         .toArray();
 
-      return pseudonymisations.map(({ sourceId, pseudoText }) => ({ documentId: sourceId, pseudoText }));
+      return pseudonymisations.map(({ sourceId, pseudoText }) => ({ decisionId: sourceId, pseudoText }));
     },
 
     async findAllToPseudonymiseSince(date) {

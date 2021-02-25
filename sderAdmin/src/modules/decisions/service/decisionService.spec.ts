@@ -62,11 +62,11 @@ describe('decisionService', () => {
       expect(pseudonymisations.sort()).toEqual(
         [
           {
-            documentId: decisions[0].sourceId,
+            decisionId: decisions[0].sourceId,
             pseudoText: decisions[0].pseudoText,
           },
           {
-            documentId: decisions[2].sourceId,
+            decisionId: decisions[2].sourceId,
             pseudoText: decisions[2].pseudoText,
           },
         ].sort(),

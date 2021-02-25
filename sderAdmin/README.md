@@ -37,6 +37,7 @@ Parameter:
 - `labelTreatments: array of treatments of LABEL`
 
 Return: ()
+
 Effect: Update the pseudonymisation text and the label treatment of the given decision
 
 #### POST `/create-decision`:

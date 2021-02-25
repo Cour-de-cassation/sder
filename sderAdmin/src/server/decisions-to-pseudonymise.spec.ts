@@ -6,7 +6,7 @@ import { server } from './server';
 
 const request = supertest(server);
 
-describe('/label/decisions-to-pseudonymise', () => {
+describe('/decisions-to-pseudonymise', () => {
   it('should return all the decision to pseudonymise since the given date', async () => {
     const decisionRepository = await decisionModule.buildRepository();
     const decisions = [
@@ -16,9 +16,7 @@ describe('/label/decisions-to-pseudonymise', () => {
     ].map(decisionModule.lib.generateDecision);
     await Promise.all(decisions.map(decisionRepository.insert));
 
-    const response = await request.get(
-      `/label/decisions-to-pseudonymise?date="${dateBuilder.daysAgo(4).toISOString()}"`,
-    );
+    const response = await request.get(`/decisions-to-pseudonymise?date="${dateBuilder.daysAgo(4).toISOString()}"`);
 
     expect(response.status).toEqual(200);
     expect(JSON.stringify(response.body.sort(), null, 2)).toEqual(
@@ -33,9 +31,7 @@ describe('/label/decisions-to-pseudonymise', () => {
     );
     await Promise.all(decisions.map(decisionRepository.insert));
 
-    const response = await request.get(
-      `/label/decisions-to-pseudonymise?date="${dateBuilder.daysAgo(2).toISOString()}"`,
-    );
+    const response = await request.get(`/decisions-to-pseudonymise?date="${dateBuilder.daysAgo(2).toISOString()}"`);
 
     expect(response.status).toEqual(200);
     expect(JSON.stringify(response.body.sort(), null, 2)).toEqual(JSON.stringify([]));

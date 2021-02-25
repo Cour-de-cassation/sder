@@ -16,9 +16,11 @@ function startServer() {
 server.use(bodyParser.json());
 
 server.get(
-  '/label/decisions-to-pseudonymise',
+  '/decisions-to-pseudonymise',
   buildHandlingErrorController(async (req: any) =>
-    decisionModule.service.fetchDecisionsToPseudonymise({ date: new Date(JSON.parse(req.query.date)) }),
+    decisionModule.service.fetchDecisionsToPseudonymise({
+      date: new Date(JSON.parse(req.query.date)),
+    }),
   ),
 );
 

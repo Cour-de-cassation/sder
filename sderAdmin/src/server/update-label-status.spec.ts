@@ -45,7 +45,7 @@ describe('/update-label-status', () => {
     expect(updatedDecision1.labelStatus).toEqual('toBeTreated');
   });
 
-  it('the /label/decisions-to-pseudonymise route should not return anything after an update', async () => {
+  it('the /decisions-to-pseudonymise route should not return anything after an update', async () => {
     const decisionRepository = await decisionModule.buildRepository();
     const decisions = ([
       { dateCreation: dateBuilder.daysAgo(1), labelStatus: 'toBeTreated' },
@@ -64,9 +64,9 @@ describe('/update-label-status', () => {
     expect(decisionIdsToPseudonymiseAfterUpdate).toEqual([]);
 
     async function fetchDecisionIdsToPseudonymise(): Promise<string[]> {
-      return (
-        await request.get(`/label/decisions-to-pseudonymise?date="${dateBuilder.daysAgo(4).toISOString()}"`)
-      ).body.map((decision: decisionType) => decision.sourceId);
+      return (await request.get(`/decisions-to-pseudonymise?date="${dateBuilder.daysAgo(4).toISOString()}"`)).body.map(
+        (decision: decisionType) => decision.sourceId,
+      );
     }
   });
 });

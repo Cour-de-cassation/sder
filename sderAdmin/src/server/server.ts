@@ -22,6 +22,11 @@ server.get(
   ),
 );
 
+server.get(
+  '/pseudonymization-to-export',
+  buildHandlingErrorController(async () => decisionModule.service.fetchPseudonymizationsToExport()),
+);
+
 server.patch(
   '/label/update-loaded-label-status',
   buildHandlingErrorController(async (req: any) => decisionModule.service.setDecisionsLoadedInLabel(req.body)),

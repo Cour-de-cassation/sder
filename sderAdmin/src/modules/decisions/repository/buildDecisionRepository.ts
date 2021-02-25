@@ -23,6 +23,15 @@ async function buildDecisionRepository(): Promise<decisionRepositoryType> {
       return decisionFieldsIds.map(({ _id }) => _id);
     },
 
+    async findAllPseudonymizationToExport() {
+      const pseudonymizations = await collection
+        .find({ labelStatus: 'done' })
+        .project({ sourceId: 1, pseudoText: 1 })
+        .toArray();
+
+      return pseudonymizations.map(({ sourceId, pseudoText }) => ({ documentId: sourceId, pseudoText }));
+    },
+
     async findAllToPseudonymiseSince(date) {
       return collection
         .find({

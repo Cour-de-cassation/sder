@@ -7,6 +7,9 @@ type decisionRepositoryType = {
   clear: () => void;
   findAllByDecisionIds: (decisionIds: string[]) => Promise<decisionType[]>;
   findAllIds: () => Promise<Array<decisionType['_id']>>;
+  findAllPseudonymizationToExport: () => Promise<
+    Array<{ documentId: decisionType['sourceId']; pseudoText: decisionType['pseudoText'] }>
+  >;
   findAllToPseudonymiseSince: (date: Date) => Promise<decisionType[]>;
   findById: (id: mongoIdType) => Promise<decisionType>;
   findByDecisionId: (decisionId: string) => Promise<decisionType>;

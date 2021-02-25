@@ -12,6 +12,12 @@ const decisionService = {
     await decisionRepository.insert(decision);
   },
 
+  async fetchPseudonymizationsToExport() {
+    const decisionRepository = await buildDecisionRepository();
+
+    return decisionRepository.findAllPseudonymizationToExport();
+  },
+
   async fetchDecisionsToPseudonymise({ date }: { date: Date }) {
     const decisionRepository = await buildDecisionRepository();
 

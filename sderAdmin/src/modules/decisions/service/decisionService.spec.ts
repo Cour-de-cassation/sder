@@ -46,6 +46,34 @@ describe('decisionService', () => {
     });
   });
 
+  describe('fetchPseudonymizationsToExport', () => {
+    it(`should fetch all the pseudonymization text and id of the decisions ready to be exported`, async () => {
+      const decisionRepository = await buildDecisionRepository();
+      const decisions = ([
+        { labelStatus: 'done' },
+        { labelStatus: 'loaded' },
+        { labelStatus: 'done' },
+        { labelStatus: 'toBeTreated' },
+      ] as const).map(generateDecision);
+      await Promise.all(decisions.map(decisionRepository.insert));
+
+      const pseudonymizations = await decisionService.fetchPseudonymizationsToExport();
+
+      expect(pseudonymizations.sort()).toEqual(
+        [
+          {
+            documentId: decisions[0].sourceId,
+            pseudoText: decisions[0].pseudoText,
+          },
+          {
+            documentId: decisions[2].sourceId,
+            pseudoText: decisions[2].pseudoText,
+          },
+        ].sort(),
+      );
+    });
+  });
+
   describe('updateDecisionPseudonymisation', () => {
     const decision = generateDecision();
     const treatmenst = [

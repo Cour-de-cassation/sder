@@ -5,7 +5,7 @@ import { buildDecisionRepository } from '../repository';
 export { decisionService };
 
 const decisionService = {
-  async createDecision(decisionFields: Omit<decisionType, '_id' | '_rev' | 'isLoadedInLabel' | 'labelTreatments'>) {
+  async createDecision(decisionFields: Omit<decisionType, '_id' | '_rev' | 'labelStatus' | 'labelTreatments'>) {
     const decisionRepository = await buildDecisionRepository();
 
     const decision = buildDecision(decisionFields);
@@ -25,7 +25,7 @@ const decisionService = {
 
     await decisionRepository.updateByIds(
       decisions.map((decision) => decision._id),
-      { isLoadedInLabel: true },
+      { labelStatus: 'loaded' },
     );
   },
 
@@ -44,7 +44,7 @@ const decisionService = {
 
     await decisionRepository.updateById(decision._id, {
       _rev: decision._rev + 1,
-      isLoadedInLabel: true,
+      labelStatus: 'done',
       labelTreatments,
       pseudoText: decisionPseudonymisedText,
     });

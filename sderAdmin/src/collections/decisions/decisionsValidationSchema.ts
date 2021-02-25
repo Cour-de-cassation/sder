@@ -43,10 +43,10 @@ const decisionsValidationSchema = {
       chamberName: { bsonType: 'string' },
       dateCreation: { bsonType: 'date' },
       dateDecision: { bsonType: 'date' },
-      isLoadedInLabel: { bsonType: 'bool' },
       jurisdictionCode: { bsonType: 'string' },
       jurisdictionId: { bsonType: 'string' },
       jurisdictionName: { bsonType: 'string' },
+      labelStatus: { bsonType: 'string', enum: ['toBeTreated', 'loaded', 'done'] },
       labelTreatments: {
         bsonType: 'array',
         additionalProperties: false,

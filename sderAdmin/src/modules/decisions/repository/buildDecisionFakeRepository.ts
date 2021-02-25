@@ -24,7 +24,7 @@ async function buildDecisionFakeRepository(): Promise<decisionRepositoryType> {
     async findAllToPseudonymiseSince(date) {
       return collection.filter(
         (decision) =>
-          decision.dateCreation >= date && (decision.isLoadedInLabel === false || decision.pseudoText === ''),
+          decision.dateCreation >= date && (decision.labelStatus === 'toBeTreated' || decision.pseudoText === ''),
       );
     },
 

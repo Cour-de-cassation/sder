@@ -7,17 +7,17 @@ describe('decisionService', () => {
   describe('createDecision', () => {
     it('should create a new decision in the database with the given field', async () => {
       const decisionRepository = await buildDecisionRepository();
-      const decisionField = omit(generateDecision(), ['_id', '_rev', 'isLoadedInLabel', 'labelTreatments']);
+      const decisionField = omit(generateDecision(), ['_id', '_rev', 'labelStatus', 'labelTreatments']);
 
       await decisionService.createDecision(decisionField);
 
       const decision = await decisionRepository.findByDecisionId(decisionField.sourceId);
-      expect(omit(decision, ['_id', '_rev', 'isLoadedInLabel', 'labelTreatments'])).toEqual(decisionField);
+      expect(omit(decision, ['_id', '_rev', 'labelStatus', 'labelTreatments'])).toEqual(decisionField);
     });
 
     it('should create a new decision in the database with a _rev at 0', async () => {
       const decisionRepository = await buildDecisionRepository();
-      const decisionField = omit(generateDecision(), ['_id', '_rev', 'isLoadedInLabel', 'labelTreatments']);
+      const decisionField = omit(generateDecision(), ['_id', '_rev', 'labelStatus', 'labelTreatments']);
 
       await decisionService.createDecision(decisionField);
 
@@ -27,7 +27,7 @@ describe('decisionService', () => {
 
     it('should create a new decision in the database with an empty labelTreatments', async () => {
       const decisionRepository = await buildDecisionRepository();
-      const decisionField = omit(generateDecision(), ['_id', '_rev', 'isLoadedInLabel', 'labelTreatments']);
+      const decisionField = omit(generateDecision(), ['_id', '_rev', 'labelStatus', 'labelTreatments']);
 
       await decisionService.createDecision(decisionField);
 
@@ -35,14 +35,14 @@ describe('decisionService', () => {
       expect(decision.labelTreatments).toEqual([]);
     });
 
-    it('should create a new decision in the database with a false label loaded status', async () => {
+    it(`should create a new decision in the database with a 'toBeTreated' label status`, async () => {
       const decisionRepository = await buildDecisionRepository();
-      const decisionField = omit(generateDecision(), ['_id', '_rev', 'isLoadedInLabel', 'labelTreatments']);
+      const decisionField = omit(generateDecision(), ['_id', '_rev', 'labelStatus', 'labelTreatments']);
 
       await decisionService.createDecision(decisionField);
 
       const decision = await decisionRepository.findByDecisionId(decisionField.sourceId);
-      expect(decision.isLoadedInLabel).toEqual(false);
+      expect(decision.labelStatus).toEqual('toBeTreated');
     });
   });
 

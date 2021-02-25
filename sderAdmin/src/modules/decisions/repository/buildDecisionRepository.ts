@@ -28,7 +28,7 @@ async function buildDecisionRepository(): Promise<decisionRepositoryType> {
         .find({
           $or: [
             {
-              isLoadedInLabel: false,
+              labelStatus: 'toBeTreated',
             },
             {
               pseudoText: { $eq: '' },

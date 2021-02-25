@@ -25,8 +25,8 @@ server.get(
 );
 
 server.get(
-  '/pseudonymization-to-export',
-  buildHandlingErrorController(async () => decisionModule.service.fetchPseudonymizationsToExport()),
+  '/pseudonymisation-to-export',
+  buildHandlingErrorController(async () => decisionModule.service.fetchPseudonymisationsToExport()),
 );
 
 server.patch(

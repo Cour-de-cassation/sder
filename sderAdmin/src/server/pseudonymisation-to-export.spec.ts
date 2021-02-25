@@ -5,8 +5,8 @@ import { server } from './server';
 
 const request = supertest(server);
 
-describe('/pseudonymization-to-export', () => {
-  it('should return all the pseudonymization text and id of the decisions ready to be exported', async () => {
+describe('/pseudonymisation-to-export', () => {
+  it('should return all the pseudonymisation text and id of the decisions ready to be exported', async () => {
     const decisionRepository = await decisionModule.buildRepository();
     const decisions = ([
       { labelStatus: 'done' },
@@ -16,7 +16,7 @@ describe('/pseudonymization-to-export', () => {
     ] as const).map(decisionModule.lib.generateDecision);
     await Promise.all(decisions.map(decisionRepository.insert));
 
-    const response = await request.get(`/pseudonymization-to-export`);
+    const response = await request.get(`/pseudonymisation-to-export`);
 
     expect(response.status).toEqual(200);
     expect(JSON.stringify(response.body.sort(), null, 2)).toEqual(

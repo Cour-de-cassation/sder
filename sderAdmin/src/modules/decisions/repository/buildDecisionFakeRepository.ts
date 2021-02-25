@@ -21,7 +21,7 @@ async function buildDecisionFakeRepository(): Promise<decisionRepositoryType> {
       return collection.map((decision) => decision._id);
     },
 
-    async findAllPseudonymizationToExport() {
+    async findAllPseudonymisationToExport() {
       return collection
         .filter((decision) => decision.labelStatus === 'done')
         .map(({ sourceId, pseudoText }) => ({ documentId: sourceId, pseudoText }));

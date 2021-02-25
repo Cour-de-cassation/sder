@@ -46,8 +46,8 @@ describe('decisionService', () => {
     });
   });
 
-  describe('fetchPseudonymizationsToExport', () => {
-    it(`should fetch all the pseudonymization text and id of the decisions ready to be exported`, async () => {
+  describe('fetchPseudonymisationsToExport', () => {
+    it(`should fetch all the pseudonymisation text and id of the decisions ready to be exported`, async () => {
       const decisionRepository = await buildDecisionRepository();
       const decisions = ([
         { labelStatus: 'done' },
@@ -57,9 +57,9 @@ describe('decisionService', () => {
       ] as const).map(generateDecision);
       await Promise.all(decisions.map(decisionRepository.insert));
 
-      const pseudonymizations = await decisionService.fetchPseudonymizationsToExport();
+      const pseudonymisations = await decisionService.fetchPseudonymisationsToExport();
 
-      expect(pseudonymizations.sort()).toEqual(
+      expect(pseudonymisations.sort()).toEqual(
         [
           {
             documentId: decisions[0].sourceId,

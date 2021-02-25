@@ -24,14 +24,20 @@ const decisionService = {
     return decisionRepository.findAllToPseudonymiseSince(date);
   },
 
-  async setDecisionsLoadedInLabel({ decisionIds }: { decisionIds: string[] }) {
+  async updateDecisionsLabelStatus({
+    decisionIds,
+    labelStatus,
+  }: {
+    decisionIds: string[];
+    labelStatus: decisionType['labelStatus'];
+  }) {
     const decisionRepository = await buildDecisionRepository();
 
     const decisions = await decisionRepository.findAllByDecisionIds(decisionIds);
 
     await decisionRepository.updateByIds(
       decisions.map((decision) => decision._id),
-      { labelStatus: 'loaded' },
+      { labelStatus },
     );
   },
 

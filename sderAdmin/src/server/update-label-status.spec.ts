@@ -6,7 +6,7 @@ import { server } from './server';
 
 const request = supertest(server);
 
-describe('/label/update-loaded-label-status', () => {
+describe('/update-label-status', () => {
   it('should update the loaded label status of the given decision', async () => {
     const decisionRepository = await decisionModule.buildRepository();
     const decisions = ([
@@ -17,8 +17,8 @@ describe('/label/update-loaded-label-status', () => {
     await Promise.all(decisions.map(decisionRepository.insert));
 
     const response = await request
-      .patch(`/label/update-loaded-label-status`)
-      .send({ decisionIds: [decisions[0].sourceId, decisions[2].sourceId] });
+      .patch(`/update-label-status`)
+      .send({ decisionIds: [decisions[0].sourceId, decisions[2].sourceId], labelStatus: 'loaded' });
 
     const updatedDecision0 = await decisionRepository.findByDecisionId(decisions[0].sourceId);
     const updatedDecision2 = await decisionRepository.findByDecisionId(decisions[2].sourceId);
@@ -37,8 +37,8 @@ describe('/label/update-loaded-label-status', () => {
     await Promise.all(decisions.map(decisionRepository.insert));
 
     const response = await request
-      .patch(`/label/update-loaded-label-status`)
-      .send({ decisionIds: [decisions[0].sourceId, decisions[2].sourceId] });
+      .patch(`/update-label-status`)
+      .send({ decisionIds: [decisions[0].sourceId, decisions[2].sourceId], labelStatus: 'loaded' });
 
     const updatedDecision1 = await decisionRepository.findByDecisionId(decisions[1].sourceId);
     expect(response.status).toEqual(200);
@@ -56,8 +56,8 @@ describe('/label/update-loaded-label-status', () => {
     const decisionIdsToPseudonymise = await fetchDecisionIdsToPseudonymise();
 
     const response = await request
-      .patch(`/label/update-loaded-label-status`)
-      .send({ decisionIds: decisionIdsToPseudonymise });
+      .patch(`/update-label-status`)
+      .send({ decisionIds: decisionIdsToPseudonymise, labelStatus: 'loaded' });
 
     const decisionIdsToPseudonymiseAfterUpdate = await fetchDecisionIdsToPseudonymise();
     expect(response.status).toEqual(200);

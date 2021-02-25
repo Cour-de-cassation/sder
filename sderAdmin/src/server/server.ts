@@ -28,8 +28,13 @@ server.get(
 );
 
 server.patch(
-  '/label/update-loaded-label-status',
-  buildHandlingErrorController(async (req: any) => decisionModule.service.setDecisionsLoadedInLabel(req.body)),
+  '/update-label-status',
+  buildHandlingErrorController(async (req: any) =>
+    decisionModule.service.updateDecisionsLabelStatus({
+      decisionIds: req.body.decisionIds,
+      labelStatus: req.body.labelStatus,
+    }),
+  ),
 );
 
 server.patch(

@@ -74,6 +74,32 @@ describe('decisionService', () => {
     });
   });
 
+  describe('updateDecisionsLabelStatus', () => {
+    it('should update labelStatus for the given decision ids', async () => {
+      const decisionRepository = await buildDecisionRepository();
+      const decisions = ([
+        { labelStatus: 'toBeTreated' },
+        { labelStatus: 'toBeTreated' },
+        { labelStatus: 'toBeTreated' },
+      ] as const).map(generateDecision);
+      await Promise.all(decisions.map(decisionRepository.insert));
+
+      await decisionService.updateDecisionsLabelStatus({
+        decisionIds: [decisions[0].sourceId, decisions[2].sourceId],
+        labelStatus: 'loaded',
+      });
+
+      const updatedDecision0 = await decisionRepository.findById(decisions[0]._id);
+      const updatedDecision1 = await decisionRepository.findById(decisions[1]._id);
+      const updatedDecision2 = await decisionRepository.findById(decisions[2]._id);
+      expect(omit(updatedDecision0, 'labelStatus')).toEqual(omit(decisions[0], 'labelStatus'));
+      expect(updatedDecision0.labelStatus).toEqual('loaded');
+      expect(updatedDecision1).toEqual(decisions[1]);
+      expect(omit(updatedDecision2, 'labelStatus')).toEqual(omit(decisions[2], 'labelStatus'));
+      expect(updatedDecision2.labelStatus).toEqual('loaded');
+    });
+  });
+
   describe('updateDecisionPseudonymisation', () => {
     const decision = generateDecision();
     const treatmenst = [

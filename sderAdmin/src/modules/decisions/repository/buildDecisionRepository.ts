@@ -23,12 +23,21 @@ async function buildDecisionRepository(): Promise<decisionRepositoryType> {
       return decisionFieldsIds.map(({ _id }) => _id);
     },
 
+    async findAllPseudonymisationToExport() {
+      const pseudonymisations = await collection
+        .find({ labelStatus: 'done' })
+        .project({ sourceId: 1, pseudoText: 1 })
+        .toArray();
+
+      return pseudonymisations.map(({ sourceId, pseudoText }) => ({ decisionId: sourceId, pseudoText }));
+    },
+
     async findAllToPseudonymiseSince(date) {
       return collection
         .find({
           $or: [
             {
-              isLoadedInLabel: false,
+              labelStatus: 'toBeTreated',
             },
             {
               pseudoText: { $eq: '' },

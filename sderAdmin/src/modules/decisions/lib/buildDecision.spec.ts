@@ -3,27 +3,27 @@ import { generateDecision } from './generateDecision';
 import { buildDecision } from './buildDecision';
 
 describe('buildDecision', () => {
-  it('should a decision with a _rev at 0', async () => {
-    const decisionField = omit(generateDecision(), ['_id', '_rev', 'isLoadedInLabel', 'labelTreatments']);
+  it('should build a decision with a _rev at 0', async () => {
+    const decisionField = omit(generateDecision(), ['_id', '_rev', 'labelStatus', 'labelTreatments']);
 
     const decision = buildDecision(decisionField);
 
     expect(decision._rev).toEqual(0);
   });
 
-  it('should a decision with an empty labelTreatments', async () => {
-    const decisionField = omit(generateDecision(), ['_id', '_rev', 'isLoadedInLabel', 'labelTreatments']);
+  it('should build a decision with an empty labelTreatments', async () => {
+    const decisionField = omit(generateDecision(), ['_id', '_rev', 'labelStatus', 'labelTreatments']);
 
     const decision = buildDecision(decisionField);
 
     expect(decision.labelTreatments).toEqual([]);
   });
 
-  it('should a decision with a false label loaded status', async () => {
-    const decisionField = omit(generateDecision(), ['_id', '_rev', 'isLoadedInLabel', 'labelTreatments']);
+  it(`should build a decision with a 'toBeTreated' label status`, async () => {
+    const decisionField = omit(generateDecision(), ['_id', '_rev', 'labelStatus', 'labelTreatments']);
 
     const decision = buildDecision(decisionField);
 
-    expect(decision.isLoadedInLabel).toEqual(false);
+    expect(decision.labelStatus).toEqual('toBeTreated');
   });
 });

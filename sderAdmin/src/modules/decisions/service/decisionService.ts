@@ -5,11 +5,17 @@ import { buildDecisionRepository } from '../repository';
 export { decisionService };
 
 const decisionService = {
-  async createDecision(decisionFields: Omit<decisionType, '_id' | '_rev' | 'isLoadedInLabel' | 'labelTreatments'>) {
+  async createDecision(decisionFields: Omit<decisionType, '_id' | '_rev' | 'labelStatus' | 'labelTreatments'>) {
     const decisionRepository = await buildDecisionRepository();
 
     const decision = buildDecision(decisionFields);
     await decisionRepository.insert(decision);
+  },
+
+  async fetchPseudonymisationsToExport() {
+    const decisionRepository = await buildDecisionRepository();
+
+    return decisionRepository.findAllPseudonymisationToExport();
   },
 
   async fetchDecisionsToPseudonymise({ date }: { date: Date }) {
@@ -18,14 +24,20 @@ const decisionService = {
     return decisionRepository.findAllToPseudonymiseSince(date);
   },
 
-  async setDecisionsLoadedInLabel({ decisionIds }: { decisionIds: string[] }) {
+  async updateDecisionsLabelStatus({
+    decisionIds,
+    labelStatus,
+  }: {
+    decisionIds: string[];
+    labelStatus: decisionType['labelStatus'];
+  }) {
     const decisionRepository = await buildDecisionRepository();
 
     const decisions = await decisionRepository.findAllByDecisionIds(decisionIds);
 
     await decisionRepository.updateByIds(
       decisions.map((decision) => decision._id),
-      { isLoadedInLabel: true },
+      { labelStatus },
     );
   },
 
@@ -44,7 +56,7 @@ const decisionService = {
 
     await decisionRepository.updateById(decision._id, {
       _rev: decision._rev + 1,
-      isLoadedInLabel: true,
+      labelStatus: 'done',
       labelTreatments,
       pseudoText: decisionPseudonymisedText,
     });

@@ -5,13 +5,13 @@ import { server } from './server';
 
 const request = supertest(server);
 
-describe('/label/update-decision-pseudonymisation', () => {
+describe('/update-decision-pseudonymisation', () => {
   it('should update the pseudonymisation text of the given decision', async () => {
     const decisionRepository = await decisionModule.buildRepository();
     const decisions = [{ pseudoText: '' }, { pseudoText: '' }].map(decisionModule.lib.generateDecision);
     await Promise.all(decisions.map(decisionRepository.insert));
 
-    const response = await request.patch(`/label/update-decision-pseudonymisation`).send({
+    const response = await request.patch(`/update-decision-pseudonymisation`).send({
       decisionId: decisions[0].sourceId,
       decisionPseudonymisedText: 'NEW PSEUDO TEXT',
       labelTreatments: [],
@@ -42,7 +42,7 @@ describe('/label/update-decision-pseudonymisation', () => {
       },
     ];
 
-    const response = await request.patch(`/label/update-decision-pseudonymisation`).send({
+    const response = await request.patch(`/update-decision-pseudonymisation`).send({
       decisionId: decisions[0].sourceId,
       decisionPseudonymisedText: '',
       labelTreatments,
@@ -60,7 +60,7 @@ describe('/label/update-decision-pseudonymisation', () => {
     );
     await Promise.all(decisions.map(decisionRepository.insert));
 
-    const response = await request.patch(`/label/update-decision-pseudonymisation`).send({
+    const response = await request.patch(`/update-decision-pseudonymisation`).send({
       decisionId: decisions[0].sourceId,
       decisionPseudonymisedText: 'NEW PSEUDO TEXT',
       labelTreatments: [

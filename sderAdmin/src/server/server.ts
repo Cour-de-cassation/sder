@@ -16,20 +16,38 @@ function startServer() {
 server.use(bodyParser.json());
 
 server.get(
-  '/label/decisions-to-pseudonymise',
+  '/decisions-to-pseudonymise',
   buildHandlingErrorController(async (req: any) =>
-    decisionModule.service.fetchDecisionsToPseudonymise({ date: new Date(JSON.parse(req.query.date)) }),
+    decisionModule.service.fetchDecisionsToPseudonymise({
+      date: new Date(JSON.parse(req.query.date)),
+    }),
+  ),
+);
+
+server.get(
+  '/pseudonymisation-to-export',
+  buildHandlingErrorController(async () => decisionModule.service.fetchPseudonymisationsToExport()),
+);
+
+server.patch(
+  '/update-label-status',
+  buildHandlingErrorController(async (req: any) =>
+    decisionModule.service.updateDecisionsLabelStatus({
+      decisionIds: req.body.decisionIds,
+      labelStatus: req.body.labelStatus,
+    }),
   ),
 );
 
 server.patch(
-  '/label/update-loaded-label-status',
-  buildHandlingErrorController(async (req: any) => decisionModule.service.setDecisionsLoadedInLabel(req.body)),
-);
-
-server.patch(
-  '/label/update-decision-pseudonymisation',
-  buildHandlingErrorController(async (req: any) => decisionModule.service.updateDecisionPseudonymisation(req.body)),
+  '/update-decision-pseudonymisation',
+  buildHandlingErrorController(async (req: any) =>
+    decisionModule.service.updateDecisionPseudonymisation({
+      decisionId: req.body.decisionId,
+      decisionPseudonymisedText: req.body.decisionPseudonymisedText,
+      labelTreatments: req.body.labelTreatments,
+    }),
+  ),
 );
 
 server.post(

@@ -4,13 +4,13 @@ import { decisionType } from '../decisionType';
 export { buildDecision };
 
 function buildDecision(
-  decisionFields: Omit<decisionType, '_id' | '_rev' | 'isLoadedInLabel' | 'labelTreatments'>,
+  decisionFields: Omit<decisionType, '_id' | '_rev' | 'labelStatus' | 'labelTreatments'>,
 ): decisionType {
   return {
     ...decisionFields,
     _id: buildObjectId(),
     _rev: 0,
-    isLoadedInLabel: false,
+    labelStatus: 'toBeTreated',
     labelTreatments: [],
   };
 }

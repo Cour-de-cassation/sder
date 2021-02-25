@@ -21,10 +21,16 @@ async function buildDecisionFakeRepository(): Promise<decisionRepositoryType> {
       return collection.map((decision) => decision._id);
     },
 
+    async findAllPseudonymisationToExport() {
+      return collection
+        .filter((decision) => decision.labelStatus === 'done')
+        .map(({ sourceId, pseudoText }) => ({ decisionId: sourceId, pseudoText }));
+    },
+
     async findAllToPseudonymiseSince(date) {
       return collection.filter(
         (decision) =>
-          decision.dateCreation >= date && (decision.isLoadedInLabel === false || decision.pseudoText === ''),
+          decision.dateCreation >= date && (decision.labelStatus === 'toBeTreated' || decision.pseudoText === ''),
       );
     },
 

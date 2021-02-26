@@ -1,8 +1,8 @@
-import { decisionsCollection, genericCollectionType } from '../collections';
 import { environment } from '../environment';
+import { decisionModule, genericCollectionType } from '../modules';
 import { buildMongo } from '../utils';
 
-const collections: genericCollectionType[] = [decisionsCollection];
+const collections: genericCollectionType[] = [decisionModule.collection];
 
 setValidationOnAllCollections();
 

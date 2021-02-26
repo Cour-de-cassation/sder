@@ -1,4 +1,5 @@
 import { buildMongo } from '../../../utils';
+import { decisionCollectionName } from '../decisionCollectionName';
 import { decisionType } from '../decisionType';
 import { decisionRepositoryType } from './decisionRepositoryType';
 
@@ -6,8 +7,7 @@ export { buildDecisionRepository };
 
 async function buildDecisionRepository(): Promise<decisionRepositoryType> {
   const db = await buildMongo();
-  const collectionName = 'decisions';
-  const collection = db.collection<decisionType>(collectionName);
+  const collection = db.collection<decisionType>(decisionCollectionName);
 
   return {
     async clear() {
@@ -45,7 +45,7 @@ async function buildDecisionRepository(): Promise<decisionRepositoryType> {
       const result = await collection.findOne({ _id: id } as any);
 
       if (!result) {
-        throw new Error(`No matching ${collectionName} for _id ${id}`);
+        throw new Error(`No matching ${decisionCollectionName} for _id ${id}`);
       }
 
       return result;
@@ -55,7 +55,7 @@ async function buildDecisionRepository(): Promise<decisionRepositoryType> {
       const result = await collection.findOne({ sourceId: decisionId } as any);
 
       if (!result) {
-        throw new Error(`No matching ${collectionName} for sourceId ${decisionId}`);
+        throw new Error(`No matching ${decisionCollectionName} for sourceId ${decisionId}`);
       }
 
       return result;

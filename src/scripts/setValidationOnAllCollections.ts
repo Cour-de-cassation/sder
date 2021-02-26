@@ -1,8 +1,8 @@
-import { collectionType, decisionsCollection } from '../collections';
+import { decisionsCollection, genericCollectionType } from '../collections';
 import { environment } from '../environment';
 import { buildMongo } from '../utils';
 
-const collections = [decisionsCollection];
+const collections: genericCollectionType[] = [decisionsCollection];
 
 setValidationOnAllCollections();
 
@@ -20,7 +20,7 @@ async function setValidationOnAllCollections() {
   console.log(`Validation finished`);
   process.exit(0);
 
-  async function setValidation(collection: collectionType) {
+  async function setValidation(collection: genericCollectionType) {
     await db.command({
       collMod: collection.name,
       validator: collection.validationSchema,

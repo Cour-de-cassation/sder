@@ -1,6 +1,6 @@
-import { collectionType } from './collectionType';
+import { collectionType, genericCollectionType } from './collectionType';
 import { decisionsCollection } from './decisions';
 
 export { decisionsCollection };
 
-export type { collectionType };
+export type { collectionType, genericCollectionType };

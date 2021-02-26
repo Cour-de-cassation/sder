@@ -35,7 +35,7 @@ async function buildDecisionRepository(): Promise<decisionRepositoryType> {
     async findAllToPseudonymiseSince(date) {
       return collection
         .find({
-          dateCreation: { $gte: date },
+          dateCreation: { $gte: date.toISOString() as any },
           labelStatus: 'toBeTreated',
         })
         .toArray();

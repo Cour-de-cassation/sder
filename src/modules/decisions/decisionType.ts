@@ -22,7 +22,7 @@ type decisionType = {
   jurisdictionCode: string;
   jurisdictionId: string;
   jurisdictionName: string;
-  labelStatus: 'toBeTreated' | 'loaded' | 'done';
+  labelStatus: 'toBeTreated' | 'loaded' | 'done' | 'exported';
   labelTreatments: labelTreatmentsType;
   locked: string;
   originalText: string;

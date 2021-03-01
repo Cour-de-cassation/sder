@@ -46,7 +46,7 @@ const decisionsValidationSchema = {
       jurisdictionCode: { bsonType: 'string' },
       jurisdictionId: { bsonType: 'string' },
       jurisdictionName: { bsonType: 'string' },
-      labelStatus: { bsonType: 'string', enum: ['toBeTreated', 'loaded', 'done'] },
+      labelStatus: { bsonType: 'string', enum: ['toBeTreated', 'loaded', 'done', 'exported'] },
       labelTreatments: {
         bsonType: 'array',
         additionalProperties: false,

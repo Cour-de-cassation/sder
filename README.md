@@ -25,7 +25,7 @@ Return: All the pseudonymisation texts to export along with their decision id
 Parameter:
 
 - `decisionIds: Array<number>`
-- `labelStatus: 'toBeTreated' | 'loaded' | 'done'`
+- `labelStatus: 'toBeTreated' | 'loaded' | 'done' | 'exported'`
 
 Return: ()
 

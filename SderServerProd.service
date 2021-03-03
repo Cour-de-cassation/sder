@@ -4,8 +4,8 @@ After=syslog.target
 
 [Service]
 Type=simple
-ExecStart=/opt/yarn-v1.22.5/bin/yarn start
-WorkingDirectory=/home/sder/sderAdmin
+ExecStart=/usr/bin/yarn start
+WorkingDirectory=/home/sder
 Restart=always
 RestartSec=10
 KillMode=process

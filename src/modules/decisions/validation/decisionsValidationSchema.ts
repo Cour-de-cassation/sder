@@ -4,6 +4,7 @@ const decisionsValidationSchema = {
   $jsonSchema: {
     bsonType: 'object',
     additionalProperties: false,
+    required: ['labelStatus', 'labelTreatments', 'originalText', 'sourceId'],
     properties: {
       _id: { bsonType: 'objectId' },
       _rev: { bsonType: 'int' },

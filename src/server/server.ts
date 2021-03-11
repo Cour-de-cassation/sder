@@ -13,7 +13,7 @@ function startServer() {
   server.listen(environment.port);
 }
 
-server.use(bodyParser.json({ limit: '50mb' }));
+server.use(bodyParser.json({ limit: '10mb' }));
 
 server.get(
   '/decisions-to-pseudonymise',

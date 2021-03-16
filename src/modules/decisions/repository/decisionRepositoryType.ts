@@ -11,6 +11,7 @@ type decisionRepositoryType = {
     Array<{ decisionId: decisionType['sourceId']; pseudoText: decisionType['pseudoText'] }>
   >;
   findAllToPseudonymiseSince: (date: Date) => Promise<decisionType[]>;
+  findAllIdsWithoutLabelFields: () => Promise<Array<decisionType['_id']>>;
   findById: (id: mongoIdType) => Promise<decisionType>;
   findByDecisionId: (decisionId: string) => Promise<decisionType>;
   insert: (decision: decisionType) => Promise<void>;

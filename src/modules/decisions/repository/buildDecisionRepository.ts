@@ -41,6 +41,15 @@ async function buildDecisionRepository(): Promise<decisionRepositoryType> {
         .toArray();
     },
 
+    async findAllIdsWithoutLabelFields() {
+      const decisionFieldsIds = await collection
+        .find({ labelStatus: { $exists: false } })
+        .project({ _id: 1 })
+        .toArray();
+
+      return decisionFieldsIds.map(({ _id }) => _id);
+    },
+
     async findById(id) {
       const result = await collection.findOne({ _id: id } as any);
 

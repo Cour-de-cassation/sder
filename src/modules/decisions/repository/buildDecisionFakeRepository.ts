@@ -34,6 +34,10 @@ async function buildDecisionFakeRepository(): Promise<decisionRepositoryType> {
       );
     },
 
+    async findAllIdsWithoutLabelFields() {
+      return collection.filter((decision) => decision.labelStatus === undefined).map((decision) => decision._id);
+    },
+
     async findById(id) {
       const result = collection.find((decision) => areMongoIdEqual(decision._id, id));
 

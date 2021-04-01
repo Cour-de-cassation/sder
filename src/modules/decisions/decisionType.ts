@@ -34,6 +34,11 @@ type decisionType = {
   solution: string;
   sourceId: string;
   sourceName: string;
+  zoning: {
+    introduction_subzonage: {
+      publication: string[];
+    };
+  };
 };
 
 type labelTreatmentsType = Array<{

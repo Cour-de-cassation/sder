@@ -146,6 +146,25 @@ declare const decisionsValidationSchema: {
             sourceName: {
                 bsonType: string;
             };
+            zoning: {
+                bsonType: string;
+                additionalProperties: boolean;
+                properties: {
+                    introduction_subzonage: {
+                        bsonType: string;
+                        additionalProperties: boolean;
+                        properties: {
+                            publication: {
+                                bsonType: string;
+                                additionalProperties: boolean;
+                                items: {
+                                    bsonType: string;
+                                };
+                            };
+                        };
+                    };
+                };
+            };
         };
     };
 };

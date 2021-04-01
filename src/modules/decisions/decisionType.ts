@@ -32,7 +32,7 @@ type decisionType = {
   pubCategory: string;
   registerNumber: string;
   solution: string;
-  sourceId: string;
+  sourceId: number;
   sourceName: string;
   zoning: {
     introduction_subzonage: {

@@ -3,18 +3,18 @@ export { decisionService };
 declare const decisionService: {
     createDecision(decisionFields: Omit<decisionType, '_id' | '_rev' | 'labelStatus' | 'labelTreatments'>): Promise<void>;
     fetchPseudonymisationsToExport(): Promise<{
-        decisionId: string;
+        decisionId: number;
         pseudoText: string;
     }[]>;
     fetchDecisionsToPseudonymise({ date }: {
         date: Date;
     }): Promise<decisionType[]>;
     updateDecisionsLabelStatus({ decisionIds, labelStatus, }: {
-        decisionIds: string[];
+        decisionIds: number[];
         labelStatus: decisionType['labelStatus'];
     }): Promise<void>;
     updateDecisionPseudonymisation({ decisionId, decisionPseudonymisedText, labelTreatments, }: {
-        decisionId: string;
+        decisionId: number;
         decisionPseudonymisedText: string;
         labelTreatments: labelTreatmentsType;
     }): Promise<void>;

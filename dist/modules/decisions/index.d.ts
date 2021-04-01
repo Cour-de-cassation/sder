@@ -13,18 +13,18 @@ declare const decisionModule: {
     service: {
         createDecision(decisionFields: Pick<decisionType, "analysis" | "appeals" | "chamberId" | "chamberName" | "dateCreation" | "dateDecision" | "jurisdictionCode" | "jurisdictionId" | "jurisdictionName" | "locked" | "originalText" | "parties" | "pseudoStatus" | "pseudoText" | "pubCategory" | "registerNumber" | "solution" | "sourceId" | "sourceName" | "zoning">): Promise<void>;
         fetchPseudonymisationsToExport(): Promise<{
-            decisionId: string;
+            decisionId: number;
             pseudoText: string;
         }[]>;
         fetchDecisionsToPseudonymise({ date }: {
             date: Date;
         }): Promise<decisionType[]>;
         updateDecisionsLabelStatus({ decisionIds, labelStatus, }: {
-            decisionIds: string[];
+            decisionIds: number[];
             labelStatus: "done" | "toBeTreated" | "loaded" | "exported";
         }): Promise<void>;
         updateDecisionPseudonymisation({ decisionId, decisionPseudonymisedText, labelTreatments, }: {
-            decisionId: string;
+            decisionId: number;
             decisionPseudonymisedText: string;
             labelTreatments: import("./decisionType").labelTreatmentsType;
         }): Promise<void>;

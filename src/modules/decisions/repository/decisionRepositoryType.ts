@@ -5,7 +5,7 @@ export type { decisionRepositoryType };
 
 type decisionRepositoryType = {
   clear: () => void;
-  findAllByDecisionIds: (decisionIds: string[]) => Promise<decisionType[]>;
+  findAllByDecisionIds: (decisionIds: Array<decisionType['sourceId']>) => Promise<decisionType[]>;
   findAllIds: () => Promise<Array<decisionType['_id']>>;
   findAllPseudonymisationToExport: () => Promise<
     Array<{ decisionId: decisionType['sourceId']; pseudoText: decisionType['pseudoText'] }>
@@ -13,7 +13,7 @@ type decisionRepositoryType = {
   findAllToPseudonymiseSince: (date: Date) => Promise<decisionType[]>;
   findAllIdsWithoutLabelFields: () => Promise<Array<decisionType['_id']>>;
   findById: (id: mongoIdType) => Promise<decisionType>;
-  findByDecisionId: (decisionId: string) => Promise<decisionType>;
+  findByDecisionId: (decisionId: decisionType['sourceId']) => Promise<decisionType>;
   insert: (decision: decisionType) => Promise<void>;
   updateById: (id: mongoIdType, decisionField: Partial<decisionType>) => Promise<void>;
   updateByIds: (ids: mongoIdType[], decisionField: Partial<decisionType>) => Promise<void>;

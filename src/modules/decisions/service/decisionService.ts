@@ -28,7 +28,7 @@ const decisionService = {
     decisionIds,
     labelStatus,
   }: {
-    decisionIds: string[];
+    decisionIds: number[];
     labelStatus: decisionType['labelStatus'];
   }) {
     const decisionRepository = await buildDecisionRepository();
@@ -46,7 +46,7 @@ const decisionService = {
     decisionPseudonymisedText,
     labelTreatments,
   }: {
-    decisionId: string;
+    decisionId: number;
     decisionPseudonymisedText: string;
     labelTreatments: labelTreatmentsType;
   }) {

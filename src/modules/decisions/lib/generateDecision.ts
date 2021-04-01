@@ -34,7 +34,7 @@ function generateDecision(decisionFields: Partial<decisionType> = {}): decisionT
     pubCategory: `PUB_CATEGORY_${Math.random()}`,
     registerNumber: `REGISTER_NUMBER_${Math.random()}`,
     solution: `SOLUTION_${Math.random()}`,
-    sourceId: `SOURCE_ID_${Math.random()}`,
+    sourceId: 0,
     sourceName: `SOURCE_NAME_${Math.random()}`,
     zoning: {
       introduction_subzonage: {

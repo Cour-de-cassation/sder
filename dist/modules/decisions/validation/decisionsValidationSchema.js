@@ -83,7 +83,7 @@ var decisionsValidationSchema = {
             pubCategory: { bsonType: 'string' },
             registerNumber: { bsonType: 'string' },
             solution: { bsonType: 'string' },
-            sourceId: { bsonType: 'string' },
+            sourceId: { bsonType: 'number' },
             sourceName: { bsonType: 'string' },
             zoning: {
                 bsonType: 'object',

@@ -32,6 +32,11 @@ declare type decisionType = {
     solution: string;
     sourceId: string;
     sourceName: string;
+    zoning: {
+        introduction_subzonage: {
+            publication: string[];
+        };
+    };
 };
 declare type labelTreatmentsType = Array<{
     annotations: Array<{

@@ -23,6 +23,10 @@ function generateDecision(decisionFields) {
             summary: "SUMMARY_" + Math.random(),
             target: "TARGET_" + Math.random(),
             title: [],
-        }, appeals: [], chamberId: "CHAMBER_ID_" + Math.random(), chamberName: "CHAMBER_NAME_" + Math.random(), dateCreation: new Date(), dateDecision: new Date(), jurisdictionCode: "JURISDICTION_CODE_" + Math.random(), jurisdictionId: "JURISDICTION_ID_" + Math.random(), jurisdictionName: "JURISDICTION_NAME_" + Math.random(), labelStatus: 'toBeTreated', labelTreatments: [], locked: "LOCKED_" + Math.random(), originalText: "ORIGINAL_TEXT_" + Math.random(), parties: "PARTIES_" + Math.random(), pseudoStatus: "PSEUDO_STATUS_" + Math.random(), pseudoText: "PSEUDO_TEXT_" + Math.random(), pubCategory: "PUB_CATEGORY_" + Math.random(), registerNumber: "REGISTER_NUMBER_" + Math.random(), solution: "SOLUTION_" + Math.random(), sourceId: "SOURCE_ID_" + Math.random(), sourceName: "SOURCE_NAME_" + Math.random() }, decisionFields);
+        }, appeals: [], chamberId: "CHAMBER_ID_" + Math.random(), chamberName: "CHAMBER_NAME_" + Math.random(), dateCreation: new Date(), dateDecision: new Date(), jurisdictionCode: "JURISDICTION_CODE_" + Math.random(), jurisdictionId: "JURISDICTION_ID_" + Math.random(), jurisdictionName: "JURISDICTION_NAME_" + Math.random(), labelStatus: 'toBeTreated', labelTreatments: [], locked: "LOCKED_" + Math.random(), originalText: "ORIGINAL_TEXT_" + Math.random(), parties: "PARTIES_" + Math.random(), pseudoStatus: "PSEUDO_STATUS_" + Math.random(), pseudoText: "PSEUDO_TEXT_" + Math.random(), pubCategory: "PUB_CATEGORY_" + Math.random(), registerNumber: "REGISTER_NUMBER_" + Math.random(), solution: "SOLUTION_" + Math.random(), sourceId: "SOURCE_ID_" + Math.random(), sourceName: "SOURCE_NAME_" + Math.random(), zoning: {
+            introduction_subzonage: {
+                publication: [],
+            },
+        } }, decisionFields);
 }
 exports.generateDecision = generateDecision;

@@ -85,6 +85,25 @@ var decisionsValidationSchema = {
             solution: { bsonType: 'string' },
             sourceId: { bsonType: 'string' },
             sourceName: { bsonType: 'string' },
+            zoning: {
+                bsonType: 'object',
+                additionalProperties: false,
+                properties: {
+                    introduction_subzonage: {
+                        bsonType: 'object',
+                        additionalProperties: false,
+                        properties: {
+                            publication: {
+                                bsonType: 'array',
+                                additionalProperties: false,
+                                items: {
+                                    bsonType: 'string',
+                                },
+                            },
+                        },
+                    },
+                },
+            },
         },
     },
 };

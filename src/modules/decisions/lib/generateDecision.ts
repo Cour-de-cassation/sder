@@ -36,6 +36,11 @@ function generateDecision(decisionFields: Partial<decisionType> = {}): decisionT
     solution: `SOLUTION_${Math.random()}`,
     sourceId: `SOURCE_ID_${Math.random()}`,
     sourceName: `SOURCE_NAME_${Math.random()}`,
+    zoning: {
+      introduction_subzonage: {
+        publication: [],
+      },
+    },
 
     ...decisionFields,
   };

@@ -3,6 +3,8 @@ import { decisionType } from '../decisionType';
 
 export { generateDecision };
 
+const MAX_RAND_NUMBER = 1000000;
+
 function generateDecision(decisionFields: Partial<decisionType> = {}): decisionType {
   return {
     _id: buildObjectId(),
@@ -34,7 +36,7 @@ function generateDecision(decisionFields: Partial<decisionType> = {}): decisionT
     pubCategory: `PUB_CATEGORY_${Math.random()}`,
     registerNumber: `REGISTER_NUMBER_${Math.random()}`,
     solution: `SOLUTION_${Math.random()}`,
-    sourceId: 0,
+    sourceId: Math.floor(Math.random() * MAX_RAND_NUMBER),
     sourceName: `SOURCE_NAME_${Math.random()}`,
     zoning: {
       introduction_subzonage: {

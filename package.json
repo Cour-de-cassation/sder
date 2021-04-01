@@ -49,6 +49,6 @@
     "start": "node ./dist/app.js",
     "test": "RUN_MODE=TEST jest --config jestconfig.json"
   },
-  "types": "lib/index.d.ts",
+  "types": "dist/index.d.ts",
   "version": "1.0.0"
 }

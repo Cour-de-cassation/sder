@@ -1,6 +1,6 @@
 import { environment } from '../environment';
 import { decisionModule, genericCollectionType } from '../modules';
-import { buildMongo } from '../utils';
+import { buildRunMongo } from '../utils';
 
 const collections: genericCollectionType[] = [decisionModule.collection];
 
@@ -8,7 +8,6 @@ setValidationOnAllCollections();
 
 async function setValidationOnAllCollections() {
   console.log(`Connecting to MongoDb: ${environment.SDER_DB_URL}`);
-  const db = await buildMongo();
 
   console.log(`Setting validation on the ${environment.SDER_DB_NAME} DB`);
   for (const collection of collections) {
@@ -21,11 +20,15 @@ async function setValidationOnAllCollections() {
   process.exit(0);
 
   async function setValidation(collection: genericCollectionType) {
-    await db.command({
-      collMod: collection.name,
-      validator: collection.validationSchema,
-      validationLevel: 'moderate',
-      validationAction: 'error',
-    });
+    const runMongo = buildRunMongo(collection.name);
+
+    await runMongo(({ db }) =>
+      db.command({
+        collMod: collection.name,
+        validator: collection.validationSchema,
+        validationLevel: 'moderate',
+        validationAction: 'error',
+      }),
+    );
   }
 }

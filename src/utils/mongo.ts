@@ -1,4 +1,4 @@
-import { Collection, MongoClient, ObjectId } from 'mongodb';
+import { Db, Collection, MongoClient, ObjectId } from 'mongodb';
 import { environment } from '../environment';
 
 export { areMongoIdEqual, buildObjectId, buildRunMongo };
@@ -8,7 +8,7 @@ export type { mongoIdType };
 type mongoIdType = ObjectId;
 
 function buildRunMongo<T>(collectionName: string) {
-  return async <U>(command: (collection: Collection<T>) => Promise<U>) => {
+  return async <U>(command: (param: { db: Db; collection: Collection<T> }) => Promise<U>) => {
     const client = await new MongoClient(environment.SDER_DB_URL, {
       useUnifiedTopology: true,
     }).connect();
@@ -16,7 +16,7 @@ function buildRunMongo<T>(collectionName: string) {
     const db = client.db(dbName);
     const collection = db.collection<T>(collectionName);
 
-    const output = await command(collection);
+    const output = await command({ db, collection });
 
     await client.close();
 

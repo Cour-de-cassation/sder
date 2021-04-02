@@ -41,169 +41,222 @@ var utils_1 = require("../../../utils");
 var decisionCollectionName_1 = require("../decisionCollectionName");
 function buildDecisionRepository() {
     return __awaiter(this, void 0, void 0, function () {
-        var db, collection;
+        var runMongo;
         return __generator(this, function (_a) {
-            switch (_a.label) {
-                case 0: return [4 /*yield*/, utils_1.buildMongo()];
-                case 1:
-                    db = _a.sent();
-                    collection = db.collection(decisionCollectionName_1.decisionCollectionName);
-                    return [2 /*return*/, {
-                            clear: function () {
-                                return __awaiter(this, void 0, void 0, function () {
-                                    return __generator(this, function (_a) {
-                                        switch (_a.label) {
-                                            case 0: return [4 /*yield*/, collection.deleteMany({})];
-                                            case 1:
-                                                _a.sent();
-                                                return [2 /*return*/];
-                                        }
-                                    });
-                                });
-                            },
-                            findAllByDecisionIds: function (decisionIds) {
-                                return __awaiter(this, void 0, void 0, function () {
-                                    return __generator(this, function (_a) {
-                                        return [2 /*return*/, collection.find({ sourceId: { $in: decisionIds } }).toArray()];
-                                    });
-                                });
-                            },
-                            findAllIds: function () {
-                                return __awaiter(this, void 0, void 0, function () {
-                                    var decisionFieldsIds;
-                                    return __generator(this, function (_a) {
-                                        switch (_a.label) {
-                                            case 0: return [4 /*yield*/, collection.find().project({ _id: 1 }).toArray()];
-                                            case 1:
-                                                decisionFieldsIds = _a.sent();
-                                                return [2 /*return*/, decisionFieldsIds.map(function (_a) {
-                                                        var _id = _a._id;
-                                                        return _id;
-                                                    })];
-                                        }
-                                    });
-                                });
-                            },
-                            findAllPseudonymisationToExport: function () {
-                                return __awaiter(this, void 0, void 0, function () {
-                                    var pseudonymisations;
-                                    return __generator(this, function (_a) {
-                                        switch (_a.label) {
-                                            case 0: return [4 /*yield*/, collection
-                                                    .find({ labelStatus: 'done' })
-                                                    .project({ sourceId: 1, pseudoText: 1 })
-                                                    .toArray()];
-                                            case 1:
-                                                pseudonymisations = _a.sent();
-                                                return [2 /*return*/, pseudonymisations.map(function (_a) {
-                                                        var sourceId = _a.sourceId, pseudoText = _a.pseudoText;
-                                                        return ({ decisionId: sourceId, pseudoText: pseudoText });
-                                                    })];
-                                        }
-                                    });
-                                });
-                            },
-                            findAllToPseudonymiseSince: function (date) {
-                                return __awaiter(this, void 0, void 0, function () {
-                                    return __generator(this, function (_a) {
-                                        return [2 /*return*/, collection
-                                                .find({
-                                                dateCreation: { $gte: date.toISOString() },
-                                                labelStatus: 'toBeTreated',
-                                            })
-                                                .toArray()];
-                                    });
-                                });
-                            },
-                            findAllIdsWithoutLabelFields: function () {
-                                return __awaiter(this, void 0, void 0, function () {
-                                    var decisionFieldsIds;
-                                    return __generator(this, function (_a) {
-                                        switch (_a.label) {
-                                            case 0: return [4 /*yield*/, collection
-                                                    .find({ labelStatus: { $exists: false } })
-                                                    .project({ _id: 1 })
-                                                    .toArray()];
-                                            case 1:
-                                                decisionFieldsIds = _a.sent();
-                                                return [2 /*return*/, decisionFieldsIds.map(function (_a) {
-                                                        var _id = _a._id;
-                                                        return _id;
-                                                    })];
-                                        }
-                                    });
-                                });
-                            },
-                            findById: function (id) {
-                                return __awaiter(this, void 0, void 0, function () {
-                                    var result;
-                                    return __generator(this, function (_a) {
-                                        switch (_a.label) {
-                                            case 0: return [4 /*yield*/, collection.findOne({ _id: id })];
-                                            case 1:
-                                                result = _a.sent();
-                                                if (!result) {
-                                                    throw new Error("No matching " + decisionCollectionName_1.decisionCollectionName + " for _id " + id);
+            runMongo = utils_1.buildRunMongo(decisionCollectionName_1.decisionCollectionName);
+            return [2 /*return*/, {
+                    clear: function () {
+                        return __awaiter(this, void 0, void 0, function () {
+                            return __generator(this, function (_a) {
+                                switch (_a.label) {
+                                    case 0: return [4 /*yield*/, runMongo(function (_a) {
+                                            var collection = _a.collection;
+                                            return collection.deleteMany({});
+                                        })];
+                                    case 1:
+                                        _a.sent();
+                                        return [2 /*return*/];
+                                }
+                            });
+                        });
+                    },
+                    findAllByDecisionIds: function (decisionIds) {
+                        return __awaiter(this, void 0, void 0, function () {
+                            return __generator(this, function (_a) {
+                                return [2 /*return*/, runMongo(function (_a) {
+                                        var collection = _a.collection;
+                                        return collection.find({ sourceId: { $in: decisionIds } }).toArray();
+                                    })];
+                            });
+                        });
+                    },
+                    findAllIds: function () {
+                        return __awaiter(this, void 0, void 0, function () {
+                            var _this = this;
+                            return __generator(this, function (_a) {
+                                return [2 /*return*/, runMongo(function (_a) {
+                                        var collection = _a.collection;
+                                        return __awaiter(_this, void 0, void 0, function () {
+                                            var decisionFieldsIds;
+                                            return __generator(this, function (_b) {
+                                                switch (_b.label) {
+                                                    case 0: return [4 /*yield*/, collection.find().project({ _id: 1 }).toArray()];
+                                                    case 1:
+                                                        decisionFieldsIds = _b.sent();
+                                                        return [2 /*return*/, decisionFieldsIds.map(function (_a) {
+                                                                var _id = _a._id;
+                                                                return _id;
+                                                            })];
                                                 }
-                                                return [2 /*return*/, result];
-                                        }
-                                    });
-                                });
-                            },
-                            findByDecisionId: function (decisionId) {
-                                return __awaiter(this, void 0, void 0, function () {
-                                    var result;
-                                    return __generator(this, function (_a) {
-                                        switch (_a.label) {
-                                            case 0: return [4 /*yield*/, collection.findOne({ sourceId: decisionId })];
-                                            case 1:
-                                                result = _a.sent();
-                                                if (!result) {
-                                                    throw new Error("No matching " + decisionCollectionName_1.decisionCollectionName + " for sourceId " + decisionId);
+                                            });
+                                        });
+                                    })];
+                            });
+                        });
+                    },
+                    findAllPseudonymisationToExport: function () {
+                        return __awaiter(this, void 0, void 0, function () {
+                            var _this = this;
+                            return __generator(this, function (_a) {
+                                return [2 /*return*/, runMongo(function (_a) {
+                                        var collection = _a.collection;
+                                        return __awaiter(_this, void 0, void 0, function () {
+                                            var pseudonymisations;
+                                            return __generator(this, function (_b) {
+                                                switch (_b.label) {
+                                                    case 0: return [4 /*yield*/, collection
+                                                            .find({ labelStatus: 'done' })
+                                                            .project({ sourceId: 1, pseudoText: 1 })
+                                                            .toArray()];
+                                                    case 1:
+                                                        pseudonymisations = _b.sent();
+                                                        return [2 /*return*/, pseudonymisations.map(function (_a) {
+                                                                var sourceId = _a.sourceId, pseudoText = _a.pseudoText;
+                                                                return ({ decisionId: sourceId, pseudoText: pseudoText });
+                                                            })];
                                                 }
-                                                return [2 /*return*/, result];
-                                        }
-                                    });
-                                });
-                            },
-                            insert: function (decision) {
-                                return __awaiter(this, void 0, void 0, function () {
-                                    return __generator(this, function (_a) {
-                                        switch (_a.label) {
-                                            case 0: return [4 /*yield*/, collection.insert(decision)];
-                                            case 1:
-                                                _a.sent();
-                                                return [2 /*return*/];
-                                        }
-                                    });
-                                });
-                            },
-                            updateById: function (id, decisionField) {
-                                return __awaiter(this, void 0, void 0, function () {
-                                    return __generator(this, function (_a) {
-                                        switch (_a.label) {
-                                            case 0: return [4 /*yield*/, collection.updateOne({ _id: id }, { $set: decisionField })];
-                                            case 1:
-                                                _a.sent();
-                                                return [2 /*return*/];
-                                        }
-                                    });
-                                });
-                            },
-                            updateByIds: function (ids, decisionField) {
-                                return __awaiter(this, void 0, void 0, function () {
-                                    return __generator(this, function (_a) {
-                                        switch (_a.label) {
-                                            case 0: return [4 /*yield*/, collection.update({ _id: { $in: ids } }, { $set: decisionField })];
-                                            case 1:
-                                                _a.sent();
-                                                return [2 /*return*/];
-                                        }
-                                    });
-                                });
-                            },
-                        }];
-            }
+                                            });
+                                        });
+                                    })];
+                            });
+                        });
+                    },
+                    findAllToPseudonymiseSince: function (date) {
+                        return __awaiter(this, void 0, void 0, function () {
+                            return __generator(this, function (_a) {
+                                return [2 /*return*/, runMongo(function (_a) {
+                                        var collection = _a.collection;
+                                        return collection
+                                            .find({
+                                            dateCreation: { $gte: date.toISOString() },
+                                            labelStatus: 'toBeTreated',
+                                        })
+                                            .toArray();
+                                    })];
+                            });
+                        });
+                    },
+                    findAllIdsWithoutLabelFields: function () {
+                        return __awaiter(this, void 0, void 0, function () {
+                            var _this = this;
+                            return __generator(this, function (_a) {
+                                return [2 /*return*/, runMongo(function (_a) {
+                                        var collection = _a.collection;
+                                        return __awaiter(_this, void 0, void 0, function () {
+                                            var decisionFieldsIds;
+                                            return __generator(this, function (_b) {
+                                                switch (_b.label) {
+                                                    case 0: return [4 /*yield*/, collection
+                                                            .find({ labelStatus: { $exists: false } })
+                                                            .project({ _id: 1 })
+                                                            .toArray()];
+                                                    case 1:
+                                                        decisionFieldsIds = _b.sent();
+                                                        return [2 /*return*/, decisionFieldsIds.map(function (_a) {
+                                                                var _id = _a._id;
+                                                                return _id;
+                                                            })];
+                                                }
+                                            });
+                                        });
+                                    })];
+                            });
+                        });
+                    },
+                    findById: function (id) {
+                        return __awaiter(this, void 0, void 0, function () {
+                            var _this = this;
+                            return __generator(this, function (_a) {
+                                return [2 /*return*/, runMongo(function (_a) {
+                                        var collection = _a.collection;
+                                        return __awaiter(_this, void 0, void 0, function () {
+                                            var result;
+                                            return __generator(this, function (_b) {
+                                                switch (_b.label) {
+                                                    case 0: return [4 /*yield*/, collection.findOne({ _id: id })];
+                                                    case 1:
+                                                        result = _b.sent();
+                                                        if (!result) {
+                                                            throw new Error("No matching " + decisionCollectionName_1.decisionCollectionName + " for _id " + id);
+                                                        }
+                                                        return [2 /*return*/, result];
+                                                }
+                                            });
+                                        });
+                                    })];
+                            });
+                        });
+                    },
+                    findByDecisionId: function (decisionId) {
+                        return __awaiter(this, void 0, void 0, function () {
+                            var _this = this;
+                            return __generator(this, function (_a) {
+                                return [2 /*return*/, runMongo(function (_a) {
+                                        var collection = _a.collection;
+                                        return __awaiter(_this, void 0, void 0, function () {
+                                            var result;
+                                            return __generator(this, function (_b) {
+                                                switch (_b.label) {
+                                                    case 0: return [4 /*yield*/, collection.findOne({ sourceId: decisionId })];
+                                                    case 1:
+                                                        result = _b.sent();
+                                                        if (!result) {
+                                                            throw new Error("No matching " + decisionCollectionName_1.decisionCollectionName + " for sourceId " + decisionId);
+                                                        }
+                                                        return [2 /*return*/, result];
+                                                }
+                                            });
+                                        });
+                                    })];
+                            });
+                        });
+                    },
+                    insert: function (decision) {
+                        return __awaiter(this, void 0, void 0, function () {
+                            return __generator(this, function (_a) {
+                                switch (_a.label) {
+                                    case 0: return [4 /*yield*/, runMongo(function (_a) {
+                                            var collection = _a.collection;
+                                            return collection.insert(decision);
+                                        })];
+                                    case 1:
+                                        _a.sent();
+                                        return [2 /*return*/];
+                                }
+                            });
+                        });
+                    },
+                    updateById: function (id, decisionField) {
+                        return __awaiter(this, void 0, void 0, function () {
+                            return __generator(this, function (_a) {
+                                switch (_a.label) {
+                                    case 0: return [4 /*yield*/, runMongo(function (_a) {
+                                            var collection = _a.collection;
+                                            return collection.updateOne({ _id: id }, { $set: decisionField });
+                                        })];
+                                    case 1:
+                                        _a.sent();
+                                        return [2 /*return*/];
+                                }
+                            });
+                        });
+                    },
+                    updateByIds: function (ids, decisionField) {
+                        return __awaiter(this, void 0, void 0, function () {
+                            return __generator(this, function (_a) {
+                                switch (_a.label) {
+                                    case 0: return [4 /*yield*/, runMongo(function (_a) {
+                                            var collection = _a.collection;
+                                            return collection.update({ _id: { $in: ids } }, { $set: decisionField });
+                                        })];
+                                    case 1:
+                                        _a.sent();
+                                        return [2 /*return*/];
+                                }
+                            });
+                        });
+                    },
+                }];
         });
     });
 }

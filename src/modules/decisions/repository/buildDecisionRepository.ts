@@ -10,22 +10,22 @@ async function buildDecisionRepository(): Promise<decisionRepositoryType> {
 
   return {
     async clear() {
-      await runMongo((collection) => collection.deleteMany({}));
+      await runMongo(({ collection }) => collection.deleteMany({}));
     },
 
     async findAllByDecisionIds(decisionIds) {
-      return runMongo((collection) => collection.find({ sourceId: { $in: decisionIds } }).toArray());
+      return runMongo(({ collection }) => collection.find({ sourceId: { $in: decisionIds } }).toArray());
     },
 
     async findAllIds() {
-      return runMongo(async (collection) => {
+      return runMongo(async ({ collection }) => {
         const decisionFieldsIds = await collection.find().project({ _id: 1 }).toArray();
         return decisionFieldsIds.map(({ _id }) => _id);
       });
     },
 
     async findAllPseudonymisationToExport() {
-      return runMongo(async (collection) => {
+      return runMongo(async ({ collection }) => {
         const pseudonymisations = await collection
           .find({ labelStatus: 'done' })
           .project({ sourceId: 1, pseudoText: 1 })
@@ -36,7 +36,7 @@ async function buildDecisionRepository(): Promise<decisionRepositoryType> {
     },
 
     async findAllToPseudonymiseSince(date) {
-      return runMongo((collection) =>
+      return runMongo(({ collection }) =>
         collection
           .find({
             dateCreation: { $gte: date.toISOString() as any },
@@ -47,7 +47,7 @@ async function buildDecisionRepository(): Promise<decisionRepositoryType> {
     },
 
     async findAllIdsWithoutLabelFields() {
-      return runMongo(async (collection) => {
+      return runMongo(async ({ collection }) => {
         const decisionFieldsIds = await collection
           .find({ labelStatus: { $exists: false } })
           .project({ _id: 1 })
@@ -58,7 +58,7 @@ async function buildDecisionRepository(): Promise<decisionRepositoryType> {
     },
 
     async findById(id) {
-      return runMongo(async (collection) => {
+      return runMongo(async ({ collection }) => {
         const result = await collection.findOne({ _id: id } as any);
 
         if (!result) {
@@ -70,7 +70,7 @@ async function buildDecisionRepository(): Promise<decisionRepositoryType> {
     },
 
     async findByDecisionId(decisionId) {
-      return runMongo(async (collection) => {
+      return runMongo(async ({ collection }) => {
         const result = await collection.findOne({ sourceId: decisionId } as any);
 
         if (!result) {
@@ -82,15 +82,15 @@ async function buildDecisionRepository(): Promise<decisionRepositoryType> {
     },
 
     async insert(decision) {
-      await runMongo((collection) => collection.insert(decision));
+      await runMongo(({ collection }) => collection.insert(decision));
     },
 
     async updateById(id, decisionField) {
-      await runMongo((collection) => collection.updateOne({ _id: id }, { $set: decisionField }));
+      await runMongo(({ collection }) => collection.updateOne({ _id: id }, { $set: decisionField }));
     },
 
     async updateByIds(ids, decisionField) {
-      await runMongo((collection) => collection.update({ _id: { $in: ids } }, { $set: decisionField }));
+      await runMongo(({ collection }) => collection.update({ _id: { $in: ids } }, { $set: decisionField }));
     },
   };
 }

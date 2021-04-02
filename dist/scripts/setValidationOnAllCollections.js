@@ -45,14 +45,20 @@ function setValidationOnAllCollections() {
     return __awaiter(this, void 0, void 0, function () {
         function setValidation(collection) {
             return __awaiter(this, void 0, void 0, function () {
+                var runMongo;
                 return __generator(this, function (_a) {
                     switch (_a.label) {
-                        case 0: return [4 /*yield*/, db.command({
-                                collMod: collection.name,
-                                validator: collection.validationSchema,
-                                validationLevel: 'moderate',
-                                validationAction: 'error',
-                            })];
+                        case 0:
+                            runMongo = utils_1.buildRunMongo(collection.name);
+                            return [4 /*yield*/, runMongo(function (_a) {
+                                    var db = _a.db;
+                                    return db.command({
+                                        collMod: collection.name,
+                                        validator: collection.validationSchema,
+                                        validationLevel: 'moderate',
+                                        validationAction: 'error',
+                                    });
+                                })];
                         case 1:
                             _a.sent();
                             return [2 /*return*/];
@@ -60,30 +66,27 @@ function setValidationOnAllCollections() {
                 });
             });
         }
-        var db, _i, collections_1, collection;
+        var _i, collections_1, collection;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
                     console.log("Connecting to MongoDb: " + environment_1.environment.SDER_DB_URL);
-                    return [4 /*yield*/, utils_1.buildMongo()];
-                case 1:
-                    db = _a.sent();
                     console.log("Setting validation on the " + environment_1.environment.SDER_DB_NAME + " DB");
                     _i = 0, collections_1 = collections;
-                    _a.label = 2;
-                case 2:
-                    if (!(_i < collections_1.length)) return [3 /*break*/, 5];
+                    _a.label = 1;
+                case 1:
+                    if (!(_i < collections_1.length)) return [3 /*break*/, 4];
                     collection = collections_1[_i];
                     console.log("Setting validation on collection " + collection.name);
                     return [4 /*yield*/, setValidation(collection)];
-                case 3:
+                case 2:
                     _a.sent();
                     console.log("Validation of collection " + collection.name + " DONE");
-                    _a.label = 4;
-                case 4:
+                    _a.label = 3;
+                case 3:
                     _i++;
-                    return [3 /*break*/, 2];
-                case 5:
+                    return [3 /*break*/, 1];
+                case 4:
                     console.log("Validation finished");
                     process.exit(0);
                     return [2 /*return*/];

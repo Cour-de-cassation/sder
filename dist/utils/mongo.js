@@ -36,12 +36,13 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.buildObjectId = exports.buildMongo = exports.areMongoIdEqual = void 0;
+exports.buildRunMongo = exports.buildObjectId = exports.areMongoIdEqual = void 0;
 var mongodb_1 = require("mongodb");
 var environment_1 = require("../environment");
-function buildMongo() {
-    return __awaiter(this, void 0, void 0, function () {
-        var client, dbName;
+function buildRunMongo(collectionName) {
+    var _this = this;
+    return function (command) { return __awaiter(_this, void 0, void 0, function () {
+        var client, dbName, db, collection, output;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0: return [4 /*yield*/, new mongodb_1.MongoClient(environment_1.environment.SDER_DB_URL, {
@@ -50,12 +51,20 @@ function buildMongo() {
                 case 1:
                     client = _a.sent();
                     dbName = environment_1.environment.SDER_DB_NAME;
-                    return [2 /*return*/, client.db(dbName)];
+                    db = client.db(dbName);
+                    collection = db.collection(collectionName);
+                    return [4 /*yield*/, command({ db: db, collection: collection })];
+                case 2:
+                    output = _a.sent();
+                    return [4 /*yield*/, client.close()];
+                case 3:
+                    _a.sent();
+                    return [2 /*return*/, output];
             }
         });
-    });
+    }); };
 }
-exports.buildMongo = buildMongo;
+exports.buildRunMongo = buildRunMongo;
 function areMongoIdEqual(id1, id2) {
     return id1.equals(id2);
 }

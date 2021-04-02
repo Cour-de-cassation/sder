@@ -1,6 +1,6 @@
 import { environment } from '../environment';
 import { decisionModule, genericCollectionType } from '../modules';
-import { buildMongo } from '../utils';
+import { buildRunMongo } from '../utils';
 
 const collections: genericCollectionType[] = [decisionModule.collection];
 
@@ -8,7 +8,6 @@ setIndexesOnAllCollections();
 
 async function setIndexesOnAllCollections() {
   console.log(`Connecting to MongoDb: ${environment.SDER_DB_URL}`);
-  const db = await buildMongo();
 
   console.log(`Setting indexes on the ${environment.SDER_DB_NAME} DB`);
   for (const collection of collections) {
@@ -21,10 +20,10 @@ async function setIndexesOnAllCollections() {
   process.exit(0);
 
   async function setIndexes(collection: genericCollectionType) {
-    const dbCollection = db.collection(collection.name);
+    const runMongo = buildRunMongo(collection.name);
 
     for (const index of collection.indexes) {
-      await dbCollection.createIndex(index);
+      await runMongo(({ collection }) => collection.createIndex(index));
     }
   }
 }

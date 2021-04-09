@@ -92,6 +92,6 @@ server.patch('/update-decision-pseudonymisation', utils_1.buildHandlingErrorCont
 }); }));
 server.post('/create-decision', utils_1.buildHandlingErrorController(function (req) { return __awaiter(void 0, void 0, void 0, function () {
     return __generator(this, function (_a) {
-        return [2 /*return*/, modules_1.decisionModule.service.createDecision(__assign(__assign({}, req.body), { dateCreation: new Date(req.body.dateCreation), dateDecision: new Date(req.body.dateDecision) }))];
+        return [2 /*return*/, modules_1.decisionModule.service.createDecision(__assign(__assign({}, req.body), { dateCreation: req.body.dateCreation, dateDecision: req.body.dateDecision }))];
     });
 }); }));

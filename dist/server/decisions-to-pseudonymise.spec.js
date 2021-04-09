@@ -57,7 +57,7 @@ describe('/decisions-to-pseudonymise', function () {
                     return [4 /*yield*/, Promise.all(decisions.map(decisionRepository.insert))];
                 case 2:
                     _a.sent();
-                    return [4 /*yield*/, request.get("/decisions-to-pseudonymise?date=\"" + utils_1.dateBuilder.daysAgo(4).toISOString() + "\"")];
+                    return [4 /*yield*/, request.get("/decisions-to-pseudonymise?date=\"" + utils_1.dateBuilder.daysAgo(4) + "\"")];
                 case 3:
                     response = _a.sent();
                     expect(response.status).toEqual(200);
@@ -77,7 +77,7 @@ describe('/decisions-to-pseudonymise', function () {
                     return [4 /*yield*/, Promise.all(decisions.map(decisionRepository.insert))];
                 case 2:
                     _a.sent();
-                    return [4 /*yield*/, request.get("/decisions-to-pseudonymise?date=\"" + utils_1.dateBuilder.daysAgo(2).toISOString() + "\"")];
+                    return [4 /*yield*/, request.get("/decisions-to-pseudonymise?date=\"" + utils_1.dateBuilder.daysAgo(2) + "\"")];
                 case 3:
                     response = _a.sent();
                     expect(response.status).toEqual(200);

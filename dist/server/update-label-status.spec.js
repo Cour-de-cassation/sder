@@ -109,7 +109,7 @@ describe('/update-label-status', function () {
             return __awaiter(this, void 0, void 0, function () {
                 return __generator(this, function (_a) {
                     switch (_a.label) {
-                        case 0: return [4 /*yield*/, request.get("/decisions-to-pseudonymise?date=\"" + utils_1.dateBuilder.daysAgo(4).toISOString() + "\"")];
+                        case 0: return [4 /*yield*/, request.get("/decisions-to-pseudonymise?date=\"" + utils_1.dateBuilder.daysAgo(4) + "\"")];
                         case 1: return [2 /*return*/, (_a.sent()).body.map(function (decision) { return decision.sourceId; })];
                     }
                 });

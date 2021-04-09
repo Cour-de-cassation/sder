@@ -64,7 +64,7 @@ describe('/update-label-status', () => {
     expect(decisionIdsToPseudonymiseAfterUpdate).toEqual([]);
 
     async function fetchDecisionIdsToPseudonymise(): Promise<string[]> {
-      return (await request.get(`/decisions-to-pseudonymise?date="${dateBuilder.daysAgo(4).toISOString()}"`)).body.map(
+      return (await request.get(`/decisions-to-pseudonymise?date="${dateBuilder.daysAgo(4)}"`)).body.map(
         (decision: decisionType) => decision.sourceId,
       );
     }

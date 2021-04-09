@@ -93,7 +93,8 @@ function buildDecisionFakeRepository() {
                         return __awaiter(this, void 0, void 0, function () {
                             return __generator(this, function (_a) {
                                 return [2 /*return*/, collection.filter(function (decision) {
-                                        return decision.dateCreation >= date && (decision.labelStatus === 'toBeTreated' || decision.pseudoText === '');
+                                        return new Date(decision.dateCreation) >= date &&
+                                            (decision.labelStatus === 'toBeTreated' || decision.pseudoText === '');
                                     })];
                             });
                         });

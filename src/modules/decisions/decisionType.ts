@@ -17,8 +17,8 @@ type decisionType = {
   appeals: Array<string>;
   chamberId: string;
   chamberName: string;
-  dateCreation: Date;
-  dateDecision: Date;
+  dateCreation: string;
+  dateDecision: string;
   jurisdictionCode: string;
   jurisdictionId: string;
   jurisdictionName: string;

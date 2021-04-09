@@ -55,8 +55,8 @@ server.post(
   buildHandlingErrorController(async (req: any) =>
     decisionModule.service.createDecision({
       ...req.body,
-      dateCreation: new Date(req.body.dateCreation),
-      dateDecision: new Date(req.body.dateDecision),
+      dateCreation: req.body.dateCreation,
+      dateDecision: req.body.dateDecision,
     }),
   ),
 );

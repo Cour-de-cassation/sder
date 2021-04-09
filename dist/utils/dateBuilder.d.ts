@@ -1,4 +1,4 @@
 export { dateBuilder };
 declare const dateBuilder: {
-    daysAgo(days: number): Date;
+    daysAgo(days: number): string;
 };

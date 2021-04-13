@@ -90,7 +90,7 @@ async function buildDecisionRepository(): Promise<decisionRepositoryType> {
     },
 
     async updateByIds(ids, decisionField) {
-      await runMongo(({ collection }) => collection.update({ _id: { $in: ids } }, { $set: decisionField }));
+      await runMongo(({ collection }) => collection.updateMany({ _id: { $in: ids } }, { $set: decisionField }));
     },
   };
 }

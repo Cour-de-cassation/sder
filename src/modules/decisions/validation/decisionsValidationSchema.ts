@@ -88,15 +88,21 @@ const decisionsValidationSchema = {
         bsonType: 'object',
         additionalProperties: false,
         properties: {
-          introduction_subzonage: {
+          zones: {
             bsonType: 'object',
             additionalProperties: false,
             properties: {
-              publication: {
-                bsonType: 'array',
+              introduction_subzonage: {
+                bsonType: 'object',
                 additionalProperties: false,
-                items: {
-                  bsonType: 'string',
+                properties: {
+                  publication: {
+                    bsonType: 'array',
+                    additionalProperties: false,
+                    items: {
+                      bsonType: 'string',
+                    },
+                  },
                 },
               },
             },

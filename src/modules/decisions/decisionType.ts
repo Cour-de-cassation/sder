@@ -34,9 +34,11 @@ type decisionType = {
   solution: string;
   sourceId: number;
   sourceName: string;
-  zoning: {
-    introduction_subzonage: {
-      publication: string[];
+  zoning?: {
+    zones?: {
+      introduction_subzonage?: {
+        publication: string[];
+      };
     };
   };
 };

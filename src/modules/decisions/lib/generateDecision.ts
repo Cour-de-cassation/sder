@@ -39,10 +39,8 @@ function generateDecision(decisionFields: Partial<decisionType> = {}): decisionT
     sourceId: Math.floor(Math.random() * MAX_RAND_NUMBER),
     sourceName: `SOURCE_NAME_${Math.random()}`,
     zoning: {
-      zones: {
-        introduction_subzonage: {
-          publication: [],
-        },
+      introduction_subzonage: {
+        publication: [],
       },
     },
 

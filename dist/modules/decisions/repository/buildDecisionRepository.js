@@ -247,7 +247,7 @@ function buildDecisionRepository() {
                                 switch (_a.label) {
                                     case 0: return [4 /*yield*/, runMongo(function (_a) {
                                             var collection = _a.collection;
-                                            return collection.update({ _id: { $in: ids } }, { $set: decisionField });
+                                            return collection.updateMany({ _id: { $in: ids } }, { $set: decisionField });
                                         })];
                                     case 1:
                                         _a.sent();

@@ -84,7 +84,7 @@ var decisionService = {
             });
         });
     },
-    updateDecisionsLabelStatus: function (_a) {
+    deprecatedUpdateDecisionsLabelStatus: function (_a) {
         var decisionIds = _a.decisionIds, labelStatus = _a.labelStatus;
         return __awaiter(this, void 0, void 0, function () {
             var decisionRepository, decisions;
@@ -98,6 +98,23 @@ var decisionService = {
                         decisions = _b.sent();
                         return [4 /*yield*/, decisionRepository.updateByIds(decisions.map(function (decision) { return decision._id; }), { labelStatus: labelStatus })];
                     case 3:
+                        _b.sent();
+                        return [2 /*return*/];
+                }
+            });
+        });
+    },
+    updateDecisionsLabelStatus: function (_a) {
+        var decisionIds = _a.decisionIds, labelStatus = _a.labelStatus;
+        return __awaiter(this, void 0, void 0, function () {
+            var decisionRepository;
+            return __generator(this, function (_b) {
+                switch (_b.label) {
+                    case 0: return [4 /*yield*/, repository_1.buildDecisionRepository()];
+                    case 1:
+                        decisionRepository = _b.sent();
+                        return [4 /*yield*/, decisionRepository.updateByIds(decisionIds, { labelStatus: labelStatus })];
+                    case 2:
                         _b.sent();
                         return [2 /*return*/];
                 }

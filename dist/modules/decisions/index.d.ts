@@ -19,8 +19,12 @@ declare const decisionModule: {
         fetchDecisionsToPseudonymise({ date }: {
             date: Date;
         }): Promise<decisionType[]>;
-        updateDecisionsLabelStatus({ decisionIds, labelStatus, }: {
+        deprecatedUpdateDecisionsLabelStatus({ decisionIds, labelStatus, }: {
             decisionIds: number[];
+            labelStatus: "done" | "toBeTreated" | "loaded" | "exported";
+        }): Promise<void>;
+        updateDecisionsLabelStatus({ decisionIds, labelStatus, }: {
+            decisionIds: import("bson").ObjectId[];
             labelStatus: "done" | "toBeTreated" | "loaded" | "exported";
         }): Promise<void>;
         updateDecisionPseudonymisation({ decisionId, decisionPseudonymisedText, labelTreatments, }: {

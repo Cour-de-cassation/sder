@@ -171,7 +171,7 @@ describe('decisionService', function () {
                     case 2:
                         _a.sent();
                         return [4 /*yield*/, decisionService_1.decisionService.updateDecisionsLabelStatus({
-                                decisionIds: [decisions[0].sourceId, decisions[2].sourceId],
+                                decisionIds: [decisions[0]._id, decisions[2]._id],
                                 labelStatus: 'loaded',
                             })];
                     case 3:

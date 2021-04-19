@@ -24,7 +24,7 @@ const decisionService = {
     return decisionRepository.findAllToPseudonymiseSince(date);
   },
 
-  async updateDecisionsLabelStatus({
+  async deprecatedUpdateDecisionsLabelStatus({
     decisionIds,
     labelStatus,
   }: {
@@ -39,6 +39,18 @@ const decisionService = {
       decisions.map((decision) => decision._id),
       { labelStatus },
     );
+  },
+
+  async updateDecisionsLabelStatus({
+    decisionIds,
+    labelStatus,
+  }: {
+    decisionIds: Array<decisionType['_id']>;
+    labelStatus: decisionType['labelStatus'];
+  }) {
+    const decisionRepository = await buildDecisionRepository();
+
+    await decisionRepository.updateByIds(decisionIds, { labelStatus });
   },
 
   async updateDecisionPseudonymisation({

@@ -9,8 +9,12 @@ declare const decisionService: {
     fetchDecisionsToPseudonymise({ date }: {
         date: Date;
     }): Promise<decisionType[]>;
-    updateDecisionsLabelStatus({ decisionIds, labelStatus, }: {
+    deprecatedUpdateDecisionsLabelStatus({ decisionIds, labelStatus, }: {
         decisionIds: number[];
+        labelStatus: decisionType['labelStatus'];
+    }): Promise<void>;
+    updateDecisionsLabelStatus({ decisionIds, labelStatus, }: {
+        decisionIds: Array<decisionType['_id']>;
         labelStatus: decisionType['labelStatus'];
     }): Promise<void>;
     updateDecisionPseudonymisation({ decisionId, decisionPseudonymisedText, labelTreatments, }: {

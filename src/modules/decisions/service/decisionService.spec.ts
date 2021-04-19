@@ -85,7 +85,7 @@ describe('decisionService', () => {
       await Promise.all(decisions.map(decisionRepository.insert));
 
       await decisionService.updateDecisionsLabelStatus({
-        decisionIds: [decisions[0].sourceId, decisions[2].sourceId],
+        decisionIds: [decisions[0]._id, decisions[2]._id],
         labelStatus: 'loaded',
       });
 
@@ -115,7 +115,7 @@ describe('decisionService', () => {
       await decisionRepository.insert(decision);
 
       await decisionService.updateDecisionPseudonymisation({
-        decisionId: decision.sourceId,
+        decisionId: decision._id,
         decisionPseudonymisedText: 'NEW_PSEUDONYMISATION',
         labelTreatments: treatmenst,
       });
@@ -130,7 +130,7 @@ describe('decisionService', () => {
       await decisionRepository.insert(decision);
 
       await decisionService.updateDecisionPseudonymisation({
-        decisionId: decision.sourceId,
+        decisionId: decision._id,
         decisionPseudonymisedText: 'NEW_PSEUDONYMISATION',
         labelTreatments: treatmenst,
       });

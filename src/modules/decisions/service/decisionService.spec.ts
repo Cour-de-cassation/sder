@@ -115,7 +115,7 @@ describe('decisionService', () => {
       await decisionRepository.insert(decision);
 
       await decisionService.updateDecisionPseudonymisation({
-        decisionId: decision.sourceId,
+        decisionId: decision._id,
         decisionPseudonymisedText: 'NEW_PSEUDONYMISATION',
         labelTreatments: treatmenst,
       });
@@ -130,7 +130,7 @@ describe('decisionService', () => {
       await decisionRepository.insert(decision);
 
       await decisionService.updateDecisionPseudonymisation({
-        decisionId: decision.sourceId,
+        decisionId: decision._id,
         decisionPseudonymisedText: 'NEW_PSEUDONYMISATION',
         labelTreatments: treatmenst,
       });

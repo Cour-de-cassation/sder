@@ -215,7 +215,7 @@ describe('decisionService', function () {
                     case 2:
                         _a.sent();
                         return [4 /*yield*/, decisionService_1.decisionService.updateDecisionPseudonymisation({
-                                decisionId: decision.sourceId,
+                                decisionId: decision._id,
                                 decisionPseudonymisedText: 'NEW_PSEUDONYMISATION',
                                 labelTreatments: treatmenst,
                             })];
@@ -241,7 +241,7 @@ describe('decisionService', function () {
                     case 2:
                         _a.sent();
                         return [4 /*yield*/, decisionService_1.decisionService.updateDecisionPseudonymisation({
-                                decisionId: decision.sourceId,
+                                decisionId: decision._id,
                                 decisionPseudonymisedText: 'NEW_PSEUDONYMISATION',
                                 labelTreatments: treatmenst,
                             })];

@@ -17,8 +17,13 @@ declare const decisionService: {
         decisionIds: Array<decisionType['_id']>;
         labelStatus: decisionType['labelStatus'];
     }): Promise<void>;
-    updateDecisionPseudonymisation({ decisionId, decisionPseudonymisedText, labelTreatments, }: {
+    depracatedUpdateDecisionPseudonymisation({ decisionId, decisionPseudonymisedText, labelTreatments, }: {
         decisionId: number;
+        decisionPseudonymisedText: string;
+        labelTreatments: labelTreatmentsType;
+    }): Promise<void>;
+    updateDecisionPseudonymisation({ decisionId, decisionPseudonymisedText, labelTreatments, }: {
+        decisionId: decisionType['_id'];
         decisionPseudonymisedText: string;
         labelTreatments: labelTreatmentsType;
     }): Promise<void>;

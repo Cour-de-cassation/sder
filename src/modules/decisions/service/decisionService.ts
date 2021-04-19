@@ -53,7 +53,7 @@ const decisionService = {
     await decisionRepository.updateByIds(decisionIds, { labelStatus });
   },
 
-  async updateDecisionPseudonymisation({
+  async depracatedUpdateDecisionPseudonymisation({
     decisionId,
     decisionPseudonymisedText,
     labelTreatments,
@@ -65,6 +65,27 @@ const decisionService = {
     const decisionRepository = await buildDecisionRepository();
 
     const decision = await decisionRepository.findByDecisionId(decisionId);
+
+    await decisionRepository.updateById(decision._id, {
+      _rev: decision._rev + 1,
+      labelStatus: 'done',
+      labelTreatments,
+      pseudoText: decisionPseudonymisedText,
+    });
+  },
+
+  async updateDecisionPseudonymisation({
+    decisionId,
+    decisionPseudonymisedText,
+    labelTreatments,
+  }: {
+    decisionId: decisionType['_id'];
+    decisionPseudonymisedText: string;
+    labelTreatments: labelTreatmentsType;
+  }) {
+    const decisionRepository = await buildDecisionRepository();
+
+    const decision = await decisionRepository.findById(decisionId);
 
     await decisionRepository.updateById(decision._id, {
       _rev: decision._rev + 1,

@@ -27,8 +27,13 @@ declare const decisionModule: {
             decisionIds: import("bson").ObjectId[];
             labelStatus: "done" | "toBeTreated" | "loaded" | "exported";
         }): Promise<void>;
-        updateDecisionPseudonymisation({ decisionId, decisionPseudonymisedText, labelTreatments, }: {
+        depracatedUpdateDecisionPseudonymisation({ decisionId, decisionPseudonymisedText, labelTreatments, }: {
             decisionId: number;
+            decisionPseudonymisedText: string;
+            labelTreatments: import("./decisionType").labelTreatmentsType;
+        }): Promise<void>;
+        updateDecisionPseudonymisation({ decisionId, decisionPseudonymisedText, labelTreatments, }: {
+            decisionId: import("bson").ObjectId;
             decisionPseudonymisedText: string;
             labelTreatments: import("./decisionType").labelTreatmentsType;
         }): Promise<void>;

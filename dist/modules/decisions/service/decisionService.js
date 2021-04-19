@@ -121,7 +121,7 @@ var decisionService = {
             });
         });
     },
-    updateDecisionPseudonymisation: function (_a) {
+    depracatedUpdateDecisionPseudonymisation: function (_a) {
         var decisionId = _a.decisionId, decisionPseudonymisedText = _a.decisionPseudonymisedText, labelTreatments = _a.labelTreatments;
         return __awaiter(this, void 0, void 0, function () {
             var decisionRepository, decision;
@@ -131,6 +131,31 @@ var decisionService = {
                     case 1:
                         decisionRepository = _b.sent();
                         return [4 /*yield*/, decisionRepository.findByDecisionId(decisionId)];
+                    case 2:
+                        decision = _b.sent();
+                        return [4 /*yield*/, decisionRepository.updateById(decision._id, {
+                                _rev: decision._rev + 1,
+                                labelStatus: 'done',
+                                labelTreatments: labelTreatments,
+                                pseudoText: decisionPseudonymisedText,
+                            })];
+                    case 3:
+                        _b.sent();
+                        return [2 /*return*/];
+                }
+            });
+        });
+    },
+    updateDecisionPseudonymisation: function (_a) {
+        var decisionId = _a.decisionId, decisionPseudonymisedText = _a.decisionPseudonymisedText, labelTreatments = _a.labelTreatments;
+        return __awaiter(this, void 0, void 0, function () {
+            var decisionRepository, decision;
+            return __generator(this, function (_b) {
+                switch (_b.label) {
+                    case 0: return [4 /*yield*/, repository_1.buildDecisionRepository()];
+                    case 1:
+                        decisionRepository = _b.sent();
+                        return [4 /*yield*/, decisionRepository.findById(decisionId)];
                     case 2:
                         decision = _b.sent();
                         return [4 /*yield*/, decisionRepository.updateById(decision._id, {

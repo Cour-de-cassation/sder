@@ -60,6 +60,19 @@ function buildDecisionRepository() {
                             });
                         });
                     },
+                    findAll: function () {
+                        return __awaiter(this, void 0, void 0, function () {
+                            var _this = this;
+                            return __generator(this, function (_a) {
+                                return [2 /*return*/, runMongo(function (_a) {
+                                        var collection = _a.collection;
+                                        return __awaiter(_this, void 0, void 0, function () { return __generator(this, function (_b) {
+                                            return [2 /*return*/, collection.find().toArray()];
+                                        }); });
+                                    })];
+                            });
+                        });
+                    },
                     findAllByDecisionIds: function (decisionIds) {
                         return __awaiter(this, void 0, void 0, function () {
                             return __generator(this, function (_a) {
@@ -81,6 +94,30 @@ function buildDecisionRepository() {
                                             return __generator(this, function (_b) {
                                                 switch (_b.label) {
                                                     case 0: return [4 /*yield*/, collection.find().project({ _id: 1 }).toArray()];
+                                                    case 1:
+                                                        decisionFieldsIds = _b.sent();
+                                                        return [2 /*return*/, decisionFieldsIds.map(function (_a) {
+                                                                var _id = _a._id;
+                                                                return _id;
+                                                            })];
+                                                }
+                                            });
+                                        });
+                                    })];
+                            });
+                        });
+                    },
+                    findAllIdsByLabelStatus: function (labelStatus) {
+                        return __awaiter(this, void 0, void 0, function () {
+                            var _this = this;
+                            return __generator(this, function (_a) {
+                                return [2 /*return*/, runMongo(function (_a) {
+                                        var collection = _a.collection;
+                                        return __awaiter(_this, void 0, void 0, function () {
+                                            var decisionFieldsIds;
+                                            return __generator(this, function (_b) {
+                                                switch (_b.label) {
+                                                    case 0: return [4 /*yield*/, collection.find({ labelStatus: labelStatus }).project({ _id: 1 }).toArray()];
                                                     case 1:
                                                         decisionFieldsIds = _b.sent();
                                                         return [2 /*return*/, decisionFieldsIds.map(function (_a) {

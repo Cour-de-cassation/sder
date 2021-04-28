@@ -13,6 +13,10 @@ async function buildDecisionRepository(): Promise<decisionRepositoryType> {
       await runMongo(({ collection }) => collection.deleteMany({}));
     },
 
+    async findAll() {
+      return runMongo(async ({ collection }) => collection.find().toArray());
+    },
+
     async findAllByDecisionIds(decisionIds) {
       return runMongo(({ collection }) => collection.find({ sourceId: { $in: decisionIds } }).toArray());
     },
@@ -20,6 +24,13 @@ async function buildDecisionRepository(): Promise<decisionRepositoryType> {
     async findAllIds() {
       return runMongo(async ({ collection }) => {
         const decisionFieldsIds = await collection.find().project({ _id: 1 }).toArray();
+        return decisionFieldsIds.map(({ _id }) => _id);
+      });
+    },
+
+    async findAllIdsByLabelStatus(labelStatus) {
+      return runMongo(async ({ collection }) => {
+        const decisionFieldsIds = await collection.find({ labelStatus }).project({ _id: 1 }).toArray();
         return decisionFieldsIds.map(({ _id }) => _id);
       });
     },

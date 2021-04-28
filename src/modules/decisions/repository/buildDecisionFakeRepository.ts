@@ -13,12 +13,20 @@ async function buildDecisionFakeRepository(): Promise<decisionRepositoryType> {
       collection = [];
     },
 
+    async findAll() {
+      return collection;
+    },
+
     async findAllByDecisionIds(decisionIds) {
       return collection.filter((decision) => decisionIds.includes(decision.sourceId));
     },
 
     async findAllIds() {
       return collection.map((decision) => decision._id);
+    },
+
+    async findAllIdsByLabelStatus(labelStatus) {
+      return collection.filter((decision) => decision.labelStatus === labelStatus).map((decision) => decision._id);
     },
 
     async findAllPseudonymisationToExport() {

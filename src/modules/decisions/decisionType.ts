@@ -5,7 +5,9 @@ export type { decisionType, labelTreatmentsType };
 type decisionType = {
   _id: mongoIdType;
   _rev: number;
+  _version: number;
   analysis: {
+    analyse: Array<string>;
     doctrine: string;
     link: string;
     reference: Array<string>;
@@ -19,14 +21,15 @@ type decisionType = {
   chamberName: string;
   dateCreation: string;
   dateDecision: string;
+  decatt: Array<number>;
   jurisdictionCode: string;
   jurisdictionId: string;
   jurisdictionName: string;
   labelStatus: 'toBeTreated' | 'loaded' | 'done' | 'exported';
   labelTreatments: labelTreatmentsType;
-  locked: string;
+  locked: boolean;
   originalText: string;
-  parties: string;
+  parties: Array<string>;
   pseudoStatus: string;
   pseudoText: string;
   pubCategory: string;

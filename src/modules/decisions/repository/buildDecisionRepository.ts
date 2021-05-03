@@ -92,6 +92,18 @@ async function buildDecisionRepository(): Promise<decisionRepositoryType> {
       });
     },
 
+    async findBySourceIdAndSourceName(sourceId, sourceName) {
+      return runMongo(async ({ collection }) => {
+        const result = await collection.findOne({ sourceId, sourceName } as any);
+
+        if (!result) {
+          throw new Error(`No matching ${decisionCollectionName} for sourceId ${sourceId}`);
+        }
+
+        return result;
+      });
+    },
+
     async insert(decision) {
       await runMongo(({ collection }) => collection.insert(decision));
     },

@@ -46,6 +46,22 @@ describe('decisionService', () => {
     });
   });
 
+  describe('fetchDecisionBySourceIdAndSourceName', () => {
+    it('should fetch the right decision', async () => {
+      const decisionRepository = await buildDecisionRepository();
+      const decisions = [
+        { sourceId: 100, sourceName: 'jurica' },
+        { sourceId: 200, sourceName: 'jurica' },
+        { sourceId: 200, sourceName: 'jurinet' },
+      ].map(generateDecision);
+      await Promise.all(decisions.map(decisionRepository.insert));
+
+      const fetchedDecision = await decisionService.fetchDecisionBySourceIdAndSourceName(200, 'jurica');
+
+      expect(fetchedDecision).toEqual(decisions[1]);
+    });
+  });
+
   describe('fetchPseudonymisationsToExport', () => {
     it(`should fetch all the pseudonymisation text and id of the decisions ready to be exported`, async () => {
       const decisionRepository = await buildDecisionRepository();

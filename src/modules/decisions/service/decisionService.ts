@@ -12,6 +12,15 @@ const decisionService = {
     await decisionRepository.insert(decision);
   },
 
+  async fetchDecisionBySourceIdAndSourceName(
+    sourceId: decisionType['sourceId'],
+    sourceName: decisionType['sourceName'],
+  ) {
+    const decisionRepository = await buildDecisionRepository();
+
+    return decisionRepository.findBySourceIdAndSourceName(sourceId, sourceName);
+  },
+
   async fetchPseudonymisationsToExport() {
     const decisionRepository = await buildDecisionRepository();
 

@@ -144,6 +144,18 @@ function buildDecisionFakeRepository() {
                             });
                         });
                     },
+                    findBySourceIdAndSourceName: function (sourceId, sourceName) {
+                        return __awaiter(this, void 0, void 0, function () {
+                            var result;
+                            return __generator(this, function (_a) {
+                                result = collection.find(function (decision) { return decision.sourceId === sourceId && decision.sourceName === sourceName; });
+                                if (!result) {
+                                    throw new Error("No matching " + collectionName + " for sourceId " + sourceId);
+                                }
+                                return [2 /*return*/, result];
+                            });
+                        });
+                    },
                     insert: function (decision) {
                         return __awaiter(this, void 0, void 0, function () {
                             return __generator(this, function (_a) {

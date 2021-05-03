@@ -119,6 +119,31 @@ describe('decisionService', function () {
             });
         }); });
     });
+    describe('fetchDecisionBySourceIdAndSourceName', function () {
+        it('should fetch the right decision', function () { return __awaiter(void 0, void 0, void 0, function () {
+            var decisionRepository, decisions, fetchedDecision;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, repository_1.buildDecisionRepository()];
+                    case 1:
+                        decisionRepository = _a.sent();
+                        decisions = [
+                            { sourceId: 100, sourceName: 'jurica' },
+                            { sourceId: 200, sourceName: 'jurica' },
+                            { sourceId: 200, sourceName: 'jurinet' },
+                        ].map(lib_1.generateDecision);
+                        return [4 /*yield*/, Promise.all(decisions.map(decisionRepository.insert))];
+                    case 2:
+                        _a.sent();
+                        return [4 /*yield*/, decisionService_1.decisionService.fetchDecisionBySourceIdAndSourceName(200, 'jurica')];
+                    case 3:
+                        fetchedDecision = _a.sent();
+                        expect(fetchedDecision).toEqual(decisions[1]);
+                        return [2 /*return*/];
+                }
+            });
+        }); });
+    });
     describe('fetchPseudonymisationsToExport', function () {
         it("should fetch all the pseudonymisation text and id of the decisions ready to be exported", function () { return __awaiter(void 0, void 0, void 0, function () {
             var decisionRepository, decisions, pseudonymisations;

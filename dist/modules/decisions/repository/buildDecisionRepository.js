@@ -248,6 +248,30 @@ function buildDecisionRepository() {
                             });
                         });
                     },
+                    findBySourceIdAndSourceName: function (sourceId, sourceName) {
+                        return __awaiter(this, void 0, void 0, function () {
+                            var _this = this;
+                            return __generator(this, function (_a) {
+                                return [2 /*return*/, runMongo(function (_a) {
+                                        var collection = _a.collection;
+                                        return __awaiter(_this, void 0, void 0, function () {
+                                            var result;
+                                            return __generator(this, function (_b) {
+                                                switch (_b.label) {
+                                                    case 0: return [4 /*yield*/, collection.findOne({ sourceId: sourceId, sourceName: sourceName })];
+                                                    case 1:
+                                                        result = _b.sent();
+                                                        if (!result) {
+                                                            throw new Error("No matching " + decisionCollectionName_1.decisionCollectionName + " for sourceId " + sourceId);
+                                                        }
+                                                        return [2 /*return*/, result];
+                                                }
+                                            });
+                                        });
+                                    })];
+                            });
+                        });
+                    },
                     insert: function (decision) {
                         return __awaiter(this, void 0, void 0, function () {
                             return __generator(this, function (_a) {

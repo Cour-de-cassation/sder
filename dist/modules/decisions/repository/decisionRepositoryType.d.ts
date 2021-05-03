@@ -15,6 +15,7 @@ declare type decisionRepositoryType = {
     findAllIdsWithoutLabelFields: () => Promise<Array<decisionType['_id']>>;
     findById: (id: mongoIdType) => Promise<decisionType>;
     findByDecisionId: (decisionId: decisionType['sourceId']) => Promise<decisionType>;
+    findBySourceIdAndSourceName: (sourceId: decisionType['sourceId'], sourceName: decisionType['sourceName']) => Promise<decisionType>;
     insert: (decision: decisionType) => Promise<void>;
     updateById: (id: mongoIdType, decisionField: Partial<decisionType>) => Promise<void>;
     updateByIds: (ids: mongoIdType[], decisionField: Partial<decisionType>) => Promise<void>;

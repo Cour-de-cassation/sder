@@ -23,6 +23,7 @@ function generateDecision(decisionFields: Partial<decisionType> = {}): decisionT
     chamberName: `CHAMBER_NAME_${Math.random()}`,
     dateCreation: new Date().toISOString(),
     dateDecision: new Date().toISOString(),
+    decatt: undefined,
     jurisdictionCode: `JURISDICTION_CODE_${Math.random()}`,
     jurisdictionId: `JURISDICTION_ID_${Math.random()}`,
     jurisdictionName: `JURISDICTION_NAME_${Math.random()}`,

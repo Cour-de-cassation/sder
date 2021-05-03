@@ -67,6 +67,18 @@ async function buildDecisionFakeRepository(): Promise<decisionRepositoryType> {
       return result;
     },
 
+    async findBySourceIdAndSourceName(sourceId, sourceName) {
+      const result = collection.find(
+        (decision) => decision.sourceId === sourceId && decision.sourceName === sourceName,
+      );
+
+      if (!result) {
+        throw new Error(`No matching ${collectionName} for sourceId ${sourceId}`);
+      }
+
+      return result;
+    },
+
     async insert(decision) {
       collection.push(decision);
     },

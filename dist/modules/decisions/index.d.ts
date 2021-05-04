@@ -12,7 +12,7 @@ declare const decisionModule: {
     };
     service: {
         createDecision(decisionFields: Pick<decisionType, "analysis" | "appeals" | "chamberId" | "chamberName" | "dateCreation" | "dateDecision" | "decatt" | "jurisdictionCode" | "jurisdictionId" | "jurisdictionName" | "locked" | "originalText" | "parties" | "pseudoStatus" | "pseudoText" | "pubCategory" | "registerNumber" | "solution" | "sourceId" | "sourceName" | "zoning">): Promise<void>;
-        fetchDecisionBySourceIdAndSourceName(sourceId: number, sourceName: string): Promise<decisionType>;
+        fetchDecisionsBySourceIdsAndSourceName(sourceIds: number[], sourceName: string): Promise<decisionType[]>;
         fetchPseudonymisationsToExport(): Promise<{
             decisionId: number;
             pseudoText: string;

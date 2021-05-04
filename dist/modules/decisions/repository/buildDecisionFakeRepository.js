@@ -77,6 +77,13 @@ function buildDecisionFakeRepository() {
                             });
                         });
                     },
+                    findAllBySourceIdsAndSourceName: function (sourceIds, sourceName) {
+                        return __awaiter(this, void 0, void 0, function () {
+                            return __generator(this, function (_a) {
+                                return [2 /*return*/, collection.filter(function (decision) { return sourceIds.includes(decision.sourceId) && decision.sourceName === sourceName; })];
+                            });
+                        });
+                    },
                     findAllIds: function () {
                         return __awaiter(this, void 0, void 0, function () {
                             return __generator(this, function (_a) {
@@ -139,18 +146,6 @@ function buildDecisionFakeRepository() {
                                 result = collection.find(function (decision) { return decision.sourceId === decisionId; });
                                 if (!result) {
                                     throw new Error("No matching " + collectionName + " for sourceId " + decisionId);
-                                }
-                                return [2 /*return*/, result];
-                            });
-                        });
-                    },
-                    findBySourceIdAndSourceName: function (sourceId, sourceName) {
-                        return __awaiter(this, void 0, void 0, function () {
-                            var result;
-                            return __generator(this, function (_a) {
-                                result = collection.find(function (decision) { return decision.sourceId === sourceId && decision.sourceName === sourceName; });
-                                if (!result) {
-                                    throw new Error("No matching " + collectionName + " for sourceId " + sourceId);
                                 }
                                 return [2 /*return*/, result];
                             });

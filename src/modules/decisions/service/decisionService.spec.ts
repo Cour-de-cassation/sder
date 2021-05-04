@@ -52,13 +52,14 @@ describe('decisionService', () => {
       const decisions = [
         { sourceId: 100, sourceName: 'jurica' },
         { sourceId: 200, sourceName: 'jurica' },
+        { sourceId: 300, sourceName: 'jurica' },
         { sourceId: 200, sourceName: 'jurinet' },
       ].map(generateDecision);
       await Promise.all(decisions.map(decisionRepository.insert));
 
-      const fetchedDecision = await decisionService.fetchDecisionBySourceIdAndSourceName(200, 'jurica');
+      const fetchedDecisions = await decisionService.fetchDecisionsBySourceIdsAndSourceName([200, 300], 'jurica');
 
-      expect(fetchedDecision).toEqual(decisions[1]);
+      expect(fetchedDecisions.sort()).toEqual([decisions[1], decisions[2]].sort());
     });
   });
 

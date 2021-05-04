@@ -21,6 +21,12 @@ async function buildDecisionRepository(): Promise<decisionRepositoryType> {
       return runMongo(({ collection }) => collection.find({ sourceId: { $in: decisionIds } }).toArray());
     },
 
+    async findAllBySourceIdsAndSourceName(sourceIds, sourceName) {
+      return runMongo(async ({ collection }) =>
+        collection.find({ sourceId: { $in: sourceIds }, sourceName } as any).toArray(),
+      );
+    },
+
     async findAllIds() {
       return runMongo(async ({ collection }) => {
         const decisionFieldsIds = await collection.find().project({ _id: 1 }).toArray();
@@ -86,18 +92,6 @@ async function buildDecisionRepository(): Promise<decisionRepositoryType> {
 
         if (!result) {
           throw new Error(`No matching ${decisionCollectionName} for sourceId ${decisionId}`);
-        }
-
-        return result;
-      });
-    },
-
-    async findBySourceIdAndSourceName(sourceId, sourceName) {
-      return runMongo(async ({ collection }) => {
-        const result = await collection.findOne({ sourceId, sourceName } as any);
-
-        if (!result) {
-          throw new Error(`No matching ${decisionCollectionName} for sourceId ${sourceId}`);
         }
 
         return result;

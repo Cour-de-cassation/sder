@@ -57,7 +57,7 @@ var decisionService = {
             });
         });
     },
-    fetchDecisionBySourceIdAndSourceName: function (sourceId, sourceName) {
+    fetchDecisionsBySourceIdsAndSourceName: function (sourceIds, sourceName) {
         return __awaiter(this, void 0, void 0, function () {
             var decisionRepository;
             return __generator(this, function (_a) {
@@ -65,7 +65,7 @@ var decisionService = {
                     case 0: return [4 /*yield*/, repository_1.buildDecisionRepository()];
                     case 1:
                         decisionRepository = _a.sent();
-                        return [2 /*return*/, decisionRepository.findBySourceIdAndSourceName(sourceId, sourceName)];
+                        return [2 /*return*/, decisionRepository.findAllBySourceIdsAndSourceName(sourceIds, sourceName)];
                 }
             });
         });

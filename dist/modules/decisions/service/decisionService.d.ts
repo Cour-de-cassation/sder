@@ -2,7 +2,7 @@ import { decisionType, labelTreatmentsType } from '../decisionType';
 export { decisionService };
 declare const decisionService: {
     createDecision(decisionFields: Omit<decisionType, '_id' | '_rev' | 'labelStatus' | 'labelTreatments'>): Promise<void>;
-    fetchDecisionBySourceIdAndSourceName(sourceId: decisionType['sourceId'], sourceName: decisionType['sourceName']): Promise<decisionType>;
+    fetchDecisionsBySourceIdsAndSourceName(sourceIds: decisionType['sourceId'][], sourceName: decisionType['sourceName']): Promise<decisionType[]>;
     fetchPseudonymisationsToExport(): Promise<{
         decisionId: number;
         pseudoText: string;

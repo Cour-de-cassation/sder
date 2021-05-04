@@ -21,6 +21,12 @@ async function buildDecisionFakeRepository(): Promise<decisionRepositoryType> {
       return collection.filter((decision) => decisionIds.includes(decision.sourceId));
     },
 
+    async findAllBySourceIdsAndSourceName(sourceIds, sourceName) {
+      return collection.filter(
+        (decision) => sourceIds.includes(decision.sourceId) && decision.sourceName === sourceName,
+      );
+    },
+
     async findAllIds() {
       return collection.map((decision) => decision._id);
     },
@@ -62,18 +68,6 @@ async function buildDecisionFakeRepository(): Promise<decisionRepositoryType> {
 
       if (!result) {
         throw new Error(`No matching ${collectionName} for sourceId ${decisionId}`);
-      }
-
-      return result;
-    },
-
-    async findBySourceIdAndSourceName(sourceId, sourceName) {
-      const result = collection.find(
-        (decision) => decision.sourceId === sourceId && decision.sourceName === sourceName,
-      );
-
-      if (!result) {
-        throw new Error(`No matching ${collectionName} for sourceId ${sourceId}`);
       }
 
       return result;

@@ -7,8 +7,9 @@ declare const decisionService: {
         decisionId: number;
         pseudoText: string;
     }[]>;
-    fetchDecisionsToPseudonymise({ date }: {
-        date: Date;
+    fetchJurinetAndChainedJuricaDecisionsToPseudonymiseBetween({ startDate, endDate, }: {
+        startDate: Date;
+        endDate?: Date | undefined;
     }): Promise<decisionType[]>;
     deprecatedUpdateDecisionsLabelStatus({ decisionIds, labelStatus, }: {
         decisionIds: number[];

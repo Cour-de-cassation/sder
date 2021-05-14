@@ -1,4 +1,6 @@
 import { collectionType, genericCollectionType } from './collectionType';
 import { decisionModule, decisionType } from './decisions';
-export { decisionModule };
+import { rawJurinetModule } from './rawJurinet';
+import { rawJuricaModule } from './rawJurica';
+export { decisionModule, rawJurinetModule, rawJuricaModule };
 export type { collectionType, decisionType, genericCollectionType };

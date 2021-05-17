@@ -52,12 +52,12 @@ async function buildDecisionRepository(): Promise<decisionRepositoryType> {
       });
     },
 
-    async findAllToPseudonymiseSince(date) {
+    async findAllBetween({ startDate, endDate, source }) {
       return runMongo(({ collection }) =>
         collection
           .find({
-            dateCreation: { $gte: date.toISOString() as any },
-            labelStatus: 'toBeTreated',
+            dateCreation: { $gte: startDate.toISOString() as any, $lt: endDate.toISOString() as any },
+            sourceName: source,
           })
           .toArray(),
       );

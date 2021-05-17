@@ -1,5 +1,5 @@
 import { decisionType, labelTreatmentsType } from '../decisionType';
-import { buildDecision } from '../lib';
+import { buildDecision, shouldBeTreatedByLabel } from '../lib';
 import { buildDecisionRepository } from '../repository';
 
 export { decisionService };
@@ -27,10 +27,37 @@ const decisionService = {
     return decisionRepository.findAllPseudonymisationToExport();
   },
 
-  async fetchDecisionsToPseudonymise({ date }: { date: Date }) {
+  async fetchJurinetAndChainedJuricaDecisionsToPseudonymiseBetween({
+    startDate,
+    endDate = new Date(),
+  }: {
+    startDate: Date;
+    endDate?: Date;
+  }) {
     const decisionRepository = await buildDecisionRepository();
 
-    return decisionRepository.findAllToPseudonymiseSince(date);
+    const jurinetDecisions = await decisionRepository.findAllBetween({
+      startDate,
+      endDate,
+      source: 'jurinet',
+    });
+
+    const juricaChainedDecisionSourceIds: number[] = [];
+
+    jurinetDecisions.forEach((decision) => {
+      if (decision.decatt) {
+        decision.decatt.forEach((sourceId) => juricaChainedDecisionSourceIds.push(sourceId));
+      }
+    });
+
+    const juricaChainedDecisions = await decisionRepository.findAllBySourceIdsAndSourceName(
+      juricaChainedDecisionSourceIds,
+      'jurica',
+    );
+
+    const decisions = [...jurinetDecisions, ...juricaChainedDecisions];
+
+    return decisions.filter(shouldBeTreatedByLabel);
   },
 
   async deprecatedUpdateDecisionsLabelStatus({

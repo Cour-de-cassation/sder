@@ -110,12 +110,14 @@ function buildDecisionFakeRepository() {
                             });
                         });
                     },
-                    findAllToPseudonymiseSince: function (date) {
+                    findAllBetween: function (_a) {
+                        var startDate = _a.startDate, endDate = _a.endDate, source = _a.source;
                         return __awaiter(this, void 0, void 0, function () {
-                            return __generator(this, function (_a) {
+                            return __generator(this, function (_b) {
                                 return [2 /*return*/, collection.filter(function (decision) {
-                                        return new Date(decision.dateCreation) >= date &&
-                                            (decision.labelStatus === 'toBeTreated' || decision.pseudoText === '');
+                                        return new Date(decision.dateCreation) >= startDate &&
+                                            new Date(decision.dateCreation) < endDate &&
+                                            decision.sourceName === source;
                                     })];
                             });
                         });

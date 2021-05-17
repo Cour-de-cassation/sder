@@ -171,15 +171,16 @@ function buildDecisionRepository() {
                             });
                         });
                     },
-                    findAllToPseudonymiseSince: function (date) {
+                    findAllBetween: function (_a) {
+                        var startDate = _a.startDate, endDate = _a.endDate, source = _a.source;
                         return __awaiter(this, void 0, void 0, function () {
-                            return __generator(this, function (_a) {
+                            return __generator(this, function (_b) {
                                 return [2 /*return*/, runMongo(function (_a) {
                                         var collection = _a.collection;
                                         return collection
                                             .find({
-                                            dateCreation: { $gte: date.toISOString() },
-                                            labelStatus: 'toBeTreated',
+                                            dateCreation: { $gte: startDate.toISOString(), $lt: endDate.toISOString() },
+                                            sourceName: source,
                                         })
                                             .toArray();
                                     })];

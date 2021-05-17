@@ -41,11 +41,12 @@ async function buildDecisionFakeRepository(): Promise<decisionRepositoryType> {
         .map(({ sourceId, pseudoText }) => ({ decisionId: sourceId, pseudoText }));
     },
 
-    async findAllToPseudonymiseSince(date) {
+    async findAllBetween({ startDate, endDate, source }) {
       return collection.filter(
         (decision) =>
-          new Date(decision.dateCreation) >= date &&
-          (decision.labelStatus === 'toBeTreated' || decision.pseudoText === ''),
+          new Date(decision.dateCreation) >= startDate &&
+          new Date(decision.dateCreation) < endDate &&
+          decision.sourceName === source,
       );
     },
 

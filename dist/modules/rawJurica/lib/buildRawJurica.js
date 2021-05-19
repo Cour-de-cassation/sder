@@ -11,8 +11,8 @@ var __assign = (this && this.__assign) || function () {
     return __assign.apply(this, arguments);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.buildDecision = void 0;
-function buildDecision(decisionFields) {
+exports.buildRawJurica = void 0;
+function buildRawJurica(decisionFields) {
     return __assign({}, decisionFields);
 }
-exports.buildDecision = buildDecision;
+exports.buildRawJurica = buildRawJurica;

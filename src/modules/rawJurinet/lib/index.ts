@@ -1,3 +1,3 @@
-import { buildDecision } from './buildDecision';
+import { buildRawJurinet } from './buildRawJurinet';
 
-export { buildDecision };
+export { buildRawJurinet };

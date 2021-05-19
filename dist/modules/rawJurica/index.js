@@ -14,6 +14,6 @@ var rawJuricaCollection = {
 var rawJuricaModule = {
     buildRepository: repository_1.buildRawJuricaRepository,
     collection: rawJuricaCollection,
-    service: service_1.decisionService,
+    service: service_1.rawJuricaService,
 };
 exports.rawJuricaModule = rawJuricaModule;

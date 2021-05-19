@@ -1,24 +1,24 @@
-import { buildDecision } from '../lib';
-import { buildRawJurinetRepository } from '../repository';
+import { buildRawJurica } from '../lib';
+import { buildRawJuricaRepository } from '../repository';
 
-export { decisionService };
+export { rawJuricaService };
 
-const decisionService = {
+const rawJuricaService = {
   async createDecision(decisionFields: any) {
-    const decisionRepository = await buildRawJurinetRepository();
-    const decision = buildDecision(decisionFields);
+    const decisionRepository = await buildRawJuricaRepository();
+    const decision = buildRawJurica(decisionFields);
     await decisionRepository.insert(decision);
   },
 
   /*
   async fetchPseudonymisationsToExport() {
-    const decisionRepository = await buildRawJurinetRepository();
+    const decisionRepository = await buildRawJuricaRepository();
 
     return decisionRepository.findAllPseudonymisationToExport();
   },
 
   async fetchDecisionsToPseudonymise({ date }: { date: Date }) {
-    const decisionRepository = await buildRawJurinetRepository();
+    const decisionRepository = await buildRawJuricaRepository();
 
     return decisionRepository.findAllToPseudonymiseSince(date);
   },

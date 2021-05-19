@@ -1,3 +1,3 @@
-import { buildDecision } from './buildDecision';
+import { buildRawJurica } from './buildRawJurica';
 
-export { buildDecision };
+export { buildRawJurica };

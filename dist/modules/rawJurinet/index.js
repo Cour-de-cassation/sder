@@ -14,6 +14,6 @@ var rawJurinetCollection = {
 var rawJurinetModule = {
     buildRepository: repository_1.buildRawJurinetRepository,
     collection: rawJurinetCollection,
-    service: service_1.decisionService,
+    service: service_1.rawJurinetService,
 };
 exports.rawJurinetModule = rawJurinetModule;

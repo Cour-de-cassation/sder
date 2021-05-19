@@ -1,2 +1,2 @@
-import { decisionService } from './decisionService';
-export { decisionService };
+import { rawJurinetService } from './rawJurinetService';
+export { rawJurinetService };

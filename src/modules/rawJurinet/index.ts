@@ -2,7 +2,7 @@ import { genericCollectionType } from '../collectionType';
 import { rawJurinetCollectionName } from './rawJurinetCollectionName';
 import { rawJurinetIndexes } from './indexes';
 import { buildRawJurinetRepository } from './repository';
-import { decisionService } from './service';
+import { rawJurinetService } from './service';
 import { rawJurinetCollectionValidationSchema } from './validation';
 
 export { rawJurinetModule };
@@ -16,5 +16,5 @@ const rawJurinetCollection: genericCollectionType = {
 const rawJurinetModule = {
   buildRepository: buildRawJurinetRepository,
   collection: rawJurinetCollection,
-  service: decisionService,
+  service: rawJurinetService,
 };

@@ -1,3 +1,3 @@
-import { decisionService } from './decisionService';
+import { rawJuricaService } from './rawJuricaService';
 
-export { decisionService };
+export { rawJuricaService };

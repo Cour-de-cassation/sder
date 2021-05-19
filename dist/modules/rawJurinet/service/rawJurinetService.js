@@ -36,19 +36,19 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.decisionService = void 0;
+exports.rawJurinetService = void 0;
 var lib_1 = require("../lib");
 var repository_1 = require("../repository");
-var decisionService = {
+var rawJurinetService = {
     createDecision: function (decisionFields) {
         return __awaiter(this, void 0, void 0, function () {
             var decisionRepository, decision;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, repository_1.buildRawJuricaRepository()];
+                    case 0: return [4 /*yield*/, repository_1.buildRawJurinetRepository()];
                     case 1:
                         decisionRepository = _a.sent();
-                        decision = lib_1.buildDecision(decisionFields);
+                        decision = lib_1.buildRawJurinet(decisionFields);
                         return [4 /*yield*/, decisionRepository.insert(decision)];
                     case 2:
                         _a.sent();
@@ -58,4 +58,4 @@ var decisionService = {
         });
     },
 };
-exports.decisionService = decisionService;
+exports.rawJurinetService = rawJurinetService;

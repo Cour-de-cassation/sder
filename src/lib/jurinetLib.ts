@@ -25,6 +25,10 @@ const jurinetLib = {
     const mergedText = [];
     for (let j = 1; j < fragments.length - 1; j++) {
       // Remove HTML tags:
+      // Note: we cannot perform the same global removing as the one
+      // we apply on Jurica texts, because Jurinet texts - which are
+      // not valid XML documents - can contain many unencoded and
+      // meaningful < or > characters (e.g. "<96>", "<< ... >>", etc.)
       fragments[j] = fragments[j].replace(/<br\s*\/>/gim, '\r\n');
       fragments[j] = fragments[j].replace(/<hr\s*\/>/gim, '\r\n');
       fragments[j] = fragments[j].replace(/<a\s+[^>]+>/gim, '');

@@ -12,7 +12,7 @@ const juricaLib = {
       throw new Error('juricaLib.cleanText: empty text, the document could be malformed or corrupted.');
     }
 
-    // Remove HTML tags:
+    // Remove all HTML tags:
     text = text.replace(/<\/?[^>]+(>|$)/gm, '');
 
     // Handling newlines and carriage returns:

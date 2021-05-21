@@ -1,6 +1,6 @@
-export { juricaLib };
-
 import { decode } from 'he';
+
+export { juricaLib };
 
 const juricaLib = {
   cleanText(text: string): string {

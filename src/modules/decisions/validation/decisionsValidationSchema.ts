@@ -8,10 +8,18 @@ const decisionsValidationSchema = {
     properties: {
       _id: { bsonType: 'objectId' },
       _rev: { bsonType: 'int' },
+      _version: { bsonType: 'double' },
       analysis: {
         bsonType: 'object',
         additionalProperties: false,
         properties: {
+          analyse: {
+            bsonType: 'array',
+            additionalProperties: false,
+            items: {
+              bsonType: 'string',
+            },
+          },
           doctrine: { bsonType: 'string' },
           link: { bsonType: 'string' },
           reference: {
@@ -44,6 +52,13 @@ const decisionsValidationSchema = {
       chamberName: { bsonType: 'string' },
       dateCreation: { bsonType: 'date' },
       dateDecision: { bsonType: 'date' },
+      decatt: {
+        bsonType: 'array',
+        additionalProperties: false,
+        items: {
+          bsonType: 'number',
+        },
+      },
       jurisdictionCode: { bsonType: 'string' },
       jurisdictionId: { bsonType: 'string' },
       jurisdictionName: { bsonType: 'string' },
@@ -76,7 +91,13 @@ const decisionsValidationSchema = {
       },
       locked: { bsonType: 'bool' },
       originalText: { bsonType: 'string' },
-      parties: { bsonType: 'string' },
+      parties: {
+        bsonType: 'array',
+        additionalProperties: false,
+        items: {
+          bsonType: 'string',
+        },
+      },
       pseudoStatus: { bsonType: 'string' },
       pseudoText: { bsonType: 'string' },
       pubCategory: { bsonType: 'string' },

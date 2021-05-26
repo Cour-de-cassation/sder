@@ -1,3 +1,7 @@
+import { zoningUtils } from "../zoningUtils";
+import { cleanXml } from "./cleanXml";
+import { xmlToJson } from "./xmlToJson";
+
 export {normalize}
 
 function normalize(document, previousVersion, ignorePreviousContent) {
@@ -8,8 +12,8 @@ function normalize(document, previousVersion, ignorePreviousContent) {
     let pseudoStatus = document.IND_ANO;
 
     try {
-      cleanedXml = JurinetUtils.CleanXML(document.XML);
-      cleanedXml = JurinetUtils.XMLToJSON(cleanedXml, {
+      cleanedXml = cleanXml(document.XML);
+      cleanedXml = xmlToJson(cleanedXml, {
         filter: false,
         htmlDecode: true,
         toLowerCase: true,
@@ -18,8 +22,8 @@ function normalize(document, previousVersion, ignorePreviousContent) {
     } catch (ignore) {}
 
     try {
-      cleanedXmla = JurinetUtils.CleanXML(document.XMLA);
-      cleanedXmla = JurinetUtils.XMLToJSON(cleanedXmla, {
+      cleanedXmla = cleanXml(document.XMLA);
+      cleanedXmla = xmlToJson(cleanedXmla, {
         filter: false,
         htmlDecode: true,
         toLowerCase: true,
@@ -187,7 +191,7 @@ function normalize(document, previousVersion, ignorePreviousContent) {
 
     if (normalizedDecision.pseudoText) {
       try {
-        const zoning = await ZoningUtils.getZones(
+        const zoning = await zoningUtils.getZones(
           normalizedDecision.sourceId,
           normalizedDecision.sourceName,
           normalizedDecision.pseudoText,

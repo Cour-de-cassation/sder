@@ -25,5 +25,17 @@ describe('juricaLib', () => {
 
       expect(cleanedText).toBe('Test with multiple spaces');
     });
+
+    it('should throw if the parameter is not a string', async () => {
+      expect(() => juricaLib.cleanText((0 as unknown) as string)).toThrow(
+        'juricaLib.cleanText: text must be a string.',
+      );
+    });
+
+    it('should throw if the parameter is an empty string', async () => {
+      expect(() => juricaLib.cleanText('')).toThrow(
+        'juricaLib.cleanText: empty text, the document could be malformed or corrupted.',
+      );
+    });
   });
 });

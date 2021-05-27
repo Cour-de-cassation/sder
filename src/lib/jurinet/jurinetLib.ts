@@ -24,56 +24,11 @@ const jurinetLib = {
     // Cleaning every <TEXTE_ARRET> fragment:
     const mergedText = [];
     for (let j = 1; j < fragments.length - 1; j++) {
-      // Remove HTML tags:
-      // Note: we cannot perform the same global removing as the one
-      // we apply on Jurica texts, because Jurinet texts - which are
-      // not valid XML documents - can contain many unencoded and
-      // meaningful < or > characters (e.g. "<96>", "<< ... >>", etc.)
-      fragments[j] = fragments[j].replace(/<br\s*\/>/gim, '\r\n');
-      fragments[j] = fragments[j].replace(/<hr\s*\/>/gim, '\r\n');
-      fragments[j] = fragments[j].replace(/<a\s+[^>]+>/gim, '');
-      fragments[j] = fragments[j].replace(/<b\s+[^>]+>/gim, '');
-      fragments[j] = fragments[j].replace(/<i\s+[^>]+>/gim, '');
-      fragments[j] = fragments[j].replace(/<u\s+[^>]+>/gim, '');
-      fragments[j] = fragments[j].replace(/<em\s+[^>]+>/gim, '');
-      fragments[j] = fragments[j].replace(/<strong\s+[^>]+>/gim, '');
-      fragments[j] = fragments[j].replace(/<font\s+[^>]+>/gim, '');
-      fragments[j] = fragments[j].replace(/<span\s+[^>]+>/gim, '');
-      fragments[j] = fragments[j].replace(/<p\s+[^>]+>/gim, '');
-      fragments[j] = fragments[j].replace(/<h\d\s+[^>]+>/gim, '');
-      fragments[j] = fragments[j].replace(/<\/a>/gim, ' ');
-      fragments[j] = fragments[j].replace(/<\/b>/gim, ' ');
-      fragments[j] = fragments[j].replace(/<\/i>/gim, ' ');
-      fragments[j] = fragments[j].replace(/<\/u>/gim, ' ');
-      fragments[j] = fragments[j].replace(/<\/em>/gim, ' ');
-      fragments[j] = fragments[j].replace(/<\/strong>/gim, ' ');
-      fragments[j] = fragments[j].replace(/<\/font>/gim, ' ');
-      fragments[j] = fragments[j].replace(/<\/span>/gim, ' ');
-      fragments[j] = fragments[j].replace(/<\/p>/gim, '\r\n');
-      fragments[j] = fragments[j].replace(/<\/h\d>/gim, '\r\n');
-
-      // Handling newlines and carriage returns:
-      fragments[j] = fragments[j].replace(/\r\n/gim, '\n');
-      fragments[j] = fragments[j].replace(/\r/gim, '\n');
-
-      // Remove extra spaces:
-      fragments[j] = fragments[j].replace(/\t/gim, '');
-      fragments[j] = fragments[j].replace(/\\t/gim, ''); // That could happen...
-      fragments[j] = fragments[j].replace(/\f/gim, '');
-      fragments[j] = fragments[j].replace(/\\f/gim, ''); // That could happen too...
-      fragments[j] = fragments[j].replace(/  +/gm, ' ').trim();
-
-      // Minimal set of entities for XML validation:
-      fragments[j] = fragments[j]
-        .replace(/&/g, '&amp;')
-        .replace(/&amp;amp;/g, '&amp;')
-        .replace(/&amp;#/g, '&#');
-      fragments[j] = fragments[j].replace(/</g, '&lt;');
-      fragments[j] = fragments[j].replace(/>/g, '&gt;');
+      const cleanedTextArret = cleanTexteArret(fragments[j]);
 
       // Ignore empty fragment:
-      if (fragments[j] !== '') {
-        mergedText.push(fragments[j]);
+      if (cleanedTextArret !== '') {
+        mergedText.push(cleanedTextArret);
       }
     }
 
@@ -110,3 +65,51 @@ const jurinetLib = {
     return text;
   },
 };
+
+function cleanTexteArret(texteArret: string) {
+  let cleanedTextArret = texteArret;
+
+  cleanedTextArret = cleanedTextArret.replace(/<br\s*\/>/gim, '\r\n');
+  cleanedTextArret = cleanedTextArret.replace(/<hr\s*\/>/gim, '\r\n');
+  cleanedTextArret = cleanedTextArret.replace(/<a\s+[^>]+>/gim, '');
+  cleanedTextArret = cleanedTextArret.replace(/<b\s+[^>]+>/gim, '');
+  cleanedTextArret = cleanedTextArret.replace(/<i\s+[^>]+>/gim, '');
+  cleanedTextArret = cleanedTextArret.replace(/<u\s+[^>]+>/gim, '');
+  cleanedTextArret = cleanedTextArret.replace(/<em\s+[^>]+>/gim, '');
+  cleanedTextArret = cleanedTextArret.replace(/<strong\s+[^>]+>/gim, '');
+  cleanedTextArret = cleanedTextArret.replace(/<font\s+[^>]+>/gim, '');
+  cleanedTextArret = cleanedTextArret.replace(/<span\s+[^>]+>/gim, '');
+  cleanedTextArret = cleanedTextArret.replace(/<p\s+[^>]+>/gim, '');
+  cleanedTextArret = cleanedTextArret.replace(/<h\d\s+[^>]+>/gim, '');
+  cleanedTextArret = cleanedTextArret.replace(/<\/a>/gim, ' ');
+  cleanedTextArret = cleanedTextArret.replace(/<\/b>/gim, ' ');
+  cleanedTextArret = cleanedTextArret.replace(/<\/i>/gim, ' ');
+  cleanedTextArret = cleanedTextArret.replace(/<\/u>/gim, ' ');
+  cleanedTextArret = cleanedTextArret.replace(/<\/em>/gim, ' ');
+  cleanedTextArret = cleanedTextArret.replace(/<\/strong>/gim, ' ');
+  cleanedTextArret = cleanedTextArret.replace(/<\/font>/gim, ' ');
+  cleanedTextArret = cleanedTextArret.replace(/<\/span>/gim, ' ');
+  cleanedTextArret = cleanedTextArret.replace(/<\/p>/gim, '\r\n');
+  cleanedTextArret = cleanedTextArret.replace(/<\/h\d>/gim, '\r\n');
+
+  // Handling newlines and carriage returns:
+  cleanedTextArret = cleanedTextArret.replace(/\r\n/gim, '\n');
+  cleanedTextArret = cleanedTextArret.replace(/\r/gim, '\n');
+
+  // Remove extra spaces:
+  cleanedTextArret = cleanedTextArret.replace(/\t/gim, '');
+  cleanedTextArret = cleanedTextArret.replace(/\\t/gim, ''); // That could happen...
+  cleanedTextArret = cleanedTextArret.replace(/\f/gim, '');
+  cleanedTextArret = cleanedTextArret.replace(/\\f/gim, ''); // That could happen too...
+  cleanedTextArret = cleanedTextArret.replace(/  +/gm, ' ').trim();
+
+  // Minimal set of entities for XML validation:
+  cleanedTextArret = cleanedTextArret
+    .replace(/&/g, '&amp;')
+    .replace(/&amp;amp;/g, '&amp;')
+    .replace(/&amp;#/g, '&#');
+  cleanedTextArret = cleanedTextArret.replace(/</g, '&lt;');
+  cleanedTextArret = cleanedTextArret.replace(/>/g, '&gt;');
+
+  return cleanedTextArret;
+}

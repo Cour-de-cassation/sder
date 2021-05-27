@@ -69,28 +69,7 @@ const jurinetLib = {
 function cleanTexteArret(texteArret: string) {
   let cleanedTextArret = texteArret;
 
-  cleanedTextArret = cleanedTextArret.replace(/<br\s*\/>/gim, '\r\n');
-  cleanedTextArret = cleanedTextArret.replace(/<hr\s*\/>/gim, '\r\n');
-  cleanedTextArret = cleanedTextArret.replace(/<a\s+[^>]+>/gim, '');
-  cleanedTextArret = cleanedTextArret.replace(/<b\s+[^>]+>/gim, '');
-  cleanedTextArret = cleanedTextArret.replace(/<i\s+[^>]+>/gim, '');
-  cleanedTextArret = cleanedTextArret.replace(/<u\s+[^>]+>/gim, '');
-  cleanedTextArret = cleanedTextArret.replace(/<em\s+[^>]+>/gim, '');
-  cleanedTextArret = cleanedTextArret.replace(/<strong\s+[^>]+>/gim, '');
-  cleanedTextArret = cleanedTextArret.replace(/<font\s+[^>]+>/gim, '');
-  cleanedTextArret = cleanedTextArret.replace(/<span\s+[^>]+>/gim, '');
-  cleanedTextArret = cleanedTextArret.replace(/<p\s+[^>]+>/gim, '');
-  cleanedTextArret = cleanedTextArret.replace(/<h\d\s+[^>]+>/gim, '');
-  cleanedTextArret = cleanedTextArret.replace(/<\/a>/gim, ' ');
-  cleanedTextArret = cleanedTextArret.replace(/<\/b>/gim, ' ');
-  cleanedTextArret = cleanedTextArret.replace(/<\/i>/gim, ' ');
-  cleanedTextArret = cleanedTextArret.replace(/<\/u>/gim, ' ');
-  cleanedTextArret = cleanedTextArret.replace(/<\/em>/gim, ' ');
-  cleanedTextArret = cleanedTextArret.replace(/<\/strong>/gim, ' ');
-  cleanedTextArret = cleanedTextArret.replace(/<\/font>/gim, ' ');
-  cleanedTextArret = cleanedTextArret.replace(/<\/span>/gim, ' ');
-  cleanedTextArret = cleanedTextArret.replace(/<\/p>/gim, '\r\n');
-  cleanedTextArret = cleanedTextArret.replace(/<\/h\d>/gim, '\r\n');
+  cleanedTextArret = removeHtmlTags(cleanedTextArret);
 
   // Handling newlines and carriage returns:
   cleanedTextArret = cleanNewLines(cleanedTextArret);
@@ -104,6 +83,32 @@ function cleanTexteArret(texteArret: string) {
   cleanedTextArret = cleanXmlSpecialCharacter(cleanedTextArret);
 
   return cleanedTextArret;
+
+  function removeHtmlTags(str: string) {
+    return str
+      .replace(/<br\s*\/>/gim, '\r\n')
+      .replace(/<hr\s*\/>/gim, '\r\n')
+      .replace(/<a\s+[^>]+>/gim, '')
+      .replace(/<b\s+[^>]+>/gim, '')
+      .replace(/<i\s+[^>]+>/gim, '')
+      .replace(/<u\s+[^>]+>/gim, '')
+      .replace(/<em\s+[^>]+>/gim, '')
+      .replace(/<strong\s+[^>]+>/gim, '')
+      .replace(/<font\s+[^>]+>/gim, '')
+      .replace(/<span\s+[^>]+>/gim, '')
+      .replace(/<p\s+[^>]+>/gim, '')
+      .replace(/<h\d\s+[^>]+>/gim, '')
+      .replace(/<\/a>/gim, ' ')
+      .replace(/<\/b>/gim, ' ')
+      .replace(/<\/i>/gim, ' ')
+      .replace(/<\/u>/gim, ' ')
+      .replace(/<\/em>/gim, ' ')
+      .replace(/<\/strong>/gim, ' ')
+      .replace(/<\/font>/gim, ' ')
+      .replace(/<\/span>/gim, ' ')
+      .replace(/<\/p>/gim, '\r\n')
+      .replace(/<\/h\d>/gim, '\r\n');
+  }
 
   function cleanNewLines(str: string) {
     return str.replace(/\r\n/gim, '\n').replace(/\r/gim, '\n');

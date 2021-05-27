@@ -101,12 +101,7 @@ function cleanTexteArret(texteArret: string) {
   cleanedTextArret = removeMultipleSpace(cleanedTextArret);
 
   // Minimal set of entities for XML validation:
-  cleanedTextArret = cleanedTextArret
-    .replace(/&/g, '&amp;')
-    .replace(/&amp;amp;/g, '&amp;')
-    .replace(/&amp;#/g, '&#');
-  cleanedTextArret = cleanedTextArret.replace(/</g, '&lt;');
-  cleanedTextArret = cleanedTextArret.replace(/>/g, '&gt;');
+  cleanedTextArret = cleanXmlSpecialCharacter(cleanedTextArret);
 
   return cleanedTextArret;
 
@@ -124,5 +119,14 @@ function cleanTexteArret(texteArret: string) {
 
   function removeMultipleSpace(str: string) {
     return str.replace(/  +/gm, ' ').trim();
+  }
+
+  function cleanXmlSpecialCharacter(str: string) {
+    return str
+      .replace(/&/g, '&amp;')
+      .replace(/&amp;amp;/g, '&amp;')
+      .replace(/&amp;#/g, '&#')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;');
   }
 }

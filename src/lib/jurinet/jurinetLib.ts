@@ -98,8 +98,7 @@ function cleanTexteArret(texteArret: string) {
 
   // Remove extra spaces:
   cleanedTextArret = removeTabulation(cleanedTextArret);
-  cleanedTextArret = cleanedTextArret.replace(/\f/gim, '');
-  cleanedTextArret = cleanedTextArret.replace(/\\f/gim, ''); // That could happen too...
+  cleanedTextArret = removePageBreak(cleanedTextArret);
   cleanedTextArret = cleanedTextArret.replace(/  +/gm, ' ').trim();
 
   // Minimal set of entities for XML validation:
@@ -113,6 +112,10 @@ function cleanTexteArret(texteArret: string) {
   return cleanedTextArret;
 
   function removeTabulation(str: string) {
-    return str.replace(/(\t|\\t)/gim, '');
+    return str.replace(/(\t|\\t)/gim, ''); // Tabulation could be ill formed
+  }
+
+  function removePageBreak(str: string) {
+    return str.replace(/(\f|\\f)/gim, ''); // Page break could be ill formed
   }
 }

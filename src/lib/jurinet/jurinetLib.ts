@@ -70,16 +70,10 @@ function cleanTexteArret(texteArret: string) {
   let cleanedTextArret = texteArret;
 
   cleanedTextArret = removeHtmlTags(cleanedTextArret);
-
-  // Handling newlines and carriage returns:
   cleanedTextArret = cleanNewLines(cleanedTextArret);
-
-  // Remove extra spaces:
   cleanedTextArret = removeTabulation(cleanedTextArret);
   cleanedTextArret = removePageBreak(cleanedTextArret);
   cleanedTextArret = removeMultipleSpace(cleanedTextArret);
-
-  // Minimal set of entities for XML validation:
   cleanedTextArret = cleanXmlSpecialCharacter(cleanedTextArret);
 
   return cleanedTextArret;

@@ -7,9 +7,9 @@ const jurinetLib = {
     }
 
     // There could be more than one <TEXTE_ARRET> tags, so we first split the text around them:
-    const fragments = text.split(/<\/?texte_arret>/gi);
+    const texteArrets = extractTexteArrets(text);
 
-    if (fragments.length < 3) {
+    if (texteArrets.length === 0) {
       throw new Error(
         'jurinetLib.cleanText: <TEXTE_ARRET> tag not found or incomplete, the document could be malformed or corrupted.',
       );
@@ -23,8 +23,8 @@ const jurinetLib = {
 
     // Cleaning every <TEXTE_ARRET> fragment:
     const mergedText = [];
-    for (let j = 1; j < fragments.length - 1; j++) {
-      const cleanedTextArret = cleanTexteArret(fragments[j]);
+    for (let j = 0; j < texteArrets.length; j++) {
+      const cleanedTextArret = cleanTexteArret(texteArrets[j]);
 
       // Ignore empty fragment:
       if (cleanedTextArret !== '') {
@@ -65,6 +65,10 @@ const jurinetLib = {
     return text;
   },
 };
+
+function extractTexteArrets(decisionText: string) {
+  return decisionText.split(/<\/?texte_arret>/gi).slice(1, -1);
+}
 
 function cleanTexteArret(texteArret: string) {
   let cleanedTextArret = texteArret;

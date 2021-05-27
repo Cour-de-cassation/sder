@@ -2,29 +2,22 @@ export { jurinetLib };
 
 const jurinetLib = {
   cleanText(text: string): string {
-    if (typeof text !== 'string') {
-      throw new Error('jurinetLib.cleanText: text must be a string.');
-    }
+    assertDecisionTextIsString(text);
 
     // There could be more than one <TEXTE_ARRET> tags, so we first split the text around them:
     const texteArrets = extractTexteArrets(text);
+
+    assertTexteArretsNotEmpty(texteArrets);
+
     const cleanedTexteArrets = texteArrets.map(cleanTexteArret).filter((cleanedTexteArret) => cleanedTexteArret !== '');
 
-    if (texteArrets.length === 0) {
-      throw new Error(
-        'jurinetLib.cleanText: <TEXTE_ARRET> tag not found or incomplete, the document could be malformed or corrupted.',
-      );
-    }
+    assertCleanedTexteArretsNotEmpty(cleanedTexteArrets);
 
     // Keep this info for later:
     const textNextToCatPub = text.indexOf('</CAT_PUB><TEXTE_ARRET>') !== -1;
 
     // Remove all <TEXT_ARRET> fragments from the text:
     text = text.replace(/<texte_arret>[\s\S]*<\/texte_arret>/gim, '');
-
-    if (cleanedTexteArrets.length === 0) {
-      throw new Error('jurinetLib.cleanText: empty text, the document could be malformed or corrupted.');
-    }
 
     // Cleaning the rest of the text:
     text = text
@@ -55,6 +48,26 @@ const jurinetLib = {
     return text;
   },
 };
+
+function assertDecisionTextIsString(decisionText: string) {
+  if (typeof decisionText !== 'string') {
+    throw new Error('jurinetLib.cleanText: text must be a string.');
+  }
+}
+
+function assertTexteArretsNotEmpty(texteArrets: string[]) {
+  if (texteArrets.length === 0) {
+    throw new Error(
+      'jurinetLib.cleanText: <TEXTE_ARRET> tag not found or incomplete, the document could be malformed or corrupted.',
+    );
+  }
+}
+
+function assertCleanedTexteArretsNotEmpty(cleanedTexteArrets: string[]) {
+  if (cleanedTexteArrets.length === 0) {
+    throw new Error('jurinetLib.cleanText: empty text, the document could be malformed or corrupted.');
+  }
+}
 
 function extractTexteArrets(decisionText: string) {
   return decisionText.split(/<\/?texte_arret>/gi).slice(1, -1);

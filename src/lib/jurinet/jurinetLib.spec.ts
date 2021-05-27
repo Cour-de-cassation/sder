@@ -30,6 +30,12 @@ describe('jurinetLib', () => {
       );
     });
 
+    it('should throw if the parameter is all the text_arrets are empty', async () => {
+      expect(() => jurinetLib.cleanText(buildJurinetXml(['', '\t']))).toThrow(
+        'jurinetLib.cleanText: empty text, the document could be malformed or corrupted.',
+      );
+    });
+
     it('should remove the <br/> inside the <TEXTE_ARRET>', async () => {
       const xml = buildJurinetXml(['TEXT1 <br/> TEXT2', 'TEXT3 <br/> TEXT4']);
 

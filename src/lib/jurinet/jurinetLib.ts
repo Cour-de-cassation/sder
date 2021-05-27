@@ -97,8 +97,7 @@ function cleanTexteArret(texteArret: string) {
   cleanedTextArret = cleanedTextArret.replace(/\r/gim, '\n');
 
   // Remove extra spaces:
-  cleanedTextArret = cleanedTextArret.replace(/\t/gim, '');
-  cleanedTextArret = cleanedTextArret.replace(/\\t/gim, ''); // That could happen...
+  cleanedTextArret = removeTabulation(cleanedTextArret);
   cleanedTextArret = cleanedTextArret.replace(/\f/gim, '');
   cleanedTextArret = cleanedTextArret.replace(/\\f/gim, ''); // That could happen too...
   cleanedTextArret = cleanedTextArret.replace(/  +/gm, ' ').trim();
@@ -112,4 +111,8 @@ function cleanTexteArret(texteArret: string) {
   cleanedTextArret = cleanedTextArret.replace(/>/g, '&gt;');
 
   return cleanedTextArret;
+
+  function removeTabulation(str: string) {
+    return str.replace(/(\t|\\t)/gim, '');
+  }
 }

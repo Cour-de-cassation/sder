@@ -46,13 +46,39 @@ describe('jurinetLib', () => {
       });
     });
 
-    describe('header', () => {
+    describe('headers', () => {
       it('should return a cleaned decision text with a LIEN_WWW header before <TEXTE_ARRET>', async () => {
         const xml = buildJurinetXml(['TEXT1 TEXT2'], '<LIEN_WWW></LIEN_WWW>');
 
         const cleanedText = jurinetLib.cleanText(xml);
 
         expect(cleanedText).toEqual('<LIEN_WWW></LIEN_WWW><TEXTE_ARRET>TEXT1 TEXT2</TEXTE_ARRET>');
+      });
+
+      it('should clean all the xml special character < and > outside the <TEXTE_ARRET>', async () => {
+        const xml = buildJurinetXml(
+          ['TEXT1 TEXT2'],
+          ' < BEFORE_HEADER <LIEN_WWW> HEADER1 < HEADER2 > HEADER3 </LIEN_WWW>',
+        );
+
+        const cleanedText = jurinetLib.cleanText(xml);
+
+        expect(cleanedText).toEqual(
+          '&lt; BEFORE_HEADER <LIEN_WWW> HEADER1 &lt; HEADER2 &gt; HEADER3 </LIEN_WWW><TEXTE_ARRET>TEXT1 TEXT2</TEXTE_ARRET>',
+        );
+      });
+
+      it('should clean all the xml special character & and &# outside the <TEXTE_ARRET>', async () => {
+        const xml = buildJurinetXml(
+          ['TEXT1 TEXT2'],
+          '& BEFORE_HEADER <LIEN_WWW> HEADER1 & HEADER2 &# HEADER3 </LIEN_WWW>',
+        );
+
+        const cleanedText = jurinetLib.cleanText(xml);
+
+        expect(cleanedText).toEqual(
+          '&amp; BEFORE_HEADER <LIEN_WWW> HEADER1 &amp; HEADER2 &# HEADER3 </LIEN_WWW><TEXTE_ARRET>TEXT1 TEXT2</TEXTE_ARRET>',
+        );
       });
     });
 

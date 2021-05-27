@@ -80,6 +80,19 @@ describe('jurinetLib', () => {
           '&amp; BEFORE_HEADER <LIEN_WWW> HEADER1 &amp; HEADER2 &# HEADER3 </LIEN_WWW><TEXTE_ARRET>TEXT1 TEXT2</TEXTE_ARRET>',
         );
       });
+
+      it('should serialize all the numpourvoi in the header', async () => {
+        const xml = buildJurinetXml(
+          ['TEXT1 TEXT2'],
+          '<numpourvoi id="1">1</numpourvoi><numpourvoi id="2">2</numpourvoi><LIEN_WWW></LIEN_WWW>',
+        );
+
+        const cleanedText = jurinetLib.cleanText(xml);
+
+        expect(cleanedText).toEqual(
+          '<numpourvoi id="1">1,2</numpourvoi><LIEN_WWW></LIEN_WWW><TEXTE_ARRET>TEXT1 TEXT2</TEXTE_ARRET>',
+        );
+      });
     });
 
     describe('TEXTE_ARRET cleaning', () => {

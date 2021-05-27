@@ -18,256 +18,264 @@ describe('jurinetLib', () => {
       );
     });
 
-    it('should throw if the parameter is not a string', async () => {
-      expect(() => jurinetLib.cleanText((0 as unknown) as string)).toThrow(
-        'jurinetLib.cleanText: text must be a string.',
-      );
+    describe('assertions', () => {
+      it('should throw if the parameter is not a string', async () => {
+        expect(() => jurinetLib.cleanText((0 as unknown) as string)).toThrow(
+          'jurinetLib.cleanText: text must be a string.',
+        );
+      });
+
+      it('should throw if the parameter is not in a text_arret', async () => {
+        expect(() => jurinetLib.cleanText('Text of decision')).toThrow(
+          'jurinetLib.cleanText: <TEXTE_ARRET> tag not found or incomplete, the document could be malformed or corrupted.',
+        );
+      });
+
+      it('should throw if the parameter is all the text_arrets are empty', async () => {
+        expect(() => jurinetLib.cleanText(buildJurinetXml(['', '\t']))).toThrow(
+          'jurinetLib.cleanText: empty text, the document could be malformed or corrupted.',
+        );
+      });
+
+      it('should throw if there header is not valid', async () => {
+        expect(() =>
+          jurinetLib.cleanText(buildJurinetXml(['TEXT1 TEXT2'], '<INVALID_HEADER></INVALID_HEADER>')),
+        ).toThrow(
+          'jurinetLib.cleanText: End of <CAT_PUB> or <LIEN_WWW> tag not found, the document could be malformed or corrupted.',
+        );
+      });
     });
 
-    it('should throw if the parameter is not in a text_arret', async () => {
-      expect(() => jurinetLib.cleanText('Text of decision')).toThrow(
-        'jurinetLib.cleanText: <TEXTE_ARRET> tag not found or incomplete, the document could be malformed or corrupted.',
-      );
-    });
-
-    it('should throw if the parameter is all the text_arrets are empty', async () => {
-      expect(() => jurinetLib.cleanText(buildJurinetXml(['', '\t']))).toThrow(
-        'jurinetLib.cleanText: empty text, the document could be malformed or corrupted.',
-      );
-    });
-
-    it('should throw if there header is not valid', async () => {
-      expect(() => jurinetLib.cleanText(buildJurinetXml(['TEXT1 TEXT2'], '<INVALID_HEADER></INVALID_HEADER>'))).toThrow(
-        'jurinetLib.cleanText: End of <CAT_PUB> or <LIEN_WWW> tag not found, the document could be malformed or corrupted.',
-      );
-    });
-
-    it('should return a cleaned decision text with a LIEN_WWW header before <TEXTE_ARRET>', async () => {
-      const xml = buildJurinetXml(['TEXT1 TEXT2'], '<LIEN_WWW></LIEN_WWW>');
-
-      const cleanedText = jurinetLib.cleanText(xml);
-
-      expect(cleanedText).toEqual('<LIEN_WWW></LIEN_WWW><TEXTE_ARRET>TEXT1 TEXT2</TEXTE_ARRET>');
-    });
-
-    it('should remove the <br/> inside the <TEXTE_ARRET>', async () => {
-      const xml = buildJurinetXml(['TEXT1 <br/> TEXT2', 'TEXT3 <br/> TEXT4']);
-
-      const cleanedText = jurinetLib.cleanText(xml);
-
-      expect(cleanedText).toEqual('<CAT_PUB></CAT_PUB><TEXTE_ARRET>TEXT1 \n TEXT2 TEXT3 \n TEXT4</TEXTE_ARRET>');
-    });
-
-    it('should remove the <hr/> inside the <TEXTE_ARRET>', async () => {
-      const xml = buildJurinetXml(['TEXT1 <hr/> TEXT2', 'TEXT3 <hr/> TEXT4']);
-
-      const cleanedText = jurinetLib.cleanText(xml);
-
-      expect(cleanedText).toEqual('<CAT_PUB></CAT_PUB><TEXTE_ARRET>TEXT1 \n TEXT2 TEXT3 \n TEXT4</TEXTE_ARRET>');
-    });
-
-    it('should remove the <a> inside the <TEXTE_ARRET>', async () => {
-      const xml = buildJurinetXml(['TEXT1 <a href="URL"> TEXT2 </a>']);
-
-      const cleanedText = jurinetLib.cleanText(xml);
-
-      expect(cleanedText).toEqual('<CAT_PUB></CAT_PUB><TEXTE_ARRET>TEXT1 TEXT2</TEXTE_ARRET>');
-    });
-
-    it('should remove the <b> inside the <TEXTE_ARRET>', async () => {
-      const xml = buildJurinetXml(['TEXT1 <b class="CLASS"> TEXT2 </b>']);
-
-      const cleanedText = jurinetLib.cleanText(xml);
-
-      expect(cleanedText).toEqual('<CAT_PUB></CAT_PUB><TEXTE_ARRET>TEXT1 TEXT2</TEXTE_ARRET>');
-    });
-
-    it('should remove the <i> inside the <TEXTE_ARRET>', async () => {
-      const xml = buildJurinetXml(['TEXT1 <i class="CLASS"> TEXT2 </i>']);
-
-      const cleanedText = jurinetLib.cleanText(xml);
-
-      expect(cleanedText).toEqual('<CAT_PUB></CAT_PUB><TEXTE_ARRET>TEXT1 TEXT2</TEXTE_ARRET>');
-    });
-
-    it('should remove the <u> inside the <TEXTE_ARRET>', async () => {
-      const xml = buildJurinetXml(['TEXT1 <u class="CLASS"> TEXT2 </u>']);
-
-      const cleanedText = jurinetLib.cleanText(xml);
-
-      expect(cleanedText).toEqual('<CAT_PUB></CAT_PUB><TEXTE_ARRET>TEXT1 TEXT2</TEXTE_ARRET>');
-    });
-
-    it('should remove the <em> inside the <TEXTE_ARRET>', async () => {
-      const xml = buildJurinetXml(['TEXT1 <em class="CLASS"> TEXT2 </em>']);
-
-      const cleanedText = jurinetLib.cleanText(xml);
-
-      expect(cleanedText).toEqual('<CAT_PUB></CAT_PUB><TEXTE_ARRET>TEXT1 TEXT2</TEXTE_ARRET>');
-    });
-
-    it('should remove the <strong> inside the <TEXTE_ARRET>', async () => {
-      const xml = buildJurinetXml(['TEXT1 <strong class="CLASS"> TEXT2 </strong>']);
-
-      const cleanedText = jurinetLib.cleanText(xml);
-
-      expect(cleanedText).toEqual('<CAT_PUB></CAT_PUB><TEXTE_ARRET>TEXT1 TEXT2</TEXTE_ARRET>');
-    });
-
-    it('should remove the <font> inside the <TEXTE_ARRET>', async () => {
-      const xml = buildJurinetXml(['TEXT1 <font class="CLASS"> TEXT2 </font>']);
-
-      const cleanedText = jurinetLib.cleanText(xml);
-
-      expect(cleanedText).toEqual('<CAT_PUB></CAT_PUB><TEXTE_ARRET>TEXT1 TEXT2</TEXTE_ARRET>');
-    });
-
-    it('should remove the <span> inside the <TEXTE_ARRET>', async () => {
-      const xml = buildJurinetXml(['TEXT1 <span class="CLASS"> TEXT2 </span>']);
-
-      const cleanedText = jurinetLib.cleanText(xml);
-
-      expect(cleanedText).toEqual('<CAT_PUB></CAT_PUB><TEXTE_ARRET>TEXT1 TEXT2</TEXTE_ARRET>');
-    });
-
-    it('should remove the <p> inside the <TEXTE_ARRET>', async () => {
-      const xml = buildJurinetXml(['TEXT1 <p class="CLASS"> TEXT2 </p> TEXT3']);
-
-      const cleanedText = jurinetLib.cleanText(xml);
-
-      expect(cleanedText).toEqual('<CAT_PUB></CAT_PUB><TEXTE_ARRET>TEXT1 TEXT2 \n TEXT3</TEXTE_ARRET>');
-    });
-
-    it('should remove the <h%d> inside the <TEXTE_ARRET>', async () => {
-      const titleNumberCategory = Math.floor(Math.random() * 5) + 1;
-      const xml = buildJurinetXml([
-        `TEXT1 <h${titleNumberCategory} class="CLASS"> TEXT2 </h${titleNumberCategory}> TEXT3`,
-      ]);
-
-      const cleanedText = jurinetLib.cleanText(xml);
-
-      expect(cleanedText).toEqual('<CAT_PUB></CAT_PUB><TEXTE_ARRET>TEXT1 TEXT2 \n TEXT3</TEXTE_ARRET>');
-    });
-
-    it('should replace the newline \\r\\n by \\n inside the <TEXTE_ARRET>', async () => {
-      const xml = buildJurinetXml(['TEXT1 \r\n TEXT2']);
-
-      const cleanedText = jurinetLib.cleanText(xml);
-
-      expect(cleanedText).toEqual('<CAT_PUB></CAT_PUB><TEXTE_ARRET>TEXT1 \n TEXT2</TEXTE_ARRET>');
-    });
-
-    it('should replace the newline \\r by \\n inside the <TEXTE_ARRET>', async () => {
-      const xml = buildJurinetXml(['TEXT1 \r TEXT2']);
-
-      const cleanedText = jurinetLib.cleanText(xml);
-
-      expect(cleanedText).toEqual('<CAT_PUB></CAT_PUB><TEXTE_ARRET>TEXT1 \n TEXT2</TEXTE_ARRET>');
-    });
-
-    it('should replace the newline \\r\\r\\n by \\n\\n inside the <TEXTE_ARRET>', async () => {
-      const xml = buildJurinetXml(['TEXT1 \r\r\n TEXT2']);
-
-      const cleanedText = jurinetLib.cleanText(xml);
-
-      expect(cleanedText).toEqual('<CAT_PUB></CAT_PUB><TEXTE_ARRET>TEXT1 \n\n TEXT2</TEXTE_ARRET>');
-    });
-
-    it('should remove the tabulation \\t inside the <TEXTE_ARRET>', async () => {
-      const xml = buildJurinetXml(['TEXT1\t\tTEXT2']);
-
-      const cleanedText = jurinetLib.cleanText(xml);
-
-      expect(cleanedText).toEqual('<CAT_PUB></CAT_PUB><TEXTE_ARRET>TEXT1TEXT2</TEXTE_ARRET>');
-    });
-
-    it('should remove ill formed tabulation \\\\t inside the <TEXTE_ARRET>', async () => {
-      const xml = buildJurinetXml(['TEXT1\\t\\tTEXT2']);
-
-      const cleanedText = jurinetLib.cleanText(xml);
-
-      expect(cleanedText).toEqual('<CAT_PUB></CAT_PUB><TEXTE_ARRET>TEXT1TEXT2</TEXTE_ARRET>');
-    });
-
-    it('should remove the page break \\f inside the <TEXTE_ARRET>', async () => {
-      const xml = buildJurinetXml(['TEXT1\f\fTEXT2']);
-
-      const cleanedText = jurinetLib.cleanText(xml);
-
-      expect(cleanedText).toEqual('<CAT_PUB></CAT_PUB><TEXTE_ARRET>TEXT1TEXT2</TEXTE_ARRET>');
-    });
-
-    it('should remove ill formed page break \\\\f inside the <TEXTE_ARRET>', async () => {
-      const xml = buildJurinetXml(['TEXT1\\f\\fTEXT2']);
-
-      const cleanedText = jurinetLib.cleanText(xml);
-
-      expect(cleanedText).toEqual('<CAT_PUB></CAT_PUB><TEXTE_ARRET>TEXT1TEXT2</TEXTE_ARRET>');
-    });
-
-    it('should replace multiple space by single space inside the <TEXTE_ARRET>', async () => {
-      const xml = buildJurinetXml(['TEXT1   TEXT2']);
-
-      const cleanedText = jurinetLib.cleanText(xml);
-
-      expect(cleanedText).toEqual('<CAT_PUB></CAT_PUB><TEXTE_ARRET>TEXT1 TEXT2</TEXTE_ARRET>');
-    });
-
-    it('should format well the & character inside the <TEXTE_ARRET>', async () => {
-      const xml = buildJurinetXml(['&TEXT1']);
-
-      const cleanedText = jurinetLib.cleanText(xml);
-
-      expect(cleanedText).toEqual('<CAT_PUB></CAT_PUB><TEXTE_ARRET>&amp;TEXT1</TEXTE_ARRET>');
-    });
-
-    it('should keep the &amp; inside the <TEXTE_ARRET>', async () => {
-      const xml = buildJurinetXml(['&amp;TEXT1']);
-
-      const cleanedText = jurinetLib.cleanText(xml);
-
-      expect(cleanedText).toEqual('<CAT_PUB></CAT_PUB><TEXTE_ARRET>&amp;TEXT1</TEXTE_ARRET>');
-    });
-
-    it('should convert the &amp;# into &# inside the <TEXTE_ARRET>', async () => {
-      const xml = buildJurinetXml(['&amp;#TEXT1']);
-
-      const cleanedText = jurinetLib.cleanText(xml);
-
-      expect(cleanedText).toEqual('<CAT_PUB></CAT_PUB><TEXTE_ARRET>&#TEXT1</TEXTE_ARRET>');
-    });
-
-    it('should format well the < character inside the <TEXTE_ARRET>', async () => {
-      const xml = buildJurinetXml(['<TEXT1']);
-
-      const cleanedText = jurinetLib.cleanText(xml);
-
-      expect(cleanedText).toEqual('<CAT_PUB></CAT_PUB><TEXTE_ARRET>&lt;TEXT1</TEXTE_ARRET>');
-    });
-
-    it('should format well the > character inside the <TEXTE_ARRET>', async () => {
-      const xml = buildJurinetXml(['>TEXT1']);
-
-      const cleanedText = jurinetLib.cleanText(xml);
-
-      expect(cleanedText).toEqual('<CAT_PUB></CAT_PUB><TEXTE_ARRET>&gt;TEXT1</TEXTE_ARRET>');
-    });
-
-    it('should conserve the < and > for data inside the <TEXTE_ARRET>', async () => {
-      const xml = buildJurinetXml(['<TEXT1>']);
-
-      const cleanedText = jurinetLib.cleanText(xml);
-
-      expect(cleanedText).toEqual('<CAT_PUB></CAT_PUB><TEXTE_ARRET>&lt;TEXT1&gt;</TEXTE_ARRET>');
-    });
-
-    describe('WEIRD CASE', () => {
-      it('should conserve the opening html balise without parameters but not the closing one inside the <TEXTE_ARRET>', async () => {
-        const xml = buildJurinetXml(['<p> TEXT1 </p>']);
+    describe('header', () => {
+      it('should return a cleaned decision text with a LIEN_WWW header before <TEXTE_ARRET>', async () => {
+        const xml = buildJurinetXml(['TEXT1 TEXT2'], '<LIEN_WWW></LIEN_WWW>');
 
         const cleanedText = jurinetLib.cleanText(xml);
 
-        expect(cleanedText).toEqual('<CAT_PUB></CAT_PUB><TEXTE_ARRET>&lt;p&gt; TEXT1</TEXTE_ARRET>');
+        expect(cleanedText).toEqual('<LIEN_WWW></LIEN_WWW><TEXTE_ARRET>TEXT1 TEXT2</TEXTE_ARRET>');
+      });
+    });
+
+    describe('TEXTE_ARRET cleaning', () => {
+      it('should remove the <br/> inside the <TEXTE_ARRET>', async () => {
+        const xml = buildJurinetXml(['TEXT1 <br/> TEXT2', 'TEXT3 <br/> TEXT4']);
+
+        const cleanedText = jurinetLib.cleanText(xml);
+
+        expect(cleanedText).toEqual('<CAT_PUB></CAT_PUB><TEXTE_ARRET>TEXT1 \n TEXT2 TEXT3 \n TEXT4</TEXTE_ARRET>');
+      });
+
+      it('should remove the <hr/> inside the <TEXTE_ARRET>', async () => {
+        const xml = buildJurinetXml(['TEXT1 <hr/> TEXT2', 'TEXT3 <hr/> TEXT4']);
+
+        const cleanedText = jurinetLib.cleanText(xml);
+
+        expect(cleanedText).toEqual('<CAT_PUB></CAT_PUB><TEXTE_ARRET>TEXT1 \n TEXT2 TEXT3 \n TEXT4</TEXTE_ARRET>');
+      });
+
+      it('should remove the <a> inside the <TEXTE_ARRET>', async () => {
+        const xml = buildJurinetXml(['TEXT1 <a href="URL"> TEXT2 </a>']);
+
+        const cleanedText = jurinetLib.cleanText(xml);
+
+        expect(cleanedText).toEqual('<CAT_PUB></CAT_PUB><TEXTE_ARRET>TEXT1 TEXT2</TEXTE_ARRET>');
+      });
+
+      it('should remove the <b> inside the <TEXTE_ARRET>', async () => {
+        const xml = buildJurinetXml(['TEXT1 <b class="CLASS"> TEXT2 </b>']);
+
+        const cleanedText = jurinetLib.cleanText(xml);
+
+        expect(cleanedText).toEqual('<CAT_PUB></CAT_PUB><TEXTE_ARRET>TEXT1 TEXT2</TEXTE_ARRET>');
+      });
+
+      it('should remove the <i> inside the <TEXTE_ARRET>', async () => {
+        const xml = buildJurinetXml(['TEXT1 <i class="CLASS"> TEXT2 </i>']);
+
+        const cleanedText = jurinetLib.cleanText(xml);
+
+        expect(cleanedText).toEqual('<CAT_PUB></CAT_PUB><TEXTE_ARRET>TEXT1 TEXT2</TEXTE_ARRET>');
+      });
+
+      it('should remove the <u> inside the <TEXTE_ARRET>', async () => {
+        const xml = buildJurinetXml(['TEXT1 <u class="CLASS"> TEXT2 </u>']);
+
+        const cleanedText = jurinetLib.cleanText(xml);
+
+        expect(cleanedText).toEqual('<CAT_PUB></CAT_PUB><TEXTE_ARRET>TEXT1 TEXT2</TEXTE_ARRET>');
+      });
+
+      it('should remove the <em> inside the <TEXTE_ARRET>', async () => {
+        const xml = buildJurinetXml(['TEXT1 <em class="CLASS"> TEXT2 </em>']);
+
+        const cleanedText = jurinetLib.cleanText(xml);
+
+        expect(cleanedText).toEqual('<CAT_PUB></CAT_PUB><TEXTE_ARRET>TEXT1 TEXT2</TEXTE_ARRET>');
+      });
+
+      it('should remove the <strong> inside the <TEXTE_ARRET>', async () => {
+        const xml = buildJurinetXml(['TEXT1 <strong class="CLASS"> TEXT2 </strong>']);
+
+        const cleanedText = jurinetLib.cleanText(xml);
+
+        expect(cleanedText).toEqual('<CAT_PUB></CAT_PUB><TEXTE_ARRET>TEXT1 TEXT2</TEXTE_ARRET>');
+      });
+
+      it('should remove the <font> inside the <TEXTE_ARRET>', async () => {
+        const xml = buildJurinetXml(['TEXT1 <font class="CLASS"> TEXT2 </font>']);
+
+        const cleanedText = jurinetLib.cleanText(xml);
+
+        expect(cleanedText).toEqual('<CAT_PUB></CAT_PUB><TEXTE_ARRET>TEXT1 TEXT2</TEXTE_ARRET>');
+      });
+
+      it('should remove the <span> inside the <TEXTE_ARRET>', async () => {
+        const xml = buildJurinetXml(['TEXT1 <span class="CLASS"> TEXT2 </span>']);
+
+        const cleanedText = jurinetLib.cleanText(xml);
+
+        expect(cleanedText).toEqual('<CAT_PUB></CAT_PUB><TEXTE_ARRET>TEXT1 TEXT2</TEXTE_ARRET>');
+      });
+
+      it('should remove the <p> inside the <TEXTE_ARRET>', async () => {
+        const xml = buildJurinetXml(['TEXT1 <p class="CLASS"> TEXT2 </p> TEXT3']);
+
+        const cleanedText = jurinetLib.cleanText(xml);
+
+        expect(cleanedText).toEqual('<CAT_PUB></CAT_PUB><TEXTE_ARRET>TEXT1 TEXT2 \n TEXT3</TEXTE_ARRET>');
+      });
+
+      it('should remove the <h%d> inside the <TEXTE_ARRET>', async () => {
+        const titleNumberCategory = Math.floor(Math.random() * 5) + 1;
+        const xml = buildJurinetXml([
+          `TEXT1 <h${titleNumberCategory} class="CLASS"> TEXT2 </h${titleNumberCategory}> TEXT3`,
+        ]);
+
+        const cleanedText = jurinetLib.cleanText(xml);
+
+        expect(cleanedText).toEqual('<CAT_PUB></CAT_PUB><TEXTE_ARRET>TEXT1 TEXT2 \n TEXT3</TEXTE_ARRET>');
+      });
+
+      it('should replace the newline \\r\\n by \\n inside the <TEXTE_ARRET>', async () => {
+        const xml = buildJurinetXml(['TEXT1 \r\n TEXT2']);
+
+        const cleanedText = jurinetLib.cleanText(xml);
+
+        expect(cleanedText).toEqual('<CAT_PUB></CAT_PUB><TEXTE_ARRET>TEXT1 \n TEXT2</TEXTE_ARRET>');
+      });
+
+      it('should replace the newline \\r by \\n inside the <TEXTE_ARRET>', async () => {
+        const xml = buildJurinetXml(['TEXT1 \r TEXT2']);
+
+        const cleanedText = jurinetLib.cleanText(xml);
+
+        expect(cleanedText).toEqual('<CAT_PUB></CAT_PUB><TEXTE_ARRET>TEXT1 \n TEXT2</TEXTE_ARRET>');
+      });
+
+      it('should replace the newline \\r\\r\\n by \\n\\n inside the <TEXTE_ARRET>', async () => {
+        const xml = buildJurinetXml(['TEXT1 \r\r\n TEXT2']);
+
+        const cleanedText = jurinetLib.cleanText(xml);
+
+        expect(cleanedText).toEqual('<CAT_PUB></CAT_PUB><TEXTE_ARRET>TEXT1 \n\n TEXT2</TEXTE_ARRET>');
+      });
+
+      it('should remove the tabulation \\t inside the <TEXTE_ARRET>', async () => {
+        const xml = buildJurinetXml(['TEXT1\t\tTEXT2']);
+
+        const cleanedText = jurinetLib.cleanText(xml);
+
+        expect(cleanedText).toEqual('<CAT_PUB></CAT_PUB><TEXTE_ARRET>TEXT1TEXT2</TEXTE_ARRET>');
+      });
+
+      it('should remove ill formed tabulation \\\\t inside the <TEXTE_ARRET>', async () => {
+        const xml = buildJurinetXml(['TEXT1\\t\\tTEXT2']);
+
+        const cleanedText = jurinetLib.cleanText(xml);
+
+        expect(cleanedText).toEqual('<CAT_PUB></CAT_PUB><TEXTE_ARRET>TEXT1TEXT2</TEXTE_ARRET>');
+      });
+
+      it('should remove the page break \\f inside the <TEXTE_ARRET>', async () => {
+        const xml = buildJurinetXml(['TEXT1\f\fTEXT2']);
+
+        const cleanedText = jurinetLib.cleanText(xml);
+
+        expect(cleanedText).toEqual('<CAT_PUB></CAT_PUB><TEXTE_ARRET>TEXT1TEXT2</TEXTE_ARRET>');
+      });
+
+      it('should remove ill formed page break \\\\f inside the <TEXTE_ARRET>', async () => {
+        const xml = buildJurinetXml(['TEXT1\\f\\fTEXT2']);
+
+        const cleanedText = jurinetLib.cleanText(xml);
+
+        expect(cleanedText).toEqual('<CAT_PUB></CAT_PUB><TEXTE_ARRET>TEXT1TEXT2</TEXTE_ARRET>');
+      });
+
+      it('should replace multiple space by single space inside the <TEXTE_ARRET>', async () => {
+        const xml = buildJurinetXml(['TEXT1   TEXT2']);
+
+        const cleanedText = jurinetLib.cleanText(xml);
+
+        expect(cleanedText).toEqual('<CAT_PUB></CAT_PUB><TEXTE_ARRET>TEXT1 TEXT2</TEXTE_ARRET>');
+      });
+
+      it('should format well the & character inside the <TEXTE_ARRET>', async () => {
+        const xml = buildJurinetXml(['&TEXT1']);
+
+        const cleanedText = jurinetLib.cleanText(xml);
+
+        expect(cleanedText).toEqual('<CAT_PUB></CAT_PUB><TEXTE_ARRET>&amp;TEXT1</TEXTE_ARRET>');
+      });
+
+      it('should keep the &amp; inside the <TEXTE_ARRET>', async () => {
+        const xml = buildJurinetXml(['&amp;TEXT1']);
+
+        const cleanedText = jurinetLib.cleanText(xml);
+
+        expect(cleanedText).toEqual('<CAT_PUB></CAT_PUB><TEXTE_ARRET>&amp;TEXT1</TEXTE_ARRET>');
+      });
+
+      it('should convert the &amp;# into &# inside the <TEXTE_ARRET>', async () => {
+        const xml = buildJurinetXml(['&amp;#TEXT1']);
+
+        const cleanedText = jurinetLib.cleanText(xml);
+
+        expect(cleanedText).toEqual('<CAT_PUB></CAT_PUB><TEXTE_ARRET>&#TEXT1</TEXTE_ARRET>');
+      });
+
+      it('should format well the < character inside the <TEXTE_ARRET>', async () => {
+        const xml = buildJurinetXml(['<TEXT1']);
+
+        const cleanedText = jurinetLib.cleanText(xml);
+
+        expect(cleanedText).toEqual('<CAT_PUB></CAT_PUB><TEXTE_ARRET>&lt;TEXT1</TEXTE_ARRET>');
+      });
+
+      it('should format well the > character inside the <TEXTE_ARRET>', async () => {
+        const xml = buildJurinetXml(['>TEXT1']);
+
+        const cleanedText = jurinetLib.cleanText(xml);
+
+        expect(cleanedText).toEqual('<CAT_PUB></CAT_PUB><TEXTE_ARRET>&gt;TEXT1</TEXTE_ARRET>');
+      });
+
+      it('should conserve the < and > for data inside the <TEXTE_ARRET>', async () => {
+        const xml = buildJurinetXml(['<TEXT1>']);
+
+        const cleanedText = jurinetLib.cleanText(xml);
+
+        expect(cleanedText).toEqual('<CAT_PUB></CAT_PUB><TEXTE_ARRET>&lt;TEXT1&gt;</TEXTE_ARRET>');
+      });
+
+      describe('WEIRD CASE', () => {
+        it('should conserve the opening html balise without parameters but not the closing one inside the <TEXTE_ARRET>', async () => {
+          const xml = buildJurinetXml(['<p> TEXT1 </p>']);
+
+          const cleanedText = jurinetLib.cleanText(xml);
+
+          expect(cleanedText).toEqual('<CAT_PUB></CAT_PUB><TEXTE_ARRET>&lt;p&gt; TEXT1</TEXTE_ARRET>');
+        });
       });
     });
   });

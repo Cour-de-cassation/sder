@@ -232,6 +232,24 @@ describe('jurinetLib', () => {
 
       expect(cleanedText).toEqual('<CAT_PUB></CAT_PUB><TEXTE_ARRET>&gt;TEXT1</TEXTE_ARRET>');
     });
+
+    it('should conserve the < and > for data inside the <TEXTE_ARRET>', async () => {
+      const xml = buildJurinetXml(['<TEXT1>']);
+
+      const cleanedText = jurinetLib.cleanText(xml);
+
+      expect(cleanedText).toEqual('<CAT_PUB></CAT_PUB><TEXTE_ARRET>&lt;TEXT1&gt;</TEXTE_ARRET>');
+    });
+
+    describe('WEIRD CASE', () => {
+      it('should conserve the opening html balise without parameters but not the closing one inside the <TEXTE_ARRET>', async () => {
+        const xml = buildJurinetXml(['<p> TEXT1 </p>']);
+
+        const cleanedText = jurinetLib.cleanText(xml);
+
+        expect(cleanedText).toEqual('<CAT_PUB></CAT_PUB><TEXTE_ARRET>&lt;p&gt; TEXT1</TEXTE_ARRET>');
+      });
+    });
   });
 });
 

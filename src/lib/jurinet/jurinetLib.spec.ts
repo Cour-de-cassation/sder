@@ -320,7 +320,7 @@ describe('jurinetLib', () => {
   });
 });
 
-function buildJurinetXml(textArrets: string[], header: string = '<CAT_PUB></CAT_PUB>') {
+function buildJurinetXml(textArrets: string[], header = '<CAT_PUB></CAT_PUB>') {
   const textArretsWithTags = textArrets.map((textArret) => `<TEXTE_ARRET>${textArret}</TEXTE_ARRET>`);
   const xmlDocument = `${header}${textArretsWithTags.join('')}`;
 

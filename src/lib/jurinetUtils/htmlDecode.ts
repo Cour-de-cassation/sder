@@ -2,8 +2,8 @@ import he from 'he';
 
 export { htmlDecode };
 
-function htmlDecode(obj) {
-  const output = {};
+function htmlDecode(obj: Record<string, any>) {
+  const output: Record<string, any> = {};
   for (const i in obj) {
     if (Object.prototype.toString.apply(obj[i]) === '[object Object]') {
       output[i] = htmlDecode(obj[i]);

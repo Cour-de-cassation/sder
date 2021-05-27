@@ -1,10 +1,10 @@
-import parser from 'fast-xml-parser';
+import parser, { X2jOptionsOptional } from 'fast-xml-parser';
 import { convertKeysToLowerCase } from './convertKeysToLowerCase';
 import { htmlDecode } from './htmlDecode';
 
 export { xmlToJson };
 
-const parserOptions = {
+const fastXmlParserOptions = {
   attributeNamePrefix: '$',
   attrNodeName: '$attributes',
   textNodeName: '$value',
@@ -17,19 +17,24 @@ const parserOptions = {
   cdataTagName: false,
   parseTrueNumberOnly: false,
   arrayMode: true,
+} as X2jOptionsOptional;
+
+type xmlToJsonOptionType = {
+  filter?: boolean;
+  htmlDecode?: boolean;
+  toLowerCase?: boolean;
 };
 
-function xmlToJson(xml: string, opt) {
+function xmlToJson(xml: string, opt: xmlToJsonOptionType) {
   opt = opt || {};
   opt.filter = opt.filter || false;
   opt.htmlDecode = opt.htmlDecode || false;
   opt.toLowerCase = opt.toLowerCase || false;
-  let valid = false;
 
-  valid = parser.validate(xml);
+  const valid = parser.validate(xml);
   if (valid === true) {
     // Convert the XML document to JSON:
-    let finalData = parser.parse(xml, parserOptions);
+    let finalData = parser.parse(xml, fastXmlParserOptions);
 
     finalData = finalData.DOCUMENT[0];
 

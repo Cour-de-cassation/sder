@@ -36,6 +36,20 @@ describe('jurinetLib', () => {
       );
     });
 
+    it('should throw if there header is not valid', async () => {
+      expect(() => jurinetLib.cleanText(buildJurinetXml(['TEXT1 TEXT2'], '<INVALID_HEADER></INVALID_HEADER>'))).toThrow(
+        'jurinetLib.cleanText: End of <CAT_PUB> or <LIEN_WWW> tag not found, the document could be malformed or corrupted.',
+      );
+    });
+
+    it('should return a cleaned decision text with a LIEN_WWW header before <TEXTE_ARRET>', async () => {
+      const xml = buildJurinetXml(['TEXT1 TEXT2'], '<LIEN_WWW></LIEN_WWW>');
+
+      const cleanedText = jurinetLib.cleanText(xml);
+
+      expect(cleanedText).toEqual('<LIEN_WWW></LIEN_WWW><TEXTE_ARRET>TEXT1 TEXT2</TEXTE_ARRET>');
+    });
+
     it('should remove the <br/> inside the <TEXTE_ARRET>', async () => {
       const xml = buildJurinetXml(['TEXT1 <br/> TEXT2', 'TEXT3 <br/> TEXT4']);
 
@@ -259,9 +273,9 @@ describe('jurinetLib', () => {
   });
 });
 
-function buildJurinetXml(textArrets: string[]) {
+function buildJurinetXml(textArrets: string[], header: string = '<CAT_PUB></CAT_PUB>') {
   const textArretsWithTags = textArrets.map((textArret) => `<TEXTE_ARRET>${textArret}</TEXTE_ARRET>`);
-  const xmlDocument = `<CAT_PUB></CAT_PUB>${textArretsWithTags.join('')}`;
+  const xmlDocument = `${header}${textArretsWithTags.join('')}`;
 
   return xmlDocument;
 }

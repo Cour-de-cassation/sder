@@ -8,6 +8,7 @@ const jurinetLib = {
 
     // There could be more than one <TEXTE_ARRET> tags, so we first split the text around them:
     const texteArrets = extractTexteArrets(text);
+    const cleanedTexteArrets = texteArrets.map(cleanTexteArret).filter((cleanedTexteArret) => cleanedTexteArret !== '');
 
     if (texteArrets.length === 0) {
       throw new Error(
@@ -21,18 +22,7 @@ const jurinetLib = {
     // Remove all <TEXT_ARRET> fragments from the text:
     text = text.replace(/<texte_arret>[\s\S]*<\/texte_arret>/gim, '');
 
-    // Cleaning every <TEXTE_ARRET> fragment:
-    const mergedText = [];
-    for (let j = 0; j < texteArrets.length; j++) {
-      const cleanedTextArret = cleanTexteArret(texteArrets[j]);
-
-      // Ignore empty fragment:
-      if (cleanedTextArret !== '') {
-        mergedText.push(cleanedTextArret);
-      }
-    }
-
-    if (mergedText.length === 0) {
+    if (cleanedTexteArrets.length === 0) {
       throw new Error('jurinetLib.cleanText: empty text, the document could be malformed or corrupted.');
     }
 
@@ -50,11 +40,11 @@ const jurinetLib = {
     // Reinject the merged <TEXTE_ARRET> fragments:
     if (textNextToCatPub === true) {
       text = text
-        .replace('</CAT_PUB>', '</CAT_PUB><TEXTE_ARRET>' + mergedText.join(' ').trim() + '</TEXTE_ARRET>')
+        .replace('</CAT_PUB>', '</CAT_PUB><TEXTE_ARRET>' + cleanedTexteArrets.join(' ').trim() + '</TEXTE_ARRET>')
         .trim();
     } else if (text.indexOf('</LIEN_WWW>') !== -1) {
       text = text
-        .replace('</LIEN_WWW>', '</LIEN_WWW><TEXTE_ARRET>' + mergedText.join(' ').trim() + '</TEXTE_ARRET>')
+        .replace('</LIEN_WWW>', '</LIEN_WWW><TEXTE_ARRET>' + cleanedTexteArrets.join(' ').trim() + '</TEXTE_ARRET>')
         .trim();
     } else {
       throw new Error(

@@ -93,8 +93,7 @@ function cleanTexteArret(texteArret: string) {
   cleanedTextArret = cleanedTextArret.replace(/<\/h\d>/gim, '\r\n');
 
   // Handling newlines and carriage returns:
-  cleanedTextArret = cleanedTextArret.replace(/\r\n/gim, '\n');
-  cleanedTextArret = cleanedTextArret.replace(/\r/gim, '\n');
+  cleanedTextArret = cleanNewLines(cleanedTextArret);
 
   // Remove extra spaces:
   cleanedTextArret = removeTabulation(cleanedTextArret);
@@ -110,6 +109,10 @@ function cleanTexteArret(texteArret: string) {
   cleanedTextArret = cleanedTextArret.replace(/>/g, '&gt;');
 
   return cleanedTextArret;
+
+  function cleanNewLines(str: string) {
+    return str.replace(/\r\n/gim, '\n').replace(/\r/gim, '\n');
+  }
 
   function removeTabulation(str: string) {
     return str.replace(/(\t|\\t)/gim, ''); // Tabulation could be ill formed

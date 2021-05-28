@@ -1,5 +1,5 @@
 import { CONSTANTS } from '../../constants';
-import { decisionType } from '../../modules/decisions';
+import { decisionModule, decisionType } from '../../modules/decisions';
 import { jurinetDecisionType } from '../../modules/jurinetDecision';
 import { zoningUtils } from '../zoningUtils';
 import { cleanXml } from './cleanXml';
@@ -42,7 +42,7 @@ async function normalize(document: jurinetDecisionType, previousVersion: decisio
     }
   }
 
-  const normalizedDecision: Omit<decisionType, '_id'> = {
+  const normalizedDecision: Omit<decisionType, '_id'> = decisionModule.lib.buildDecision({
     _rev: previousVersion ? previousVersion._rev + 1 : 0,
     _version: parseFloat(CONSTANTS.MONGO_DECISIONS_VERSION),
     sourceId: document._id,
@@ -85,9 +85,8 @@ async function normalize(document: jurinetDecisionType, previousVersion: decisio
     decatt: undefined,
     locked: false,
     labelStatus: pseudoText ? 'exported' : 'toBeTreated',
-    labelTreatments: [],
     zoning: undefined,
-  };
+  });
 
   if (previousVersion) {
     if (previousVersion.labelStatus) {

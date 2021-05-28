@@ -9,6 +9,7 @@ function generateDecision(decisionFields: Partial<decisionType> = {}): decisionT
   return {
     _id: buildObjectId(),
     _rev: 0,
+    _version: 0,
     analysis: {
       doctrine: `DOCTRINE_${Math.random()}`,
       link: `LINK_${Math.random()}`,
@@ -17,6 +18,7 @@ function generateDecision(decisionFields: Partial<decisionType> = {}): decisionT
       summary: `SUMMARY_${Math.random()}`,
       target: `TARGET_${Math.random()}`,
       title: [],
+      analyse: [],
     },
     appeals: [],
     chamberId: `CHAMBER_ID_${Math.random()}`,
@@ -29,9 +31,9 @@ function generateDecision(decisionFields: Partial<decisionType> = {}): decisionT
     jurisdictionName: `JURISDICTION_NAME_${Math.random()}`,
     labelStatus: 'toBeTreated',
     labelTreatments: [],
-    locked: `LOCKED_${Math.random()}`,
+    locked: false,
     originalText: `ORIGINAL_TEXT_${Math.random()}`,
-    parties: `PARTIES_${Math.random()}`,
+    parties: [`PARTIES_${Math.random()}`],
     pseudoStatus: `PSEUDO_STATUS_${Math.random()}`,
     pseudoText: `PSEUDO_TEXT_${Math.random()}`,
     pubCategory: `PUB_CATEGORY_${Math.random()}`,

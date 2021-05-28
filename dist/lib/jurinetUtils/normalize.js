@@ -38,6 +38,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.normalize = void 0;
 var constants_1 = require("../../constants");
+var decisions_1 = require("../../modules/decisions");
 var zoningUtils_1 = require("../zoningUtils");
 var cleanXml_1 = require("./cleanXml");
 var xmlToJson_1 = require("./xmlToJson");
@@ -78,7 +79,7 @@ function normalize(document, previousVersion, ignorePreviousContent) {
                             pseudoStatus = previousVersion.pseudoStatus;
                         }
                     }
-                    normalizedDecision = {
+                    normalizedDecision = decisions_1.decisionModule.lib.buildDecision({
                         _rev: previousVersion ? previousVersion._rev + 1 : 0,
                         _version: parseFloat(constants_1.CONSTANTS.MONGO_DECISIONS_VERSION),
                         sourceId: document._id,
@@ -121,9 +122,8 @@ function normalize(document, previousVersion, ignorePreviousContent) {
                         decatt: undefined,
                         locked: false,
                         labelStatus: pseudoText ? 'exported' : 'toBeTreated',
-                        labelTreatments: [],
                         zoning: undefined,
-                    };
+                    });
                     if (previousVersion) {
                         if (previousVersion.labelStatus) {
                             normalizedDecision.labelStatus = previousVersion.labelStatus;

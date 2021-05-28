@@ -2,7 +2,7 @@ import { CONSTANTS } from '../../constants';
 import { decisionModule, decisionType } from '../../modules/decisions';
 import { jurinetDecisionType } from '../../modules/jurinetDecision';
 import { zoningUtils } from '../zoningUtils';
-import { cleanXml } from './cleanXml';
+import { jurinetLib } from '../jurinet';
 import { xmlToJson } from './xmlToJson';
 
 export { normalize };
@@ -14,7 +14,7 @@ async function normalize(document: jurinetDecisionType, previousVersion: decisio
   let pseudoStatus = document.IND_ANO;
 
   try {
-    const cleanedXml = cleanXml(document.XML);
+    const cleanedXml = jurinetLib.cleanText(document.XML);
     cleanedJson = xmlToJson(cleanedXml, {
       filter: false,
       htmlDecode: true,
@@ -24,7 +24,7 @@ async function normalize(document: jurinetDecisionType, previousVersion: decisio
   } catch (ignore) {}
 
   try {
-    const cleanedXmlAnonymized = cleanXml(document.XMLA);
+    const cleanedXmlAnonymized = jurinetLib.cleanText(document.XMLA);
     const cleanedJsonAnonymized = xmlToJson(cleanedXmlAnonymized, {
       filter: false,
       htmlDecode: true,

@@ -40,7 +40,7 @@ exports.normalize = void 0;
 var constants_1 = require("../../constants");
 var decisions_1 = require("../../modules/decisions");
 var zoningUtils_1 = require("../zoningUtils");
-var cleanXml_1 = require("./cleanXml");
+var jurinet_1 = require("../jurinet");
 var xmlToJson_1 = require("./xmlToJson");
 function normalize(document, previousVersion, ignorePreviousContent) {
     return __awaiter(this, void 0, void 0, function () {
@@ -52,7 +52,7 @@ function normalize(document, previousVersion, ignorePreviousContent) {
                     pseudoText = '';
                     pseudoStatus = document.IND_ANO;
                     try {
-                        cleanedXml = cleanXml_1.cleanXml(document.XML);
+                        cleanedXml = jurinet_1.jurinetLib.cleanText(document.XML);
                         cleanedJson = xmlToJson_1.xmlToJson(cleanedXml, {
                             filter: false,
                             htmlDecode: true,
@@ -62,7 +62,7 @@ function normalize(document, previousVersion, ignorePreviousContent) {
                     }
                     catch (ignore) { }
                     try {
-                        cleanedXmlAnonymized = cleanXml_1.cleanXml(document.XMLA);
+                        cleanedXmlAnonymized = jurinet_1.jurinetLib.cleanText(document.XMLA);
                         cleanedJsonAnonymized = xmlToJson_1.xmlToJson(cleanedXmlAnonymized, {
                             filter: false,
                             htmlDecode: true,

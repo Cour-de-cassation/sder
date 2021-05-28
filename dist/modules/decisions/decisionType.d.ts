@@ -3,7 +3,9 @@ export type { decisionType, labelTreatmentsType };
 declare type decisionType = {
     _id: mongoIdType;
     _rev: number;
+    _version: number;
     analysis: {
+        analyse: string[];
         doctrine: string;
         link: string;
         reference: Array<string>;
@@ -15,17 +17,17 @@ declare type decisionType = {
     appeals: Array<string>;
     chamberId: string;
     chamberName: string;
-    dateCreation: string;
-    dateDecision: string;
+    dateCreation?: string;
+    dateDecision?: string;
     decatt?: number[];
     jurisdictionCode: string;
     jurisdictionId: string;
     jurisdictionName: string;
     labelStatus: 'toBeTreated' | 'loaded' | 'done' | 'exported';
     labelTreatments: labelTreatmentsType;
-    locked: string;
+    locked: false;
     originalText: string;
-    parties: string;
+    parties: string[];
     pseudoStatus: string;
     pseudoText: string;
     pubCategory: string;
@@ -33,7 +35,7 @@ declare type decisionType = {
     solution: string;
     sourceId: number;
     sourceName: string;
-    zoning: {
+    zoning?: {
         introduction_subzonage: {
             publication: string[];
         };

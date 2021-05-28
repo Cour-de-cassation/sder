@@ -115,7 +115,9 @@ function buildDecisionFakeRepository() {
                         return __awaiter(this, void 0, void 0, function () {
                             return __generator(this, function (_b) {
                                 return [2 /*return*/, collection.filter(function (decision) {
-                                        return new Date(decision.dateCreation) >= startDate &&
+                                        return decision.dateCreation &&
+                                            new Date(decision.dateCreation) >= startDate &&
+                                            decision.dateCreation &&
                                             new Date(decision.dateCreation) < endDate &&
                                             decision.sourceName === source;
                                     })];

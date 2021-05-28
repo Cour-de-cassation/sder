@@ -8,7 +8,7 @@ const decisionService = {
   async createDecision(decisionFields: Omit<decisionType, '_id' | '_rev' | 'labelStatus' | 'labelTreatments'>) {
     const decisionRepository = await buildDecisionRepository();
 
-    const decision = buildDecision(decisionFields);
+    const decision = buildDecision({ ...decisionFields, _rev: 0, labelStatus: 'toBeTreated' });
     await decisionRepository.insert(decision);
   },
 

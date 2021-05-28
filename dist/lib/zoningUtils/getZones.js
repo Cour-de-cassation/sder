@@ -35,36 +35,32 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
-var lodash_1 = require("lodash");
-var generateDecision_1 = require("./generateDecision");
-var buildDecision_1 = require("./buildDecision");
-describe('buildDecision', function () {
-    it('should build a decision with a _rev at 0', function () { return __awaiter(void 0, void 0, void 0, function () {
-        var decisionField, decision;
+exports.getZones = void 0;
+var needle_1 = __importDefault(require("needle"));
+function getZones(id, source, text) {
+    return __awaiter(this, void 0, void 0, function () {
+        var zoneData, response;
         return __generator(this, function (_a) {
-            decisionField = lodash_1.omit(generateDecision_1.generateDecision(), ['_id', 'labelTreatments']);
-            decision = buildDecision_1.buildDecision(decisionField);
-            expect(decision._rev).toEqual(0);
-            return [2 /*return*/];
+            switch (_a.label) {
+                case 0:
+                    zoneData = JSON.stringify({
+                        arret_id: id,
+                        source: source,
+                        text: text,
+                    });
+                    return [4 /*yield*/, needle_1.default('post', 'http://10.16.64.7:8090/zonage', zoneData, {
+                            json: true,
+                        })];
+                case 1:
+                    response = _a.sent();
+                    delete response.body.arret_id;
+                    return [2 /*return*/, response.body];
+            }
         });
-    }); });
-    it('should build a decision with an empty labelTreatments', function () { return __awaiter(void 0, void 0, void 0, function () {
-        var decisionField, decision;
-        return __generator(this, function (_a) {
-            decisionField = lodash_1.omit(generateDecision_1.generateDecision(), ['_id', 'labelTreatments']);
-            decision = buildDecision_1.buildDecision(decisionField);
-            expect(decision.labelTreatments).toEqual([]);
-            return [2 /*return*/];
-        });
-    }); });
-    it("should build a decision with a 'toBeTreated' label status", function () { return __awaiter(void 0, void 0, void 0, function () {
-        var decisionField, decision;
-        return __generator(this, function (_a) {
-            decisionField = lodash_1.omit(generateDecision_1.generateDecision(), ['_id', 'labelTreatments']);
-            decision = buildDecision_1.buildDecision(decisionField);
-            expect(decision.labelStatus).toEqual('toBeTreated');
-            return [2 /*return*/];
-        });
-    }); });
-});
+    });
+}
+exports.getZones = getZones;

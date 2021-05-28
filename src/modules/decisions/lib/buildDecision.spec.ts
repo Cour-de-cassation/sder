@@ -4,7 +4,7 @@ import { buildDecision } from './buildDecision';
 
 describe('buildDecision', () => {
   it('should build a decision with a _rev at 0', async () => {
-    const decisionField = omit(generateDecision(), ['_id', '_rev', 'labelStatus', 'labelTreatments']);
+    const decisionField = omit(generateDecision(), ['_id', 'labelTreatments']);
 
     const decision = buildDecision(decisionField);
 
@@ -12,7 +12,7 @@ describe('buildDecision', () => {
   });
 
   it('should build a decision with an empty labelTreatments', async () => {
-    const decisionField = omit(generateDecision(), ['_id', '_rev', 'labelStatus', 'labelTreatments']);
+    const decisionField = omit(generateDecision(), ['_id', 'labelTreatments']);
 
     const decision = buildDecision(decisionField);
 
@@ -20,7 +20,7 @@ describe('buildDecision', () => {
   });
 
   it(`should build a decision with a 'toBeTreated' label status`, async () => {
-    const decisionField = omit(generateDecision(), ['_id', '_rev', 'labelStatus', 'labelTreatments']);
+    const decisionField = omit(generateDecision(), ['_id', 'labelTreatments']);
 
     const decision = buildDecision(decisionField);
 

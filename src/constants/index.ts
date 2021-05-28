@@ -1,0 +1,5 @@
+export { CONSTANTS };
+
+const CONSTANTS = {
+  MONGO_DECISIONS_VERSION: process.env.MONGO_DECISIONS_VERSION || '0',
+};

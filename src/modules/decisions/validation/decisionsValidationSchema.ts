@@ -124,6 +124,20 @@ const decisionsValidationSchema = {
           },
         },
       },
+      occultation: {
+        bsonType: 'object',
+        additionalProperties: false,
+        properties: {
+          additionalTerms: { bsonType: 'string' },
+          categoriesToOmit: {
+            bsonType: 'array',
+            additionalProperties: false,
+            items: {
+              bsonType: 'string',
+            },
+          },
+        },
+      },
     },
   },
 };

@@ -32,6 +32,10 @@ function generateDecision(decisionFields: Partial<decisionType> = {}): decisionT
     labelStatus: 'toBeTreated',
     labelTreatments: [],
     locked: false,
+    occultation: {
+      additionalTerms: '',
+      categoriesToOmit: [],
+    },
     originalText: `ORIGINAL_TEXT_${Math.random()}`,
     parties: [`PARTIES_${Math.random()}`],
     pseudoStatus: `PSEUDO_STATUS_${Math.random()}`,

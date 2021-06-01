@@ -1,3 +1,5 @@
+import { OCCULTATION_CATEGORIES_FIELDS } from './constants';
+
 export type { jurinetDecisionType };
 
 type jurinetDecisionType = {
@@ -21,6 +23,6 @@ type jurinetDecisionType = {
   DT_CREATION?: Date;
   ID_SOLUTION: string;
   NUM_DECISION: string;
-};
+} & Record<typeof OCCULTATION_CATEGORIES_FIELDS[number], number>;
 
 type referenceType = any;

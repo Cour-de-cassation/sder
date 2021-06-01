@@ -119,6 +119,22 @@ declare const decisionsValidationSchema: {
             locked: {
                 bsonType: string;
             };
+            occultation: {
+                bsonType: string;
+                additionalProperties: boolean;
+                properties: {
+                    additionalTerms: {
+                        bsonType: string;
+                    };
+                    categoriesToOmit: {
+                        bsonType: string;
+                        additionalProperties: boolean;
+                        items: {
+                            bsonType: string;
+                        };
+                    };
+                };
+            };
             originalText: {
                 bsonType: string;
             };

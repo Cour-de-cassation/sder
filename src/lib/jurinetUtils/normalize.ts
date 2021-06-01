@@ -4,6 +4,8 @@ import { jurinetDecisionType } from '../../modules/jurinetDecision';
 import { zoningUtils } from '../zoningUtils';
 import { jurinetLib } from '../jurinet';
 import { xmlToJson } from './xmlToJson';
+import { OCCULTATION_CATEGORIES_FIELDS } from '../../modules/jurinetDecision/constants';
+import { keysOf } from '../../utils';
 
 export { normalize };
 
@@ -86,6 +88,10 @@ async function normalize(document: jurinetDecisionType, previousVersion: decisio
     locked: false,
     labelStatus: pseudoText ? 'exported' : 'toBeTreated',
     zoning: undefined,
+    occultation: {
+      additionalTerms: '',
+      categoriesToOmit: [],
+    },
   });
 
   if (previousVersion) {
@@ -200,6 +206,28 @@ async function normalize(document: jurinetDecisionType, previousVersion: decisio
       normalizedDecision.zoning = undefined;
     }
   }
+
+  const occultations: Record<typeof OCCULTATION_CATEGORIES_FIELDS[number], string[]> = {
+    IND_PM: ['personneMorale', 'etablissement'],
+    IND_ADRESSE: ['adresse', 'localite'],
+    IND_DT_NAISSANCE: ['dateNaissance'],
+    IND_DT_DECE: ['dateDeces'],
+    IND_DT_MARIAGE: ['dateMariage'],
+    IND_IMMATRICULATION: ['plaqueImmatriculation'],
+    IND_CADASTRE: ['cadastre'],
+    IND_CHAINE: ['compteBancaire', 'telephoneFax', 'insee'],
+    IND_COORDONNEE_ELECTRONIQUE: ['email'],
+    IND_PRENOM_PROFESSIONEL: ['professionnelPrenom'],
+    IND_NOM_PROFESSIONEL: ['professionnelNom'],
+  };
+
+  keysOf(occultations).forEach((occultationCategoryField) => {
+    if (!document[occultationCategoryField]) {
+      occultations[occultationCategoryField].forEach((item) => {
+        normalizedDecision.occultation.categoriesToOmit.push(item);
+      });
+    }
+  });
 
   if (!normalizedDecision.originalText) {
     throw new Error(`JurinetUtils.Normalize: Document '${normalizedDecision.sourceId}' has not text.`);

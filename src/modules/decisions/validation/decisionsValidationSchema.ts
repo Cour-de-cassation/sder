@@ -75,6 +75,22 @@ const decisionsValidationSchema = {
         },
       },
       locked: { bsonType: 'bool' },
+      occultation: {
+        bsonType: 'object',
+        additionalProperties: false,
+        properties: {
+          additionalTerms: {
+            bsonType: 'string',
+          },
+          categoriesToOmit: {
+            bsonType: 'array',
+            additionalProperties: false,
+            items: {
+              bsonType: 'string',
+            },
+          },
+        },
+      },
       originalText: { bsonType: 'string' },
       parties: { bsonType: 'string' },
       pseudoStatus: { bsonType: 'string' },

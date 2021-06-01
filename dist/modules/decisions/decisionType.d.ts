@@ -26,6 +26,10 @@ declare type decisionType = {
     labelStatus: 'toBeTreated' | 'loaded' | 'done' | 'exported';
     labelTreatments: labelTreatmentsType;
     locked: false;
+    occultation: {
+        additionalTerms: string;
+        categoriesToOmit: string[];
+    };
     originalText: string;
     parties: string[];
     pseudoStatus: string;

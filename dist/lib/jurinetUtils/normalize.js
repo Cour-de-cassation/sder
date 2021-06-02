@@ -42,9 +42,10 @@ var decisions_1 = require("../../modules/decisions");
 var zoningUtils_1 = require("../zoningUtils");
 var jurinet_1 = require("../jurinet");
 var xmlToJson_1 = require("./xmlToJson");
+var utils_1 = require("../../utils");
 function normalize(document, previousVersion, ignorePreviousContent) {
     return __awaiter(this, void 0, void 0, function () {
-        var cleanedJson, originalText, pseudoText, pseudoStatus, cleanedXml, cleanedXmlAnonymized, cleanedJsonAnonymized, normalizedDecision, zoning, e_1;
+        var cleanedJson, originalText, pseudoText, pseudoStatus, cleanedXml, cleanedXmlAnonymized, cleanedJsonAnonymized, normalizedDecision, zoning, e_1, occultations;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
@@ -123,6 +124,10 @@ function normalize(document, previousVersion, ignorePreviousContent) {
                         locked: false,
                         labelStatus: pseudoText ? 'exported' : 'toBeTreated',
                         zoning: undefined,
+                        occultation: {
+                            additionalTerms: '',
+                            categoriesToOmit: [],
+                        },
                     });
                     if (previousVersion) {
                         if (previousVersion.labelStatus) {
@@ -234,6 +239,26 @@ function normalize(document, previousVersion, ignorePreviousContent) {
                     normalizedDecision.zoning = undefined;
                     return [3 /*break*/, 4];
                 case 4:
+                    occultations = {
+                        IND_PM: ['personneMorale', 'etablissement'],
+                        IND_ADRESSE: ['adresse', 'localite'],
+                        IND_DT_NAISSANCE: ['dateNaissance'],
+                        IND_DT_DECE: ['dateDeces'],
+                        IND_DT_MARIAGE: ['dateMariage'],
+                        IND_IMMATRICULATION: ['plaqueImmatriculation'],
+                        IND_CADASTRE: ['cadastre'],
+                        IND_CHAINE: ['compteBancaire', 'telephoneFax', 'insee'],
+                        IND_COORDONNEE_ELECTRONIQUE: ['email'],
+                        IND_PRENOM_PROFESSIONEL: ['professionnelPrenom'],
+                        IND_NOM_PROFESSIONEL: ['professionnelNom'],
+                    };
+                    utils_1.keysOf(occultations).forEach(function (occultationCategoryField) {
+                        if (!document[occultationCategoryField]) {
+                            occultations[occultationCategoryField].forEach(function (item) {
+                                normalizedDecision.occultation.categoriesToOmit.push(item);
+                            });
+                        }
+                    });
                     if (!normalizedDecision.originalText) {
                         throw new Error("JurinetUtils.Normalize: Document '" + normalizedDecision.sourceId + "' has not text.");
                     }

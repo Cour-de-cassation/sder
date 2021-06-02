@@ -53,14 +53,16 @@ async function buildDecisionRepository(): Promise<decisionRepositoryType> {
     },
 
     async findAllBetween({ startDate, endDate, source }) {
-      return runMongo(({ collection }) =>
-        collection
+      return runMongo(async ({ collection }) => {
+        const result = await collection
           .find({
             dateCreation: { $gte: startDate.toISOString() as any, $lt: endDate.toISOString() as any },
             sourceName: source,
           })
-          .toArray(),
-      );
+          .toArray();
+        console.log(`Result: ${result.length} in findAllBetween`);
+        return result;
+      });
     },
 
     async findAllIdsWithoutLabelFields() {

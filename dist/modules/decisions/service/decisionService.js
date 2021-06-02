@@ -104,7 +104,7 @@ var decisionService = {
     fetchJurinetAndChainedJuricaDecisionsToPseudonymiseBetween: function (_a) {
         var startDate = _a.startDate, _b = _a.endDate, endDate = _b === void 0 ? new Date() : _b;
         return __awaiter(this, void 0, void 0, function () {
-            var decisionRepository, jurinetDecisions, juricaChainedDecisionSourceIds, juricaChainedDecisions, decisions;
+            var decisionRepository, jurinetDecisions, juricaChainedDecisionSourceIds, juricaChainedDecisions, decisions, filteredDecisions;
             return __generator(this, function (_c) {
                 switch (_c.label) {
                     case 0: return [4 /*yield*/, repository_1.buildDecisionRepository()];
@@ -117,17 +117,22 @@ var decisionService = {
                             })];
                     case 2:
                         jurinetDecisions = _c.sent();
+                        console.log(jurinetDecisions.length + " jurinet decisions found");
                         juricaChainedDecisionSourceIds = [];
                         jurinetDecisions.forEach(function (decision) {
                             if (decision.decatt) {
                                 decision.decatt.forEach(function (sourceId) { return juricaChainedDecisionSourceIds.push(sourceId); });
                             }
                         });
+                        console.log(juricaChainedDecisionSourceIds.length + " jurica chained decision source ids found");
                         return [4 /*yield*/, decisionRepository.findAllBySourceIdsAndSourceName(juricaChainedDecisionSourceIds, 'jurica')];
                     case 3:
                         juricaChainedDecisions = _c.sent();
+                        console.log(juricaChainedDecisions.length + " jurica chained decision found");
                         decisions = __spreadArrays(jurinetDecisions, juricaChainedDecisions);
-                        return [2 /*return*/, decisions.filter(lib_1.shouldBeTreatedByLabel)];
+                        filteredDecisions = decisions.filter(lib_1.shouldBeTreatedByLabel);
+                        console.log(filteredDecisions.length + " filtered decisions found");
+                        return [2 /*return*/, filteredDecisions];
                 }
             });
         });

@@ -41,6 +41,7 @@ const decisionService = {
       endDate,
       source: 'jurinet',
     });
+    console.log(`${jurinetDecisions.length} jurinet decisions found`);
 
     const juricaChainedDecisionSourceIds: number[] = [];
 
@@ -50,14 +51,21 @@ const decisionService = {
       }
     });
 
+    console.log(`${juricaChainedDecisionSourceIds.length} jurica chained decision source ids found`);
+
     const juricaChainedDecisions = await decisionRepository.findAllBySourceIdsAndSourceName(
       juricaChainedDecisionSourceIds,
       'jurica',
     );
 
+    console.log(`${juricaChainedDecisions.length} jurica chained decision found`);
+
     const decisions = [...jurinetDecisions, ...juricaChainedDecisions];
 
-    return decisions.filter(shouldBeTreatedByLabel);
+    const filteredDecisions = decisions.filter(shouldBeTreatedByLabel);
+    console.log(`${filteredDecisions.length} filtered decisions found`);
+
+    return filteredDecisions;
   },
 
   async deprecatedUpdateDecisionsLabelStatus({

@@ -1,3 +1,4 @@
 import { buildDecision } from './buildDecision';
 import { generateDecision } from './generateDecision';
-export { buildDecision, generateDecision };
+import { shouldBeTreatedByLabel } from './shouldBeTreatedByLabel';
+export { buildDecision, generateDecision, shouldBeTreatedByLabel };

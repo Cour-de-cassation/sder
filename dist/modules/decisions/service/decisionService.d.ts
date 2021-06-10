@@ -2,12 +2,14 @@ import { decisionType, labelTreatmentsType } from '../decisionType';
 export { decisionService };
 declare const decisionService: {
     createDecision(decisionFields: Omit<decisionType, '_id' | '_rev' | 'labelStatus' | 'labelTreatments'>): Promise<void>;
+    fetchDecisionsBySourceIdsAndSourceName(sourceIds: decisionType['sourceId'][], sourceName: decisionType['sourceName']): Promise<decisionType[]>;
     fetchPseudonymisationsToExport(): Promise<{
         decisionId: number;
         pseudoText: string;
     }[]>;
-    fetchDecisionsToPseudonymise({ date }: {
-        date: Date;
+    fetchJurinetAndChainedJuricaDecisionsToPseudonymiseBetween({ startDate, endDate, }: {
+        startDate: Date;
+        endDate?: Date | undefined;
     }): Promise<decisionType[]>;
     deprecatedUpdateDecisionsLabelStatus({ decisionIds, labelStatus, }: {
         decisionIds: number[];

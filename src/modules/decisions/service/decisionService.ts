@@ -1,5 +1,5 @@
 import { decisionType, labelTreatmentsType } from '../decisionType';
-import { buildDecision } from '../lib';
+import { buildDecision, shouldBeTreatedByLabel } from '../lib';
 import { buildDecisionRepository } from '../repository';
 
 export { decisionService };
@@ -8,8 +8,17 @@ const decisionService = {
   async createDecision(decisionFields: Omit<decisionType, '_id' | '_rev' | 'labelStatus' | 'labelTreatments'>) {
     const decisionRepository = await buildDecisionRepository();
 
-    const decision = buildDecision(decisionFields);
+    const decision = buildDecision({ ...decisionFields, _rev: 0, labelStatus: 'toBeTreated' });
     await decisionRepository.insert(decision);
+  },
+
+  async fetchDecisionsBySourceIdsAndSourceName(
+    sourceIds: decisionType['sourceId'][],
+    sourceName: decisionType['sourceName'],
+  ) {
+    const decisionRepository = await buildDecisionRepository();
+
+    return decisionRepository.findAllBySourceIdsAndSourceName(sourceIds, sourceName);
   },
 
   async fetchPseudonymisationsToExport() {
@@ -18,10 +27,37 @@ const decisionService = {
     return decisionRepository.findAllPseudonymisationToExport();
   },
 
-  async fetchDecisionsToPseudonymise({ date }: { date: Date }) {
+  async fetchJurinetAndChainedJuricaDecisionsToPseudonymiseBetween({
+    startDate,
+    endDate = new Date(),
+  }: {
+    startDate: Date;
+    endDate?: Date;
+  }) {
     const decisionRepository = await buildDecisionRepository();
 
-    return decisionRepository.findAllToPseudonymiseSince(date);
+    const jurinetDecisions = await decisionRepository.findAllBetween({
+      startDate,
+      endDate,
+      source: 'jurinet',
+    });
+
+    const juricaChainedDecisionSourceIds: number[] = [];
+
+    jurinetDecisions.forEach((decision) => {
+      if (decision.decatt) {
+        decision.decatt.forEach((sourceId) => juricaChainedDecisionSourceIds.push(sourceId));
+      }
+    });
+
+    const juricaChainedDecisions = await decisionRepository.findAllBySourceIdsAndSourceName(
+      juricaChainedDecisionSourceIds,
+      'jurica',
+    );
+
+    const decisions = [...jurinetDecisions, ...juricaChainedDecisions];
+
+    return decisions.filter(shouldBeTreatedByLabel);
   },
 
   async deprecatedUpdateDecisionsLabelStatus({

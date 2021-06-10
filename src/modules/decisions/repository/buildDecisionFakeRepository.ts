@@ -21,6 +21,12 @@ async function buildDecisionFakeRepository(): Promise<decisionRepositoryType> {
       return collection.filter((decision) => decisionIds.includes(decision.sourceId));
     },
 
+    async findAllBySourceIdsAndSourceName(sourceIds, sourceName) {
+      return collection.filter(
+        (decision) => sourceIds.includes(decision.sourceId) && decision.sourceName === sourceName,
+      );
+    },
+
     async findAllIds() {
       return collection.map((decision) => decision._id);
     },
@@ -35,11 +41,14 @@ async function buildDecisionFakeRepository(): Promise<decisionRepositoryType> {
         .map(({ sourceId, pseudoText }) => ({ decisionId: sourceId, pseudoText }));
     },
 
-    async findAllToPseudonymiseSince(date) {
+    async findAllBetween({ startDate, endDate, source }) {
       return collection.filter(
         (decision) =>
-          new Date(decision.dateCreation) >= date &&
-          (decision.labelStatus === 'toBeTreated' || decision.pseudoText === ''),
+          decision.dateCreation &&
+          new Date(decision.dateCreation) >= startDate &&
+          decision.dateCreation &&
+          new Date(decision.dateCreation) < endDate &&
+          decision.sourceName === source,
       );
     },
 

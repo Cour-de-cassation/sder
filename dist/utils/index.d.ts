@@ -2,5 +2,6 @@ import { areMongoIdEqual, buildObjectId, mongoIdType, buildRunMongo } from './mo
 import { dateBuilder } from './dateBuilder';
 import { dependencyManager } from './dependencyManager';
 import { buildHandlingErrorController } from './express';
-export { areMongoIdEqual, buildHandlingErrorController, buildObjectId, buildRunMongo, dateBuilder, dependencyManager };
+import { keysOf } from './keysOf';
+export { areMongoIdEqual, buildHandlingErrorController, buildObjectId, buildRunMongo, dateBuilder, dependencyManager, keysOf, };
 export type { mongoIdType };

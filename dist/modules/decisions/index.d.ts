@@ -11,13 +11,15 @@ declare const decisionModule: {
         generateDecision: typeof generateDecision;
     };
     service: {
-        createDecision(decisionFields: Pick<decisionType, "analysis" | "appeals" | "chamberId" | "chamberName" | "dateCreation" | "dateDecision" | "jurisdictionCode" | "jurisdictionId" | "jurisdictionName" | "locked" | "originalText" | "parties" | "pseudoStatus" | "pseudoText" | "pubCategory" | "registerNumber" | "solution" | "sourceId" | "sourceName" | "zoning">): Promise<void>;
+        createDecision(decisionFields: Pick<decisionType, "_version" | "analysis" | "appeals" | "chamberId" | "chamberName" | "dateCreation" | "dateDecision" | "decatt" | "jurisdictionCode" | "jurisdictionId" | "jurisdictionName" | "locked" | "occultation" | "originalText" | "parties" | "pseudoStatus" | "pseudoText" | "pubCategory" | "registerNumber" | "solution" | "sourceId" | "sourceName" | "zoning">): Promise<void>;
+        fetchDecisionsBySourceIdsAndSourceName(sourceIds: number[], sourceName: string): Promise<decisionType[]>;
         fetchPseudonymisationsToExport(): Promise<{
             decisionId: number;
             pseudoText: string;
         }[]>;
-        fetchDecisionsToPseudonymise({ date }: {
-            date: Date;
+        fetchJurinetAndChainedJuricaDecisionsToPseudonymiseBetween({ startDate, endDate, }: {
+            startDate: Date;
+            endDate?: Date | undefined;
         }): Promise<decisionType[]>;
         deprecatedUpdateDecisionsLabelStatus({ decisionIds, labelStatus, }: {
             decisionIds: number[];

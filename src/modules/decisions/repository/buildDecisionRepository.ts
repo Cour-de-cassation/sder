@@ -21,6 +21,12 @@ async function buildDecisionRepository(): Promise<decisionRepositoryType> {
       return runMongo(({ collection }) => collection.find({ sourceId: { $in: decisionIds } }).toArray());
     },
 
+    async findAllBySourceIdsAndSourceName(sourceIds, sourceName) {
+      return runMongo(async ({ collection }) =>
+        collection.find({ sourceId: { $in: sourceIds }, sourceName } as any).toArray(),
+      );
+    },
+
     async findAllIds() {
       return runMongo(async ({ collection }) => {
         const decisionFieldsIds = await collection.find().project({ _id: 1 }).toArray();
@@ -46,12 +52,12 @@ async function buildDecisionRepository(): Promise<decisionRepositoryType> {
       });
     },
 
-    async findAllToPseudonymiseSince(date) {
+    async findAllBetween({ startDate, endDate, source }) {
       return runMongo(({ collection }) =>
         collection
           .find({
-            dateCreation: { $gte: date.toISOString() as any },
-            labelStatus: 'toBeTreated',
+            dateCreation: { $gte: startDate.toISOString() as any, $lt: endDate.toISOString() as any },
+            sourceName: source,
           })
           .toArray(),
       );

@@ -3,6 +3,6 @@ SDERPATH=/home/sder
 SDERCRONLOGFILE=/home/sder/cron.log.txt
 
 # Reset all the decision label status to "toBeTreated"
-0 0 * * SUN node $SDERPATH/dist/scripts/resetAllDecisionsLabelStatus.js >> $SDERCRONLOGFILE 2>&1
+0 1 * * SUN node $SDERPATH/dist/scripts/resetAllDecisionsLabelStatus.js >> $SDERCRONLOGFILE 2>&1
 
 ####

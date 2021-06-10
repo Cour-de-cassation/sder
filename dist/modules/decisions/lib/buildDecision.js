@@ -14,6 +14,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.buildDecision = void 0;
 var utils_1 = require("../../../utils");
 function buildDecision(decisionFields) {
-    return __assign(__assign({}, decisionFields), { _id: utils_1.buildObjectId(), _rev: 0, labelStatus: 'toBeTreated', labelTreatments: [] });
+    return __assign(__assign({}, decisionFields), { _id: utils_1.buildObjectId(), labelTreatments: [] });
 }
 exports.buildDecision = buildDecision;

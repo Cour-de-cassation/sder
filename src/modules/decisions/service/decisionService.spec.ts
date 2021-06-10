@@ -1,4 +1,5 @@
 import { omit } from 'lodash';
+import { dateBuilder } from '../../../utils';
 import { generateDecision } from '../lib';
 import { buildDecisionRepository } from '../repository';
 import { decisionService } from './decisionService';
@@ -43,6 +44,146 @@ describe('decisionService', () => {
 
       const decision = await decisionRepository.findByDecisionId(decisionField.sourceId);
       expect(decision.labelStatus).toEqual('toBeTreated');
+    });
+  });
+
+  describe('fetchDecisionBySourceIdAndSourceName', () => {
+    it('should fetch the right decision', async () => {
+      const decisionRepository = await buildDecisionRepository();
+      const decisions = [
+        { sourceId: 100, sourceName: 'jurica' },
+        { sourceId: 200, sourceName: 'jurica' },
+        { sourceId: 300, sourceName: 'jurica' },
+        { sourceId: 200, sourceName: 'jurinet' },
+      ].map(generateDecision);
+      await Promise.all(decisions.map(decisionRepository.insert));
+
+      const fetchedDecisions = await decisionService.fetchDecisionsBySourceIdsAndSourceName([200, 300], 'jurica');
+
+      expect(fetchedDecisions.sort()).toEqual([decisions[1], decisions[2]].sort());
+    });
+  });
+
+  describe('fetchJurinetAndChainedJuricaDecisionsToPseudonymiseBetween', () => {
+    it('should fetch the jurinet decisions between the given date', async () => {
+      const decisionRepository = await buildDecisionRepository();
+      const decisions = ([
+        {
+          sourceId: 300,
+          sourceName: 'jurica',
+          dateCreation: dateBuilder.daysAgo(3),
+          pseudoText: '',
+          labelStatus: 'toBeTreated',
+        },
+        {
+          sourceId: 200,
+          sourceName: 'jurinet',
+          dateCreation: dateBuilder.daysAgo(3),
+          pseudoText: '',
+          labelStatus: 'toBeTreated',
+        },
+      ] as const).map(generateDecision);
+      await Promise.all(decisions.map(decisionRepository.insert));
+
+      const fetchedDecisions = await decisionService.fetchJurinetAndChainedJuricaDecisionsToPseudonymiseBetween({
+        startDate: new Date(dateBuilder.daysAgo(5)),
+        endDate: new Date(dateBuilder.daysAgo(1)),
+      });
+
+      expect(fetchedDecisions.sort()).toEqual([decisions[1]].sort());
+    });
+
+    it('should not fetch the jurinet decisions between the given date already treated', async () => {
+      const decisionRepository = await buildDecisionRepository();
+      const decisions = ([
+        {
+          sourceId: 200,
+          sourceName: 'jurinet',
+          dateCreation: dateBuilder.daysAgo(3),
+          pseudoText: 'TEXT',
+          labelStatus: 'done',
+        },
+      ] as const).map(generateDecision);
+      await Promise.all(decisions.map(decisionRepository.insert));
+
+      const fetchedDecisions = await decisionService.fetchJurinetAndChainedJuricaDecisionsToPseudonymiseBetween({
+        startDate: new Date(dateBuilder.daysAgo(5)),
+        endDate: new Date(dateBuilder.daysAgo(1)),
+      });
+
+      expect(fetchedDecisions.sort()).toEqual([].sort());
+    });
+
+    it('should fetch the jurica decisions chained to jurinet decision between the given date already treated', async () => {
+      const decisionRepository = await buildDecisionRepository();
+      const decisions = [
+        {
+          sourceId: 300,
+          sourceName: 'jurica',
+          dateCreation: dateBuilder.daysAgo(9),
+          pseudoText: '',
+          labelStatus: 'toBeTreated' as const,
+        },
+        {
+          sourceId: 400,
+          sourceName: 'jurica',
+          dateCreation: dateBuilder.daysAgo(3),
+          pseudoText: '',
+          labelStatus: 'toBeTreated' as const,
+        },
+        {
+          sourceId: 200,
+          sourceName: 'jurinet',
+          dateCreation: dateBuilder.daysAgo(3),
+          pseudoText: '',
+          labelStatus: 'toBeTreated' as const,
+          decatt: [300],
+        },
+      ].map(generateDecision);
+      await Promise.all(decisions.map(decisionRepository.insert));
+
+      const fetchedDecisions = await decisionService.fetchJurinetAndChainedJuricaDecisionsToPseudonymiseBetween({
+        startDate: new Date(dateBuilder.daysAgo(5)),
+        endDate: new Date(dateBuilder.daysAgo(1)),
+      });
+
+      expect(fetchedDecisions).toEqual([decisions[2], decisions[0]]);
+    });
+
+    it('should fetch the jurica decisions chained to jurinet decision between the given date already treated (case jurinet is treated)', async () => {
+      const decisionRepository = await buildDecisionRepository();
+      const decisions = [
+        {
+          sourceId: 300,
+          sourceName: 'jurica',
+          dateCreation: dateBuilder.daysAgo(9),
+          pseudoText: '',
+          labelStatus: 'toBeTreated' as const,
+        },
+        {
+          sourceId: 400,
+          sourceName: 'jurica',
+          dateCreation: dateBuilder.daysAgo(3),
+          pseudoText: '',
+          labelStatus: 'toBeTreated' as const,
+        },
+        {
+          sourceId: 200,
+          sourceName: 'jurinet',
+          dateCreation: dateBuilder.daysAgo(3),
+          pseudoText: 'TEXT',
+          labelStatus: 'done' as const,
+          decatt: [300],
+        },
+      ].map(generateDecision);
+      await Promise.all(decisions.map(decisionRepository.insert));
+
+      const fetchedDecisions = await decisionService.fetchJurinetAndChainedJuricaDecisionsToPseudonymiseBetween({
+        startDate: new Date(dateBuilder.daysAgo(5)),
+        endDate: new Date(dateBuilder.daysAgo(1)),
+      });
+
+      expect(fetchedDecisions).toEqual([decisions[0]]);
     });
   });
 

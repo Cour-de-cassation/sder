@@ -21,7 +21,7 @@ type decisionType = {
   chamberName: string;
   dateCreation?: string;
   dateDecision?: string;
-  decatt: number[];
+  decatt?: number[];
   jurisdictionCode: string;
   jurisdictionId: string;
   jurisdictionName: string;

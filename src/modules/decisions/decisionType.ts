@@ -7,7 +7,7 @@ type decisionType = {
   _rev: number;
   _version: number;
   analysis: {
-    analyse: Array<string>;
+    analyse: string[];
     doctrine: string;
     link: string;
     reference: Array<string>;
@@ -19,17 +19,21 @@ type decisionType = {
   appeals: Array<string>;
   chamberId: string;
   chamberName: string;
-  dateCreation: string;
-  dateDecision: string;
-  decatt: Array<number>;
+  dateCreation?: string;
+  dateDecision?: string;
+  decatt: number[];
   jurisdictionCode: string;
   jurisdictionId: string;
   jurisdictionName: string;
   labelStatus: 'toBeTreated' | 'loaded' | 'done' | 'exported';
   labelTreatments: labelTreatmentsType;
-  locked: boolean;
+  locked: false;
+  occultation: {
+    additionalTerms: string;
+    categoriesToOmit: string[];
+  };
   originalText: string;
-  parties: Array<string>;
+  parties: string[];
   pseudoStatus: string;
   pseudoText: string;
   pubCategory: string;

@@ -140,6 +140,14 @@ const decisionsValidationSchema = {
           },
         },
       },
+      publication: {
+        bsonType: 'array',
+        additionalProperties: false,
+        items: {
+          bsonType: 'string',
+        },
+      },
+      formation: { bsonType: 'string' },
     },
   },
 };

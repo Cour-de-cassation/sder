@@ -46,6 +46,8 @@ type decisionType = {
       publication: string[];
     };
   };
+  publication?: string[];
+  formation?: string;
 };
 
 type labelTreatmentsType = Array<{

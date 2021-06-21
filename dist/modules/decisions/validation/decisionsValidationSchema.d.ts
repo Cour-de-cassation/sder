@@ -11,10 +11,20 @@ declare const decisionsValidationSchema: {
             _rev: {
                 bsonType: string;
             };
+            _version: {
+                bsonType: string;
+            };
             analysis: {
                 bsonType: string;
                 additionalProperties: boolean;
                 properties: {
+                    analyse: {
+                        bsonType: string;
+                        additionalProperties: boolean;
+                        items: {
+                            bsonType: string;
+                        };
+                    };
                     doctrine: {
                         bsonType: string;
                     };
@@ -64,6 +74,13 @@ declare const decisionsValidationSchema: {
             };
             dateDecision: {
                 bsonType: string;
+            };
+            decatt: {
+                bsonType: string;
+                additionalProperties: boolean;
+                items: {
+                    bsonType: string;
+                };
             };
             jurisdictionCode: {
                 bsonType: string;
@@ -140,6 +157,10 @@ declare const decisionsValidationSchema: {
             };
             parties: {
                 bsonType: string;
+                additionalProperties: boolean;
+                items: {
+                    bsonType: string;
+                };
             };
             pseudoStatus: {
                 bsonType: string;
@@ -180,6 +201,16 @@ declare const decisionsValidationSchema: {
                         };
                     };
                 };
+            };
+            publication: {
+                bsonType: string;
+                additionalProperties: boolean;
+                items: {
+                    bsonType: string;
+                };
+            };
+            formation: {
+                bsonType: string;
             };
         };
     };

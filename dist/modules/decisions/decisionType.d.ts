@@ -44,6 +44,8 @@ declare type decisionType = {
             publication: string[];
         };
     };
+    publication?: string[];
+    formation?: string;
 };
 declare type labelTreatmentsType = Array<{
     annotations: Array<{

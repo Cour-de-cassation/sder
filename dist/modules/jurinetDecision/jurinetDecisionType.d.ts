@@ -21,5 +21,10 @@ declare type jurinetDecisionType = {
     DT_CREATION?: Date;
     ID_SOLUTION: string;
     NUM_DECISION: string;
+    ID_FORMATION?: string;
+    IND_BULLETIN?: number;
+    IND_RAPPORT?: number;
+    IND_LETTRE?: number;
+    IND_COMMUNIQUE?: number;
 } & Record<typeof OCCULTATION_CATEGORIES_FIELDS[number], number>;
 declare type referenceType = any;

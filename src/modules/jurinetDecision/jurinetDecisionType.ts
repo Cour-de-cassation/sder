@@ -28,6 +28,7 @@ type jurinetDecisionType = {
   IND_RAPPORT?: number;
   IND_LETTRE?: number;
   IND_COMMUNIQUE?: number;
+  _bloc_occultation?: number;
 } & Record<typeof OCCULTATION_CATEGORIES_FIELDS[number], number>;
 
 type referenceType = any;

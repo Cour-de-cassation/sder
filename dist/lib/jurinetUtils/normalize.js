@@ -128,6 +128,7 @@ function normalize(document, previousVersion, ignorePreviousContent) {
                             additionalTerms: '',
                             categoriesToOmit: [],
                         },
+                        blocOccultation: undefined,
                     });
                     if (previousVersion) {
                         if (previousVersion.labelStatus) {
@@ -222,6 +223,9 @@ function normalize(document, previousVersion, ignorePreviousContent) {
                     }
                     if (document._decatt && document._decatt.length > 0) {
                         normalizedDecision.decatt = document._decatt;
+                    }
+                    if (document._bloc_occultation) {
+                        normalizedDecision.blocOccultation = document._bloc_occultation;
                     }
                     if (!normalizedDecision.pseudoText) return [3 /*break*/, 4];
                     _a.label = 1;

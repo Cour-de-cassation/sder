@@ -48,6 +48,7 @@ type decisionType = {
   };
   publication?: string[];
   formation?: string;
+  blocOccultation?: number;
 };
 
 type labelTreatmentsType = Array<{

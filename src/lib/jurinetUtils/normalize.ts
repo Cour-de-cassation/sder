@@ -92,6 +92,7 @@ async function normalize(document: jurinetDecisionType, previousVersion: decisio
       additionalTerms: '',
       categoriesToOmit: [],
     },
+    blocOccultation: undefined,
   });
 
   if (previousVersion) {
@@ -190,6 +191,10 @@ async function normalize(document: jurinetDecisionType, previousVersion: decisio
 
   if (document._decatt && document._decatt.length > 0) {
     normalizedDecision.decatt = document._decatt;
+  }
+
+  if (document._bloc_occultation) {
+    normalizedDecision.blocOccultation = document._bloc_occultation;
   }
 
   if (normalizedDecision.pseudoText) {

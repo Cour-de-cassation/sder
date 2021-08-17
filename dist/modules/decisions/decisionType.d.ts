@@ -46,6 +46,7 @@ declare type decisionType = {
     };
     publication?: string[];
     formation?: string;
+    blocOccultation?: number;
 };
 declare type labelTreatmentsType = Array<{
     annotations: Array<{

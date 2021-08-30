@@ -74,6 +74,7 @@ async function normalize(document: jurinetDecisionType, previousVersion: decisio
     pseudoStatus: pseudoStatus,
     appeals: [],
     analysis: {
+      nature: undefined,
       analyse: [],
       title: [],
       summary: '',

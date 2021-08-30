@@ -7,6 +7,7 @@ type decisionType = {
   _rev: number;
   _version: number;
   analysis: {
+    nature?: string;
     analyse: string[];
     doctrine: string;
     link: string;

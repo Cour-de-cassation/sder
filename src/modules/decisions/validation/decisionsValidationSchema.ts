@@ -20,6 +20,7 @@ const decisionsValidationSchema = {
               bsonType: 'string',
             },
           },
+          nature: { bsonType: 'string' },
           doctrine: { bsonType: 'string' },
           link: { bsonType: 'string' },
           reference: {

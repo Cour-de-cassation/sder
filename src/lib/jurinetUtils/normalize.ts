@@ -94,6 +94,9 @@ async function normalize(document: jurinetDecisionType, previousVersion: decisio
       categoriesToOmit: [],
     },
     blocOccultation: undefined,
+    endCaseCode: null,
+    NACCode: null,
+    public: null,
   });
 
   if (previousVersion) {

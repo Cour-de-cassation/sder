@@ -50,6 +50,9 @@ type decisionType = {
   publication?: string[];
   formation?: string;
   blocOccultation?: number;
+  endCaseCode?: string | null;
+  NACCode?: string | null;
+  public?: boolean | null;
 };
 
 type labelTreatmentsType = Array<{

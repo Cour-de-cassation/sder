@@ -1,6 +1,6 @@
 import { getZones } from './getZones';
-export { zoningUtils };
+export { juritools };
 
-const zoningUtils = {
+const juritools = {
   getZones,
 };

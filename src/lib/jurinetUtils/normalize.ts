@@ -1,7 +1,7 @@
 import { CONSTANTS } from '../../constants';
 import { decisionModule, decisionType } from '../../modules/decisions';
 import { jurinetDecisionType } from '../../modules/jurinetDecision';
-import { zoningUtils } from '../zoningUtils';
+import { juritools } from '../juritools';
 import { jurinetLib } from '../jurinet';
 import { xmlToJson } from './xmlToJson';
 import { OCCULTATION_CATEGORIES_FIELDS } from '../../modules/jurinetDecision/constants';
@@ -200,7 +200,7 @@ async function normalize(document: jurinetDecisionType, previousVersion: decisio
 
   if (normalizedDecision.pseudoText) {
     try {
-      const zoning = await zoningUtils.getZones(
+      const zoning = await juritools.getZones(
         normalizedDecision.sourceId,
         normalizedDecision.sourceName,
         normalizedDecision.pseudoText,

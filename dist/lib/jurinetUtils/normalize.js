@@ -263,6 +263,9 @@ function normalize(document, previousVersion, ignorePreviousContent) {
                             });
                         }
                     });
+                    if (!!document.OCCULTATION_SUPPLEMENTAIRE) {
+                        normalizedDecision.occultation.additionalTerms = document.OCCULTATION_SUPPLEMENTAIRE;
+                    }
                     if (!normalizedDecision.originalText) {
                         throw new Error("JurinetUtils.Normalize: Document '" + normalizedDecision.sourceId + "' has not text.");
                     }

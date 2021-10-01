@@ -124,6 +124,22 @@ function buildDecisionFakeRepository() {
                             });
                         });
                     },
+                    findAllPublicBySourceAndJurisdictionBetween: function (_a) {
+                        var startDate = _a.startDate, endDate = _a.endDate, source = _a.source, jurisdiction = _a.jurisdiction;
+                        return __awaiter(this, void 0, void 0, function () {
+                            return __generator(this, function (_b) {
+                                return [2 /*return*/, collection.filter(function (decision) {
+                                        return !!decision.public &&
+                                            decision.dateCreation &&
+                                            new Date(decision.dateCreation) >= startDate &&
+                                            decision.dateCreation &&
+                                            new Date(decision.dateCreation) < endDate &&
+                                            decision.sourceName === source &&
+                                            decision.jurisdictionName.toLowerCase() === jurisdiction.toLowerCase();
+                                    })];
+                            });
+                        });
+                    },
                     findAllIdsWithoutLabelFields: function () {
                         return __awaiter(this, void 0, void 0, function () {
                             return __generator(this, function (_a) {

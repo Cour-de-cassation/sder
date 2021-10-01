@@ -35,6 +35,7 @@ declare type decisionType = {
     pseudoStatus: string;
     pseudoText: string;
     pubCategory: string;
+    public: boolean | null;
     registerNumber: string;
     solution: string;
     sourceId: number;

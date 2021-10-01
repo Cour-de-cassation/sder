@@ -119,6 +119,7 @@ function normalize(document, previousVersion, ignorePreviousContent) {
                             reference: [],
                             source: document.SOURCE,
                         },
+                        public: null,
                         parties: [],
                         decatt: undefined,
                         locked: false,

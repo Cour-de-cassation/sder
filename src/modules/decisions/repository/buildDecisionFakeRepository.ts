@@ -52,6 +52,19 @@ async function buildDecisionFakeRepository(): Promise<decisionRepositoryType> {
       );
     },
 
+    async findAllPublicBySourceAndJurisdictionBetween({ startDate, endDate, source, jurisdiction }) {
+      return collection.filter(
+        (decision) =>
+          !!decision.public &&
+          decision.dateCreation &&
+          new Date(decision.dateCreation) >= startDate &&
+          decision.dateCreation &&
+          new Date(decision.dateCreation) < endDate &&
+          decision.sourceName === source &&
+          decision.jurisdictionName.toLowerCase() === jurisdiction.toLowerCase(),
+      );
+    },
+
     async findAllIdsWithoutLabelFields() {
       return collection.filter((decision) => decision.labelStatus === undefined).map((decision) => decision._id);
     },

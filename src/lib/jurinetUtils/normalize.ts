@@ -83,6 +83,7 @@ async function normalize(document: jurinetDecisionType, previousVersion: decisio
       reference: [],
       source: document.SOURCE,
     },
+    public: null,
     parties: [],
     decatt: undefined,
     locked: false,

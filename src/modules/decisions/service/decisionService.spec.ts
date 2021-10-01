@@ -64,6 +64,66 @@ describe('decisionService', () => {
     });
   });
 
+  describe('fetchPublicDecisionsBySourceAndJurisdictionsBetween', () => {
+    it('should fetch the right decision', async () => {
+      const decisionRepository = await buildDecisionRepository();
+      const decisions = [
+        {
+          public: true,
+          sourceName: 'jurica',
+          jurisdictionName: "cour d'appel de bordeaux",
+          dateCreation: dateBuilder.daysAgo(3),
+        },
+        {
+          public: false,
+          sourceName: 'jurica',
+          jurisdictionName: "Cour d'appel de bordeaux",
+          dateCreation: dateBuilder.daysAgo(3),
+        },
+        {
+          public: null,
+          sourceName: 'jurica',
+          jurisdictionName: "Cour d'appel de bordeaux",
+          dateCreation: dateBuilder.daysAgo(3),
+        },
+        {
+          public: true,
+          sourceName: 'jurinet',
+          jurisdictionName: "Cour d'appel de Bordeaux",
+          dateCreation: dateBuilder.daysAgo(3),
+        },
+        {
+          public: true,
+          sourceName: 'jurica',
+          jurisdictionName: "Cour d'appel de Dijon",
+          dateCreation: dateBuilder.daysAgo(3),
+        },
+        {
+          public: true,
+          sourceName: 'jurica',
+          jurisdictionName: "Cour d'appel de Dijon",
+          dateCreation: dateBuilder.daysAgo(8),
+        },
+        {
+          public: true,
+          sourceName: 'jurica',
+          jurisdictionName: "Cour d'appel de Paris",
+          dateCreation: dateBuilder.daysAgo(3),
+        },
+      ].map(generateDecision);
+      await Promise.all(decisions.map(decisionRepository.insert));
+
+      const fetchedDecisions = await decisionService.fetchPublicDecisionsBySourceAndJurisdictionsBetween({
+        jurisdictions: ["Cour d'appel de Bordeaux", "Cour d'appel de Dijon"],
+        source: 'jurica',
+        startDate: new Date(dateBuilder.daysAgo(5)),
+        endDate: new Date(dateBuilder.daysAgo(1)),
+      });
+
+      expect(fetchedDecisions.sort()).toEqual([decisions[0], decisions[4]].sort());
+    });
+  });
+
   describe('fetchJurinetAndChainedJuricaDecisionsToPseudonymiseBetween', () => {
     it('should fetch the jurinet decisions between the given date', async () => {
       const decisionRepository = await buildDecisionRepository();

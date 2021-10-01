@@ -7,6 +7,12 @@ declare const decisionService: {
         decisionId: number;
         pseudoText: string;
     }[]>;
+    fetchPublicDecisionsBySourceAndJurisdictionsBetween({ startDate, endDate, source, jurisdictions, }: {
+        startDate: Date;
+        endDate?: Date | undefined;
+        source: string;
+        jurisdictions: string[];
+    }): Promise<decisionType[]>;
     fetchJurinetAndChainedJuricaDecisionsToPseudonymiseBetween({ startDate, endDate, }: {
         startDate: Date;
         endDate?: Date | undefined;

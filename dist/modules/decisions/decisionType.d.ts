@@ -36,6 +36,7 @@ declare type decisionType = {
   pseudoStatus: string;
   pseudoText: string;
   pubCategory: string;
+  public: boolean | null;
   registerNumber: string;
   solution: string;
   sourceId: number;
@@ -45,6 +46,9 @@ declare type decisionType = {
       publication: string[];
     };
   };
+  publication?: string[];
+  formation?: string;
+  blocOccultation?: number;
 };
 declare type labelTreatmentsType = Array<{
   annotations: Array<{

@@ -15,6 +15,13 @@ declare const decisionsValidationSchema: {
         bsonType: string;
         additionalProperties: boolean;
         properties: {
+          analyse: {
+            bsonType: string;
+            additionalProperties: boolean;
+            items: {
+              bsonType: string;
+            };
+          };
           nature: {
             bsonType: string;
           };
@@ -67,6 +74,13 @@ declare const decisionsValidationSchema: {
       };
       dateDecision: {
         bsonType: string;
+      };
+      decatt: {
+        bsonType: string;
+        additionalProperties: boolean;
+        items: {
+          bsonType: string;
+        };
       };
       jurisdictionCode: {
         bsonType: string;

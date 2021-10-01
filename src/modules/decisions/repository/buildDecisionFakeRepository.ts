@@ -52,6 +52,21 @@ async function buildDecisionFakeRepository(): Promise<decisionRepositoryType> {
       );
     },
 
+    async findAllPublicBySourceAndJurisdictionBetween({ startDate, endDate, source, jurisdiction }) {
+      const jurisdictionRegex = new RegExp(jurisdiction, 'i');
+
+      return collection.filter(
+        (decision) =>
+          !!decision.public &&
+          decision.dateCreation &&
+          new Date(decision.dateCreation) >= startDate &&
+          decision.dateCreation &&
+          new Date(decision.dateCreation) < endDate &&
+          decision.sourceName === source &&
+          jurisdictionRegex.test(decision.jurisdictionName),
+      );
+    },
+
     async findAllIdsWithoutLabelFields() {
       return collection.filter((decision) => decision.labelStatus === undefined).map((decision) => decision._id);
     },

@@ -101,6 +101,39 @@ var decisionService = {
             });
         });
     },
+    fetchPublicDecisionsBySourceAndJurisdictionsBetween: function (_a) {
+        var startDate = _a.startDate, _b = _a.endDate, endDate = _b === void 0 ? new Date() : _b, source = _a.source, jurisdictions = _a.jurisdictions;
+        return __awaiter(this, void 0, void 0, function () {
+            var decisionRepository, decisions;
+            var _this = this;
+            return __generator(this, function (_c) {
+                switch (_c.label) {
+                    case 0: return [4 /*yield*/, repository_1.buildDecisionRepository()];
+                    case 1:
+                        decisionRepository = _c.sent();
+                        decisions = [];
+                        jurisdictions.forEach(function (jurisdiction) { return __awaiter(_this, void 0, void 0, function () {
+                            var decisionsForJuridiction;
+                            return __generator(this, function (_a) {
+                                switch (_a.label) {
+                                    case 0: return [4 /*yield*/, decisionRepository.findAllPublicBySourceAndJurisdictionBetween({
+                                            endDate: endDate,
+                                            startDate: startDate,
+                                            jurisdiction: jurisdiction,
+                                            source: source,
+                                        })];
+                                    case 1:
+                                        decisionsForJuridiction = _a.sent();
+                                        decisions.push.apply(decisions, decisionsForJuridiction);
+                                        return [2 /*return*/];
+                                }
+                            });
+                        }); });
+                        return [2 /*return*/, decisions];
+                }
+            });
+        });
+    },
     fetchJurinetAndChainedJuricaDecisionsToPseudonymiseBetween: function (_a) {
         var startDate = _a.startDate, _b = _a.endDate, endDate = _b === void 0 ? new Date() : _b;
         return __awaiter(this, void 0, void 0, function () {

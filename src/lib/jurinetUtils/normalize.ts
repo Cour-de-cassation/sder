@@ -84,6 +84,7 @@ async function normalize(document: jurinetDecisionType, previousVersion: decisio
       reference: [],
       source: document.SOURCE,
     },
+    public: null,
     parties: [],
     decatt: undefined,
     locked: false,
@@ -217,7 +218,7 @@ async function normalize(document: jurinetDecisionType, previousVersion: decisio
   }
 
   const occultations: Record<typeof OCCULTATION_CATEGORIES_FIELDS[number], string[]> = {
-    IND_PM: ['personneMorale', 'etablissement'],
+    IND_PM: ['personneMorale', 'etablissement', 'numeroSiretSiren'],
     IND_ADRESSE: ['adresse', 'localite'],
     IND_DT_NAISSANCE: ['dateNaissance'],
     IND_DT_DECE: ['dateDeces'],
@@ -226,17 +227,37 @@ async function normalize(document: jurinetDecisionType, previousVersion: decisio
     IND_CADASTRE: ['cadastre'],
     IND_CHAINE: ['compteBancaire', 'telephoneFax', 'insee'],
     IND_COORDONNEE_ELECTRONIQUE: ['email'],
-    IND_PRENOM_PROFESSIONEL: ['professionnelPrenom'],
-    IND_NOM_PROFESSIONEL: ['professionnelNom'],
+    IND_PRENOM_PROFESSIONEL: ['professionnelMagistratGreffier'],
+    IND_NOM_PROFESSIONEL: ['professionnelMagistratGreffier'],
   };
 
   keysOf(occultations).forEach((occultationCategoryField) => {
-    if (!document[occultationCategoryField]) {
-      occultations[occultationCategoryField].forEach((item) => {
-        normalizedDecision.occultation.categoriesToOmit.push(item);
-      });
+    if (
+      occultationCategoryField === 'IND_PM' ||
+      occultationCategoryField === 'IND_NOM_PROFESSIONEL' ||
+      occultationCategoryField === 'IND_PRENOM_PROFESSIONEL'
+    ) {
+      if (!document[occultationCategoryField]) {
+        occultations[occultationCategoryField].forEach((item) => {
+          normalizedDecision.occultation.categoriesToOmit.push(item);
+        });
+      }
+    } else {
+      if (
+        !document[occultationCategoryField] &&
+        document[occultationCategoryField] !== null &&
+        document[occultationCategoryField] !== undefined
+      ) {
+        occultations[occultationCategoryField].forEach((item) => {
+          normalizedDecision.occultation.categoriesToOmit.push(item);
+        });
+      }
     }
   });
+
+  if (!!document.OCCULTATION_SUPPLEMENTAIRE) {
+    normalizedDecision.occultation.additionalTerms = document.OCCULTATION_SUPPLEMENTAIRE;
+  }
 
   if (!normalizedDecision.originalText) {
     throw new Error(`JurinetUtils.Normalize: Document '${normalizedDecision.sourceId}' has not text.`);

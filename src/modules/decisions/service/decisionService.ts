@@ -27,6 +27,34 @@ const decisionService = {
     return decisionRepository.findAllPseudonymisationToExport();
   },
 
+  async fetchPublicDecisionsBySourceAndJurisdictionsBetween({
+    startDate,
+    endDate = new Date(),
+    source,
+    jurisdictions,
+  }: {
+    startDate: Date;
+    endDate?: Date;
+    source: string;
+    jurisdictions: string[];
+  }) {
+    const decisionRepository = await buildDecisionRepository();
+
+    const decisions: decisionType[] = [];
+
+    jurisdictions.forEach(async (jurisdiction) => {
+      const decisionsForJuridiction = await decisionRepository.findAllPublicBySourceAndJurisdictionBetween({
+        endDate,
+        startDate,
+        jurisdiction,
+        source,
+      });
+      decisions.push(...decisionsForJuridiction);
+    });
+
+    return decisions;
+  },
+
   async fetchJurinetAndChainedJuricaDecisionsToPseudonymiseBetween({
     startDate,
     endDate = new Date(),

@@ -127,7 +127,9 @@ function buildDecisionFakeRepository() {
                     findAllPublicBySourceAndJurisdictionBetween: function (_a) {
                         var startDate = _a.startDate, endDate = _a.endDate, source = _a.source, jurisdiction = _a.jurisdiction;
                         return __awaiter(this, void 0, void 0, function () {
+                            var jurisdictionRegex;
                             return __generator(this, function (_b) {
+                                jurisdictionRegex = new RegExp(jurisdiction, 'i');
                                 return [2 /*return*/, collection.filter(function (decision) {
                                         return !!decision.public &&
                                             decision.dateCreation &&
@@ -135,7 +137,7 @@ function buildDecisionFakeRepository() {
                                             decision.dateCreation &&
                                             new Date(decision.dateCreation) < endDate &&
                                             decision.sourceName === source &&
-                                            decision.jurisdictionName.toLowerCase() === jurisdiction.toLowerCase();
+                                            jurisdictionRegex.test(decision.jurisdictionName);
                                     })];
                             });
                         });

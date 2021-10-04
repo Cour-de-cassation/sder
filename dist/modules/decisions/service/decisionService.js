@@ -173,7 +173,7 @@ var decisionService = {
                         return [4 /*yield*/, decisionRepository.findAllBetween({
                                 startDate: startDate,
                                 endDate: endDate,
-                                source: 'jurinet',
+                                source: source,
                                 labelStatus: 'toBeTreated',
                             })];
                     case 2:

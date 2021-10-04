@@ -101,7 +101,7 @@ const decisionService = {
     const decisions = await decisionRepository.findAllBetween({
       startDate,
       endDate,
-      source: 'jurinet',
+      source,
       labelStatus: 'toBeTreated',
     });
 

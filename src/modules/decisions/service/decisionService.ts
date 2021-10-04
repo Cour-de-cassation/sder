@@ -1,5 +1,5 @@
 import { decisionType, labelTreatmentsType } from '../decisionType';
-import { buildDecision, shouldBeTreatedByLabel } from '../lib';
+import { buildDecision } from '../lib';
 import { buildDecisionRepository } from '../repository';
 
 export { decisionService };
@@ -12,13 +12,13 @@ const decisionService = {
     await decisionRepository.insert(decision);
   },
 
-  async fetchDecisionsBySourceIdsAndSourceName(
-    sourceIds: decisionType['sourceId'][],
+  async fetchDecisionBySourceIdAndSourceName(
+    sourceId: decisionType['sourceId'],
     sourceName: decisionType['sourceName'],
   ) {
     const decisionRepository = await buildDecisionRepository();
 
-    return decisionRepository.findAllBySourceIdsAndSourceName(sourceIds, sourceName);
+    return decisionRepository.findBySourceIdAndSourceName({ sourceId, sourceName });
   },
 
   async fetchPseudonymisationsToExport() {
@@ -55,7 +55,7 @@ const decisionService = {
     return decisions;
   },
 
-  async fetchJurinetAndChainedJuricaDecisionsToPseudonymiseBetween({
+  async fetchChainedJuricaDecisionsToPseudonymiseBetween({
     startDate,
     endDate = new Date(),
   }: {
@@ -78,14 +78,34 @@ const decisionService = {
       }
     });
 
-    const juricaChainedDecisions = await decisionRepository.findAllBySourceIdsAndSourceName(
-      juricaChainedDecisionSourceIds,
-      'jurica',
-    );
+    const juricaChainedDecisions = await decisionRepository.findAllByLabelStatusAndSourceIdsAndSourceName({
+      sourceIds: juricaChainedDecisionSourceIds,
+      sourceName: 'jurica',
+      labelStatus: 'toBeTreated',
+    });
 
-    const decisions = [...jurinetDecisions, ...juricaChainedDecisions];
+    return juricaChainedDecisions.filter((decision) => !decision.pseudoText);
+  },
 
-    return decisions.filter(shouldBeTreatedByLabel);
+  async fetchDecisionsToPseudonymiseBetween({
+    source,
+    startDate,
+    endDate = new Date(),
+  }: {
+    source: decisionType['sourceName'];
+    startDate: Date;
+    endDate?: Date;
+  }) {
+    const decisionRepository = await buildDecisionRepository();
+
+    const decisions = await decisionRepository.findAllBetween({
+      startDate,
+      endDate,
+      source: 'jurinet',
+      labelStatus: 'toBeTreated',
+    });
+
+    return decisions.filter((decision) => !decision.pseudoText);
   },
 
   async deprecatedUpdateDecisionsLabelStatus({

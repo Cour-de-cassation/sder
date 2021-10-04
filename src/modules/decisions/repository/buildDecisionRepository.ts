@@ -21,9 +21,9 @@ async function buildDecisionRepository(): Promise<decisionRepositoryType> {
       return runMongo(({ collection }) => collection.find({ sourceId: { $in: decisionIds } }).toArray());
     },
 
-    async findAllBySourceIdsAndSourceName(sourceIds, sourceName) {
+    async findAllByLabelStatusAndSourceIdsAndSourceName({ sourceIds, sourceName, labelStatus }) {
       return runMongo(async ({ collection }) =>
-        collection.find({ sourceId: { $in: sourceIds }, sourceName } as any).toArray(),
+        collection.find({ sourceId: { $in: sourceIds }, sourceName, labelStatus }).toArray(),
       );
     },
 
@@ -97,6 +97,14 @@ async function buildDecisionRepository(): Promise<decisionRepositoryType> {
         }
 
         return result;
+      });
+    },
+
+    async findBySourceIdAndSourceName({ sourceId, sourceName }) {
+      return runMongo(async ({ collection }) => {
+        const result = await collection.findOne({ sourceId, sourceName });
+
+        return result || undefined;
       });
     },
 

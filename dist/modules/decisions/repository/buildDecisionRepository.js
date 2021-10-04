@@ -173,7 +173,7 @@ function buildDecisionRepository() {
                         });
                     },
                     findAllBetween: function (_a) {
-                        var startDate = _a.startDate, endDate = _a.endDate, source = _a.source;
+                        var startDate = _a.startDate, endDate = _a.endDate, source = _a.source, labelStatus = _a.labelStatus;
                         return __awaiter(this, void 0, void 0, function () {
                             return __generator(this, function (_b) {
                                 return [2 /*return*/, runMongo(function (_a) {
@@ -182,6 +182,7 @@ function buildDecisionRepository() {
                                             .find({
                                             dateCreation: { $gte: startDate.toISOString(), $lt: endDate.toISOString() },
                                             sourceName: source,
+                                            labelStatus: labelStatus,
                                         })
                                             .toArray();
                                     })];

@@ -211,7 +211,7 @@ describe('decisionService', () => {
         endDate: new Date(dateBuilder.daysAgo(1)),
       });
 
-      expect(fetchedDecisions).toEqual([decisions[2], decisions[0]]);
+      expect(fetchedDecisions).toEqual([decisions[0]]);
     });
 
     it('should fetch the jurica decisions chained to jurinet decision between the given date already treated (case jurinet is treated)', async () => {

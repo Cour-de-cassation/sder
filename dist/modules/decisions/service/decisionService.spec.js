@@ -327,7 +327,7 @@ describe('decisionService', function () {
                             })];
                     case 3:
                         fetchedDecisions = _a.sent();
-                        expect(fetchedDecisions).toEqual([decisions[2], decisions[0]]);
+                        expect(fetchedDecisions).toEqual([decisions[0]]);
                         return [2 /*return*/];
                 }
             });

@@ -83,14 +83,15 @@ function buildDecisionRepository() {
                             });
                         });
                     },
-                    findAllBySourceIdsAndSourceName: function (sourceIds, sourceName) {
+                    findAllByLabelStatusAndSourceIdsAndSourceName: function (_a) {
+                        var sourceIds = _a.sourceIds, sourceName = _a.sourceName, labelStatus = _a.labelStatus;
                         return __awaiter(this, void 0, void 0, function () {
                             var _this = this;
-                            return __generator(this, function (_a) {
+                            return __generator(this, function (_b) {
                                 return [2 /*return*/, runMongo(function (_a) {
                                         var collection = _a.collection;
                                         return __awaiter(_this, void 0, void 0, function () { return __generator(this, function (_b) {
-                                            return [2 /*return*/, collection.find({ sourceId: { $in: sourceIds }, sourceName: sourceName }).toArray()];
+                                            return [2 /*return*/, collection.find({ sourceId: { $in: sourceIds }, sourceName: sourceName, labelStatus: labelStatus }).toArray()];
                                         }); });
                                     })];
                             });
@@ -251,6 +252,28 @@ function buildDecisionRepository() {
                                                             throw new Error("No matching " + decisionCollectionName_1.decisionCollectionName + " for _id " + id);
                                                         }
                                                         return [2 /*return*/, result];
+                                                }
+                                            });
+                                        });
+                                    })];
+                            });
+                        });
+                    },
+                    findBySourceIdAndSourceName: function (_a) {
+                        var sourceId = _a.sourceId, sourceName = _a.sourceName;
+                        return __awaiter(this, void 0, void 0, function () {
+                            var _this = this;
+                            return __generator(this, function (_b) {
+                                return [2 /*return*/, runMongo(function (_a) {
+                                        var collection = _a.collection;
+                                        return __awaiter(_this, void 0, void 0, function () {
+                                            var result;
+                                            return __generator(this, function (_b) {
+                                                switch (_b.label) {
+                                                    case 0: return [4 /*yield*/, collection.findOne({ sourceId: sourceId, sourceName: sourceName })];
+                                                    case 1:
+                                                        result = _b.sent();
+                                                        return [2 /*return*/, result || undefined];
                                                 }
                                             });
                                         });

@@ -12,7 +12,7 @@ declare const decisionModule: {
     };
     service: {
         createDecision(decisionFields: Pick<decisionType, "public" | "_version" | "analysis" | "appeals" | "chamberId" | "chamberName" | "dateCreation" | "dateDecision" | "decatt" | "jurisdictionCode" | "jurisdictionId" | "jurisdictionName" | "locked" | "occultation" | "originalText" | "parties" | "pseudoStatus" | "pseudoText" | "pubCategory" | "registerNumber" | "solution" | "sourceId" | "sourceName" | "zoning" | "publication" | "formation" | "blocOccultation">): Promise<void>;
-        fetchDecisionsBySourceIdsAndSourceName(sourceIds: number[], sourceName: string): Promise<decisionType[]>;
+        fetchDecisionBySourceIdAndSourceName(sourceId: number, sourceName: string): Promise<decisionType | undefined>;
         fetchPseudonymisationsToExport(): Promise<{
             decisionId: number;
             pseudoText: string;
@@ -23,7 +23,12 @@ declare const decisionModule: {
             source: string;
             jurisdictions: string[];
         }): Promise<decisionType[]>;
-        fetchJurinetAndChainedJuricaDecisionsToPseudonymiseBetween({ startDate, endDate, }: {
+        fetchChainedJuricaDecisionsToPseudonymiseBetween({ startDate, endDate, }: {
+            startDate: Date;
+            endDate?: Date | undefined;
+        }): Promise<decisionType[]>;
+        fetchDecisionsToPseudonymiseBetween({ source, startDate, endDate, }: {
+            source: string;
             startDate: Date;
             endDate?: Date | undefined;
         }): Promise<decisionType[]>;

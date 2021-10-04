@@ -77,10 +77,15 @@ function buildDecisionFakeRepository() {
                             });
                         });
                     },
-                    findAllBySourceIdsAndSourceName: function (sourceIds, sourceName) {
+                    findAllByLabelStatusAndSourceIdsAndSourceName: function (_a) {
+                        var sourceIds = _a.sourceIds, sourceName = _a.sourceName, labelStatus = _a.labelStatus;
                         return __awaiter(this, void 0, void 0, function () {
-                            return __generator(this, function (_a) {
-                                return [2 /*return*/, collection.filter(function (decision) { return sourceIds.includes(decision.sourceId) && decision.sourceName === sourceName; })];
+                            return __generator(this, function (_b) {
+                                return [2 /*return*/, collection.filter(function (decision) {
+                                        return sourceIds.includes(decision.sourceId) &&
+                                            decision.sourceName === sourceName &&
+                                            decision.labelStatus === labelStatus;
+                                    })];
                             });
                         });
                     },
@@ -158,6 +163,14 @@ function buildDecisionFakeRepository() {
                                     throw new Error("No matching " + collectionName + " for _id " + id);
                                 }
                                 return [2 /*return*/, result];
+                            });
+                        });
+                    },
+                    findBySourceIdAndSourceName: function (_a) {
+                        var sourceId = _a.sourceId, sourceName = _a.sourceName;
+                        return __awaiter(this, void 0, void 0, function () {
+                            return __generator(this, function (_b) {
+                                return [2 /*return*/, collection.find(function (decision) { return decision.sourceId === sourceId && decision.sourceName === sourceName; })];
                             });
                         });
                     },

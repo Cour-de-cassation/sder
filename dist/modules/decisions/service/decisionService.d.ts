@@ -2,7 +2,7 @@ import { decisionType, labelTreatmentsType } from '../decisionType';
 export { decisionService };
 declare const decisionService: {
     createDecision(decisionFields: Omit<decisionType, '_id' | '_rev' | 'labelStatus' | 'labelTreatments'>): Promise<void>;
-    fetchDecisionsBySourceIdsAndSourceName(sourceIds: decisionType['sourceId'][], sourceName: decisionType['sourceName']): Promise<decisionType[]>;
+    fetchDecisionBySourceIdAndSourceName(sourceId: decisionType['sourceId'], sourceName: decisionType['sourceName']): Promise<decisionType | undefined>;
     fetchPseudonymisationsToExport(): Promise<{
         decisionId: number;
         pseudoText: string;
@@ -13,7 +13,12 @@ declare const decisionService: {
         source: string;
         jurisdictions: string[];
     }): Promise<decisionType[]>;
-    fetchJurinetAndChainedJuricaDecisionsToPseudonymiseBetween({ startDate, endDate, }: {
+    fetchChainedJuricaDecisionsToPseudonymiseBetween({ startDate, endDate, }: {
+        startDate: Date;
+        endDate?: Date | undefined;
+    }): Promise<decisionType[]>;
+    fetchDecisionsToPseudonymiseBetween({ source, startDate, endDate, }: {
+        source: decisionType['sourceName'];
         startDate: Date;
         endDate?: Date | undefined;
     }): Promise<decisionType[]>;

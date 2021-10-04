@@ -52,12 +52,13 @@ async function buildDecisionRepository(): Promise<decisionRepositoryType> {
       });
     },
 
-    async findAllBetween({ startDate, endDate, source }) {
+    async findAllBetween({ startDate, endDate, source, labelStatus }) {
       return runMongo(({ collection }) =>
         collection
           .find({
             dateCreation: { $gte: startDate.toISOString() as any, $lt: endDate.toISOString() as any },
             sourceName: source,
+            labelStatus,
           })
           .toArray(),
       );

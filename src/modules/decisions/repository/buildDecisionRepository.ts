@@ -1,6 +1,6 @@
 import { buildRunMongo } from '../../../utils';
 import { decisionCollectionName } from '../decisionCollectionName';
-import { decisionType } from '../decisionType';
+import { decisionType, labelStatuses } from '../decisionType';
 import { decisionRepositoryType } from './decisionRepositoryType';
 
 export { buildDecisionRepository };
@@ -56,9 +56,9 @@ async function buildDecisionRepository(): Promise<decisionRepositoryType> {
       return runMongo(({ collection }) =>
         collection
           .find({
-            dateCreation: { $gte: startDate.toISOString() as any, $lt: endDate.toISOString() as any },
+            dateDecision: { $gte: startDate.toISOString() as any, $lt: endDate.toISOString() as any },
             sourceName: source,
-            labelStatus,
+            labelStatus: labelStatus || { $in: labelStatuses },
           })
           .toArray(),
       );
@@ -69,7 +69,7 @@ async function buildDecisionRepository(): Promise<decisionRepositoryType> {
       return runMongo(({ collection }) =>
         collection
           .find({
-            dateCreation: { $gte: startDate.toISOString() as any, $lt: endDate.toISOString() as any },
+            dateDecision: { $gte: startDate.toISOString() as any, $lt: endDate.toISOString() as any },
             sourceName: source,
             jurisdictionName: jurisdictionRegex,
             public: true,

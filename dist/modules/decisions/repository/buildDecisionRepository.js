@@ -39,6 +39,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.buildDecisionRepository = void 0;
 var utils_1 = require("../../../utils");
 var decisionCollectionName_1 = require("../decisionCollectionName");
+var decisionType_1 = require("../decisionType");
 function buildDecisionRepository() {
     return __awaiter(this, void 0, void 0, function () {
         var runMongo;
@@ -180,9 +181,9 @@ function buildDecisionRepository() {
                                         var collection = _a.collection;
                                         return collection
                                             .find({
-                                            dateCreation: { $gte: startDate.toISOString(), $lt: endDate.toISOString() },
+                                            dateDecision: { $gte: startDate.toISOString(), $lt: endDate.toISOString() },
                                             sourceName: source,
-                                            labelStatus: labelStatus,
+                                            labelStatus: labelStatus || { $in: decisionType_1.labelStatuses },
                                         })
                                             .toArray();
                                     })];
@@ -199,7 +200,7 @@ function buildDecisionRepository() {
                                         var collection = _a.collection;
                                         return collection
                                             .find({
-                                            dateCreation: { $gte: startDate.toISOString(), $lt: endDate.toISOString() },
+                                            dateDecision: { $gte: startDate.toISOString(), $lt: endDate.toISOString() },
                                             sourceName: source,
                                             jurisdictionName: jurisdictionRegex,
                                             public: true,

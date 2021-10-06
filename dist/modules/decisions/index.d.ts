@@ -34,11 +34,11 @@ declare const decisionModule: {
         }): Promise<decisionType[]>;
         deprecatedUpdateDecisionsLabelStatus({ decisionIds, labelStatus, }: {
             decisionIds: number[];
-            labelStatus: "done" | "toBeTreated" | "loaded" | "exported";
+            labelStatus: import("./decisionType").labelStatusType;
         }): Promise<void>;
         updateDecisionsLabelStatus({ decisionIds, labelStatus, }: {
             decisionIds: import("bson").ObjectId[];
-            labelStatus: "done" | "toBeTreated" | "loaded" | "exported";
+            labelStatus: import("./decisionType").labelStatusType;
         }): Promise<void>;
         depracatedUpdateDecisionPseudonymisation({ decisionId, decisionPseudonymisedText, labelTreatments, }: {
             decisionId: number;

@@ -1,6 +1,12 @@
 import { mongoIdType } from '../../utils';
 
-export type { decisionType, labelTreatmentsType };
+export { labelStatuses };
+
+export type { decisionType, labelStatusType, labelTreatmentsType };
+
+type labelStatusType = 'toBeTreated' | 'loaded' | 'done' | 'exported';
+
+const labelStatuses = ['toBeTreated', 'loaded', 'done', 'exported'] as labelStatusType[];
 
 type decisionType = {
   _id: mongoIdType;
@@ -25,7 +31,7 @@ type decisionType = {
   jurisdictionCode: string;
   jurisdictionId: string;
   jurisdictionName: string;
-  labelStatus: 'toBeTreated' | 'loaded' | 'done' | 'exported';
+  labelStatus: typeof labelStatuses[number];
   labelTreatments: labelTreatmentsType;
   locked: false;
   occultation: {

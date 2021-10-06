@@ -70,6 +70,12 @@ const decisionService = {
       source: 'jurinet',
     });
 
+    console.log(
+      `${
+        jurinetDecisions.length
+      } jurinet decisions found between ${startDate.toISOString()} and ${endDate.toISOString()}`,
+    );
+
     const juricaChainedDecisionSourceIds: number[] = [];
 
     jurinetDecisions.forEach((decision) => {
@@ -78,13 +84,23 @@ const decisionService = {
       }
     });
 
+    console.log(
+      `${juricaChainedDecisionSourceIds.length} sourceIds found: [${juricaChainedDecisionSourceIds.join(', ')}]`,
+    );
+
     const juricaChainedDecisions = await decisionRepository.findAllByLabelStatusAndSourceIdsAndSourceName({
       sourceIds: juricaChainedDecisionSourceIds,
       sourceName: 'jurica',
       labelStatus: 'toBeTreated',
     });
 
-    return juricaChainedDecisions.filter((decision) => !decision.pseudoText);
+    console.log(`${juricaChainedDecisions.length} jurica chained decisions found`);
+
+    const filteredJuricaChainedDecisions = juricaChainedDecisions.filter((decision) => !decision.pseudoText);
+
+    console.log(`${filteredJuricaChainedDecisions.length} jurica chained decisions with no pseudoText found`);
+
+    return filteredJuricaChainedDecisions;
   },
 
   async fetchDecisionsToPseudonymiseBetween({

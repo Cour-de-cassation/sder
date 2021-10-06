@@ -130,7 +130,7 @@ var decisionService = {
     fetchChainedJuricaDecisionsToPseudonymiseBetween: function (_a) {
         var startDate = _a.startDate, _b = _a.endDate, endDate = _b === void 0 ? new Date() : _b;
         return __awaiter(this, void 0, void 0, function () {
-            var decisionRepository, jurinetDecisions, juricaChainedDecisionSourceIds, juricaChainedDecisions;
+            var decisionRepository, jurinetDecisions, juricaChainedDecisionSourceIds, juricaChainedDecisions, filteredJuricaChainedDecisions;
             return __generator(this, function (_c) {
                 switch (_c.label) {
                     case 0: return [4 /*yield*/, repository_1.buildDecisionRepository()];
@@ -143,12 +143,14 @@ var decisionService = {
                             })];
                     case 2:
                         jurinetDecisions = _c.sent();
+                        console.log(jurinetDecisions.length + " jurinet decisions found between " + startDate.toISOString() + " and " + endDate.toISOString());
                         juricaChainedDecisionSourceIds = [];
                         jurinetDecisions.forEach(function (decision) {
                             if (decision.decatt) {
                                 decision.decatt.forEach(function (sourceId) { return juricaChainedDecisionSourceIds.push(sourceId); });
                             }
                         });
+                        console.log(juricaChainedDecisionSourceIds.length + " sourceIds found: [" + juricaChainedDecisionSourceIds.join(', ') + "]");
                         return [4 /*yield*/, decisionRepository.findAllByLabelStatusAndSourceIdsAndSourceName({
                                 sourceIds: juricaChainedDecisionSourceIds,
                                 sourceName: 'jurica',
@@ -156,7 +158,10 @@ var decisionService = {
                             })];
                     case 3:
                         juricaChainedDecisions = _c.sent();
-                        return [2 /*return*/, juricaChainedDecisions.filter(function (decision) { return !decision.pseudoText; })];
+                        console.log(juricaChainedDecisions.length + " jurica chained decisions found");
+                        filteredJuricaChainedDecisions = juricaChainedDecisions.filter(function (decision) { return !decision.pseudoText; });
+                        console.log(filteredJuricaChainedDecisions.length + " jurica chained decisions with no pseudoText found");
+                        return [2 /*return*/, filteredJuricaChainedDecisions];
                 }
             });
         });

@@ -39,7 +39,7 @@ type decisionType = {
     categoriesToOmit: string[];
   };
   originalText: string;
-  parties: string[];
+  parties: Array<any>;
   pseudoStatus: string;
   pseudoText: string;
   pubCategory: string;

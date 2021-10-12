@@ -49,6 +49,11 @@ const decisionService = {
         jurisdiction,
         source,
       });
+      console.log(
+        `${
+          decisionsForJuridiction.length
+        } decisions found for jurisdiction "${jurisdiction}", source "${source}" and between ${startDate.toISOString()} and ${endDate.toISOString()}`,
+      );
       decisions.push(...decisionsForJuridiction);
     });
 
@@ -84,9 +89,7 @@ const decisionService = {
       }
     });
 
-    console.log(
-      `${juricaChainedDecisionSourceIds.length} sourceIds found: [${juricaChainedDecisionSourceIds.join(', ')}]`,
-    );
+    console.log(`${juricaChainedDecisionSourceIds.length} sourceIds found`);
 
     const juricaChainedDecisions = await decisionRepository.findAllByLabelStatusAndSourceIdsAndSourceName({
       sourceIds: juricaChainedDecisionSourceIds,

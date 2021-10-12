@@ -117,6 +117,7 @@ var decisionService = {
                                         })];
                                     case 1:
                                         decisionsForJuridiction = _a.sent();
+                                        console.log(decisionsForJuridiction.length + " decisions found for jurisdiction \"" + jurisdiction + "\", source \"" + source + "\" and between " + startDate.toISOString() + " and " + endDate.toISOString());
                                         decisions.push.apply(decisions, decisionsForJuridiction);
                                         return [2 /*return*/];
                                 }
@@ -150,7 +151,7 @@ var decisionService = {
                                 decision.decatt.forEach(function (sourceId) { return juricaChainedDecisionSourceIds.push(sourceId); });
                             }
                         });
-                        console.log(juricaChainedDecisionSourceIds.length + " sourceIds found: [" + juricaChainedDecisionSourceIds.join(', ') + "]");
+                        console.log(juricaChainedDecisionSourceIds.length + " sourceIds found");
                         return [4 /*yield*/, decisionRepository.findAllByLabelStatusAndSourceIdsAndSourceName({
                                 sourceIds: juricaChainedDecisionSourceIds,
                                 sourceName: 'jurica',

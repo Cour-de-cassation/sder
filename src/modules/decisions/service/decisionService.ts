@@ -16,12 +16,14 @@ const decisionService = {
     sourceId: decisionType['sourceId'],
     sourceName: decisionType['sourceName'],
   ) {
+    console.log(`fetchDecisionBySourceIdAndSourceName({sourceId: ${sourceId}, sourceName: ${sourceName}})`);
     const decisionRepository = await buildDecisionRepository();
 
     return decisionRepository.findBySourceIdAndSourceName({ sourceId, sourceName });
   },
 
   async fetchPseudonymisationsToExport() {
+    console.log(`fetchPseudonymisationsToExport()`);
     const decisionRepository = await buildDecisionRepository();
 
     return decisionRepository.findAllPseudonymisationToExport();
@@ -29,19 +31,23 @@ const decisionService = {
 
   async fetchPublicDecisionsBySourceAndJurisdictionsBetween({
     startDate,
-    endDate = new Date(),
+    endDate,
     source,
     jurisdictions,
   }: {
     startDate: Date;
-    endDate?: Date;
+    endDate: Date;
     source: string;
     jurisdictions: string[];
   }) {
+    console.log(
+      `fetchPublicDecisionsBySourceAndJurisdictionsBetween({startDate: ${startDate.toISOString()}, endDate: ${endDate.toISOString()}, source: ${source}, jurisdictions: [${jurisdictions.join(
+        ', ',
+      )}]})`,
+    );
     const decisionRepository = await buildDecisionRepository();
 
     const decisions: decisionType[] = [];
-
     jurisdictions.forEach(async (jurisdiction) => {
       const decisionsForJuridiction = await decisionRepository.findAllPublicBySourceAndJurisdictionBetween({
         endDate,
@@ -60,13 +66,10 @@ const decisionService = {
     return decisions;
   },
 
-  async fetchChainedJuricaDecisionsToPseudonymiseBetween({
-    startDate,
-    endDate = new Date(),
-  }: {
-    startDate: Date;
-    endDate?: Date;
-  }) {
+  async fetchChainedJuricaDecisionsToPseudonymiseBetween({ startDate, endDate }: { startDate: Date; endDate: Date }) {
+    console.log(
+      `fetchChainedJuricaDecisionsToPseudonymiseBetween({startDate: ${startDate.toISOString()}, endDate: ${endDate.toISOString()}]})`,
+    );
     const decisionRepository = await buildDecisionRepository();
 
     const jurinetDecisions = await decisionRepository.findAllBetween({
@@ -109,12 +112,15 @@ const decisionService = {
   async fetchDecisionsToPseudonymiseBetween({
     source,
     startDate,
-    endDate = new Date(),
+    endDate,
   }: {
     source: decisionType['sourceName'];
     startDate: Date;
-    endDate?: Date;
+    endDate: Date;
   }) {
+    console.log(
+      `fetchDecisionsToPseudonymiseBetween({startDate: ${startDate.toISOString()}, endDate: ${endDate.toISOString()}, source: ${source}]})`,
+    );
     const decisionRepository = await buildDecisionRepository();
 
     const decisions = await decisionRepository.findAllBetween({

@@ -9,18 +9,18 @@ declare const decisionService: {
     }[]>;
     fetchPublicDecisionsBySourceAndJurisdictionsBetween({ startDate, endDate, source, jurisdictions, }: {
         startDate: Date;
-        endDate?: Date | undefined;
+        endDate: Date;
         source: string;
         jurisdictions: string[];
     }): Promise<decisionType[]>;
-    fetchChainedJuricaDecisionsToPseudonymiseBetween({ startDate, endDate, }: {
+    fetchChainedJuricaDecisionsToPseudonymiseBetween({ startDate, endDate }: {
         startDate: Date;
-        endDate?: Date | undefined;
+        endDate: Date;
     }): Promise<decisionType[]>;
     fetchDecisionsToPseudonymiseBetween({ source, startDate, endDate, }: {
         source: decisionType['sourceName'];
         startDate: Date;
-        endDate?: Date | undefined;
+        endDate: Date;
     }): Promise<decisionType[]>;
     deprecatedUpdateDecisionsLabelStatus({ decisionIds, labelStatus, }: {
         decisionIds: number[];

@@ -214,8 +214,8 @@ async function normalize(document: jurinetDecisionType, previousVersion: decisio
   }
 
   const occultations: Record<typeof OCCULTATION_CATEGORIES_FIELDS[number], string[]> = {
-    IND_PM: ['personneMorale', 'etablissement', 'numeroSiretSiren'],
-    IND_ADRESSE: ['adresse', 'localite'],
+    IND_PM: ['personneMorale', 'numeroSiretSiren'],
+    IND_ADRESSE: ['adresse', 'localite', 'etablissement'],
     IND_DT_NAISSANCE: ['dateNaissance'],
     IND_DT_DECE: ['dateDeces'],
     IND_DT_MARIAGE: ['dateMariage'],
@@ -226,30 +226,37 @@ async function normalize(document: jurinetDecisionType, previousVersion: decisio
     IND_PRENOM_PROFESSIONEL: ['professionnelMagistratGreffier'],
     IND_NOM_PROFESSIONEL: ['professionnelMagistratGreffier'],
   };
-
-  keysOf(occultations).forEach((occultationCategoryField) => {
-    if (
-      occultationCategoryField === 'IND_PM' ||
-      occultationCategoryField === 'IND_NOM_PROFESSIONEL' ||
-      occultationCategoryField === 'IND_PRENOM_PROFESSIONEL'
-    ) {
-      if (!document[occultationCategoryField]) {
-        occultations[occultationCategoryField].forEach((item) => {
-          normalizedDecision.occultation.categoriesToOmit.push(item);
-        });
-      }
-    } else {
+  if (document._bloc_occultation) {
+    keysOf(occultations).forEach((occultationCategoryField) => {
       if (
-        !document[occultationCategoryField] &&
-        document[occultationCategoryField] !== null &&
-        document[occultationCategoryField] !== undefined
+        occultationCategoryField === 'IND_PM' ||
+        occultationCategoryField === 'IND_NOM_PROFESSIONEL' ||
+        occultationCategoryField === 'IND_PRENOM_PROFESSIONEL'
       ) {
-        occultations[occultationCategoryField].forEach((item) => {
-          normalizedDecision.occultation.categoriesToOmit.push(item);
-        });
+        if (!document[occultationCategoryField]) {
+          occultations[occultationCategoryField].forEach((item) => {
+            normalizedDecision.occultation.categoriesToOmit.push(item);
+          });
+        }
+      } else {
+        if (
+          !document[occultationCategoryField] &&
+          document[occultationCategoryField] !== null &&
+          document[occultationCategoryField] !== undefined
+        ) {
+          occultations[occultationCategoryField].forEach((item) => {
+            normalizedDecision.occultation.categoriesToOmit.push(item);
+          });
+        }
       }
-    }
-  });
+    });
+  } else {
+    normalizedDecision.occultation.categoriesToOmit = [
+      'personneMorale',
+      'numeroSiretSiren',
+      'professionnelMagistratGreffier',
+    ];
+  }
 
   if (!!document.OCCULTATION_SUPPLEMENTAIRE) {
     normalizedDecision.occultation.additionalTerms = document.OCCULTATION_SUPPLEMENTAIRE;

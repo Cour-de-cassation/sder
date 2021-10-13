@@ -245,8 +245,8 @@ function normalize(document, previousVersion, ignorePreviousContent) {
                     return [3 /*break*/, 4];
                 case 4:
                     occultations = {
-                        IND_PM: ['personneMorale', 'etablissement', 'numeroSiretSiren'],
-                        IND_ADRESSE: ['adresse', 'localite'],
+                        IND_PM: ['personneMorale', 'numeroSiretSiren'],
+                        IND_ADRESSE: ['adresse', 'localite', 'etablissement'],
                         IND_DT_NAISSANCE: ['dateNaissance'],
                         IND_DT_DECE: ['dateDeces'],
                         IND_DT_MARIAGE: ['dateMariage'],
@@ -257,26 +257,35 @@ function normalize(document, previousVersion, ignorePreviousContent) {
                         IND_PRENOM_PROFESSIONEL: ['professionnelMagistratGreffier'],
                         IND_NOM_PROFESSIONEL: ['professionnelMagistratGreffier'],
                     };
-                    utils_1.keysOf(occultations).forEach(function (occultationCategoryField) {
-                        if (occultationCategoryField === 'IND_PM' ||
-                            occultationCategoryField === 'IND_NOM_PROFESSIONEL' ||
-                            occultationCategoryField === 'IND_PRENOM_PROFESSIONEL') {
-                            if (!document[occultationCategoryField]) {
-                                occultations[occultationCategoryField].forEach(function (item) {
-                                    normalizedDecision.occultation.categoriesToOmit.push(item);
-                                });
+                    if (document._bloc_occultation) {
+                        utils_1.keysOf(occultations).forEach(function (occultationCategoryField) {
+                            if (occultationCategoryField === 'IND_PM' ||
+                                occultationCategoryField === 'IND_NOM_PROFESSIONEL' ||
+                                occultationCategoryField === 'IND_PRENOM_PROFESSIONEL') {
+                                if (!document[occultationCategoryField]) {
+                                    occultations[occultationCategoryField].forEach(function (item) {
+                                        normalizedDecision.occultation.categoriesToOmit.push(item);
+                                    });
+                                }
                             }
-                        }
-                        else {
-                            if (!document[occultationCategoryField] &&
-                                document[occultationCategoryField] !== null &&
-                                document[occultationCategoryField] !== undefined) {
-                                occultations[occultationCategoryField].forEach(function (item) {
-                                    normalizedDecision.occultation.categoriesToOmit.push(item);
-                                });
+                            else {
+                                if (!document[occultationCategoryField] &&
+                                    document[occultationCategoryField] !== null &&
+                                    document[occultationCategoryField] !== undefined) {
+                                    occultations[occultationCategoryField].forEach(function (item) {
+                                        normalizedDecision.occultation.categoriesToOmit.push(item);
+                                    });
+                                }
                             }
-                        }
-                    });
+                        });
+                    }
+                    else {
+                        normalizedDecision.occultation.categoriesToOmit = [
+                            'personneMorale',
+                            'numeroSiretSiren',
+                            'professionnelMagistratGreffier',
+                        ];
+                    }
                     if (!!document.OCCULTATION_SUPPLEMENTAIRE) {
                         normalizedDecision.occultation.additionalTerms = document.OCCULTATION_SUPPLEMENTAIRE;
                     }

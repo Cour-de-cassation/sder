@@ -101,8 +101,7 @@ var decisionService = {
     fetchPublicDecisionsBySourceAndJurisdictionsBetween: function (_a) {
         var startDate = _a.startDate, endDate = _a.endDate, source = _a.source, jurisdictions = _a.jurisdictions;
         return __awaiter(this, void 0, void 0, function () {
-            var decisionRepository, decisions;
-            var _this = this;
+            var decisionRepository, decisions, _i, jurisdictions_1, jurisdiction, decisionsForJuridiction;
             return __generator(this, function (_b) {
                 switch (_b.label) {
                     case 0:
@@ -111,25 +110,27 @@ var decisionService = {
                     case 1:
                         decisionRepository = _b.sent();
                         decisions = [];
-                        jurisdictions.forEach(function (jurisdiction) { return __awaiter(_this, void 0, void 0, function () {
-                            var decisionsForJuridiction;
-                            return __generator(this, function (_a) {
-                                switch (_a.label) {
-                                    case 0: return [4 /*yield*/, decisionRepository.findAllPublicBySourceAndJurisdictionBetween({
-                                            endDate: endDate,
-                                            startDate: startDate,
-                                            jurisdiction: jurisdiction,
-                                            source: source,
-                                        })];
-                                    case 1:
-                                        decisionsForJuridiction = _a.sent();
-                                        console.log(decisionsForJuridiction.length + " decisions found for jurisdiction \"" + jurisdiction + "\", source \"" + source + "\" and between " + startDate.toISOString() + " and " + endDate.toISOString());
-                                        decisions.push.apply(decisions, decisionsForJuridiction);
-                                        return [2 /*return*/];
-                                }
-                            });
-                        }); });
-                        return [2 /*return*/, decisions];
+                        _i = 0, jurisdictions_1 = jurisdictions;
+                        _b.label = 2;
+                    case 2:
+                        if (!(_i < jurisdictions_1.length)) return [3 /*break*/, 5];
+                        jurisdiction = jurisdictions_1[_i];
+                        console.log("Fetching decisions for jurisdiction " + jurisdiction);
+                        return [4 /*yield*/, decisionRepository.findAllPublicBySourceAndJurisdictionBetween({
+                                endDate: endDate,
+                                startDate: startDate,
+                                jurisdiction: jurisdiction,
+                                source: source,
+                            })];
+                    case 3:
+                        decisionsForJuridiction = _b.sent();
+                        console.log(decisionsForJuridiction.length + " decisions found for jurisdiction \"" + jurisdiction + "\", source \"" + source + "\" and between " + startDate.toISOString() + " and " + endDate.toISOString());
+                        decisions.push.apply(decisions, decisionsForJuridiction);
+                        _b.label = 4;
+                    case 4:
+                        _i++;
+                        return [3 /*break*/, 2];
+                    case 5: return [2 /*return*/, decisions];
                 }
             });
         });

@@ -48,7 +48,8 @@ const decisionService = {
     const decisionRepository = await buildDecisionRepository();
 
     const decisions: decisionType[] = [];
-    jurisdictions.forEach(async (jurisdiction) => {
+    for (const jurisdiction of jurisdictions) {
+      console.log(`Fetching decisions for jurisdiction ${jurisdiction}`);
       const decisionsForJuridiction = await decisionRepository.findAllPublicBySourceAndJurisdictionBetween({
         endDate,
         startDate,
@@ -61,7 +62,7 @@ const decisionService = {
         } decisions found for jurisdiction "${jurisdiction}", source "${source}" and between ${startDate.toISOString()} and ${endDate.toISOString()}`,
       );
       decisions.push(...decisionsForJuridiction);
-    });
+    }
 
     return decisions;
   },

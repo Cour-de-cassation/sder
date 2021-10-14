@@ -191,7 +191,7 @@ function buildDecisionRepository() {
                         });
                     },
                     findAllPublicBySourceAndJurisdictionBetween: function (_a) {
-                        var startDate = _a.startDate, endDate = _a.endDate, source = _a.source, jurisdiction = _a.jurisdiction;
+                        var startDate = _a.startDate, endDate = _a.endDate, source = _a.source, jurisdiction = _a.jurisdiction, labelStatus = _a.labelStatus;
                         return __awaiter(this, void 0, void 0, function () {
                             var jurisdictionRegex;
                             return __generator(this, function (_b) {
@@ -204,6 +204,7 @@ function buildDecisionRepository() {
                                             sourceName: source,
                                             jurisdictionName: jurisdictionRegex,
                                             public: true,
+                                            labelStatus: labelStatus,
                                         })
                                             .toArray();
                                     })];

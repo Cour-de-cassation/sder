@@ -121,6 +121,7 @@ var decisionService = {
                                 startDate: startDate,
                                 jurisdiction: jurisdiction,
                                 source: source,
+                                labelStatus: 'toBeTreated',
                             })];
                     case 3:
                         decisionsForJuridiction = _b.sent();

@@ -55,6 +55,7 @@ const decisionService = {
         startDate,
         jurisdiction,
         source,
+        labelStatus: 'toBeTreated',
       });
       console.log(
         `${

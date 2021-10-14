@@ -27,6 +27,7 @@ declare type decisionRepositoryType = {
         endDate: Date;
         source: string;
         jurisdiction: string;
+        labelStatus: decisionType['labelStatus'];
     }) => Promise<decisionType[]>;
     findAllIdsWithoutLabelFields: () => Promise<Array<decisionType['_id']>>;
     findById: (id: mongoIdType) => Promise<decisionType>;

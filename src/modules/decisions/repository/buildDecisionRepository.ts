@@ -64,7 +64,7 @@ async function buildDecisionRepository(): Promise<decisionRepositoryType> {
       );
     },
 
-    async findAllPublicBySourceAndJurisdictionBetween({ startDate, endDate, source, jurisdiction }) {
+    async findAllPublicBySourceAndJurisdictionBetween({ startDate, endDate, source, jurisdiction, labelStatus }) {
       const jurisdictionRegex = new RegExp(jurisdiction, 'i');
       return runMongo(({ collection }) =>
         collection
@@ -73,6 +73,7 @@ async function buildDecisionRepository(): Promise<decisionRepositoryType> {
             sourceName: source,
             jurisdictionName: jurisdictionRegex,
             public: true,
+            labelStatus,
           })
           .toArray(),
       );

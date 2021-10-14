@@ -4,8 +4,8 @@ import { jurinetDecisionType } from '../../modules/jurinetDecision';
 import { zoningUtils } from '../zoningUtils';
 import { jurinetLib } from '../jurinet';
 import { xmlToJson } from './xmlToJson';
-import { OCCULTATION_CATEGORIES_FIELDS } from '../../modules/jurinetDecision/constants';
-import { keysOf } from '../../utils';
+// import { OCCULTATION_CATEGORIES_FIELDS } from '../../modules/jurinetDecision/constants';
+// import { keysOf } from '../../utils';
 import { convertOccultationBlockInCategoriesToOmit } from './convertOccultationBlockToCategoriesToOmit';
 
 export { normalize };

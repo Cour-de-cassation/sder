@@ -1,7 +1,7 @@
 export { convertOccultationBlockInCategoriesToOmit };
 
 function convertOccultationBlockInCategoriesToOmit(occultationBlock: number | undefined) {
-  let categoriesToOmit = ['professionnelMagistratGreffier'];
+  const categoriesToOmit = ['professionnelMagistratGreffier'];
   if (occultationBlock !== undefined && occultationBlock >= 1 && occultationBlock <= 4) {
     switch (occultationBlock) {
       case 2:

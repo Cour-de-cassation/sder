@@ -42,6 +42,8 @@ var decisions_1 = require("../../modules/decisions");
 var zoningUtils_1 = require("../zoningUtils");
 var jurinet_1 = require("../jurinet");
 var xmlToJson_1 = require("./xmlToJson");
+// import { OCCULTATION_CATEGORIES_FIELDS } from '../../modules/jurinetDecision/constants';
+// import { keysOf } from '../../utils';
 var convertOccultationBlockToCategoriesToOmit_1 = require("./convertOccultationBlockToCategoriesToOmit");
 function normalize(document, previousVersion, ignorePreviousContent) {
     return __awaiter(this, void 0, void 0, function () {

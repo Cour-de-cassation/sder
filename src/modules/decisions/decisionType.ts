@@ -56,6 +56,8 @@ type decisionType = {
   publication?: string[];
   formation?: string;
   blocOccultation?: number;
+  natureAffaireCivil?: string;
+  natureAffairePenal?: string;
 };
 
 type labelTreatmentsType = Array<{

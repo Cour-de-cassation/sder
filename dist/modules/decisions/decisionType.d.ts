@@ -51,6 +51,8 @@ declare type decisionType = {
     publication?: string[];
     formation?: string;
     blocOccultation?: number;
+    natureAffaireCivil?: string;
+    natureAffairePenal?: string;
 };
 declare type labelTreatmentsType = Array<{
     annotations: Array<{

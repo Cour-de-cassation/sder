@@ -53,6 +53,7 @@ declare type decisionType = {
     blocOccultation?: number;
     natureAffaireCivil?: string;
     natureAffairePenal?: string;
+    codeMatiereCivil?: string;
 };
 declare type labelTreatmentsType = Array<{
     annotations: Array<{

@@ -218,6 +218,9 @@ declare const decisionsValidationSchema: {
             natureAffairePenal: {
                 bsonType: string;
             };
+            codeMatiereCivil: {
+                bsonType: string;
+            };
         };
     };
 };

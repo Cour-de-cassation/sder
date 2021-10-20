@@ -58,6 +58,7 @@ type decisionType = {
   blocOccultation?: number;
   natureAffaireCivil?: string;
   natureAffairePenal?: string;
+  codeMatiereCivil?: string;
 };
 
 type labelTreatmentsType = Array<{

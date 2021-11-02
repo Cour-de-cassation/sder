@@ -1,5 +1,5 @@
-import { publicityInfoType } from "./types";
-import { converter } from "./lib";
+import { publicityInfoType } from './types';
+import { converter } from './lib';
 
 export type { publicityInfoType };
 

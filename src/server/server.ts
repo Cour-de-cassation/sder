@@ -1,13 +1,14 @@
 import bodyParser from 'body-parser';
 import express = require('express');
 
-import { environment } from '../environment';
+import { getEnvironment } from '../environment';
 
 export { server, startServer };
 
 const server = express();
 
 function startServer() {
+  const environment = getEnvironment();
   server.listen(environment.port);
 }
 

@@ -1,5 +1,5 @@
-import { decisionModule, decisionType } from './modules';
+import { decisionModule, decisionType, publicityInfoModule, publicityInfoType } from './modules';
 
-export { decisionModule };
+export { decisionModule, publicityInfoModule };
 
-export type { decisionType };
+export type { decisionType, publicityInfoType };

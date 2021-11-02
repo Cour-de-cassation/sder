@@ -1,5 +1,5 @@
 import bodyParser from 'body-parser';
-import express = require('express');
+import express from 'express';
 
 import { getEnvironment } from '../environment';
 

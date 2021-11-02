@@ -5,9 +5,9 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.startServer = exports.server = void 0;
 var body_parser_1 = __importDefault(require("body-parser"));
-var express = require("express");
+var express_1 = __importDefault(require("express"));
 var environment_1 = require("../environment");
-var server = express();
+var server = express_1.default();
 exports.server = server;
 function startServer() {
     var environment = environment_1.getEnvironment();

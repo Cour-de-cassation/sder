@@ -1,4 +1,4 @@
-import { publicityInfoType } from "../types";
+import { publicityInfoType } from '../types';
 export { converter };
 declare const converter: {
     convertParameters: typeof convertParameters;
@@ -6,4 +6,4 @@ declare const converter: {
 declare function convertParameters(params: {
     _id: string;
     sourceDb: string;
-}): Pick<publicityInfoType, "_id" | "sourceDb"> | undefined;
+}): Pick<publicityInfoType, '_id' | 'sourceDb'> | undefined;

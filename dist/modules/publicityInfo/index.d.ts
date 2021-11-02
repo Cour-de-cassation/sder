@@ -1,4 +1,4 @@
-import { publicityInfoType } from "./types";
+import { publicityInfoType } from './types';
 export type { publicityInfoType };
 export { publicityInfoModule };
 declare const publicityInfoModule: {

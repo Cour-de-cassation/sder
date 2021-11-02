@@ -5,8 +5,10 @@ import {
   publicityInfoType,
   juricaDecisionType,
   jurinetDecisionType,
+  juricaDecisionModule,
+  jurinetDecisionModule,
 } from './modules';
 
-export { decisionModule, publicityInfoModule };
+export { decisionModule, publicityInfoModule, juricaDecisionModule, jurinetDecisionModule };
 
 export type { decisionType, publicityInfoType, jurinetDecisionType, juricaDecisionType };

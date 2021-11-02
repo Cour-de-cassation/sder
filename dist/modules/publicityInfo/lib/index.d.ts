@@ -1,2 +1,2 @@
-import { converter } from "./converter";
+import { converter } from './converter';
 export { converter };

@@ -1,17 +1,10 @@
-"use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.startServer = exports.server = void 0;
-var body_parser_1 = __importDefault(require("body-parser"));
-var express_1 = __importDefault(require("express"));
-var environment_1 = require("../environment");
-var server = express_1.default();
-exports.server = server;
+import bodyParser from 'body-parser';
+import express from 'express';
+import { getEnvironment } from '../environment';
+export { server, startServer };
+var server = express();
 function startServer() {
-    var environment = environment_1.getEnvironment();
+    var environment = getEnvironment();
     server.listen(environment.port);
 }
-exports.startServer = startServer;
-server.use(body_parser_1.default.json({ limit: '10mb' }));
+server.use(bodyParser.json({ limit: '10mb' }));

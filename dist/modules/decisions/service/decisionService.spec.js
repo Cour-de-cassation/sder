@@ -1,4 +1,3 @@
-"use strict";
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -35,29 +34,28 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
-Object.defineProperty(exports, "__esModule", { value: true });
-var lodash_1 = require("lodash");
-var utils_1 = require("../../../utils");
-var lib_1 = require("../lib");
-var repository_1 = require("../repository");
-var decisionService_1 = require("./decisionService");
+import { omit } from 'lodash';
+import { dateBuilder } from '../../../utils';
+import { generateDecision } from '../lib';
+import { buildDecisionRepository } from '../repository';
+import { decisionService } from './decisionService';
 describe('decisionService', function () {
     describe('createDecision', function () {
         it('should create a new decision in the database with the given field', function () { return __awaiter(void 0, void 0, void 0, function () {
             var decisionRepository, decisionField, decision;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, repository_1.buildDecisionRepository()];
+                    case 0: return [4 /*yield*/, buildDecisionRepository()];
                     case 1:
                         decisionRepository = _a.sent();
-                        decisionField = lodash_1.omit(lib_1.generateDecision(), ['_id', '_rev', 'labelStatus', 'labelTreatments']);
-                        return [4 /*yield*/, decisionService_1.decisionService.createDecision(decisionField)];
+                        decisionField = omit(generateDecision(), ['_id', '_rev', 'labelStatus', 'labelTreatments']);
+                        return [4 /*yield*/, decisionService.createDecision(decisionField)];
                     case 2:
                         _a.sent();
                         return [4 /*yield*/, decisionRepository.findByDecisionId(decisionField.sourceId)];
                     case 3:
                         decision = _a.sent();
-                        expect(lodash_1.omit(decision, ['_id', '_rev', 'labelStatus', 'labelTreatments'])).toEqual(decisionField);
+                        expect(omit(decision, ['_id', '_rev', 'labelStatus', 'labelTreatments'])).toEqual(decisionField);
                         return [2 /*return*/];
                 }
             });
@@ -66,11 +64,11 @@ describe('decisionService', function () {
             var decisionRepository, decisionField, decision;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, repository_1.buildDecisionRepository()];
+                    case 0: return [4 /*yield*/, buildDecisionRepository()];
                     case 1:
                         decisionRepository = _a.sent();
-                        decisionField = lodash_1.omit(lib_1.generateDecision(), ['_id', '_rev', 'labelStatus', 'labelTreatments']);
-                        return [4 /*yield*/, decisionService_1.decisionService.createDecision(decisionField)];
+                        decisionField = omit(generateDecision(), ['_id', '_rev', 'labelStatus', 'labelTreatments']);
+                        return [4 /*yield*/, decisionService.createDecision(decisionField)];
                     case 2:
                         _a.sent();
                         return [4 /*yield*/, decisionRepository.findByDecisionId(decisionField.sourceId)];
@@ -85,11 +83,11 @@ describe('decisionService', function () {
             var decisionRepository, decisionField, decision;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, repository_1.buildDecisionRepository()];
+                    case 0: return [4 /*yield*/, buildDecisionRepository()];
                     case 1:
                         decisionRepository = _a.sent();
-                        decisionField = lodash_1.omit(lib_1.generateDecision(), ['_id', '_rev', 'labelStatus', 'labelTreatments']);
-                        return [4 /*yield*/, decisionService_1.decisionService.createDecision(decisionField)];
+                        decisionField = omit(generateDecision(), ['_id', '_rev', 'labelStatus', 'labelTreatments']);
+                        return [4 /*yield*/, decisionService.createDecision(decisionField)];
                     case 2:
                         _a.sent();
                         return [4 /*yield*/, decisionRepository.findByDecisionId(decisionField.sourceId)];
@@ -104,11 +102,11 @@ describe('decisionService', function () {
             var decisionRepository, decisionField, decision;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, repository_1.buildDecisionRepository()];
+                    case 0: return [4 /*yield*/, buildDecisionRepository()];
                     case 1:
                         decisionRepository = _a.sent();
-                        decisionField = lodash_1.omit(lib_1.generateDecision(), ['_id', '_rev', 'labelStatus', 'labelTreatments']);
-                        return [4 /*yield*/, decisionService_1.decisionService.createDecision(decisionField)];
+                        decisionField = omit(generateDecision(), ['_id', '_rev', 'labelStatus', 'labelTreatments']);
+                        return [4 /*yield*/, decisionService.createDecision(decisionField)];
                     case 2:
                         _a.sent();
                         return [4 /*yield*/, decisionRepository.findByDecisionId(decisionField.sourceId)];
@@ -125,7 +123,7 @@ describe('decisionService', function () {
             var decisionRepository, decisions, fetchedDecision;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, repository_1.buildDecisionRepository()];
+                    case 0: return [4 /*yield*/, buildDecisionRepository()];
                     case 1:
                         decisionRepository = _a.sent();
                         decisions = [
@@ -133,11 +131,11 @@ describe('decisionService', function () {
                             { sourceId: 200, sourceName: 'jurica' },
                             { sourceId: 300, sourceName: 'jurica' },
                             { sourceId: 200, sourceName: 'jurinet' },
-                        ].map(lib_1.generateDecision);
+                        ].map(generateDecision);
                         return [4 /*yield*/, Promise.all(decisions.map(decisionRepository.insert))];
                     case 2:
                         _a.sent();
-                        return [4 /*yield*/, decisionService_1.decisionService.fetchDecisionBySourceIdAndSourceName(200, 'jurica')];
+                        return [4 /*yield*/, decisionService.fetchDecisionBySourceIdAndSourceName(200, 'jurica')];
                     case 3:
                         fetchedDecision = _a.sent();
                         expect(fetchedDecision).toEqual(decisions[1]);
@@ -151,7 +149,7 @@ describe('decisionService', function () {
             var decisionRepository, decisions, fetchedDecisions;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, repository_1.buildDecisionRepository()];
+                    case 0: return [4 /*yield*/, buildDecisionRepository()];
                     case 1:
                         decisionRepository = _a.sent();
                         decisions = [
@@ -159,53 +157,53 @@ describe('decisionService', function () {
                                 public: true,
                                 sourceName: 'jurica',
                                 jurisdictionName: "cour d'appel de bordeaux",
-                                dateCreation: utils_1.dateBuilder.daysAgo(3),
+                                dateCreation: dateBuilder.daysAgo(3),
                             },
                             {
                                 public: false,
                                 sourceName: 'jurica',
                                 jurisdictionName: "Cour d'appel de bordeaux",
-                                dateCreation: utils_1.dateBuilder.daysAgo(3),
+                                dateCreation: dateBuilder.daysAgo(3),
                             },
                             {
                                 public: null,
                                 sourceName: 'jurica',
                                 jurisdictionName: "Cour d'appel de bordeaux",
-                                dateCreation: utils_1.dateBuilder.daysAgo(3),
+                                dateCreation: dateBuilder.daysAgo(3),
                             },
                             {
                                 public: true,
                                 sourceName: 'jurinet',
                                 jurisdictionName: "Cour d'appel de Bordeaux",
-                                dateCreation: utils_1.dateBuilder.daysAgo(3),
+                                dateCreation: dateBuilder.daysAgo(3),
                             },
                             {
                                 public: true,
                                 sourceName: 'jurica',
                                 jurisdictionName: "Cour d'appel de Dijon",
-                                dateCreation: utils_1.dateBuilder.daysAgo(3),
+                                dateCreation: dateBuilder.daysAgo(3),
                             },
                             {
                                 public: true,
                                 sourceName: 'jurica',
                                 jurisdictionName: "Cour d'appel de Dijon",
-                                dateCreation: utils_1.dateBuilder.daysAgo(8),
+                                dateCreation: dateBuilder.daysAgo(8),
                             },
                             {
                                 public: true,
                                 sourceName: 'jurica',
                                 jurisdictionName: "Cour d'appel de Paris",
-                                dateCreation: utils_1.dateBuilder.daysAgo(3),
+                                dateCreation: dateBuilder.daysAgo(3),
                             },
-                        ].map(lib_1.generateDecision);
+                        ].map(generateDecision);
                         return [4 /*yield*/, Promise.all(decisions.map(decisionRepository.insert))];
                     case 2:
                         _a.sent();
-                        return [4 /*yield*/, decisionService_1.decisionService.fetchPublicDecisionsBySourceAndJurisdictionsBetween({
+                        return [4 /*yield*/, decisionService.fetchPublicDecisionsBySourceAndJurisdictionsBetween({
                                 jurisdictions: ["Cour d'appel de Bordeaux", "Cour d'appel de Dijon"],
                                 source: 'jurica',
-                                startDate: new Date(utils_1.dateBuilder.daysAgo(5)),
-                                endDate: new Date(utils_1.dateBuilder.daysAgo(1)),
+                                startDate: new Date(dateBuilder.daysAgo(5)),
+                                endDate: new Date(dateBuilder.daysAgo(1)),
                             })];
                     case 3:
                         fetchedDecisions = _a.sent();
@@ -220,31 +218,31 @@ describe('decisionService', function () {
             var decisionRepository, decisions, fetchedDecisions;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, repository_1.buildDecisionRepository()];
+                    case 0: return [4 /*yield*/, buildDecisionRepository()];
                     case 1:
                         decisionRepository = _a.sent();
                         decisions = [
                             {
                                 sourceId: 300,
                                 sourceName: 'jurica',
-                                dateCreation: utils_1.dateBuilder.daysAgo(3),
+                                dateCreation: dateBuilder.daysAgo(3),
                                 pseudoText: '',
                                 labelStatus: 'toBeTreated',
                             },
                             {
                                 sourceId: 200,
                                 sourceName: 'jurinet',
-                                dateCreation: utils_1.dateBuilder.daysAgo(3),
+                                dateCreation: dateBuilder.daysAgo(3),
                                 pseudoText: '',
                                 labelStatus: 'toBeTreated',
                             },
-                        ].map(lib_1.generateDecision);
+                        ].map(generateDecision);
                         return [4 /*yield*/, Promise.all(decisions.map(decisionRepository.insert))];
                     case 2:
                         _a.sent();
-                        return [4 /*yield*/, decisionService_1.decisionService.fetchDecisionsToPseudonymiseBetween({
-                                startDate: new Date(utils_1.dateBuilder.daysAgo(5)),
-                                endDate: new Date(utils_1.dateBuilder.daysAgo(1)),
+                        return [4 /*yield*/, decisionService.fetchDecisionsToPseudonymiseBetween({
+                                startDate: new Date(dateBuilder.daysAgo(5)),
+                                endDate: new Date(dateBuilder.daysAgo(1)),
                                 source: 'jurinet',
                             })];
                     case 3:
@@ -258,24 +256,24 @@ describe('decisionService', function () {
             var decisionRepository, decisions, fetchedDecisions;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, repository_1.buildDecisionRepository()];
+                    case 0: return [4 /*yield*/, buildDecisionRepository()];
                     case 1:
                         decisionRepository = _a.sent();
                         decisions = [
                             {
                                 sourceId: 200,
                                 sourceName: 'jurinet',
-                                dateCreation: utils_1.dateBuilder.daysAgo(3),
+                                dateCreation: dateBuilder.daysAgo(3),
                                 pseudoText: 'TEXT',
                                 labelStatus: 'done',
                             },
-                        ].map(lib_1.generateDecision);
+                        ].map(generateDecision);
                         return [4 /*yield*/, Promise.all(decisions.map(decisionRepository.insert))];
                     case 2:
                         _a.sent();
-                        return [4 /*yield*/, decisionService_1.decisionService.fetchDecisionsToPseudonymiseBetween({
-                                startDate: new Date(utils_1.dateBuilder.daysAgo(5)),
-                                endDate: new Date(utils_1.dateBuilder.daysAgo(1)),
+                        return [4 /*yield*/, decisionService.fetchDecisionsToPseudonymiseBetween({
+                                startDate: new Date(dateBuilder.daysAgo(5)),
+                                endDate: new Date(dateBuilder.daysAgo(1)),
                                 source: 'jurinet',
                             })];
                     case 3:
@@ -291,39 +289,39 @@ describe('decisionService', function () {
             var decisionRepository, decisions, fetchedDecisions;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, repository_1.buildDecisionRepository()];
+                    case 0: return [4 /*yield*/, buildDecisionRepository()];
                     case 1:
                         decisionRepository = _a.sent();
                         decisions = [
                             {
                                 sourceId: 300,
                                 sourceName: 'jurica',
-                                dateCreation: utils_1.dateBuilder.daysAgo(9),
+                                dateCreation: dateBuilder.daysAgo(9),
                                 pseudoText: '',
                                 labelStatus: 'toBeTreated',
                             },
                             {
                                 sourceId: 400,
                                 sourceName: 'jurica',
-                                dateCreation: utils_1.dateBuilder.daysAgo(3),
+                                dateCreation: dateBuilder.daysAgo(3),
                                 pseudoText: '',
                                 labelStatus: 'toBeTreated',
                             },
                             {
                                 sourceId: 200,
                                 sourceName: 'jurinet',
-                                dateCreation: utils_1.dateBuilder.daysAgo(3),
+                                dateCreation: dateBuilder.daysAgo(3),
                                 pseudoText: '',
                                 labelStatus: 'toBeTreated',
                                 decatt: [300],
                             },
-                        ].map(lib_1.generateDecision);
+                        ].map(generateDecision);
                         return [4 /*yield*/, Promise.all(decisions.map(decisionRepository.insert))];
                     case 2:
                         _a.sent();
-                        return [4 /*yield*/, decisionService_1.decisionService.fetchChainedJuricaDecisionsToPseudonymiseBetween({
-                                startDate: new Date(utils_1.dateBuilder.daysAgo(5)),
-                                endDate: new Date(utils_1.dateBuilder.daysAgo(1)),
+                        return [4 /*yield*/, decisionService.fetchChainedJuricaDecisionsToPseudonymiseBetween({
+                                startDate: new Date(dateBuilder.daysAgo(5)),
+                                endDate: new Date(dateBuilder.daysAgo(1)),
                             })];
                     case 3:
                         fetchedDecisions = _a.sent();
@@ -336,39 +334,39 @@ describe('decisionService', function () {
             var decisionRepository, decisions, fetchedDecisions;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, repository_1.buildDecisionRepository()];
+                    case 0: return [4 /*yield*/, buildDecisionRepository()];
                     case 1:
                         decisionRepository = _a.sent();
                         decisions = [
                             {
                                 sourceId: 300,
                                 sourceName: 'jurica',
-                                dateCreation: utils_1.dateBuilder.daysAgo(9),
+                                dateCreation: dateBuilder.daysAgo(9),
                                 pseudoText: '',
                                 labelStatus: 'toBeTreated',
                             },
                             {
                                 sourceId: 400,
                                 sourceName: 'jurica',
-                                dateCreation: utils_1.dateBuilder.daysAgo(3),
+                                dateCreation: dateBuilder.daysAgo(3),
                                 pseudoText: '',
                                 labelStatus: 'toBeTreated',
                             },
                             {
                                 sourceId: 200,
                                 sourceName: 'jurinet',
-                                dateCreation: utils_1.dateBuilder.daysAgo(3),
+                                dateCreation: dateBuilder.daysAgo(3),
                                 pseudoText: 'TEXT',
                                 labelStatus: 'done',
                                 decatt: [300],
                             },
-                        ].map(lib_1.generateDecision);
+                        ].map(generateDecision);
                         return [4 /*yield*/, Promise.all(decisions.map(decisionRepository.insert))];
                     case 2:
                         _a.sent();
-                        return [4 /*yield*/, decisionService_1.decisionService.fetchChainedJuricaDecisionsToPseudonymiseBetween({
-                                startDate: new Date(utils_1.dateBuilder.daysAgo(5)),
-                                endDate: new Date(utils_1.dateBuilder.daysAgo(1)),
+                        return [4 /*yield*/, decisionService.fetchChainedJuricaDecisionsToPseudonymiseBetween({
+                                startDate: new Date(dateBuilder.daysAgo(5)),
+                                endDate: new Date(dateBuilder.daysAgo(1)),
                             })];
                     case 3:
                         fetchedDecisions = _a.sent();
@@ -383,7 +381,7 @@ describe('decisionService', function () {
             var decisionRepository, decisions, pseudonymisations;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, repository_1.buildDecisionRepository()];
+                    case 0: return [4 /*yield*/, buildDecisionRepository()];
                     case 1:
                         decisionRepository = _a.sent();
                         decisions = [
@@ -391,11 +389,11 @@ describe('decisionService', function () {
                             { labelStatus: 'loaded' },
                             { labelStatus: 'done' },
                             { labelStatus: 'toBeTreated' },
-                        ].map(lib_1.generateDecision);
+                        ].map(generateDecision);
                         return [4 /*yield*/, Promise.all(decisions.map(decisionRepository.insert))];
                     case 2:
                         _a.sent();
-                        return [4 /*yield*/, decisionService_1.decisionService.fetchPseudonymisationsToExport()];
+                        return [4 /*yield*/, decisionService.fetchPseudonymisationsToExport()];
                     case 3:
                         pseudonymisations = _a.sent();
                         expect(pseudonymisations.sort()).toEqual([
@@ -418,18 +416,18 @@ describe('decisionService', function () {
             var decisionRepository, decisions, updatedDecision0, updatedDecision1, updatedDecision2;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, repository_1.buildDecisionRepository()];
+                    case 0: return [4 /*yield*/, buildDecisionRepository()];
                     case 1:
                         decisionRepository = _a.sent();
                         decisions = [
                             { labelStatus: 'toBeTreated' },
                             { labelStatus: 'toBeTreated' },
                             { labelStatus: 'toBeTreated' },
-                        ].map(lib_1.generateDecision);
+                        ].map(generateDecision);
                         return [4 /*yield*/, Promise.all(decisions.map(decisionRepository.insert))];
                     case 2:
                         _a.sent();
-                        return [4 /*yield*/, decisionService_1.decisionService.updateDecisionsLabelStatus({
+                        return [4 /*yield*/, decisionService.updateDecisionsLabelStatus({
                                 decisionIds: [decisions[0]._id, decisions[2]._id],
                                 labelStatus: 'loaded',
                             })];
@@ -444,10 +442,10 @@ describe('decisionService', function () {
                         return [4 /*yield*/, decisionRepository.findById(decisions[2]._id)];
                     case 6:
                         updatedDecision2 = _a.sent();
-                        expect(lodash_1.omit(updatedDecision0, 'labelStatus')).toEqual(lodash_1.omit(decisions[0], 'labelStatus'));
+                        expect(omit(updatedDecision0, 'labelStatus')).toEqual(omit(decisions[0], 'labelStatus'));
                         expect(updatedDecision0.labelStatus).toEqual('loaded');
                         expect(updatedDecision1).toEqual(decisions[1]);
-                        expect(lodash_1.omit(updatedDecision2, 'labelStatus')).toEqual(lodash_1.omit(decisions[2], 'labelStatus'));
+                        expect(omit(updatedDecision2, 'labelStatus')).toEqual(omit(decisions[2], 'labelStatus'));
                         expect(updatedDecision2.labelStatus).toEqual('loaded');
                         return [2 /*return*/];
                 }
@@ -455,7 +453,7 @@ describe('decisionService', function () {
         }); });
     });
     describe('updateDecisionPseudonymisation', function () {
-        var decision = lib_1.generateDecision();
+        var decision = generateDecision();
         var treatmenst = [
             {
                 annotations: [{ category: 'CATEGORY', entityId: 'ENTITY_ID', start: 0, text: 'TEXT' }],
@@ -467,13 +465,13 @@ describe('decisionService', function () {
             var decisionRepository, updatedDecision;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, repository_1.buildDecisionRepository()];
+                    case 0: return [4 /*yield*/, buildDecisionRepository()];
                     case 1:
                         decisionRepository = _a.sent();
                         return [4 /*yield*/, decisionRepository.insert(decision)];
                     case 2:
                         _a.sent();
-                        return [4 /*yield*/, decisionService_1.decisionService.updateDecisionPseudonymisation({
+                        return [4 /*yield*/, decisionService.updateDecisionPseudonymisation({
                                 decisionId: decision._id,
                                 decisionPseudonymisedText: 'NEW_PSEUDONYMISATION',
                                 labelTreatments: treatmenst,
@@ -493,13 +491,13 @@ describe('decisionService', function () {
             var decisionRepository, updatedDecision;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, repository_1.buildDecisionRepository()];
+                    case 0: return [4 /*yield*/, buildDecisionRepository()];
                     case 1:
                         decisionRepository = _a.sent();
                         return [4 /*yield*/, decisionRepository.insert(decision)];
                     case 2:
                         _a.sent();
-                        return [4 /*yield*/, decisionService_1.decisionService.updateDecisionPseudonymisation({
+                        return [4 /*yield*/, decisionService.updateDecisionPseudonymisation({
                                 decisionId: decision._id,
                                 decisionPseudonymisedText: 'NEW_PSEUDONYMISATION',
                                 labelTreatments: treatmenst,

@@ -1,10 +1,7 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.publicityInfoModule = void 0;
-var lib_1 = require("./lib");
+import { converter } from './lib';
+export { publicityInfoModule };
 var publicityInfoModule = {
     lib: {
-        converter: lib_1.converter,
+        converter: converter,
     },
 };
-exports.publicityInfoModule = publicityInfoModule;

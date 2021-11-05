@@ -1,6 +1,4 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.decisionsValidationSchema = void 0;
+export { decisionsValidationSchema };
 var decisionsValidationSchema = {
     $jsonSchema: {
         bsonType: 'object',
@@ -155,4 +153,3 @@ var decisionsValidationSchema = {
         },
     },
 };
-exports.decisionsValidationSchema = decisionsValidationSchema;

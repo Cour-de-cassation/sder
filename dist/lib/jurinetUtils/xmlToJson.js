@@ -1,12 +1,7 @@
-"use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.xmlToJson = void 0;
-var fast_xml_parser_1 = __importDefault(require("fast-xml-parser"));
-var convertKeysToLowerCase_1 = require("./convertKeysToLowerCase");
-var htmlDecode_1 = require("./htmlDecode");
+import parser from 'fast-xml-parser';
+import { convertKeysToLowerCase } from './convertKeysToLowerCase';
+import { htmlDecode } from './htmlDecode';
+export { xmlToJson };
 var fastXmlParserOptions = {
     attributeNamePrefix: '$',
     attrNodeName: '$attributes',
@@ -26,10 +21,10 @@ function xmlToJson(xml, opt) {
     opt.filter = opt.filter || false;
     opt.htmlDecode = opt.htmlDecode || false;
     opt.toLowerCase = opt.toLowerCase || false;
-    var valid = fast_xml_parser_1.default.validate(xml);
+    var valid = parser.validate(xml);
     if (valid === true) {
         // Convert the XML document to JSON:
-        var finalData = fast_xml_parser_1.default.parse(xml, fastXmlParserOptions);
+        var finalData = parser.parse(xml, fastXmlParserOptions);
         finalData = finalData.DOCUMENT[0];
         if (opt.filter === true) {
             // Remove some undesirable data:
@@ -38,11 +33,11 @@ function xmlToJson(xml, opt) {
         }
         if (opt.htmlDecode === true) {
             // HTML-decode JSON values:
-            finalData = htmlDecode_1.htmlDecode(finalData);
+            finalData = htmlDecode(finalData);
         }
         if (opt.toLowerCase === true) {
             // Convert JSON keys to lower case:
-            finalData = convertKeysToLowerCase_1.convertKeysToLowerCase(finalData);
+            finalData = convertKeysToLowerCase(finalData);
         }
         return finalData;
     }
@@ -50,4 +45,3 @@ function xmlToJson(xml, opt) {
         throw new Error("JurinetUtils.XMLToJSON: Invalid XML document: " + valid + ".");
     }
 }
-exports.xmlToJson = xmlToJson;

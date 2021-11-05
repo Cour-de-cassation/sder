@@ -1,4 +1,3 @@
-"use strict";
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -35,16 +34,15 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
-Object.defineProperty(exports, "__esModule", { value: true });
-var lodash_1 = require("lodash");
-var generateDecision_1 = require("./generateDecision");
-var buildDecision_1 = require("./buildDecision");
+import { omit } from 'lodash';
+import { generateDecision } from './generateDecision';
+import { buildDecision } from './buildDecision';
 describe('buildDecision', function () {
     it('should build a decision with a _rev at 0', function () { return __awaiter(void 0, void 0, void 0, function () {
         var decisionField, decision;
         return __generator(this, function (_a) {
-            decisionField = lodash_1.omit(generateDecision_1.generateDecision(), ['_id', 'labelTreatments']);
-            decision = buildDecision_1.buildDecision(decisionField);
+            decisionField = omit(generateDecision(), ['_id', 'labelTreatments']);
+            decision = buildDecision(decisionField);
             expect(decision._rev).toEqual(0);
             return [2 /*return*/];
         });
@@ -52,8 +50,8 @@ describe('buildDecision', function () {
     it('should build a decision with an empty labelTreatments', function () { return __awaiter(void 0, void 0, void 0, function () {
         var decisionField, decision;
         return __generator(this, function (_a) {
-            decisionField = lodash_1.omit(generateDecision_1.generateDecision(), ['_id', 'labelTreatments']);
-            decision = buildDecision_1.buildDecision(decisionField);
+            decisionField = omit(generateDecision(), ['_id', 'labelTreatments']);
+            decision = buildDecision(decisionField);
             expect(decision.labelTreatments).toEqual([]);
             return [2 /*return*/];
         });
@@ -61,8 +59,8 @@ describe('buildDecision', function () {
     it("should build a decision with a 'toBeTreated' label status", function () { return __awaiter(void 0, void 0, void 0, function () {
         var decisionField, decision;
         return __generator(this, function (_a) {
-            decisionField = lodash_1.omit(generateDecision_1.generateDecision(), ['_id', 'labelTreatments']);
-            decision = buildDecision_1.buildDecision(decisionField);
+            decisionField = omit(generateDecision(), ['_id', 'labelTreatments']);
+            decision = buildDecision(decisionField);
             expect(decision.labelStatus).toEqual('toBeTreated');
             return [2 /*return*/];
         });

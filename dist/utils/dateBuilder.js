@@ -1,6 +1,4 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.dateBuilder = void 0;
+export { dateBuilder };
 var dateBuilder = {
     daysAgo: function (days) {
         var dateInSeveralDaysInThePast = new Date();
@@ -8,4 +6,3 @@ var dateBuilder = {
         return dateInSeveralDaysInThePast.toISOString();
     },
 };
-exports.dateBuilder = dateBuilder;

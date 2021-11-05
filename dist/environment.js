@@ -1,6 +1,4 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.getEnvironment = void 0;
+export { getEnvironment };
 var runModes = ['PREPROD', 'PROD'];
 function getEnvironment() {
     var RUN_MODE = process.env.RUN_MODE;
@@ -11,7 +9,6 @@ function getEnvironment() {
         throw new Error("Found no environment for RUN_MODE: " + RUN_MODE);
     }
 }
-exports.getEnvironment = getEnvironment;
 var environment = {
     PREPROD: {
         port: 54321,

@@ -1,10 +1,7 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.jurinetUtils = void 0;
-var normalize_1 = require("./normalize");
-var xmlToJson_1 = require("./xmlToJson");
+import { normalize } from './normalize';
+import { xmlToJson } from './xmlToJson';
+export { jurinetUtils };
 var jurinetUtils = {
-    normalize: normalize_1.normalize,
-    xmlToJson: xmlToJson_1.xmlToJson,
+    normalize: normalize,
+    xmlToJson: xmlToJson,
 };
-exports.jurinetUtils = jurinetUtils;

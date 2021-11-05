@@ -1,6 +1,4 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.convertKeysToLowerCase = void 0;
+export { convertKeysToLowerCase };
 function convertKeysToLowerCase(obj) {
     var output = {};
     for (var i in obj) {
@@ -19,4 +17,3 @@ function convertKeysToLowerCase(obj) {
     }
     return output;
 }
-exports.convertKeysToLowerCase = convertKeysToLowerCase;

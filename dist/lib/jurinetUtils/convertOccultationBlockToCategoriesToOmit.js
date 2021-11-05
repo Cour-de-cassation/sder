@@ -1,6 +1,4 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.convertOccultationBlockInCategoriesToOmit = void 0;
+export { convertOccultationBlockInCategoriesToOmit };
 function convertOccultationBlockInCategoriesToOmit(occultationBlock) {
     var categoriesToOmit = ['professionnelMagistratGreffier'];
     if (occultationBlock !== undefined && occultationBlock >= 1 && occultationBlock <= 4) {
@@ -21,4 +19,3 @@ function convertOccultationBlockInCategoriesToOmit(occultationBlock) {
     }
     return categoriesToOmit;
 }
-exports.convertOccultationBlockInCategoriesToOmit = convertOccultationBlockInCategoriesToOmit;

@@ -1,6 +1,4 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.jurinetLib = void 0;
+export { jurinetLib };
 var jurinetLib = {
     cleanText: function (text) {
         assertDecisionTextIsString(text);
@@ -11,7 +9,6 @@ var jurinetLib = {
         return replaceTextArrets(text, cleanedTexteArrets);
     },
 };
-exports.jurinetLib = jurinetLib;
 function assertDecisionTextIsString(decisionText) {
     if (typeof decisionText !== 'string') {
         throw new Error('jurinetLib.cleanText: text must be a string.');

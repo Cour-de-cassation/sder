@@ -1,4 +1,3 @@
-"use strict";
 var __assign = (this && this.__assign) || function () {
     __assign = Object.assign || function(t) {
         for (var s, i = 1, n = arguments.length; i < n; i++) {
@@ -10,13 +9,12 @@ var __assign = (this && this.__assign) || function () {
     };
     return __assign.apply(this, arguments);
 };
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.generateDecision = void 0;
-var utils_1 = require("../../../utils");
+import { buildObjectId } from '../../../utils';
+export { generateDecision };
 var MAX_RAND_NUMBER = 1000000;
 function generateDecision(decisionFields) {
     if (decisionFields === void 0) { decisionFields = {}; }
-    return __assign({ _id: utils_1.buildObjectId(), _rev: 0, _version: 0, analysis: {
+    return __assign({ _id: buildObjectId(), _rev: 0, _version: 0, analysis: {
             doctrine: "DOCTRINE_" + Math.random(),
             link: "LINK_" + Math.random(),
             reference: [],
@@ -34,4 +32,3 @@ function generateDecision(decisionFields) {
             },
         }, natureAffaireCivil: "NATURE_AFFAIRE_CIVIL_" + Math.random(), natureAffairePenal: "NATURE_AFFAIRE_PENAL_" + Math.random() }, decisionFields);
 }
-exports.generateDecision = generateDecision;

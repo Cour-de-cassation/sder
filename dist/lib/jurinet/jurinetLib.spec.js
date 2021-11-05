@@ -1,4 +1,3 @@
-"use strict";
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -35,8 +34,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
-Object.defineProperty(exports, "__esModule", { value: true });
-var jurinetLib_1 = require("./jurinetLib");
+import { jurinetLib } from './jurinetLib';
 describe('jurinetLib', function () {
     describe('cleanText', function () {
         it('should clean a text (general case)', function () { return __awaiter(void 0, void 0, void 0, function () {
@@ -49,7 +47,7 @@ describe('jurinetLib', function () {
                     '<p class="CLASS"> TEXT7 </p> <h1 class="CLASS"> TEXT8 </h1> TEXT9',
                     'TEXT10 \r\r\n\r\n\t\f\\t\t\\f <TEXT11> & &#',
                 ]);
-                cleanedText = jurinetLib_1.jurinetLib.cleanText(xml);
+                cleanedText = jurinetLib.cleanText(xml);
                 expect(cleanedText).toEqual('<CAT_PUB></CAT_PUB><TEXTE_ARRET>TEXT1 \n TEXT2 TEXT3 \n TEXT4 TEXT5 \n TEXT6 TEXT7 \n TEXT8 \n TEXT9 TEXT10 \n\n\n &lt;TEXT11&gt; &amp; &#</TEXTE_ARRET>');
                 return [2 /*return*/];
             });
@@ -57,26 +55,26 @@ describe('jurinetLib', function () {
         describe('assertions', function () {
             it('should throw if the parameter is not a string', function () { return __awaiter(void 0, void 0, void 0, function () {
                 return __generator(this, function (_a) {
-                    expect(function () { return jurinetLib_1.jurinetLib.cleanText(0); }).toThrow('jurinetLib.cleanText: text must be a string.');
+                    expect(function () { return jurinetLib.cleanText(0); }).toThrow('jurinetLib.cleanText: text must be a string.');
                     return [2 /*return*/];
                 });
             }); });
             it('should throw if the parameter is not in a text_arret', function () { return __awaiter(void 0, void 0, void 0, function () {
                 return __generator(this, function (_a) {
-                    expect(function () { return jurinetLib_1.jurinetLib.cleanText('Text of decision'); }).toThrow('jurinetLib.cleanText: <TEXTE_ARRET> tag not found or incomplete, the document could be malformed or corrupted.');
+                    expect(function () { return jurinetLib.cleanText('Text of decision'); }).toThrow('jurinetLib.cleanText: <TEXTE_ARRET> tag not found or incomplete, the document could be malformed or corrupted.');
                     return [2 /*return*/];
                 });
             }); });
             it('should throw if the parameter is all the text_arrets are empty', function () { return __awaiter(void 0, void 0, void 0, function () {
                 return __generator(this, function (_a) {
-                    expect(function () { return jurinetLib_1.jurinetLib.cleanText(buildJurinetXml(['', '\t'])); }).toThrow('jurinetLib.cleanText: empty text, the document could be malformed or corrupted.');
+                    expect(function () { return jurinetLib.cleanText(buildJurinetXml(['', '\t'])); }).toThrow('jurinetLib.cleanText: empty text, the document could be malformed or corrupted.');
                     return [2 /*return*/];
                 });
             }); });
             it('should throw if there header is not valid', function () { return __awaiter(void 0, void 0, void 0, function () {
                 return __generator(this, function (_a) {
                     expect(function () {
-                        return jurinetLib_1.jurinetLib.cleanText(buildJurinetXml(['TEXT1 TEXT2'], '<INVALID_HEADER></INVALID_HEADER>'));
+                        return jurinetLib.cleanText(buildJurinetXml(['TEXT1 TEXT2'], '<INVALID_HEADER></INVALID_HEADER>'));
                     }).toThrow('jurinetLib.cleanText: End of <CAT_PUB> or <LIEN_WWW> tag not found, the document could be malformed or corrupted.');
                     return [2 /*return*/];
                 });
@@ -87,7 +85,7 @@ describe('jurinetLib', function () {
                 var xml, cleanedText;
                 return __generator(this, function (_a) {
                     xml = buildJurinetXml(['TEXT1 TEXT2'], '<LIEN_WWW></LIEN_WWW>');
-                    cleanedText = jurinetLib_1.jurinetLib.cleanText(xml);
+                    cleanedText = jurinetLib.cleanText(xml);
                     expect(cleanedText).toEqual('<LIEN_WWW></LIEN_WWW><TEXTE_ARRET>TEXT1 TEXT2</TEXTE_ARRET>');
                     return [2 /*return*/];
                 });
@@ -96,7 +94,7 @@ describe('jurinetLib', function () {
                 var xml, cleanedText;
                 return __generator(this, function (_a) {
                     xml = buildJurinetXml(['TEXT1 TEXT2'], ' < BEFORE_HEADER <LIEN_WWW> HEADER1 < HEADER2 > HEADER3 </LIEN_WWW>');
-                    cleanedText = jurinetLib_1.jurinetLib.cleanText(xml);
+                    cleanedText = jurinetLib.cleanText(xml);
                     expect(cleanedText).toEqual('&lt; BEFORE_HEADER <LIEN_WWW> HEADER1 &lt; HEADER2 &gt; HEADER3 </LIEN_WWW><TEXTE_ARRET>TEXT1 TEXT2</TEXTE_ARRET>');
                     return [2 /*return*/];
                 });
@@ -105,7 +103,7 @@ describe('jurinetLib', function () {
                 var xml, cleanedText;
                 return __generator(this, function (_a) {
                     xml = buildJurinetXml(['TEXT1 TEXT2'], '& BEFORE_HEADER <LIEN_WWW> HEADER1 & HEADER2 &# HEADER3 </LIEN_WWW>');
-                    cleanedText = jurinetLib_1.jurinetLib.cleanText(xml);
+                    cleanedText = jurinetLib.cleanText(xml);
                     expect(cleanedText).toEqual('&amp; BEFORE_HEADER <LIEN_WWW> HEADER1 &amp; HEADER2 &# HEADER3 </LIEN_WWW><TEXTE_ARRET>TEXT1 TEXT2</TEXTE_ARRET>');
                     return [2 /*return*/];
                 });
@@ -114,7 +112,7 @@ describe('jurinetLib', function () {
                 var xml, cleanedText;
                 return __generator(this, function (_a) {
                     xml = buildJurinetXml(['TEXT1 TEXT2'], '<numpourvoi id="1">1</numpourvoi><numpourvoi id="2">2</numpourvoi><LIEN_WWW></LIEN_WWW>');
-                    cleanedText = jurinetLib_1.jurinetLib.cleanText(xml);
+                    cleanedText = jurinetLib.cleanText(xml);
                     expect(cleanedText).toEqual('<numpourvoi id="1">1,2</numpourvoi><LIEN_WWW></LIEN_WWW><TEXTE_ARRET>TEXT1 TEXT2</TEXTE_ARRET>');
                     return [2 /*return*/];
                 });
@@ -125,7 +123,7 @@ describe('jurinetLib', function () {
                 var xml, cleanedText;
                 return __generator(this, function (_a) {
                     xml = buildJurinetXml(['TEXT1 <br/> TEXT2', 'TEXT3 <br/> TEXT4']);
-                    cleanedText = jurinetLib_1.jurinetLib.cleanText(xml);
+                    cleanedText = jurinetLib.cleanText(xml);
                     expect(cleanedText).toEqual('<CAT_PUB></CAT_PUB><TEXTE_ARRET>TEXT1 \n TEXT2 TEXT3 \n TEXT4</TEXTE_ARRET>');
                     return [2 /*return*/];
                 });
@@ -134,7 +132,7 @@ describe('jurinetLib', function () {
                 var xml, cleanedText;
                 return __generator(this, function (_a) {
                     xml = buildJurinetXml(['TEXT1 <hr/> TEXT2', 'TEXT3 <hr/> TEXT4']);
-                    cleanedText = jurinetLib_1.jurinetLib.cleanText(xml);
+                    cleanedText = jurinetLib.cleanText(xml);
                     expect(cleanedText).toEqual('<CAT_PUB></CAT_PUB><TEXTE_ARRET>TEXT1 \n TEXT2 TEXT3 \n TEXT4</TEXTE_ARRET>');
                     return [2 /*return*/];
                 });
@@ -143,7 +141,7 @@ describe('jurinetLib', function () {
                 var xml, cleanedText;
                 return __generator(this, function (_a) {
                     xml = buildJurinetXml(['TEXT1 <a href="URL"> TEXT2 </a>']);
-                    cleanedText = jurinetLib_1.jurinetLib.cleanText(xml);
+                    cleanedText = jurinetLib.cleanText(xml);
                     expect(cleanedText).toEqual('<CAT_PUB></CAT_PUB><TEXTE_ARRET>TEXT1 TEXT2</TEXTE_ARRET>');
                     return [2 /*return*/];
                 });
@@ -152,7 +150,7 @@ describe('jurinetLib', function () {
                 var xml, cleanedText;
                 return __generator(this, function (_a) {
                     xml = buildJurinetXml(['TEXT1 <b class="CLASS"> TEXT2 </b>']);
-                    cleanedText = jurinetLib_1.jurinetLib.cleanText(xml);
+                    cleanedText = jurinetLib.cleanText(xml);
                     expect(cleanedText).toEqual('<CAT_PUB></CAT_PUB><TEXTE_ARRET>TEXT1 TEXT2</TEXTE_ARRET>');
                     return [2 /*return*/];
                 });
@@ -161,7 +159,7 @@ describe('jurinetLib', function () {
                 var xml, cleanedText;
                 return __generator(this, function (_a) {
                     xml = buildJurinetXml(['TEXT1 <i class="CLASS"> TEXT2 </i>']);
-                    cleanedText = jurinetLib_1.jurinetLib.cleanText(xml);
+                    cleanedText = jurinetLib.cleanText(xml);
                     expect(cleanedText).toEqual('<CAT_PUB></CAT_PUB><TEXTE_ARRET>TEXT1 TEXT2</TEXTE_ARRET>');
                     return [2 /*return*/];
                 });
@@ -170,7 +168,7 @@ describe('jurinetLib', function () {
                 var xml, cleanedText;
                 return __generator(this, function (_a) {
                     xml = buildJurinetXml(['TEXT1 <u class="CLASS"> TEXT2 </u>']);
-                    cleanedText = jurinetLib_1.jurinetLib.cleanText(xml);
+                    cleanedText = jurinetLib.cleanText(xml);
                     expect(cleanedText).toEqual('<CAT_PUB></CAT_PUB><TEXTE_ARRET>TEXT1 TEXT2</TEXTE_ARRET>');
                     return [2 /*return*/];
                 });
@@ -179,7 +177,7 @@ describe('jurinetLib', function () {
                 var xml, cleanedText;
                 return __generator(this, function (_a) {
                     xml = buildJurinetXml(['TEXT1 <em class="CLASS"> TEXT2 </em>']);
-                    cleanedText = jurinetLib_1.jurinetLib.cleanText(xml);
+                    cleanedText = jurinetLib.cleanText(xml);
                     expect(cleanedText).toEqual('<CAT_PUB></CAT_PUB><TEXTE_ARRET>TEXT1 TEXT2</TEXTE_ARRET>');
                     return [2 /*return*/];
                 });
@@ -188,7 +186,7 @@ describe('jurinetLib', function () {
                 var xml, cleanedText;
                 return __generator(this, function (_a) {
                     xml = buildJurinetXml(['TEXT1 <strong class="CLASS"> TEXT2 </strong>']);
-                    cleanedText = jurinetLib_1.jurinetLib.cleanText(xml);
+                    cleanedText = jurinetLib.cleanText(xml);
                     expect(cleanedText).toEqual('<CAT_PUB></CAT_PUB><TEXTE_ARRET>TEXT1 TEXT2</TEXTE_ARRET>');
                     return [2 /*return*/];
                 });
@@ -197,7 +195,7 @@ describe('jurinetLib', function () {
                 var xml, cleanedText;
                 return __generator(this, function (_a) {
                     xml = buildJurinetXml(['TEXT1 <font class="CLASS"> TEXT2 </font>']);
-                    cleanedText = jurinetLib_1.jurinetLib.cleanText(xml);
+                    cleanedText = jurinetLib.cleanText(xml);
                     expect(cleanedText).toEqual('<CAT_PUB></CAT_PUB><TEXTE_ARRET>TEXT1 TEXT2</TEXTE_ARRET>');
                     return [2 /*return*/];
                 });
@@ -206,7 +204,7 @@ describe('jurinetLib', function () {
                 var xml, cleanedText;
                 return __generator(this, function (_a) {
                     xml = buildJurinetXml(['TEXT1 <span class="CLASS"> TEXT2 </span>']);
-                    cleanedText = jurinetLib_1.jurinetLib.cleanText(xml);
+                    cleanedText = jurinetLib.cleanText(xml);
                     expect(cleanedText).toEqual('<CAT_PUB></CAT_PUB><TEXTE_ARRET>TEXT1 TEXT2</TEXTE_ARRET>');
                     return [2 /*return*/];
                 });
@@ -215,7 +213,7 @@ describe('jurinetLib', function () {
                 var xml, cleanedText;
                 return __generator(this, function (_a) {
                     xml = buildJurinetXml(['TEXT1 <p class="CLASS"> TEXT2 </p> TEXT3']);
-                    cleanedText = jurinetLib_1.jurinetLib.cleanText(xml);
+                    cleanedText = jurinetLib.cleanText(xml);
                     expect(cleanedText).toEqual('<CAT_PUB></CAT_PUB><TEXTE_ARRET>TEXT1 TEXT2 \n TEXT3</TEXTE_ARRET>');
                     return [2 /*return*/];
                 });
@@ -227,7 +225,7 @@ describe('jurinetLib', function () {
                     xml = buildJurinetXml([
                         "TEXT1 <h" + titleNumberCategory + " class=\"CLASS\"> TEXT2 </h" + titleNumberCategory + "> TEXT3",
                     ]);
-                    cleanedText = jurinetLib_1.jurinetLib.cleanText(xml);
+                    cleanedText = jurinetLib.cleanText(xml);
                     expect(cleanedText).toEqual('<CAT_PUB></CAT_PUB><TEXTE_ARRET>TEXT1 TEXT2 \n TEXT3</TEXTE_ARRET>');
                     return [2 /*return*/];
                 });
@@ -236,7 +234,7 @@ describe('jurinetLib', function () {
                 var xml, cleanedText;
                 return __generator(this, function (_a) {
                     xml = buildJurinetXml(['TEXT1 \r\n TEXT2']);
-                    cleanedText = jurinetLib_1.jurinetLib.cleanText(xml);
+                    cleanedText = jurinetLib.cleanText(xml);
                     expect(cleanedText).toEqual('<CAT_PUB></CAT_PUB><TEXTE_ARRET>TEXT1 \n TEXT2</TEXTE_ARRET>');
                     return [2 /*return*/];
                 });
@@ -245,7 +243,7 @@ describe('jurinetLib', function () {
                 var xml, cleanedText;
                 return __generator(this, function (_a) {
                     xml = buildJurinetXml(['TEXT1 \r TEXT2']);
-                    cleanedText = jurinetLib_1.jurinetLib.cleanText(xml);
+                    cleanedText = jurinetLib.cleanText(xml);
                     expect(cleanedText).toEqual('<CAT_PUB></CAT_PUB><TEXTE_ARRET>TEXT1 \n TEXT2</TEXTE_ARRET>');
                     return [2 /*return*/];
                 });
@@ -254,7 +252,7 @@ describe('jurinetLib', function () {
                 var xml, cleanedText;
                 return __generator(this, function (_a) {
                     xml = buildJurinetXml(['TEXT1 \r\r\n TEXT2']);
-                    cleanedText = jurinetLib_1.jurinetLib.cleanText(xml);
+                    cleanedText = jurinetLib.cleanText(xml);
                     expect(cleanedText).toEqual('<CAT_PUB></CAT_PUB><TEXTE_ARRET>TEXT1 \n\n TEXT2</TEXTE_ARRET>');
                     return [2 /*return*/];
                 });
@@ -263,7 +261,7 @@ describe('jurinetLib', function () {
                 var xml, cleanedText;
                 return __generator(this, function (_a) {
                     xml = buildJurinetXml(['TEXT1\t\tTEXT2']);
-                    cleanedText = jurinetLib_1.jurinetLib.cleanText(xml);
+                    cleanedText = jurinetLib.cleanText(xml);
                     expect(cleanedText).toEqual('<CAT_PUB></CAT_PUB><TEXTE_ARRET>TEXT1TEXT2</TEXTE_ARRET>');
                     return [2 /*return*/];
                 });
@@ -272,7 +270,7 @@ describe('jurinetLib', function () {
                 var xml, cleanedText;
                 return __generator(this, function (_a) {
                     xml = buildJurinetXml(['TEXT1\\t\\tTEXT2']);
-                    cleanedText = jurinetLib_1.jurinetLib.cleanText(xml);
+                    cleanedText = jurinetLib.cleanText(xml);
                     expect(cleanedText).toEqual('<CAT_PUB></CAT_PUB><TEXTE_ARRET>TEXT1TEXT2</TEXTE_ARRET>');
                     return [2 /*return*/];
                 });
@@ -281,7 +279,7 @@ describe('jurinetLib', function () {
                 var xml, cleanedText;
                 return __generator(this, function (_a) {
                     xml = buildJurinetXml(['TEXT1\f\fTEXT2']);
-                    cleanedText = jurinetLib_1.jurinetLib.cleanText(xml);
+                    cleanedText = jurinetLib.cleanText(xml);
                     expect(cleanedText).toEqual('<CAT_PUB></CAT_PUB><TEXTE_ARRET>TEXT1TEXT2</TEXTE_ARRET>');
                     return [2 /*return*/];
                 });
@@ -290,7 +288,7 @@ describe('jurinetLib', function () {
                 var xml, cleanedText;
                 return __generator(this, function (_a) {
                     xml = buildJurinetXml(['TEXT1\\f\\fTEXT2']);
-                    cleanedText = jurinetLib_1.jurinetLib.cleanText(xml);
+                    cleanedText = jurinetLib.cleanText(xml);
                     expect(cleanedText).toEqual('<CAT_PUB></CAT_PUB><TEXTE_ARRET>TEXT1TEXT2</TEXTE_ARRET>');
                     return [2 /*return*/];
                 });
@@ -299,7 +297,7 @@ describe('jurinetLib', function () {
                 var xml, cleanedText;
                 return __generator(this, function (_a) {
                     xml = buildJurinetXml(['TEXT1   TEXT2']);
-                    cleanedText = jurinetLib_1.jurinetLib.cleanText(xml);
+                    cleanedText = jurinetLib.cleanText(xml);
                     expect(cleanedText).toEqual('<CAT_PUB></CAT_PUB><TEXTE_ARRET>TEXT1 TEXT2</TEXTE_ARRET>');
                     return [2 /*return*/];
                 });
@@ -308,7 +306,7 @@ describe('jurinetLib', function () {
                 var xml, cleanedText;
                 return __generator(this, function (_a) {
                     xml = buildJurinetXml(['&TEXT1']);
-                    cleanedText = jurinetLib_1.jurinetLib.cleanText(xml);
+                    cleanedText = jurinetLib.cleanText(xml);
                     expect(cleanedText).toEqual('<CAT_PUB></CAT_PUB><TEXTE_ARRET>&amp;TEXT1</TEXTE_ARRET>');
                     return [2 /*return*/];
                 });
@@ -317,7 +315,7 @@ describe('jurinetLib', function () {
                 var xml, cleanedText;
                 return __generator(this, function (_a) {
                     xml = buildJurinetXml(['&amp;TEXT1']);
-                    cleanedText = jurinetLib_1.jurinetLib.cleanText(xml);
+                    cleanedText = jurinetLib.cleanText(xml);
                     expect(cleanedText).toEqual('<CAT_PUB></CAT_PUB><TEXTE_ARRET>&amp;TEXT1</TEXTE_ARRET>');
                     return [2 /*return*/];
                 });
@@ -326,7 +324,7 @@ describe('jurinetLib', function () {
                 var xml, cleanedText;
                 return __generator(this, function (_a) {
                     xml = buildJurinetXml(['&amp;#TEXT1']);
-                    cleanedText = jurinetLib_1.jurinetLib.cleanText(xml);
+                    cleanedText = jurinetLib.cleanText(xml);
                     expect(cleanedText).toEqual('<CAT_PUB></CAT_PUB><TEXTE_ARRET>&#TEXT1</TEXTE_ARRET>');
                     return [2 /*return*/];
                 });
@@ -335,7 +333,7 @@ describe('jurinetLib', function () {
                 var xml, cleanedText;
                 return __generator(this, function (_a) {
                     xml = buildJurinetXml(['<TEXT1']);
-                    cleanedText = jurinetLib_1.jurinetLib.cleanText(xml);
+                    cleanedText = jurinetLib.cleanText(xml);
                     expect(cleanedText).toEqual('<CAT_PUB></CAT_PUB><TEXTE_ARRET>&lt;TEXT1</TEXTE_ARRET>');
                     return [2 /*return*/];
                 });
@@ -344,7 +342,7 @@ describe('jurinetLib', function () {
                 var xml, cleanedText;
                 return __generator(this, function (_a) {
                     xml = buildJurinetXml(['>TEXT1']);
-                    cleanedText = jurinetLib_1.jurinetLib.cleanText(xml);
+                    cleanedText = jurinetLib.cleanText(xml);
                     expect(cleanedText).toEqual('<CAT_PUB></CAT_PUB><TEXTE_ARRET>&gt;TEXT1</TEXTE_ARRET>');
                     return [2 /*return*/];
                 });
@@ -353,7 +351,7 @@ describe('jurinetLib', function () {
                 var xml, cleanedText;
                 return __generator(this, function (_a) {
                     xml = buildJurinetXml(['<TEXT1>']);
-                    cleanedText = jurinetLib_1.jurinetLib.cleanText(xml);
+                    cleanedText = jurinetLib.cleanText(xml);
                     expect(cleanedText).toEqual('<CAT_PUB></CAT_PUB><TEXTE_ARRET>&lt;TEXT1&gt;</TEXTE_ARRET>');
                     return [2 /*return*/];
                 });
@@ -363,7 +361,7 @@ describe('jurinetLib', function () {
                     var xml, cleanedText;
                     return __generator(this, function (_a) {
                         xml = buildJurinetXml(['<p> TEXT1 </p>']);
-                        cleanedText = jurinetLib_1.jurinetLib.cleanText(xml);
+                        cleanedText = jurinetLib.cleanText(xml);
                         expect(cleanedText).toEqual('<CAT_PUB></CAT_PUB><TEXTE_ARRET>&lt;p&gt; TEXT1</TEXTE_ARRET>');
                         return [2 /*return*/];
                     });

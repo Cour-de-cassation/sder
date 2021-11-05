@@ -1,4 +1,3 @@
-"use strict";
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -42,9 +41,8 @@ var __spreadArrays = (this && this.__spreadArrays) || function () {
             r[k] = a[j];
     return r;
 };
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.resetAllDecisionsLabelStatus = void 0;
-var modules_1 = require("../modules");
+import { decisionModule } from '../modules';
+export { resetAllDecisionsLabelStatus };
 resetAllDecisionsLabelStatus();
 function resetAllDecisionsLabelStatus() {
     return __awaiter(this, void 0, void 0, function () {
@@ -54,7 +52,7 @@ function resetAllDecisionsLabelStatus() {
                 case 0:
                     console.log('resetAllDecisionsLabelStatus');
                     console.log('Init decision repository');
-                    return [4 /*yield*/, modules_1.decisionModule.buildRepository()];
+                    return [4 /*yield*/, decisionModule.buildRepository()];
                 case 1:
                     decisionRepository = _b.sent();
                     console.log('Fetching decision ids to reset');
@@ -69,7 +67,7 @@ function resetAllDecisionsLabelStatus() {
                     decisionIds = __spreadArrays.apply(void 0, _a.concat([(_b.sent())]));
                     console.log(decisionIds.length + " decisions fetched");
                     console.log('Reset label status to toBeTreated');
-                    return [4 /*yield*/, modules_1.decisionModule.service.updateDecisionsLabelStatus({ decisionIds: decisionIds, labelStatus: 'toBeTreated' })];
+                    return [4 /*yield*/, decisionModule.service.updateDecisionsLabelStatus({ decisionIds: decisionIds, labelStatus: 'toBeTreated' })];
                 case 5:
                     _b.sent();
                     console.log('DONE');
@@ -78,4 +76,3 @@ function resetAllDecisionsLabelStatus() {
         });
     });
 }
-exports.resetAllDecisionsLabelStatus = resetAllDecisionsLabelStatus;

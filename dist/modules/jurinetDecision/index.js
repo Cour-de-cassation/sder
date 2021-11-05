@@ -1,8 +1,5 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.jurinetDecisionModule = void 0;
-var lib_1 = require("./lib");
+import { generateJurinetDecision } from './lib';
+export { jurinetDecisionModule };
 var jurinetDecisionModule = {
-    lib: { generateJurinetDecision: lib_1.generateJurinetDecision },
+    lib: { generateJurinetDecision: generateJurinetDecision },
 };
-exports.jurinetDecisionModule = jurinetDecisionModule;

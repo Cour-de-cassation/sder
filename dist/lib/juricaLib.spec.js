@@ -1,4 +1,3 @@
-"use strict";
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -35,34 +34,33 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
-Object.defineProperty(exports, "__esModule", { value: true });
-var juricaLib_1 = require("./juricaLib");
+import { juricaLib } from './juricaLib';
 describe('juricaLib', function () {
     describe('cleanText', function () {
         it('should get rid of html tags', function () {
             var text = '<em>italic</em>, <p>paragraph</ p> and <br /> new line.';
-            var cleanedText = juricaLib_1.juricaLib.cleanText(text);
+            var cleanedText = juricaLib.cleanText(text);
             expect(cleanedText).toBe('italic, paragraph and new line.');
         });
         it('should transform new lines and carriage returns', function () {
             var text = 'Line 1\r\nLine 2\rLine 3';
-            var cleanedText = juricaLib_1.juricaLib.cleanText(text);
+            var cleanedText = juricaLib.cleanText(text);
             expect(cleanedText).toBe('Line 1\nLine 2\nLine 3');
         });
         it('should remove extra spaces', function () {
             var text = 'Test with \\t\t\\f\fmultiple            spaces';
-            var cleanedText = juricaLib_1.juricaLib.cleanText(text);
+            var cleanedText = juricaLib.cleanText(text);
             expect(cleanedText).toBe('Test with multiple spaces');
         });
         it('should throw if the parameter is not a string', function () { return __awaiter(void 0, void 0, void 0, function () {
             return __generator(this, function (_a) {
-                expect(function () { return juricaLib_1.juricaLib.cleanText(0); }).toThrow('juricaLib.cleanText: text must be a string.');
+                expect(function () { return juricaLib.cleanText(0); }).toThrow('juricaLib.cleanText: text must be a string.');
                 return [2 /*return*/];
             });
         }); });
         it('should throw if the parameter is an empty string', function () { return __awaiter(void 0, void 0, void 0, function () {
             return __generator(this, function (_a) {
-                expect(function () { return juricaLib_1.juricaLib.cleanText(''); }).toThrow('juricaLib.cleanText: empty text, the document could be malformed or corrupted.');
+                expect(function () { return juricaLib.cleanText(''); }).toThrow('juricaLib.cleanText: empty text, the document could be malformed or corrupted.');
                 return [2 /*return*/];
             });
         }); });

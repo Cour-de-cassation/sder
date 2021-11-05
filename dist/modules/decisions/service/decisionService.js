@@ -1,4 +1,3 @@
-"use strict";
 var __assign = (this && this.__assign) || function () {
     __assign = Object.assign || function(t) {
         for (var s, i = 1, n = arguments.length; i < n; i++) {
@@ -46,20 +45,19 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.decisionService = void 0;
-var lib_1 = require("../lib");
-var repository_1 = require("../repository");
+import { buildDecision } from '../lib';
+import { buildDecisionRepository } from '../repository';
+export { decisionService };
 var decisionService = {
     createDecision: function (decisionFields) {
         return __awaiter(this, void 0, void 0, function () {
             var decisionRepository, decision;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, repository_1.buildDecisionRepository()];
+                    case 0: return [4 /*yield*/, buildDecisionRepository()];
                     case 1:
                         decisionRepository = _a.sent();
-                        decision = lib_1.buildDecision(__assign(__assign({}, decisionFields), { _rev: 0, labelStatus: 'toBeTreated' }));
+                        decision = buildDecision(__assign(__assign({}, decisionFields), { _rev: 0, labelStatus: 'toBeTreated' }));
                         return [4 /*yield*/, decisionRepository.insert(decision)];
                     case 2:
                         _a.sent();
@@ -75,7 +73,7 @@ var decisionService = {
                 switch (_a.label) {
                     case 0:
                         console.log("fetchDecisionBySourceIdAndSourceName({sourceId: " + sourceId + ", sourceName: " + sourceName + "})");
-                        return [4 /*yield*/, repository_1.buildDecisionRepository()];
+                        return [4 /*yield*/, buildDecisionRepository()];
                     case 1:
                         decisionRepository = _a.sent();
                         return [2 /*return*/, decisionRepository.findBySourceIdAndSourceName({ sourceId: sourceId, sourceName: sourceName })];
@@ -90,7 +88,7 @@ var decisionService = {
                 switch (_a.label) {
                     case 0:
                         console.log("fetchPseudonymisationsToExport()");
-                        return [4 /*yield*/, repository_1.buildDecisionRepository()];
+                        return [4 /*yield*/, buildDecisionRepository()];
                     case 1:
                         decisionRepository = _a.sent();
                         return [2 /*return*/, decisionRepository.findAllPseudonymisationToExport()];
@@ -106,7 +104,7 @@ var decisionService = {
                 switch (_b.label) {
                     case 0:
                         console.log("fetchPublicDecisionsBySourceAndJurisdictionsBetween({startDate: " + startDate.toISOString() + ", endDate: " + endDate.toISOString() + ", source: " + source + ", jurisdictions: [" + jurisdictions.join(', ') + "]})");
-                        return [4 /*yield*/, repository_1.buildDecisionRepository()];
+                        return [4 /*yield*/, buildDecisionRepository()];
                     case 1:
                         decisionRepository = _b.sent();
                         decisions = [];
@@ -144,7 +142,7 @@ var decisionService = {
                 switch (_b.label) {
                     case 0:
                         console.log("fetchChainedJuricaDecisionsToPseudonymiseBetween({startDate: " + startDate.toISOString() + ", endDate: " + endDate.toISOString() + "]})");
-                        return [4 /*yield*/, repository_1.buildDecisionRepository()];
+                        return [4 /*yield*/, buildDecisionRepository()];
                     case 1:
                         decisionRepository = _b.sent();
                         return [4 /*yield*/, decisionRepository.findAllBetween({
@@ -185,7 +183,7 @@ var decisionService = {
                 switch (_b.label) {
                     case 0:
                         console.log("fetchDecisionsToPseudonymiseBetween({startDate: " + startDate.toISOString() + ", endDate: " + endDate.toISOString() + ", source: " + source + "]})");
-                        return [4 /*yield*/, repository_1.buildDecisionRepository()];
+                        return [4 /*yield*/, buildDecisionRepository()];
                     case 1:
                         decisionRepository = _b.sent();
                         return [4 /*yield*/, decisionRepository.findAllBetween({
@@ -207,7 +205,7 @@ var decisionService = {
             var decisionRepository, decisions;
             return __generator(this, function (_b) {
                 switch (_b.label) {
-                    case 0: return [4 /*yield*/, repository_1.buildDecisionRepository()];
+                    case 0: return [4 /*yield*/, buildDecisionRepository()];
                     case 1:
                         decisionRepository = _b.sent();
                         return [4 /*yield*/, decisionRepository.findAllByDecisionIds(decisionIds)];
@@ -227,7 +225,7 @@ var decisionService = {
             var decisionRepository;
             return __generator(this, function (_b) {
                 switch (_b.label) {
-                    case 0: return [4 /*yield*/, repository_1.buildDecisionRepository()];
+                    case 0: return [4 /*yield*/, buildDecisionRepository()];
                     case 1:
                         decisionRepository = _b.sent();
                         return [4 /*yield*/, decisionRepository.updateByIds(decisionIds, { labelStatus: labelStatus })];
@@ -244,7 +242,7 @@ var decisionService = {
             var decisionRepository, decision;
             return __generator(this, function (_b) {
                 switch (_b.label) {
-                    case 0: return [4 /*yield*/, repository_1.buildDecisionRepository()];
+                    case 0: return [4 /*yield*/, buildDecisionRepository()];
                     case 1:
                         decisionRepository = _b.sent();
                         return [4 /*yield*/, decisionRepository.findByDecisionId(decisionId)];
@@ -269,7 +267,7 @@ var decisionService = {
             var decisionRepository, decision;
             return __generator(this, function (_b) {
                 switch (_b.label) {
-                    case 0: return [4 /*yield*/, repository_1.buildDecisionRepository()];
+                    case 0: return [4 /*yield*/, buildDecisionRepository()];
                     case 1:
                         decisionRepository = _b.sent();
                         return [4 /*yield*/, decisionRepository.findById(decisionId)];
@@ -289,4 +287,3 @@ var decisionService = {
         });
     },
 };
-exports.decisionService = decisionService;

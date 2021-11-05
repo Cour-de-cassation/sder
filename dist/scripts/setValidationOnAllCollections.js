@@ -1,4 +1,3 @@
-"use strict";
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -35,11 +34,10 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
-Object.defineProperty(exports, "__esModule", { value: true });
-var environment_1 = require("../environment");
-var modules_1 = require("../modules");
-var utils_1 = require("../utils");
-var collections = [modules_1.decisionModule.collection];
+import { getEnvironment } from '../environment';
+import { decisionModule } from '../modules';
+import { buildRunMongo } from '../utils';
+var collections = [decisionModule.collection];
 setValidationOnAllCollections();
 function setValidationOnAllCollections() {
     return __awaiter(this, void 0, void 0, function () {
@@ -49,7 +47,7 @@ function setValidationOnAllCollections() {
                 return __generator(this, function (_a) {
                     switch (_a.label) {
                         case 0:
-                            runMongo = utils_1.buildRunMongo(collection.name);
+                            runMongo = buildRunMongo(collection.name);
                             return [4 /*yield*/, runMongo(function (_a) {
                                     var db = _a.db;
                                     return db.command({
@@ -70,7 +68,7 @@ function setValidationOnAllCollections() {
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
-                    environment = environment_1.getEnvironment();
+                    environment = getEnvironment();
                     console.log("Connecting to MongoDb: " + environment.SDER_DB_URL);
                     console.log("Setting validation on the " + environment.SDER_DB_NAME + " DB");
                     _i = 0, collections_1 = collections;

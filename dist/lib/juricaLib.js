@@ -1,17 +1,14 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.juricaLib = void 0;
-var he_1 = require("he");
+import { decode } from 'he';
+export { juricaLib };
 var juricaLib = {
     cleanText: function (text) {
         assertIsTextString(text);
         text = removeHTMLTags(text);
         text = handleNewLines(text);
         text = removeExtraSpaces(text);
-        return he_1.decode(text); // Decode HTML entities
+        return decode(text); // Decode HTML entities
     },
 };
-exports.juricaLib = juricaLib;
 function assertIsTextString(text) {
     if (typeof text !== 'string') {
         throw new Error('juricaLib.cleanText: text must be a string.');

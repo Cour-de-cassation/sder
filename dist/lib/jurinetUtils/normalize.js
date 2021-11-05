@@ -1,4 +1,3 @@
-"use strict";
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -35,16 +34,15 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.normalize = void 0;
-var constants_1 = require("../../constants");
-var decisions_1 = require("../../modules/decisions");
-var zoningUtils_1 = require("../zoningUtils");
-var jurinet_1 = require("../jurinet");
-var xmlToJson_1 = require("./xmlToJson");
+import { CONSTANTS } from '../../constants';
+import { decisionModule } from '../../modules/decisions';
+import { zoningUtils } from '../zoningUtils';
+import { jurinetLib } from '../jurinet';
+import { xmlToJson } from './xmlToJson';
 // import { OCCULTATION_CATEGORIES_FIELDS } from '../../modules/jurinetDecision/constants';
 // import { keysOf } from '../../utils';
-var convertOccultationBlockToCategoriesToOmit_1 = require("./convertOccultationBlockToCategoriesToOmit");
+import { convertOccultationBlockInCategoriesToOmit } from './convertOccultationBlockToCategoriesToOmit';
+export { normalize };
 function normalize(document, previousVersion, ignorePreviousContent) {
     return __awaiter(this, void 0, void 0, function () {
         var cleanedJson, originalText, pseudoText, pseudoStatus, cleanedXml, cleanedXmlAnonymized, cleanedJsonAnonymized, normalizedDecision, zoning, e_1;
@@ -55,8 +53,8 @@ function normalize(document, previousVersion, ignorePreviousContent) {
                     pseudoText = '';
                     pseudoStatus = document.IND_ANO;
                     try {
-                        cleanedXml = jurinet_1.jurinetLib.cleanText(document.XML);
-                        cleanedJson = xmlToJson_1.xmlToJson(cleanedXml, {
+                        cleanedXml = jurinetLib.cleanText(document.XML);
+                        cleanedJson = xmlToJson(cleanedXml, {
                             filter: false,
                             htmlDecode: true,
                             toLowerCase: true,
@@ -65,8 +63,8 @@ function normalize(document, previousVersion, ignorePreviousContent) {
                     }
                     catch (ignore) { }
                     try {
-                        cleanedXmlAnonymized = jurinet_1.jurinetLib.cleanText(document.XMLA);
-                        cleanedJsonAnonymized = xmlToJson_1.xmlToJson(cleanedXmlAnonymized, {
+                        cleanedXmlAnonymized = jurinetLib.cleanText(document.XMLA);
+                        cleanedJsonAnonymized = xmlToJson(cleanedXmlAnonymized, {
                             filter: false,
                             htmlDecode: true,
                             toLowerCase: true,
@@ -82,9 +80,9 @@ function normalize(document, previousVersion, ignorePreviousContent) {
                             pseudoStatus = previousVersion.pseudoStatus;
                         }
                     }
-                    normalizedDecision = decisions_1.decisionModule.lib.buildDecision({
+                    normalizedDecision = decisionModule.lib.buildDecision({
                         _rev: previousVersion ? previousVersion._rev + 1 : 0,
-                        _version: parseFloat(constants_1.CONSTANTS.MONGO_DECISIONS_VERSION),
+                        _version: parseFloat(CONSTANTS.MONGO_DECISIONS_VERSION),
                         sourceId: document._id,
                         sourceName: 'jurinet',
                         jurisdictionCode: document.TYPE_ARRET,
@@ -234,7 +232,7 @@ function normalize(document, previousVersion, ignorePreviousContent) {
                     _a.label = 1;
                 case 1:
                     _a.trys.push([1, 3, , 4]);
-                    return [4 /*yield*/, zoningUtils_1.zoningUtils.getZones(normalizedDecision.sourceId, normalizedDecision.sourceName, normalizedDecision.pseudoText)];
+                    return [4 /*yield*/, zoningUtils.getZones(normalizedDecision.sourceId, normalizedDecision.sourceName, normalizedDecision.pseudoText)];
                 case 2:
                     zoning = _a.sent();
                     if (zoning && !zoning.detail) {
@@ -282,7 +280,7 @@ function normalize(document, previousVersion, ignorePreviousContent) {
                     //     }
                     //   }
                     // });
-                    normalizedDecision.occultation.categoriesToOmit = convertOccultationBlockToCategoriesToOmit_1.convertOccultationBlockInCategoriesToOmit(document._bloc_occultation);
+                    normalizedDecision.occultation.categoriesToOmit = convertOccultationBlockInCategoriesToOmit(document._bloc_occultation);
                     if (!!document.OCCULTATION_SUPPLEMENTAIRE) {
                         normalizedDecision.occultation.additionalTerms = document.OCCULTATION_SUPPLEMENTAIRE;
                     }
@@ -294,4 +292,3 @@ function normalize(document, previousVersion, ignorePreviousContent) {
         });
     });
 }
-exports.normalize = normalize;

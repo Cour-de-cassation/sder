@@ -1,5 +1,2 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.decisionCollectionName = void 0;
+export { decisionCollectionName };
 var decisionCollectionName = 'decisions';
-exports.decisionCollectionName = decisionCollectionName;

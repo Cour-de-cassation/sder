@@ -1,4 +1,3 @@
-"use strict";
 var __assign = (this && this.__assign) || function () {
     __assign = Object.assign || function(t) {
         for (var s, i = 1, n = arguments.length; i < n; i++) {
@@ -46,9 +45,8 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.buildDecisionFakeRepository = void 0;
-var utils_1 = require("../../../utils");
+import { areMongoIdEqual } from '../../../utils';
+export { buildDecisionFakeRepository };
 var collectionName = 'decisions';
 var collection = [];
 function buildDecisionFakeRepository() {
@@ -159,7 +157,7 @@ function buildDecisionFakeRepository() {
                         return __awaiter(this, void 0, void 0, function () {
                             var result;
                             return __generator(this, function (_a) {
-                                result = collection.find(function (decision) { return utils_1.areMongoIdEqual(decision._id, id); });
+                                result = collection.find(function (decision) { return areMongoIdEqual(decision._id, id); });
                                 if (!result) {
                                     throw new Error("No matching " + collectionName + " for _id " + id);
                                 }
@@ -199,7 +197,7 @@ function buildDecisionFakeRepository() {
                         return __awaiter(this, void 0, void 0, function () {
                             return __generator(this, function (_a) {
                                 collection = collection.map(function (decision) {
-                                    return utils_1.areMongoIdEqual(decision._id, id) ? __assign(__assign({}, decision), decisionField) : decision;
+                                    return areMongoIdEqual(decision._id, id) ? __assign(__assign({}, decision), decisionField) : decision;
                                 });
                                 return [2 /*return*/];
                             });
@@ -209,7 +207,7 @@ function buildDecisionFakeRepository() {
                         return __awaiter(this, void 0, void 0, function () {
                             return __generator(this, function (_a) {
                                 collection = collection.map(function (decision) {
-                                    return ids.some(function (id) { return utils_1.areMongoIdEqual(id, decision._id); }) ? __assign(__assign({}, decision), decisionField) : decision;
+                                    return ids.some(function (id) { return areMongoIdEqual(id, decision._id); }) ? __assign(__assign({}, decision), decisionField) : decision;
                                 });
                                 return [2 /*return*/];
                             });
@@ -219,4 +217,3 @@ function buildDecisionFakeRepository() {
         });
     });
 }
-exports.buildDecisionFakeRepository = buildDecisionFakeRepository;

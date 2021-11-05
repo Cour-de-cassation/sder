@@ -1,4 +1,3 @@
-"use strict";
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -35,15 +34,14 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
-Object.defineProperty(exports, "__esModule", { value: true });
-var modules_1 = require("../modules");
-var resetAllDecisionsLabelStatus_1 = require("./resetAllDecisionsLabelStatus");
+import { decisionModule } from '../modules';
+import { resetAllDecisionsLabelStatus } from './resetAllDecisionsLabelStatus';
 describe('resetAllDecisionsLabelStatus', function () {
     it('should reset all the decisions label status to toBeTreated', function () { return __awaiter(void 0, void 0, void 0, function () {
         var decisionRepository, decisions, decisionsAfterUpdate;
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, modules_1.decisionModule.buildRepository()];
+                case 0: return [4 /*yield*/, decisionModule.buildRepository()];
                 case 1:
                     decisionRepository = _a.sent();
                     decisions = [
@@ -51,11 +49,11 @@ describe('resetAllDecisionsLabelStatus', function () {
                         { labelStatus: 'toBeTreated' },
                         { labelStatus: 'exported' },
                         { labelStatus: 'loaded' },
-                    ].map(modules_1.decisionModule.lib.generateDecision);
+                    ].map(decisionModule.lib.generateDecision);
                     return [4 /*yield*/, Promise.all(decisions.map(decisionRepository.insert))];
                 case 2:
                     _a.sent();
-                    return [4 /*yield*/, resetAllDecisionsLabelStatus_1.resetAllDecisionsLabelStatus()];
+                    return [4 /*yield*/, resetAllDecisionsLabelStatus()];
                 case 3:
                     _a.sent();
                     return [4 /*yield*/, decisionRepository.findAll()];

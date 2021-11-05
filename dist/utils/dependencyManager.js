@@ -1,6 +1,4 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.dependencyManager = void 0;
+export { dependencyManager };
 var dependencyManager = {
     inject: function (_a) {
         var defaultValue = _a.defaultValue, testValue = _a.testValue;
@@ -12,4 +10,3 @@ var dependencyManager = {
         }
     },
 };
-exports.dependencyManager = dependencyManager;

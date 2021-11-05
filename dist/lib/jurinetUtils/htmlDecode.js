@@ -1,10 +1,5 @@
-"use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.htmlDecode = void 0;
-var he_1 = __importDefault(require("he"));
+import he from 'he';
+export { htmlDecode };
 function htmlDecode(obj) {
     var output = {};
     for (var i in obj) {
@@ -19,7 +14,7 @@ function htmlDecode(obj) {
         }
         else {
             try {
-                output[i] = he_1.default.decode(obj[i]);
+                output[i] = he.decode(obj[i]);
             }
             catch (ignore) {
                 output[i] = obj[i];
@@ -28,4 +23,3 @@ function htmlDecode(obj) {
     }
     return output;
 }
-exports.htmlDecode = htmlDecode;

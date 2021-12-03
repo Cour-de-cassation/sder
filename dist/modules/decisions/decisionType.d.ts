@@ -54,6 +54,7 @@ declare type decisionType = {
     natureAffaireCivil?: string;
     natureAffairePenal?: string;
     codeMatiereCivil?: string;
+    NACCode?: string;
 };
 declare type labelTreatmentsType = Array<{
     annotations: Array<{

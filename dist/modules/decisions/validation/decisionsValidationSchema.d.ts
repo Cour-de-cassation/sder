@@ -221,6 +221,9 @@ declare const decisionsValidationSchema: {
             codeMatiereCivil: {
                 bsonType: string;
             };
+            NACCode: {
+                bsonType: string;
+            };
         };
     };
 };

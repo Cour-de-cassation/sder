@@ -56,7 +56,7 @@ async function buildDecisionRepository(): Promise<decisionRepositoryType> {
       return runMongo(({ collection }) =>
         collection
           .find({
-            dateDecision: { $gte: startDate.toISOString() as any, $lt: endDate.toISOString() as any },
+            dateCreation: { $gte: startDate.toISOString() as any, $lt: endDate.toISOString() as any },
             sourceName: source,
             labelStatus: labelStatus || { $in: labelStatuses },
           })

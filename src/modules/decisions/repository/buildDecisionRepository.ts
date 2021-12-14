@@ -21,9 +21,9 @@ async function buildDecisionRepository(): Promise<decisionRepositoryType> {
       return runMongo(({ collection }) => collection.find({ sourceId: { $in: decisionIds } }).toArray());
     },
 
-    async findAllByLabelStatusAndSourceIdsAndSourceName({ sourceIds, sourceName, labelStatus }) {
+    async findAllByLabelStatusAndSourceIdsAndSourceName({ sourceIds, sourceName, labelStatuses }) {
       return runMongo(async ({ collection }) =>
-        collection.find({ sourceId: { $in: sourceIds }, sourceName, labelStatus }).toArray(),
+        collection.find({ sourceId: { $in: sourceIds }, sourceName, labelStatus: { $in: labelStatuses } }).toArray(),
       );
     },
 

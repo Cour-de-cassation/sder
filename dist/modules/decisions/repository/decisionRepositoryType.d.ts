@@ -8,7 +8,7 @@ declare type decisionRepositoryType = {
     findAllByLabelStatusAndSourceIdsAndSourceName: (params: {
         sourceIds: decisionType['sourceId'][];
         sourceName: decisionType['sourceName'];
-        labelStatus: decisionType['labelStatus'];
+        labelStatuses: decisionType['labelStatus'][];
     }) => Promise<decisionType[]>;
     findAllIds: () => Promise<Array<decisionType['_id']>>;
     findAllIdsByLabelStatus: (labelStatus: decisionType['labelStatus']) => Promise<Array<decisionType['_id']>>;

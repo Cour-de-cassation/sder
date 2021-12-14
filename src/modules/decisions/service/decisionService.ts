@@ -99,7 +99,7 @@ const decisionService = {
     const juricaChainedDecisions = await decisionRepository.findAllByLabelStatusAndSourceIdsAndSourceName({
       sourceIds: juricaChainedDecisionSourceIds,
       sourceName: 'jurica',
-      labelStatus: 'toBeTreated',
+      labelStatuses: ['toBeTreated', 'exported'],
     });
 
     console.log(`${juricaChainedDecisions.length} jurica chained decisions found`);

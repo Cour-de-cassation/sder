@@ -21,12 +21,12 @@ async function buildDecisionFakeRepository(): Promise<decisionRepositoryType> {
       return collection.filter((decision) => decisionIds.includes(decision.sourceId));
     },
 
-    async findAllByLabelStatusAndSourceIdsAndSourceName({ sourceIds, sourceName, labelStatus }) {
+    async findAllByLabelStatusAndSourceIdsAndSourceName({ sourceIds, sourceName, labelStatuses }) {
       return collection.filter(
         (decision) =>
           sourceIds.includes(decision.sourceId) &&
           decision.sourceName === sourceName &&
-          decision.labelStatus === labelStatus,
+          labelStatuses.includes(decision.labelStatus),
       );
     },
 

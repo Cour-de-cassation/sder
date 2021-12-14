@@ -78,13 +78,13 @@ function buildDecisionFakeRepository() {
                         });
                     },
                     findAllByLabelStatusAndSourceIdsAndSourceName: function (_a) {
-                        var sourceIds = _a.sourceIds, sourceName = _a.sourceName, labelStatus = _a.labelStatus;
+                        var sourceIds = _a.sourceIds, sourceName = _a.sourceName, labelStatuses = _a.labelStatuses;
                         return __awaiter(this, void 0, void 0, function () {
                             return __generator(this, function (_b) {
                                 return [2 /*return*/, collection.filter(function (decision) {
                                         return sourceIds.includes(decision.sourceId) &&
                                             decision.sourceName === sourceName &&
-                                            decision.labelStatus === labelStatus;
+                                            labelStatuses.includes(decision.labelStatus);
                                     })];
                             });
                         });

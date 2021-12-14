@@ -85,14 +85,14 @@ function buildDecisionRepository() {
                         });
                     },
                     findAllByLabelStatusAndSourceIdsAndSourceName: function (_a) {
-                        var sourceIds = _a.sourceIds, sourceName = _a.sourceName, labelStatus = _a.labelStatus;
+                        var sourceIds = _a.sourceIds, sourceName = _a.sourceName, labelStatuses = _a.labelStatuses;
                         return __awaiter(this, void 0, void 0, function () {
                             var _this = this;
                             return __generator(this, function (_b) {
                                 return [2 /*return*/, runMongo(function (_a) {
                                         var collection = _a.collection;
                                         return __awaiter(_this, void 0, void 0, function () { return __generator(this, function (_b) {
-                                            return [2 /*return*/, collection.find({ sourceId: { $in: sourceIds }, sourceName: sourceName, labelStatus: labelStatus }).toArray()];
+                                            return [2 /*return*/, collection.find({ sourceId: { $in: sourceIds }, sourceName: sourceName, labelStatus: { $in: labelStatuses } }).toArray()];
                                         }); });
                                     })];
                             });

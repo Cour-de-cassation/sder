@@ -165,7 +165,7 @@ var decisionService = {
                         return [4 /*yield*/, decisionRepository.findAllByLabelStatusAndSourceIdsAndSourceName({
                                 sourceIds: juricaChainedDecisionSourceIds,
                                 sourceName: 'jurica',
-                                labelStatus: 'toBeTreated',
+                                labelStatuses: ['toBeTreated', 'exported'],
                             })];
                     case 3:
                         juricaChainedDecisions = _b.sent();

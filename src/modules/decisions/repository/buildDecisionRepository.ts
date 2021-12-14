@@ -1,6 +1,6 @@
 import { buildRunMongo } from '../../../utils';
 import { decisionCollectionName } from '../decisionCollectionName';
-import { decisionType } from '../decisionType';
+import { decisionType, labelStatuses } from '../decisionType';
 import { decisionRepositoryType } from './decisionRepositoryType';
 
 export { buildDecisionRepository };
@@ -21,9 +21,9 @@ async function buildDecisionRepository(): Promise<decisionRepositoryType> {
       return runMongo(({ collection }) => collection.find({ sourceId: { $in: decisionIds } }).toArray());
     },
 
-    async findAllBySourceIdsAndSourceName(sourceIds, sourceName) {
+    async findAllByLabelStatusAndSourceIdsAndSourceName({ sourceIds, sourceName, labelStatuses }) {
       return runMongo(async ({ collection }) =>
-        collection.find({ sourceId: { $in: sourceIds }, sourceName } as any).toArray(),
+        collection.find({ sourceId: { $in: sourceIds }, sourceName, labelStatus: { $in: labelStatuses } }).toArray(),
       );
     },
 
@@ -52,26 +52,28 @@ async function buildDecisionRepository(): Promise<decisionRepositoryType> {
       });
     },
 
-    async findAllBetween({ startDate, endDate, source }) {
+    async findAllBetween({ startDate, endDate, source, labelStatus }) {
       return runMongo(({ collection }) =>
         collection
           .find({
             dateCreation: { $gte: startDate.toISOString() as any, $lt: endDate.toISOString() as any },
             sourceName: source,
+            labelStatus: labelStatus || { $in: labelStatuses },
           })
           .toArray(),
       );
     },
 
-    async findAllPublicBySourceAndJurisdictionBetween({ startDate, endDate, source, jurisdiction }) {
+    async findAllPublicBySourceAndJurisdictionBetween({ startDate, endDate, source, jurisdiction, labelStatus }) {
       const jurisdictionRegex = new RegExp(jurisdiction, 'i');
       return runMongo(({ collection }) =>
         collection
           .find({
-            dateCreation: { $gte: startDate.toISOString() as any, $lt: endDate.toISOString() as any },
+            dateDecision: { $gte: startDate.toISOString() as any, $lt: endDate.toISOString() as any },
             sourceName: source,
             jurisdictionName: jurisdictionRegex,
             public: true,
+            labelStatus,
           })
           .toArray(),
       );
@@ -97,6 +99,14 @@ async function buildDecisionRepository(): Promise<decisionRepositoryType> {
         }
 
         return result;
+      });
+    },
+
+    async findBySourceIdAndSourceName({ sourceId, sourceName }) {
+      return runMongo(async ({ collection }) => {
+        const result = await collection.findOne({ sourceId, sourceName });
+
+        return result || undefined;
       });
     },
 

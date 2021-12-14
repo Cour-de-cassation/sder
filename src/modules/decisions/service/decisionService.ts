@@ -1,5 +1,5 @@
 import { decisionType, labelTreatmentsType } from '../decisionType';
-import { buildDecision, shouldBeTreatedByLabel } from '../lib';
+import { buildDecision } from '../lib';
 import { buildDecisionRepository } from '../repository';
 
 export { decisionService };
@@ -12,16 +12,18 @@ const decisionService = {
     await decisionRepository.insert(decision);
   },
 
-  async fetchDecisionsBySourceIdsAndSourceName(
-    sourceIds: decisionType['sourceId'][],
+  async fetchDecisionBySourceIdAndSourceName(
+    sourceId: decisionType['sourceId'],
     sourceName: decisionType['sourceName'],
   ) {
+    console.log(`fetchDecisionBySourceIdAndSourceName({sourceId: ${sourceId}, sourceName: ${sourceName}})`);
     const decisionRepository = await buildDecisionRepository();
 
-    return decisionRepository.findAllBySourceIdsAndSourceName(sourceIds, sourceName);
+    return decisionRepository.findBySourceIdAndSourceName({ sourceId, sourceName });
   },
 
   async fetchPseudonymisationsToExport() {
+    console.log(`fetchPseudonymisationsToExport()`);
     const decisionRepository = await buildDecisionRepository();
 
     return decisionRepository.findAllPseudonymisationToExport();
@@ -29,39 +31,47 @@ const decisionService = {
 
   async fetchPublicDecisionsBySourceAndJurisdictionsBetween({
     startDate,
-    endDate = new Date(),
+    endDate,
     source,
     jurisdictions,
   }: {
     startDate: Date;
-    endDate?: Date;
+    endDate: Date;
     source: string;
     jurisdictions: string[];
   }) {
+    console.log(
+      `fetchPublicDecisionsBySourceAndJurisdictionsBetween({startDate: ${startDate.toISOString()}, endDate: ${endDate.toISOString()}, source: ${source}, jurisdictions: [${jurisdictions.join(
+        ', ',
+      )}]})`,
+    );
     const decisionRepository = await buildDecisionRepository();
 
     const decisions: decisionType[] = [];
-
-    jurisdictions.forEach(async (jurisdiction) => {
+    for (const jurisdiction of jurisdictions) {
+      console.log(`Fetching decisions for jurisdiction ${jurisdiction}`);
       const decisionsForJuridiction = await decisionRepository.findAllPublicBySourceAndJurisdictionBetween({
         endDate,
         startDate,
         jurisdiction,
         source,
+        labelStatus: 'toBeTreated',
       });
+      console.log(
+        `${
+          decisionsForJuridiction.length
+        } decisions found for jurisdiction "${jurisdiction}", source "${source}" and between ${startDate.toISOString()} and ${endDate.toISOString()}`,
+      );
       decisions.push(...decisionsForJuridiction);
-    });
+    }
 
     return decisions;
   },
 
-  async fetchJurinetAndChainedJuricaDecisionsToPseudonymiseBetween({
-    startDate,
-    endDate = new Date(),
-  }: {
-    startDate: Date;
-    endDate?: Date;
-  }) {
+  async fetchChainedJuricaDecisionsToPseudonymiseBetween({ startDate, endDate }: { startDate: Date; endDate: Date }) {
+    console.log(
+      `fetchChainedJuricaDecisionsToPseudonymiseBetween({startDate: ${startDate.toISOString()}, endDate: ${endDate.toISOString()}]})`,
+    );
     const decisionRepository = await buildDecisionRepository();
 
     const jurinetDecisions = await decisionRepository.findAllBetween({
@@ -69,6 +79,12 @@ const decisionService = {
       endDate,
       source: 'jurinet',
     });
+
+    console.log(
+      `${
+        jurinetDecisions.length
+      } jurinet decisions found between ${startDate.toISOString()} and ${endDate.toISOString()}`,
+    );
 
     const juricaChainedDecisionSourceIds: number[] = [];
 
@@ -78,14 +94,45 @@ const decisionService = {
       }
     });
 
-    const juricaChainedDecisions = await decisionRepository.findAllBySourceIdsAndSourceName(
-      juricaChainedDecisionSourceIds,
-      'jurica',
+    console.log(`${juricaChainedDecisionSourceIds.length} sourceIds found`);
+
+    const juricaChainedDecisions = await decisionRepository.findAllByLabelStatusAndSourceIdsAndSourceName({
+      sourceIds: juricaChainedDecisionSourceIds,
+      sourceName: 'jurica',
+      labelStatuses: ['toBeTreated', 'exported'],
+    });
+
+    console.log(`${juricaChainedDecisions.length} jurica chained decisions found`);
+
+    const filteredJuricaChainedDecisions = juricaChainedDecisions.filter((decision) => !decision.pseudoText);
+
+    console.log(`${filteredJuricaChainedDecisions.length} jurica chained decisions with no pseudoText found`);
+
+    return filteredJuricaChainedDecisions;
+  },
+
+  async fetchDecisionsToPseudonymiseBetween({
+    source,
+    startDate,
+    endDate,
+  }: {
+    source: decisionType['sourceName'];
+    startDate: Date;
+    endDate: Date;
+  }) {
+    console.log(
+      `fetchDecisionsToPseudonymiseBetween({startDate: ${startDate.toISOString()}, endDate: ${endDate.toISOString()}, source: ${source}]})`,
     );
+    const decisionRepository = await buildDecisionRepository();
 
-    const decisions = [...jurinetDecisions, ...juricaChainedDecisions];
+    const decisions = await decisionRepository.findAllBetween({
+      startDate,
+      endDate,
+      source,
+      labelStatus: 'toBeTreated',
+    });
 
-    return decisions.filter(shouldBeTreatedByLabel);
+    return decisions.filter((decision) => !decision.pseudoText);
   },
 
   async deprecatedUpdateDecisionsLabelStatus({

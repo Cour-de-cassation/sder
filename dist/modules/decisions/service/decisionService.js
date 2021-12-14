@@ -46,13 +46,6 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
-var __spreadArrays = (this && this.__spreadArrays) || function () {
-    for (var s = 0, i = 0, il = arguments.length; i < il; i++) s += arguments[i].length;
-    for (var r = Array(s), k = 0, i = 0; i < il; i++)
-        for (var a = arguments[i], j = 0, jl = a.length; j < jl; j++, k++)
-            r[k] = a[j];
-    return r;
-};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.decisionService = void 0;
 var lib_1 = require("../lib");
@@ -75,15 +68,17 @@ var decisionService = {
             });
         });
     },
-    fetchDecisionsBySourceIdsAndSourceName: function (sourceIds, sourceName) {
+    fetchDecisionBySourceIdAndSourceName: function (sourceId, sourceName) {
         return __awaiter(this, void 0, void 0, function () {
             var decisionRepository;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, repository_1.buildDecisionRepository()];
+                    case 0:
+                        console.log("fetchDecisionBySourceIdAndSourceName({sourceId: " + sourceId + ", sourceName: " + sourceName + "})");
+                        return [4 /*yield*/, repository_1.buildDecisionRepository()];
                     case 1:
                         decisionRepository = _a.sent();
-                        return [2 /*return*/, decisionRepository.findAllBySourceIdsAndSourceName(sourceIds, sourceName)];
+                        return [2 /*return*/, decisionRepository.findBySourceIdAndSourceName({ sourceId: sourceId, sourceName: sourceName })];
                 }
             });
         });
@@ -93,7 +88,9 @@ var decisionService = {
             var decisionRepository;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, repository_1.buildDecisionRepository()];
+                    case 0:
+                        console.log("fetchPseudonymisationsToExport()");
+                        return [4 /*yield*/, repository_1.buildDecisionRepository()];
                     case 1:
                         decisionRepository = _a.sent();
                         return [2 /*return*/, decisionRepository.findAllPseudonymisationToExport()];
@@ -102,65 +99,104 @@ var decisionService = {
         });
     },
     fetchPublicDecisionsBySourceAndJurisdictionsBetween: function (_a) {
-        var startDate = _a.startDate, _b = _a.endDate, endDate = _b === void 0 ? new Date() : _b, source = _a.source, jurisdictions = _a.jurisdictions;
+        var startDate = _a.startDate, endDate = _a.endDate, source = _a.source, jurisdictions = _a.jurisdictions;
         return __awaiter(this, void 0, void 0, function () {
-            var decisionRepository, decisions;
-            var _this = this;
-            return __generator(this, function (_c) {
-                switch (_c.label) {
-                    case 0: return [4 /*yield*/, repository_1.buildDecisionRepository()];
+            var decisionRepository, decisions, _i, jurisdictions_1, jurisdiction, decisionsForJuridiction;
+            return __generator(this, function (_b) {
+                switch (_b.label) {
+                    case 0:
+                        console.log("fetchPublicDecisionsBySourceAndJurisdictionsBetween({startDate: " + startDate.toISOString() + ", endDate: " + endDate.toISOString() + ", source: " + source + ", jurisdictions: [" + jurisdictions.join(', ') + "]})");
+                        return [4 /*yield*/, repository_1.buildDecisionRepository()];
                     case 1:
-                        decisionRepository = _c.sent();
+                        decisionRepository = _b.sent();
                         decisions = [];
-                        jurisdictions.forEach(function (jurisdiction) { return __awaiter(_this, void 0, void 0, function () {
-                            var decisionsForJuridiction;
-                            return __generator(this, function (_a) {
-                                switch (_a.label) {
-                                    case 0: return [4 /*yield*/, decisionRepository.findAllPublicBySourceAndJurisdictionBetween({
-                                            endDate: endDate,
-                                            startDate: startDate,
-                                            jurisdiction: jurisdiction,
-                                            source: source,
-                                        })];
-                                    case 1:
-                                        decisionsForJuridiction = _a.sent();
-                                        decisions.push.apply(decisions, decisionsForJuridiction);
-                                        return [2 /*return*/];
-                                }
-                            });
-                        }); });
-                        return [2 /*return*/, decisions];
+                        _i = 0, jurisdictions_1 = jurisdictions;
+                        _b.label = 2;
+                    case 2:
+                        if (!(_i < jurisdictions_1.length)) return [3 /*break*/, 5];
+                        jurisdiction = jurisdictions_1[_i];
+                        console.log("Fetching decisions for jurisdiction " + jurisdiction);
+                        return [4 /*yield*/, decisionRepository.findAllPublicBySourceAndJurisdictionBetween({
+                                endDate: endDate,
+                                startDate: startDate,
+                                jurisdiction: jurisdiction,
+                                source: source,
+                                labelStatus: 'toBeTreated',
+                            })];
+                    case 3:
+                        decisionsForJuridiction = _b.sent();
+                        console.log(decisionsForJuridiction.length + " decisions found for jurisdiction \"" + jurisdiction + "\", source \"" + source + "\" and between " + startDate.toISOString() + " and " + endDate.toISOString());
+                        decisions.push.apply(decisions, decisionsForJuridiction);
+                        _b.label = 4;
+                    case 4:
+                        _i++;
+                        return [3 /*break*/, 2];
+                    case 5: return [2 /*return*/, decisions];
                 }
             });
         });
     },
-    fetchJurinetAndChainedJuricaDecisionsToPseudonymiseBetween: function (_a) {
-        var startDate = _a.startDate, _b = _a.endDate, endDate = _b === void 0 ? new Date() : _b;
+    fetchChainedJuricaDecisionsToPseudonymiseBetween: function (_a) {
+        var startDate = _a.startDate, endDate = _a.endDate;
         return __awaiter(this, void 0, void 0, function () {
-            var decisionRepository, jurinetDecisions, juricaChainedDecisionSourceIds, juricaChainedDecisions, decisions;
-            return __generator(this, function (_c) {
-                switch (_c.label) {
-                    case 0: return [4 /*yield*/, repository_1.buildDecisionRepository()];
+            var decisionRepository, jurinetDecisions, juricaChainedDecisionSourceIds, juricaChainedDecisions, filteredJuricaChainedDecisions;
+            return __generator(this, function (_b) {
+                switch (_b.label) {
+                    case 0:
+                        console.log("fetchChainedJuricaDecisionsToPseudonymiseBetween({startDate: " + startDate.toISOString() + ", endDate: " + endDate.toISOString() + "]})");
+                        return [4 /*yield*/, repository_1.buildDecisionRepository()];
                     case 1:
-                        decisionRepository = _c.sent();
+                        decisionRepository = _b.sent();
                         return [4 /*yield*/, decisionRepository.findAllBetween({
                                 startDate: startDate,
                                 endDate: endDate,
                                 source: 'jurinet',
                             })];
                     case 2:
-                        jurinetDecisions = _c.sent();
+                        jurinetDecisions = _b.sent();
+                        console.log(jurinetDecisions.length + " jurinet decisions found between " + startDate.toISOString() + " and " + endDate.toISOString());
                         juricaChainedDecisionSourceIds = [];
                         jurinetDecisions.forEach(function (decision) {
                             if (decision.decatt) {
                                 decision.decatt.forEach(function (sourceId) { return juricaChainedDecisionSourceIds.push(sourceId); });
                             }
                         });
-                        return [4 /*yield*/, decisionRepository.findAllBySourceIdsAndSourceName(juricaChainedDecisionSourceIds, 'jurica')];
+                        console.log(juricaChainedDecisionSourceIds.length + " sourceIds found");
+                        return [4 /*yield*/, decisionRepository.findAllByLabelStatusAndSourceIdsAndSourceName({
+                                sourceIds: juricaChainedDecisionSourceIds,
+                                sourceName: 'jurica',
+                                labelStatuses: ['toBeTreated', 'exported'],
+                            })];
                     case 3:
-                        juricaChainedDecisions = _c.sent();
-                        decisions = __spreadArrays(jurinetDecisions, juricaChainedDecisions);
-                        return [2 /*return*/, decisions.filter(lib_1.shouldBeTreatedByLabel)];
+                        juricaChainedDecisions = _b.sent();
+                        console.log(juricaChainedDecisions.length + " jurica chained decisions found");
+                        filteredJuricaChainedDecisions = juricaChainedDecisions.filter(function (decision) { return !decision.pseudoText; });
+                        console.log(filteredJuricaChainedDecisions.length + " jurica chained decisions with no pseudoText found");
+                        return [2 /*return*/, filteredJuricaChainedDecisions];
+                }
+            });
+        });
+    },
+    fetchDecisionsToPseudonymiseBetween: function (_a) {
+        var source = _a.source, startDate = _a.startDate, endDate = _a.endDate;
+        return __awaiter(this, void 0, void 0, function () {
+            var decisionRepository, decisions;
+            return __generator(this, function (_b) {
+                switch (_b.label) {
+                    case 0:
+                        console.log("fetchDecisionsToPseudonymiseBetween({startDate: " + startDate.toISOString() + ", endDate: " + endDate.toISOString() + ", source: " + source + "]})");
+                        return [4 /*yield*/, repository_1.buildDecisionRepository()];
+                    case 1:
+                        decisionRepository = _b.sent();
+                        return [4 /*yield*/, decisionRepository.findAllBetween({
+                                startDate: startDate,
+                                endDate: endDate,
+                                source: source,
+                                labelStatus: 'toBeTreated',
+                            })];
+                    case 2:
+                        decisions = _b.sent();
+                        return [2 /*return*/, decisions.filter(function (decision) { return !decision.pseudoText; })];
                 }
             });
         });

@@ -21,9 +21,12 @@ async function buildDecisionFakeRepository(): Promise<decisionRepositoryType> {
       return collection.filter((decision) => decisionIds.includes(decision.sourceId));
     },
 
-    async findAllBySourceIdsAndSourceName(sourceIds, sourceName) {
+    async findAllByLabelStatusAndSourceIdsAndSourceName({ sourceIds, sourceName, labelStatuses }) {
       return collection.filter(
-        (decision) => sourceIds.includes(decision.sourceId) && decision.sourceName === sourceName,
+        (decision) =>
+          sourceIds.includes(decision.sourceId) &&
+          decision.sourceName === sourceName &&
+          labelStatuses.includes(decision.labelStatus),
       );
     },
 
@@ -52,11 +55,12 @@ async function buildDecisionFakeRepository(): Promise<decisionRepositoryType> {
       );
     },
 
-    async findAllPublicBySourceAndJurisdictionBetween({ startDate, endDate, source, jurisdiction }) {
+    async findAllPublicBySourceAndJurisdictionBetween({ startDate, endDate, source, jurisdiction, labelStatus }) {
       const jurisdictionRegex = new RegExp(jurisdiction, 'i');
 
       return collection.filter(
         (decision) =>
+          decision.labelStatus === labelStatus &&
           !!decision.public &&
           decision.dateCreation &&
           new Date(decision.dateCreation) >= startDate &&
@@ -79,6 +83,10 @@ async function buildDecisionFakeRepository(): Promise<decisionRepositoryType> {
       }
 
       return result;
+    },
+
+    async findBySourceIdAndSourceName({ sourceId, sourceName }) {
+      return collection.find((decision) => decision.sourceId === sourceId && decision.sourceName === sourceName);
     },
 
     async findByDecisionId(decisionId) {

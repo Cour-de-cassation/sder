@@ -42,10 +42,12 @@ var decisions_1 = require("../../modules/decisions");
 var zoningUtils_1 = require("../zoningUtils");
 var jurinet_1 = require("../jurinet");
 var xmlToJson_1 = require("./xmlToJson");
-var utils_1 = require("../../utils");
+// import { OCCULTATION_CATEGORIES_FIELDS } from '../../modules/jurinetDecision/constants';
+// import { keysOf } from '../../utils';
+var convertOccultationBlockToCategoriesToOmit_1 = require("./convertOccultationBlockToCategoriesToOmit");
 function normalize(document, previousVersion, ignorePreviousContent) {
     return __awaiter(this, void 0, void 0, function () {
-        var cleanedJson, originalText, pseudoText, pseudoStatus, cleanedXml, cleanedXmlAnonymized, cleanedJsonAnonymized, normalizedDecision, zoning, e_1, occultations;
+        var cleanedJson, originalText, pseudoText, pseudoStatus, cleanedXml, cleanedXmlAnonymized, cleanedJsonAnonymized, normalizedDecision, zoning, e_1;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
@@ -244,39 +246,43 @@ function normalize(document, previousVersion, ignorePreviousContent) {
                     normalizedDecision.zoning = undefined;
                     return [3 /*break*/, 4];
                 case 4:
-                    occultations = {
-                        IND_PM: ['personneMorale', 'etablissement', 'numeroSiretSiren'],
-                        IND_ADRESSE: ['adresse', 'localite'],
-                        IND_DT_NAISSANCE: ['dateNaissance'],
-                        IND_DT_DECE: ['dateDeces'],
-                        IND_DT_MARIAGE: ['dateMariage'],
-                        IND_IMMATRICULATION: ['plaqueImmatriculation'],
-                        IND_CADASTRE: ['cadastre'],
-                        IND_CHAINE: ['compteBancaire', 'telephoneFax', 'insee'],
-                        IND_COORDONNEE_ELECTRONIQUE: ['email'],
-                        IND_PRENOM_PROFESSIONEL: ['professionnelMagistratGreffier'],
-                        IND_NOM_PROFESSIONEL: ['professionnelMagistratGreffier'],
-                    };
-                    utils_1.keysOf(occultations).forEach(function (occultationCategoryField) {
-                        if (occultationCategoryField === 'IND_PM' ||
-                            occultationCategoryField === 'IND_NOM_PROFESSIONEL' ||
-                            occultationCategoryField === 'IND_PRENOM_PROFESSIONEL') {
-                            if (!document[occultationCategoryField]) {
-                                occultations[occultationCategoryField].forEach(function (item) {
-                                    normalizedDecision.occultation.categoriesToOmit.push(item);
-                                });
-                            }
-                        }
-                        else {
-                            if (!document[occultationCategoryField] &&
-                                document[occultationCategoryField] !== null &&
-                                document[occultationCategoryField] !== undefined) {
-                                occultations[occultationCategoryField].forEach(function (item) {
-                                    normalizedDecision.occultation.categoriesToOmit.push(item);
-                                });
-                            }
-                        }
-                    });
+                    // const occultations: Record<typeof OCCULTATION_CATEGORIES_FIELDS[number], string[]> = {
+                    //   IND_PM: ['personneMorale', 'numeroSiretSiren'],
+                    //   IND_ADRESSE: ['adresse', 'localite', 'etablissement'],
+                    //   IND_DT_NAISSANCE: ['dateNaissance'],
+                    //   IND_DT_DECE: ['dateDeces'],
+                    //   IND_DT_MARIAGE: ['dateMariage'],
+                    //   IND_IMMATRICULATION: ['plaqueImmatriculation'],
+                    //   IND_CADASTRE: ['cadastre'],
+                    //   IND_CHAINE: ['compteBancaire', 'telephoneFax', 'insee'],
+                    //   IND_COORDONNEE_ELECTRONIQUE: ['email'],
+                    //   IND_PRENOM_PROFESSIONEL: ['professionnelMagistratGreffier'],
+                    //   IND_NOM_PROFESSIONEL: ['professionnelMagistratGreffier'],
+                    // };
+                    // keysOf(occultations).forEach((occultationCategoryField) => {
+                    //   if (
+                    //     occultationCategoryField === 'IND_PM' ||
+                    //     occultationCategoryField === 'IND_NOM_PROFESSIONEL' ||
+                    //     occultationCategoryField === 'IND_PRENOM_PROFESSIONEL'
+                    //   ) {
+                    //     if (!document[occultationCategoryField]) {
+                    //       occultations[occultationCategoryField].forEach((item) => {
+                    //         normalizedDecision.occultation.categoriesToOmit.push(item);
+                    //       });
+                    //     }
+                    //   } else {
+                    //     if (
+                    //       !document[occultationCategoryField] &&
+                    //       document[occultationCategoryField] !== null &&
+                    //       document[occultationCategoryField] !== undefined
+                    //     ) {
+                    //       occultations[occultationCategoryField].forEach((item) => {
+                    //         normalizedDecision.occultation.categoriesToOmit.push(item);
+                    //       });
+                    //     }
+                    //   }
+                    // });
+                    normalizedDecision.occultation.categoriesToOmit = convertOccultationBlockToCategoriesToOmit_1.convertOccultationBlockInCategoriesToOmit(document._bloc_occultation);
                     if (!!document.OCCULTATION_SUPPLEMENTAIRE) {
                         normalizedDecision.occultation.additionalTerms = document.OCCULTATION_SUPPLEMENTAIRE;
                     }

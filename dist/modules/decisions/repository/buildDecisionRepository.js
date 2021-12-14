@@ -39,6 +39,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.buildDecisionRepository = void 0;
 var utils_1 = require("../../../utils");
 var decisionCollectionName_1 = require("../decisionCollectionName");
+var decisionType_1 = require("../decisionType");
 function buildDecisionRepository() {
     return __awaiter(this, void 0, void 0, function () {
         var runMongo;
@@ -83,14 +84,15 @@ function buildDecisionRepository() {
                             });
                         });
                     },
-                    findAllBySourceIdsAndSourceName: function (sourceIds, sourceName) {
+                    findAllByLabelStatusAndSourceIdsAndSourceName: function (_a) {
+                        var sourceIds = _a.sourceIds, sourceName = _a.sourceName, labelStatuses = _a.labelStatuses;
                         return __awaiter(this, void 0, void 0, function () {
                             var _this = this;
-                            return __generator(this, function (_a) {
+                            return __generator(this, function (_b) {
                                 return [2 /*return*/, runMongo(function (_a) {
                                         var collection = _a.collection;
                                         return __awaiter(_this, void 0, void 0, function () { return __generator(this, function (_b) {
-                                            return [2 /*return*/, collection.find({ sourceId: { $in: sourceIds }, sourceName: sourceName }).toArray()];
+                                            return [2 /*return*/, collection.find({ sourceId: { $in: sourceIds }, sourceName: sourceName, labelStatus: { $in: labelStatuses } }).toArray()];
                                         }); });
                                     })];
                             });
@@ -172,7 +174,7 @@ function buildDecisionRepository() {
                         });
                     },
                     findAllBetween: function (_a) {
-                        var startDate = _a.startDate, endDate = _a.endDate, source = _a.source;
+                        var startDate = _a.startDate, endDate = _a.endDate, source = _a.source, labelStatus = _a.labelStatus;
                         return __awaiter(this, void 0, void 0, function () {
                             return __generator(this, function (_b) {
                                 return [2 /*return*/, runMongo(function (_a) {
@@ -181,6 +183,7 @@ function buildDecisionRepository() {
                                             .find({
                                             dateCreation: { $gte: startDate.toISOString(), $lt: endDate.toISOString() },
                                             sourceName: source,
+                                            labelStatus: labelStatus || { $in: decisionType_1.labelStatuses },
                                         })
                                             .toArray();
                                     })];
@@ -188,7 +191,7 @@ function buildDecisionRepository() {
                         });
                     },
                     findAllPublicBySourceAndJurisdictionBetween: function (_a) {
-                        var startDate = _a.startDate, endDate = _a.endDate, source = _a.source, jurisdiction = _a.jurisdiction;
+                        var startDate = _a.startDate, endDate = _a.endDate, source = _a.source, jurisdiction = _a.jurisdiction, labelStatus = _a.labelStatus;
                         return __awaiter(this, void 0, void 0, function () {
                             var jurisdictionRegex;
                             return __generator(this, function (_b) {
@@ -197,10 +200,11 @@ function buildDecisionRepository() {
                                         var collection = _a.collection;
                                         return collection
                                             .find({
-                                            dateCreation: { $gte: startDate.toISOString(), $lt: endDate.toISOString() },
+                                            dateDecision: { $gte: startDate.toISOString(), $lt: endDate.toISOString() },
                                             sourceName: source,
                                             jurisdictionName: jurisdictionRegex,
                                             public: true,
+                                            labelStatus: labelStatus,
                                         })
                                             .toArray();
                                     })];
@@ -251,6 +255,28 @@ function buildDecisionRepository() {
                                                             throw new Error("No matching " + decisionCollectionName_1.decisionCollectionName + " for _id " + id);
                                                         }
                                                         return [2 /*return*/, result];
+                                                }
+                                            });
+                                        });
+                                    })];
+                            });
+                        });
+                    },
+                    findBySourceIdAndSourceName: function (_a) {
+                        var sourceId = _a.sourceId, sourceName = _a.sourceName;
+                        return __awaiter(this, void 0, void 0, function () {
+                            var _this = this;
+                            return __generator(this, function (_b) {
+                                return [2 /*return*/, runMongo(function (_a) {
+                                        var collection = _a.collection;
+                                        return __awaiter(_this, void 0, void 0, function () {
+                                            var result;
+                                            return __generator(this, function (_b) {
+                                                switch (_b.label) {
+                                                    case 0: return [4 /*yield*/, collection.findOne({ sourceId: sourceId, sourceName: sourceName })];
+                                                    case 1:
+                                                        result = _b.sent();
+                                                        return [2 /*return*/, result || undefined];
                                                 }
                                             });
                                         });

@@ -77,10 +77,15 @@ function buildDecisionFakeRepository() {
                             });
                         });
                     },
-                    findAllBySourceIdsAndSourceName: function (sourceIds, sourceName) {
+                    findAllByLabelStatusAndSourceIdsAndSourceName: function (_a) {
+                        var sourceIds = _a.sourceIds, sourceName = _a.sourceName, labelStatuses = _a.labelStatuses;
                         return __awaiter(this, void 0, void 0, function () {
-                            return __generator(this, function (_a) {
-                                return [2 /*return*/, collection.filter(function (decision) { return sourceIds.includes(decision.sourceId) && decision.sourceName === sourceName; })];
+                            return __generator(this, function (_b) {
+                                return [2 /*return*/, collection.filter(function (decision) {
+                                        return sourceIds.includes(decision.sourceId) &&
+                                            decision.sourceName === sourceName &&
+                                            labelStatuses.includes(decision.labelStatus);
+                                    })];
                             });
                         });
                     },
@@ -124,6 +129,25 @@ function buildDecisionFakeRepository() {
                             });
                         });
                     },
+                    findAllPublicBySourceAndJurisdictionBetween: function (_a) {
+                        var startDate = _a.startDate, endDate = _a.endDate, source = _a.source, jurisdiction = _a.jurisdiction, labelStatus = _a.labelStatus;
+                        return __awaiter(this, void 0, void 0, function () {
+                            var jurisdictionRegex;
+                            return __generator(this, function (_b) {
+                                jurisdictionRegex = new RegExp(jurisdiction, 'i');
+                                return [2 /*return*/, collection.filter(function (decision) {
+                                        return decision.labelStatus === labelStatus &&
+                                            !!decision.public &&
+                                            decision.dateCreation &&
+                                            new Date(decision.dateCreation) >= startDate &&
+                                            decision.dateCreation &&
+                                            new Date(decision.dateCreation) < endDate &&
+                                            decision.sourceName === source &&
+                                            jurisdictionRegex.test(decision.jurisdictionName);
+                                    })];
+                            });
+                        });
+                    },
                     findAllIdsWithoutLabelFields: function () {
                         return __awaiter(this, void 0, void 0, function () {
                             return __generator(this, function (_a) {
@@ -140,6 +164,14 @@ function buildDecisionFakeRepository() {
                                     throw new Error("No matching " + collectionName + " for _id " + id);
                                 }
                                 return [2 /*return*/, result];
+                            });
+                        });
+                    },
+                    findBySourceIdAndSourceName: function (_a) {
+                        var sourceId = _a.sourceId, sourceName = _a.sourceName;
+                        return __awaiter(this, void 0, void 0, function () {
+                            return __generator(this, function (_b) {
+                                return [2 /*return*/, collection.find(function (decision) { return decision.sourceId === sourceId && decision.sourceName === sourceName; })];
                             });
                         });
                     },

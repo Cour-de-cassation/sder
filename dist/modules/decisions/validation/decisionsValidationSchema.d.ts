@@ -212,6 +212,18 @@ declare const decisionsValidationSchema: {
             formation: {
                 bsonType: string;
             };
+            natureAffaireCivil: {
+                bsonType: string;
+            };
+            natureAffairePenal: {
+                bsonType: string;
+            };
+            codeMatiereCivil: {
+                bsonType: string;
+            };
+            NACCode: {
+                bsonType: string;
+            };
         };
     };
 };

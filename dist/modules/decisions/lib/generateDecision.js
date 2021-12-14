@@ -28,10 +28,10 @@ function generateDecision(decisionFields) {
         }, appeals: [], chamberId: "CHAMBER_ID_" + Math.random(), chamberName: "CHAMBER_NAME_" + Math.random(), dateCreation: new Date().toISOString(), dateDecision: new Date().toISOString(), decatt: undefined, jurisdictionCode: "JURISDICTION_CODE_" + Math.random(), jurisdictionId: "JURISDICTION_ID_" + Math.random(), jurisdictionName: "JURISDICTION_NAME_" + Math.random(), labelStatus: 'toBeTreated', labelTreatments: [], locked: false, occultation: {
             additionalTerms: '',
             categoriesToOmit: [],
-        }, originalText: "ORIGINAL_TEXT_" + Math.random(), parties: ["PARTIES_" + Math.random()], pseudoStatus: "PSEUDO_STATUS_" + Math.random(), pseudoText: "PSEUDO_TEXT_" + Math.random(), pubCategory: "PUB_CATEGORY_" + Math.random(), registerNumber: "REGISTER_NUMBER_" + Math.random(), solution: "SOLUTION_" + Math.random(), sourceId: Math.floor(Math.random() * MAX_RAND_NUMBER), sourceName: "SOURCE_NAME_" + Math.random(), zoning: {
+        }, originalText: "ORIGINAL_TEXT_" + Math.random(), parties: ["PARTIES_" + Math.random()], pseudoStatus: "PSEUDO_STATUS_" + Math.random(), pseudoText: "PSEUDO_TEXT_" + Math.random(), pubCategory: "PUB_CATEGORY_" + Math.random(), public: null, registerNumber: "REGISTER_NUMBER_" + Math.random(), solution: "SOLUTION_" + Math.random(), sourceId: Math.floor(Math.random() * MAX_RAND_NUMBER), sourceName: "SOURCE_NAME_" + Math.random(), zoning: {
             introduction_subzonage: {
                 publication: [],
             },
-        } }, decisionFields);
+        }, natureAffaireCivil: "NATURE_AFFAIRE_CIVIL_" + Math.random(), natureAffairePenal: "NATURE_AFFAIRE_PENAL_" + Math.random() }, decisionFields);
 }
 exports.generateDecision = generateDecision;

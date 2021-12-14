@@ -1,5 +1,8 @@
 import { mongoIdType } from '../../utils';
-export type { decisionType, labelTreatmentsType };
+export { labelStatuses };
+export type { decisionType, labelStatusType, labelTreatmentsType };
+declare type labelStatusType = 'toBeTreated' | 'loaded' | 'done' | 'exported';
+declare const labelStatuses: labelStatusType[];
 declare type decisionType = {
     _id: mongoIdType;
     _rev: number;
@@ -23,7 +26,7 @@ declare type decisionType = {
     jurisdictionCode: string;
     jurisdictionId: string;
     jurisdictionName: string;
-    labelStatus: 'toBeTreated' | 'loaded' | 'done' | 'exported';
+    labelStatus: typeof labelStatuses[number];
     labelTreatments: labelTreatmentsType;
     locked: false;
     occultation: {
@@ -31,10 +34,11 @@ declare type decisionType = {
         categoriesToOmit: string[];
     };
     originalText: string;
-    parties: string[];
+    parties: Array<any>;
     pseudoStatus: string;
     pseudoText: string;
     pubCategory: string;
+    public: boolean | null;
     registerNumber: string;
     solution: string;
     sourceId: number;
@@ -47,6 +51,10 @@ declare type decisionType = {
     publication?: string[];
     formation?: string;
     blocOccultation?: number;
+    natureAffaireCivil?: string;
+    natureAffairePenal?: string;
+    codeMatiereCivil?: string;
+    NACCode?: string;
 };
 declare type labelTreatmentsType = Array<{
     annotations: Array<{

@@ -1,4 +1,4 @@
-import { environment } from '../environment';
+import { getEnvironment } from '../environment';
 import { decisionModule, genericCollectionType } from '../modules';
 import { buildRunMongo } from '../utils';
 
@@ -7,6 +7,7 @@ const collections: genericCollectionType[] = [decisionModule.collection];
 setIndexesOnAllCollections();
 
 async function setIndexesOnAllCollections() {
+  const environment = getEnvironment();
   console.log(`Connecting to MongoDb: ${environment.SDER_DB_URL}`);
 
   console.log(`Setting indexes on the ${environment.SDER_DB_NAME} DB`);

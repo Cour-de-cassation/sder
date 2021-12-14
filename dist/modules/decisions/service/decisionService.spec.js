@@ -122,7 +122,7 @@ describe('decisionService', function () {
     });
     describe('fetchDecisionBySourceIdAndSourceName', function () {
         it('should fetch the right decision', function () { return __awaiter(void 0, void 0, void 0, function () {
-            var decisionRepository, decisions, fetchedDecisions;
+            var decisionRepository, decisions, fetchedDecision;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0: return [4 /*yield*/, repository_1.buildDecisionRepository()];
@@ -137,16 +137,85 @@ describe('decisionService', function () {
                         return [4 /*yield*/, Promise.all(decisions.map(decisionRepository.insert))];
                     case 2:
                         _a.sent();
-                        return [4 /*yield*/, decisionService_1.decisionService.fetchDecisionsBySourceIdsAndSourceName([200, 300], 'jurica')];
+                        return [4 /*yield*/, decisionService_1.decisionService.fetchDecisionBySourceIdAndSourceName(200, 'jurica')];
                     case 3:
-                        fetchedDecisions = _a.sent();
-                        expect(fetchedDecisions.sort()).toEqual([decisions[1], decisions[2]].sort());
+                        fetchedDecision = _a.sent();
+                        expect(fetchedDecision).toEqual(decisions[1]);
                         return [2 /*return*/];
                 }
             });
         }); });
     });
-    describe('fetchJurinetAndChainedJuricaDecisionsToPseudonymiseBetween', function () {
+    describe('fetchPublicDecisionsBySourceAndJurisdictionsBetween', function () {
+        it('should fetch the right decision', function () { return __awaiter(void 0, void 0, void 0, function () {
+            var decisionRepository, decisions, fetchedDecisions;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, repository_1.buildDecisionRepository()];
+                    case 1:
+                        decisionRepository = _a.sent();
+                        decisions = [
+                            {
+                                public: true,
+                                sourceName: 'jurica',
+                                jurisdictionName: "cour d'appel de bordeaux",
+                                dateCreation: utils_1.dateBuilder.daysAgo(3),
+                            },
+                            {
+                                public: false,
+                                sourceName: 'jurica',
+                                jurisdictionName: "Cour d'appel de bordeaux",
+                                dateCreation: utils_1.dateBuilder.daysAgo(3),
+                            },
+                            {
+                                public: null,
+                                sourceName: 'jurica',
+                                jurisdictionName: "Cour d'appel de bordeaux",
+                                dateCreation: utils_1.dateBuilder.daysAgo(3),
+                            },
+                            {
+                                public: true,
+                                sourceName: 'jurinet',
+                                jurisdictionName: "Cour d'appel de Bordeaux",
+                                dateCreation: utils_1.dateBuilder.daysAgo(3),
+                            },
+                            {
+                                public: true,
+                                sourceName: 'jurica',
+                                jurisdictionName: "Cour d'appel de Dijon",
+                                dateCreation: utils_1.dateBuilder.daysAgo(3),
+                            },
+                            {
+                                public: true,
+                                sourceName: 'jurica',
+                                jurisdictionName: "Cour d'appel de Dijon",
+                                dateCreation: utils_1.dateBuilder.daysAgo(8),
+                            },
+                            {
+                                public: true,
+                                sourceName: 'jurica',
+                                jurisdictionName: "Cour d'appel de Paris",
+                                dateCreation: utils_1.dateBuilder.daysAgo(3),
+                            },
+                        ].map(lib_1.generateDecision);
+                        return [4 /*yield*/, Promise.all(decisions.map(decisionRepository.insert))];
+                    case 2:
+                        _a.sent();
+                        return [4 /*yield*/, decisionService_1.decisionService.fetchPublicDecisionsBySourceAndJurisdictionsBetween({
+                                jurisdictions: ["Cour d'appel de Bordeaux", "Cour d'appel de Dijon"],
+                                source: 'jurica',
+                                startDate: new Date(utils_1.dateBuilder.daysAgo(5)),
+                                endDate: new Date(utils_1.dateBuilder.daysAgo(1)),
+                            })];
+                    case 3:
+                        fetchedDecisions = _a.sent();
+                        expect(fetchedDecisions.sort()).toEqual([decisions[0], decisions[4]].sort());
+                        return [2 /*return*/];
+                }
+            });
+        }); });
+    });
+    describe('fetchDecisionsToPseudonymiseBetween', function () {
         it('should fetch the jurinet decisions between the given date', function () { return __awaiter(void 0, void 0, void 0, function () {
             var decisionRepository, decisions, fetchedDecisions;
             return __generator(this, function (_a) {
@@ -173,9 +242,10 @@ describe('decisionService', function () {
                         return [4 /*yield*/, Promise.all(decisions.map(decisionRepository.insert))];
                     case 2:
                         _a.sent();
-                        return [4 /*yield*/, decisionService_1.decisionService.fetchJurinetAndChainedJuricaDecisionsToPseudonymiseBetween({
+                        return [4 /*yield*/, decisionService_1.decisionService.fetchDecisionsToPseudonymiseBetween({
                                 startDate: new Date(utils_1.dateBuilder.daysAgo(5)),
                                 endDate: new Date(utils_1.dateBuilder.daysAgo(1)),
+                                source: 'jurinet',
                             })];
                     case 3:
                         fetchedDecisions = _a.sent();
@@ -203,9 +273,10 @@ describe('decisionService', function () {
                         return [4 /*yield*/, Promise.all(decisions.map(decisionRepository.insert))];
                     case 2:
                         _a.sent();
-                        return [4 /*yield*/, decisionService_1.decisionService.fetchJurinetAndChainedJuricaDecisionsToPseudonymiseBetween({
+                        return [4 /*yield*/, decisionService_1.decisionService.fetchDecisionsToPseudonymiseBetween({
                                 startDate: new Date(utils_1.dateBuilder.daysAgo(5)),
                                 endDate: new Date(utils_1.dateBuilder.daysAgo(1)),
+                                source: 'jurinet',
                             })];
                     case 3:
                         fetchedDecisions = _a.sent();
@@ -214,6 +285,8 @@ describe('decisionService', function () {
                 }
             });
         }); });
+    });
+    describe('fetchChainedJuricaDecisionsToPseudonymiseBetween', function () {
         it('should fetch the jurica decisions chained to jurinet decision between the given date already treated', function () { return __awaiter(void 0, void 0, void 0, function () {
             var decisionRepository, decisions, fetchedDecisions;
             return __generator(this, function (_a) {
@@ -248,13 +321,13 @@ describe('decisionService', function () {
                         return [4 /*yield*/, Promise.all(decisions.map(decisionRepository.insert))];
                     case 2:
                         _a.sent();
-                        return [4 /*yield*/, decisionService_1.decisionService.fetchJurinetAndChainedJuricaDecisionsToPseudonymiseBetween({
+                        return [4 /*yield*/, decisionService_1.decisionService.fetchChainedJuricaDecisionsToPseudonymiseBetween({
                                 startDate: new Date(utils_1.dateBuilder.daysAgo(5)),
                                 endDate: new Date(utils_1.dateBuilder.daysAgo(1)),
                             })];
                     case 3:
                         fetchedDecisions = _a.sent();
-                        expect(fetchedDecisions).toEqual([decisions[2], decisions[0]]);
+                        expect(fetchedDecisions).toEqual([decisions[0]]);
                         return [2 /*return*/];
                 }
             });
@@ -293,7 +366,7 @@ describe('decisionService', function () {
                         return [4 /*yield*/, Promise.all(decisions.map(decisionRepository.insert))];
                     case 2:
                         _a.sent();
-                        return [4 /*yield*/, decisionService_1.decisionService.fetchJurinetAndChainedJuricaDecisionsToPseudonymiseBetween({
+                        return [4 /*yield*/, decisionService_1.decisionService.fetchChainedJuricaDecisionsToPseudonymiseBetween({
                                 startDate: new Date(utils_1.dateBuilder.daysAgo(5)),
                                 endDate: new Date(utils_1.dateBuilder.daysAgo(1)),
                             })];

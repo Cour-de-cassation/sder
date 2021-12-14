@@ -80,12 +80,13 @@ function setIndexesOnAllCollections() {
                 });
             });
         }
-        var _i, collections_1, collection;
+        var environment, _i, collections_1, collection;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
-                    console.log("Connecting to MongoDb: " + environment_1.environment.SDER_DB_URL);
-                    console.log("Setting indexes on the " + environment_1.environment.SDER_DB_NAME + " DB");
+                    environment = environment_1.getEnvironment();
+                    console.log("Connecting to MongoDb: " + environment.SDER_DB_URL);
+                    console.log("Setting indexes on the " + environment.SDER_DB_NAME + " DB");
                     _i = 0, collections_1 = collections;
                     _a.label = 1;
                 case 1:

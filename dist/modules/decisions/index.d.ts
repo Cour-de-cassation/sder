@@ -11,23 +11,34 @@ declare const decisionModule: {
         generateDecision: typeof generateDecision;
     };
     service: {
-        createDecision(decisionFields: Pick<decisionType, "_version" | "analysis" | "appeals" | "chamberId" | "chamberName" | "dateCreation" | "dateDecision" | "decatt" | "jurisdictionCode" | "jurisdictionId" | "jurisdictionName" | "locked" | "occultation" | "originalText" | "parties" | "pseudoStatus" | "pseudoText" | "pubCategory" | "registerNumber" | "solution" | "sourceId" | "sourceName" | "zoning" | "publication" | "formation" | "blocOccultation">): Promise<void>;
-        fetchDecisionsBySourceIdsAndSourceName(sourceIds: number[], sourceName: string): Promise<decisionType[]>;
+        createDecision(decisionFields: Pick<decisionType, "public" | "_version" | "analysis" | "appeals" | "chamberId" | "chamberName" | "dateCreation" | "dateDecision" | "decatt" | "jurisdictionCode" | "jurisdictionId" | "jurisdictionName" | "locked" | "occultation" | "originalText" | "parties" | "pseudoStatus" | "pseudoText" | "pubCategory" | "registerNumber" | "solution" | "sourceId" | "sourceName" | "zoning" | "publication" | "formation" | "blocOccultation" | "natureAffaireCivil" | "natureAffairePenal" | "codeMatiereCivil" | "NACCode">): Promise<void>;
+        fetchDecisionBySourceIdAndSourceName(sourceId: number, sourceName: string): Promise<decisionType | undefined>;
         fetchPseudonymisationsToExport(): Promise<{
             decisionId: number;
             pseudoText: string;
         }[]>;
-        fetchJurinetAndChainedJuricaDecisionsToPseudonymiseBetween({ startDate, endDate, }: {
+        fetchPublicDecisionsBySourceAndJurisdictionsBetween({ startDate, endDate, source, jurisdictions, }: {
             startDate: Date;
-            endDate?: Date | undefined;
+            endDate: Date;
+            source: string;
+            jurisdictions: string[];
+        }): Promise<decisionType[]>;
+        fetchChainedJuricaDecisionsToPseudonymiseBetween({ startDate, endDate }: {
+            startDate: Date;
+            endDate: Date;
+        }): Promise<decisionType[]>;
+        fetchDecisionsToPseudonymiseBetween({ source, startDate, endDate, }: {
+            source: string;
+            startDate: Date;
+            endDate: Date;
         }): Promise<decisionType[]>;
         deprecatedUpdateDecisionsLabelStatus({ decisionIds, labelStatus, }: {
             decisionIds: number[];
-            labelStatus: "done" | "toBeTreated" | "loaded" | "exported";
+            labelStatus: import("./decisionType").labelStatusType;
         }): Promise<void>;
         updateDecisionsLabelStatus({ decisionIds, labelStatus, }: {
             decisionIds: import("bson").ObjectId[];
-            labelStatus: "done" | "toBeTreated" | "loaded" | "exported";
+            labelStatus: import("./decisionType").labelStatusType;
         }): Promise<void>;
         depracatedUpdateDecisionPseudonymisation({ decisionId, decisionPseudonymisedText, labelTreatments, }: {
             decisionId: number;

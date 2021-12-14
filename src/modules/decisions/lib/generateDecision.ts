@@ -41,6 +41,7 @@ function generateDecision(decisionFields: Partial<decisionType> = {}): decisionT
     pseudoStatus: `PSEUDO_STATUS_${Math.random()}`,
     pseudoText: `PSEUDO_TEXT_${Math.random()}`,
     pubCategory: `PUB_CATEGORY_${Math.random()}`,
+    public: null,
     registerNumber: `REGISTER_NUMBER_${Math.random()}`,
     solution: `SOLUTION_${Math.random()}`,
     sourceId: Math.floor(Math.random() * MAX_RAND_NUMBER),
@@ -50,7 +51,8 @@ function generateDecision(decisionFields: Partial<decisionType> = {}): decisionT
         publication: [],
       },
     },
-
+    natureAffaireCivil: `NATURE_AFFAIRE_CIVIL_${Math.random()}`,
+    natureAffairePenal: `NATURE_AFFAIRE_PENAL_${Math.random()}`,
     ...decisionFields,
   };
 }

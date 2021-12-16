@@ -46,6 +46,13 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
+var __spreadArrays = (this && this.__spreadArrays) || function () {
+    for (var s = 0, i = 0, il = arguments.length; i < il; i++) s += arguments[i].length;
+    for (var r = Array(s), k = 0, i = 0; i < il; i++)
+        for (var a = arguments[i], j = 0, jl = a.length; j < jl; j++, k++)
+            r[k] = a[j];
+    return r;
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.decisionService = void 0;
 var lib_1 = require("../lib");
@@ -139,7 +146,7 @@ var decisionService = {
     fetchChainedJuricaDecisionsToPseudonymiseBetween: function (_a) {
         var startDate = _a.startDate, endDate = _a.endDate;
         return __awaiter(this, void 0, void 0, function () {
-            var decisionRepository, jurinetDecisions, juricaChainedDecisionSourceIds, juricaChainedDecisions, filteredJuricaChainedDecisions;
+            var decisionRepository, jurinetDecisions, juricaChainedDecisionSourceIds, juricaToBeTreatedChainedDecisions, juricaExportedChainedDecisions, juricaChainedDecisions, filteredJuricaChainedDecisions;
             return __generator(this, function (_b) {
                 switch (_b.label) {
                     case 0:
@@ -165,11 +172,19 @@ var decisionService = {
                         return [4 /*yield*/, decisionRepository.findAllByLabelStatusAndSourceIdsAndSourceName({
                                 sourceIds: juricaChainedDecisionSourceIds,
                                 sourceName: 'jurica',
-                                labelStatuses: ['toBeTreated', 'exported'],
+                                labelStatus: 'toBeTreated',
                             })];
                     case 3:
-                        juricaChainedDecisions = _b.sent();
-                        console.log(juricaChainedDecisions.length + " jurica chained decisions found");
+                        juricaToBeTreatedChainedDecisions = _b.sent();
+                        return [4 /*yield*/, decisionRepository.findAllByLabelStatusAndSourceIdsAndSourceName({
+                                sourceIds: juricaChainedDecisionSourceIds,
+                                sourceName: 'jurica',
+                                labelStatus: 'exported',
+                            })];
+                    case 4:
+                        juricaExportedChainedDecisions = _b.sent();
+                        juricaChainedDecisions = __spreadArrays(juricaToBeTreatedChainedDecisions, juricaExportedChainedDecisions);
+                        console.log(juricaChainedDecisions.length + " jurica chained decisions found (" + juricaToBeTreatedChainedDecisions.length + " toBeTreated and " + juricaExportedChainedDecisions.length + " exported)");
                         filteredJuricaChainedDecisions = juricaChainedDecisions.filter(function (decision) { return !decision.pseudoText; });
                         console.log(filteredJuricaChainedDecisions.length + " jurica chained decisions with no pseudoText found");
                         return [2 /*return*/, filteredJuricaChainedDecisions];

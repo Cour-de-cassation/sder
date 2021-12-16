@@ -96,13 +96,22 @@ const decisionService = {
 
     console.log(`${juricaChainedDecisionSourceIds.length} sourceIds found`);
 
-    const juricaChainedDecisions = await decisionRepository.findAllByLabelStatusAndSourceIdsAndSourceName({
+    const juricaToBeTreatedChainedDecisions = await decisionRepository.findAllByLabelStatusAndSourceIdsAndSourceName({
       sourceIds: juricaChainedDecisionSourceIds,
       sourceName: 'jurica',
-      labelStatuses: ['toBeTreated', 'exported'],
+      labelStatus: 'toBeTreated',
+    });
+    const juricaExportedChainedDecisions = await decisionRepository.findAllByLabelStatusAndSourceIdsAndSourceName({
+      sourceIds: juricaChainedDecisionSourceIds,
+      sourceName: 'jurica',
+      labelStatus: 'exported',
     });
 
-    console.log(`${juricaChainedDecisions.length} jurica chained decisions found`);
+    const juricaChainedDecisions = [...juricaToBeTreatedChainedDecisions, ...juricaExportedChainedDecisions];
+
+    console.log(
+      `${juricaChainedDecisions.length} jurica chained decisions found (${juricaToBeTreatedChainedDecisions.length} toBeTreated and ${juricaExportedChainedDecisions.length} exported)`,
+    );
 
     const filteredJuricaChainedDecisions = juricaChainedDecisions.filter((decision) => !decision.pseudoText);
 

@@ -181,7 +181,7 @@ function buildDecisionRepository() {
                                         var collection = _a.collection;
                                         return collection
                                             .find({
-                                            dateCreation: { $gte: startDate.toISOString(), $lt: endDate.toISOString() },
+                                            dateDecision: { $gte: startDate.toISOString(), $lt: endDate.toISOString() },
                                             sourceName: source,
                                             labelStatus: labelStatus || { $in: decisionType_1.labelStatuses },
                                         })

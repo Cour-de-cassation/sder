@@ -60,6 +60,7 @@ type decisionType = {
   natureAffairePenal?: string;
   codeMatiereCivil?: string;
   NACCode?: string;
+  endCaseCode?: string;
 };
 
 type labelTreatmentsType = Array<{

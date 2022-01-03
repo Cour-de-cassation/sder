@@ -224,6 +224,9 @@ declare const decisionsValidationSchema: {
             NACCode: {
                 bsonType: string;
             };
+            endCaseCode: {
+                bsonType: string;
+            };
         };
     };
 };

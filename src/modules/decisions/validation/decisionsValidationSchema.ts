@@ -152,6 +152,7 @@ const decisionsValidationSchema = {
       natureAffairePenal: { bsonType: 'string' },
       codeMatiereCivil: { bsonType: 'string' },
       NACCode: { bsonType: 'string' },
+      endCaseCode: { bsonType: 'string' },
     },
   },
 };

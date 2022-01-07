@@ -10,7 +10,11 @@ import { convertOccultationBlockInCategoriesToOmit } from './convertOccultationB
 
 export { normalize };
 
-async function normalize(document: jurinetDecisionType, previousVersion: decisionType, ignorePreviousContent: boolean) {
+async function normalize(
+  document: jurinetDecisionType,
+  previousVersion?: decisionType,
+  ignorePreviousContent?: boolean,
+) {
   let cleanedJson;
   let originalText = '';
   let pseudoText = '';

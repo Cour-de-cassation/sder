@@ -5,7 +5,11 @@ import { cleanHTML } from './cleanHTML';
 
 export { normalize };
 
-async function normalize(document: juricaDecisionType, previousVersion: decisionType, ignorePreviousContent: boolean) {
+async function normalize(
+  document: juricaDecisionType,
+  previousVersion?: decisionType,
+  ignorePreviousContent?: boolean,
+) {
   let originalText = undefined;
   let pseudoText = undefined;
   let pseudoStatus = document.IND_ANO;

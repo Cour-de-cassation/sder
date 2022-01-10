@@ -1,7 +1,7 @@
 import { decisionType } from '../../modules/decisions';
 import { juricaDecisionType } from '../../modules/juricaDecision';
 export { normalize };
-declare function normalize(document: juricaDecisionType, previousVersion: decisionType, ignorePreviousContent: boolean): Promise<{
+declare function normalize(document: juricaDecisionType, previousVersion?: decisionType, ignorePreviousContent?: boolean): Promise<{
     _rev: number;
     _version: number;
     sourceId: number;

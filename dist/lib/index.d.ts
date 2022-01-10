@@ -1,4 +1,5 @@
 import { jurinetLib } from './jurinet';
 import { juricaLib } from './jurica';
 import { jurinetUtils } from './jurinetUtils';
-export { jurinetLib, juricaLib, jurinetUtils };
+import { juricaUtils } from './juricaUtils';
+export { jurinetLib, juricaLib, jurinetUtils, juricaUtils };

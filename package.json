@@ -1,6 +1,6 @@
 {
   "dependencies": {
-    "body-parser": "^1.19.0",
+    "body-parser": "^1.19.1",
     "express": "^4.17.1",
     "fast-xml-parser": "^3.20.0",
     "he": "^1.2.0",

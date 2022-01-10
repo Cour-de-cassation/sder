@@ -3,9 +3,9 @@ import { normalize } from './normalize';
 import { removeMultipleSpaces } from './removeMultipleSpaces';
 import { replaceErroneousChars } from './replaceErroneousChars';
 
-export { jurinetUtils };
+export { juricaUtils };
 
-const jurinetUtils = {
+const juricaUtils = {
   cleanHTML,
   normalize,
   removeMultipleSpaces,

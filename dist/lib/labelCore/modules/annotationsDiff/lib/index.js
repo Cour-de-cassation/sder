@@ -1,0 +1,17 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.squash = exports.inverse = exports.computeDetailsFromAnnotationsDiff = exports.computeAnnotationsDiff = exports.buildAnnotationsDiff = exports.assertAnnotationsDiffAreConsistent = exports.applyToAnnotations = void 0;
+var applyToAnnotations_1 = require("./applyToAnnotations");
+Object.defineProperty(exports, "applyToAnnotations", { enumerable: true, get: function () { return applyToAnnotations_1.applyToAnnotations; } });
+var assertAnnotationsDiffAreConsistent_1 = require("./assertAnnotationsDiffAreConsistent");
+Object.defineProperty(exports, "assertAnnotationsDiffAreConsistent", { enumerable: true, get: function () { return assertAnnotationsDiffAreConsistent_1.assertAnnotationsDiffAreConsistent; } });
+var buildAnnotationsDiff_1 = require("./buildAnnotationsDiff");
+Object.defineProperty(exports, "buildAnnotationsDiff", { enumerable: true, get: function () { return buildAnnotationsDiff_1.buildAnnotationsDiff; } });
+var computeAnnotationsDiff_1 = require("./computeAnnotationsDiff");
+Object.defineProperty(exports, "computeAnnotationsDiff", { enumerable: true, get: function () { return computeAnnotationsDiff_1.computeAnnotationsDiff; } });
+var computeDetailsFromAnnotationsDiff_1 = require("./computeDetailsFromAnnotationsDiff");
+Object.defineProperty(exports, "computeDetailsFromAnnotationsDiff", { enumerable: true, get: function () { return computeDetailsFromAnnotationsDiff_1.computeDetailsFromAnnotationsDiff; } });
+var inverse_1 = require("./inverse");
+Object.defineProperty(exports, "inverse", { enumerable: true, get: function () { return inverse_1.inverse; } });
+var squash_1 = require("./squash");
+Object.defineProperty(exports, "squash", { enumerable: true, get: function () { return squash_1.squash; } });

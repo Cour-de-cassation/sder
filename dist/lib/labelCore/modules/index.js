@@ -1,0 +1,42 @@
+"use strict";
+var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    Object.defineProperty(o, k2, { enumerable: true, get: function() { return m[k]; } });
+}) : (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    o[k2] = m[k];
+}));
+var __exportStar = (this && this.__exportStar) || function(m, exports) {
+    for (var p in m) if (p !== "default" && !Object.prototype.hasOwnProperty.call(exports, p)) __createBinding(exports, m, p);
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.userModule = exports.treatmentModule = exports.statisticModule = exports.settingsModule = exports.problemReportModule = exports.monitoringEntryModule = exports.migrationModule = exports.idModule = exports.ressourceFilterModule = exports.documentModule = exports.assignationModule = exports.annotationsDiffModule = exports.annotationReportModule = exports.annotationModule = void 0;
+var annotation_1 = require("./annotation");
+Object.defineProperty(exports, "annotationModule", { enumerable: true, get: function () { return annotation_1.annotationModule; } });
+var annotationReport_1 = require("./annotationReport");
+Object.defineProperty(exports, "annotationReportModule", { enumerable: true, get: function () { return annotationReport_1.annotationReportModule; } });
+var annotationsDiff_1 = require("./annotationsDiff");
+Object.defineProperty(exports, "annotationsDiffModule", { enumerable: true, get: function () { return annotationsDiff_1.annotationsDiffModule; } });
+var assignation_1 = require("./assignation");
+Object.defineProperty(exports, "assignationModule", { enumerable: true, get: function () { return assignation_1.assignationModule; } });
+var document_1 = require("./document");
+Object.defineProperty(exports, "documentModule", { enumerable: true, get: function () { return document_1.documentModule; } });
+var ressourceFilter_1 = require("./ressourceFilter");
+Object.defineProperty(exports, "ressourceFilterModule", { enumerable: true, get: function () { return ressourceFilter_1.ressourceFilterModule; } });
+var id_1 = require("./id");
+Object.defineProperty(exports, "idModule", { enumerable: true, get: function () { return id_1.idModule; } });
+var monitoringEntry_1 = require("./monitoringEntry");
+Object.defineProperty(exports, "monitoringEntryModule", { enumerable: true, get: function () { return monitoringEntry_1.monitoringEntryModule; } });
+var problemReport_1 = require("./problemReport");
+Object.defineProperty(exports, "problemReportModule", { enumerable: true, get: function () { return problemReport_1.problemReportModule; } });
+var settings_1 = require("./settings");
+Object.defineProperty(exports, "settingsModule", { enumerable: true, get: function () { return settings_1.settingsModule; } });
+var statistic_1 = require("./statistic");
+Object.defineProperty(exports, "statisticModule", { enumerable: true, get: function () { return statistic_1.statisticModule; } });
+var treatment_1 = require("./treatment");
+Object.defineProperty(exports, "treatmentModule", { enumerable: true, get: function () { return treatment_1.treatmentModule; } });
+var user_1 = require("./user");
+Object.defineProperty(exports, "userModule", { enumerable: true, get: function () { return user_1.userModule; } });
+var migration_1 = require("./migration");
+Object.defineProperty(exports, "migrationModule", { enumerable: true, get: function () { return migration_1.migrationModule; } });
+__exportStar(require("./modelType"), exports);

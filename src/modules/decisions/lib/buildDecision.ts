@@ -1,4 +1,4 @@
-import { buildObjectId } from '../../../utils';
+import { idModule } from '../../id';
 import { decisionType } from '../decisionType';
 
 export { buildDecision };
@@ -6,7 +6,7 @@ export { buildDecision };
 function buildDecision(decisionFields: Omit<decisionType, '_id' | 'labelTreatments'>): decisionType {
   return {
     ...decisionFields,
-    _id: buildObjectId(),
+    _id: idModule.lib.buildId(),
     labelTreatments: [],
   };
 }

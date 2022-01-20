@@ -12,11 +12,11 @@ var __assign = (this && this.__assign) || function () {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.generateDecision = void 0;
-var utils_1 = require("../../../utils");
+var id_1 = require("../../id");
 var MAX_RAND_NUMBER = 1000000;
 function generateDecision(decisionFields) {
     if (decisionFields === void 0) { decisionFields = {}; }
-    return __assign({ _id: utils_1.buildObjectId(), _rev: 0, _version: 0, analysis: {
+    return __assign({ _id: id_1.idModule.lib.buildId(), _rev: 0, _version: 0, analysis: {
             doctrine: "DOCTRINE_" + Math.random(),
             link: "LINK_" + Math.random(),
             reference: [],

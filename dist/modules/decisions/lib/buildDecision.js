@@ -12,8 +12,8 @@ var __assign = (this && this.__assign) || function () {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.buildDecision = void 0;
-var utils_1 = require("../../../utils");
+var id_1 = require("../../id");
 function buildDecision(decisionFields) {
-    return __assign(__assign({}, decisionFields), { _id: utils_1.buildObjectId(), labelTreatments: [] });
+    return __assign(__assign({}, decisionFields), { _id: id_1.idModule.lib.buildId(), labelTreatments: [] });
 }
 exports.buildDecision = buildDecision;

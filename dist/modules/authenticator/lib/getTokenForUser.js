@@ -38,24 +38,15 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.buildGetTokenForUser = void 0;
 var lib_1 = require("../../../lib");
-var passwordHandler_1 = require("./passwordHandler");
 function buildGetTokenForUser(privateKey) {
     return getTokenForUser;
     function getTokenForUser(user) {
         return __awaiter(this, void 0, void 0, function () {
             var jwtSigner, token;
             return __generator(this, function (_a) {
-                switch (_a.label) {
-                    case 0:
-                        jwtSigner = lib_1.buildJwtSigner(privateKey);
-                        return [4 /*yield*/, passwordHandler_1.passwordHandler.checkUser(user, user.password)];
-                    case 1:
-                        if (!(_a.sent())) {
-                            throw new Error("The received password does not match the stored one for " + user.email);
-                        }
-                        token = jwtSigner.sign(user._id);
-                        return [2 /*return*/, token];
-                }
+                jwtSigner = lib_1.buildJwtSigner(privateKey);
+                token = jwtSigner.sign(user._id);
+                return [2 /*return*/, token];
             });
         });
     }

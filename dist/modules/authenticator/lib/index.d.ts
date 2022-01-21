@@ -11,10 +11,6 @@ declare function buildAuthenticator(privateKey: string): {
     formatEmail: typeof formatEmail;
     getTokenForUser: (user: {
         _id: import("bson").ObjectId;
-        email: string;
-        password: string;
-        hashedPassword: string;
-        passwordLastUpdateDate: number;
     }) => Promise<string>;
     passwordHandler: {
         checkUser(user: {

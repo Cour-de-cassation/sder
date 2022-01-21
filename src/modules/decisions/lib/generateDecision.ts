@@ -1,4 +1,4 @@
-import { buildObjectId } from '../../../utils';
+import { idModule } from '../../id';
 import { decisionType } from '../decisionType';
 
 export { generateDecision };
@@ -7,7 +7,7 @@ const MAX_RAND_NUMBER = 1000000;
 
 function generateDecision(decisionFields: Partial<decisionType> = {}): decisionType {
   return {
-    _id: buildObjectId(),
+    _id: idModule.lib.buildId(),
     _rev: 0,
     _version: 0,
     analysis: {

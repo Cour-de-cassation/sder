@@ -1,7 +1,7 @@
 import { Db, Collection, MongoClient, ObjectId } from 'mongodb';
 import { getEnvironment } from '../environment';
 
-export { areMongoIdEqual, buildObjectId, buildRunMongo };
+export { buildRunMongo };
 
 export type { mongoIdType };
 
@@ -23,12 +23,4 @@ function buildRunMongo<T>(collectionName: string) {
 
     return output;
   };
-}
-
-function areMongoIdEqual(id1: mongoIdType, id2: mongoIdType): boolean {
-  return id1.equals(id2);
-}
-
-function buildObjectId() {
-  return new ObjectId();
 }

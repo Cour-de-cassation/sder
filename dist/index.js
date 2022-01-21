@@ -10,7 +10,5 @@ var __exportStar = (this && this.__exportStar) || function(m, exports) {
     for (var p in m) if (p !== "default" && !Object.prototype.hasOwnProperty.call(exports, p)) __createBinding(exports, m, p);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.decisionModule = void 0;
-var modules_1 = require("./modules");
-Object.defineProperty(exports, "decisionModule", { enumerable: true, get: function () { return modules_1.decisionModule; } });
+__exportStar(require("./modules"), exports);
 __exportStar(require("./lib"), exports);

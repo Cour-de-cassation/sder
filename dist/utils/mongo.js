@@ -36,7 +36,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.buildRunMongo = exports.buildObjectId = exports.areMongoIdEqual = void 0;
+exports.buildRunMongo = void 0;
 var mongodb_1 = require("mongodb");
 var environment_1 = require("../environment");
 function buildRunMongo(collectionName) {
@@ -66,11 +66,3 @@ function buildRunMongo(collectionName) {
     }); };
 }
 exports.buildRunMongo = buildRunMongo;
-function areMongoIdEqual(id1, id2) {
-    return id1.equals(id2);
-}
-exports.areMongoIdEqual = areMongoIdEqual;
-function buildObjectId() {
-    return new mongodb_1.ObjectId();
-}
-exports.buildObjectId = buildObjectId;

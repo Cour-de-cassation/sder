@@ -6,22 +6,21 @@ declare const errorHandlers: {
     authenticationErrorHandler: {
         build: (description: string) => CustomError;
         check: (anotherStatusCode: number) => boolean;
-        throwFromStatusCode: (statusCode: number) => void;
     };
     permissionErrorHandler: {
         build: (description: string) => CustomError;
         check: (anotherStatusCode: number) => boolean;
-        throwFromStatusCode: (statusCode: number) => void;
     };
     notFoundErrorHandler: {
         build: (description: string) => CustomError;
         check: (anotherStatusCode: number) => boolean;
-        throwFromStatusCode: (statusCode: number) => void;
     };
     serverErrorHandler: {
         build: (description: string) => CustomError;
         check: (anotherStatusCode: number) => boolean;
-        throwFromStatusCode: (statusCode: number) => void;
+    };
+    lib: {
+        throwFromStatusCode: typeof throwFromStatusCode;
     };
 };
 declare class CustomError extends Error {
@@ -31,3 +30,4 @@ declare class CustomError extends Error {
         statusCode: errorCodeType;
     });
 }
+declare function throwFromStatusCode(statusCode: number): void;

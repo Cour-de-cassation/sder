@@ -20,6 +20,9 @@ var errorHandlers = {
     permissionErrorHandler: buildErrorHandler(httpStatusCodeHandler_1.httpStatusCodeHandler.HTTP_STATUS_CODE.ERROR.PERMISSION_ERROR),
     notFoundErrorHandler: buildErrorHandler(httpStatusCodeHandler_1.httpStatusCodeHandler.HTTP_STATUS_CODE.ERROR.NOT_FOUND_ERROR),
     serverErrorHandler: buildErrorHandler(httpStatusCodeHandler_1.httpStatusCodeHandler.HTTP_STATUS_CODE.ERROR.SERVER_ERROR),
+    lib: {
+        throwFromStatusCode: throwFromStatusCode,
+    },
 };
 exports.errorHandlers = errorHandlers;
 var CustomError = /** @class */ (function (_super) {
@@ -35,20 +38,20 @@ var CustomError = /** @class */ (function (_super) {
 }(Error));
 exports.CustomError = CustomError;
 function buildErrorHandler(statusCode) {
-    return { build: build, check: check, throwFromStatusCode: throwFromStatusCode };
+    return { build: build, check: check };
     function build(description) {
         return new CustomError({ description: description, statusCode: statusCode });
     }
     function check(anotherStatusCode) {
         return anotherStatusCode === statusCode;
     }
-    function throwFromStatusCode(statusCode) {
-        var errorDescription = 'A custom error has been thrown';
-        if (httpStatusCodeHandler_1.httpStatusCodeHandler.isError(statusCode)) {
-            throw buildErrorHandler(statusCode).build(errorDescription);
-        }
-        else {
-            throw errorHandlers.serverErrorHandler.build(errorDescription);
-        }
+}
+function throwFromStatusCode(statusCode) {
+    var errorDescription = 'A custom error has been thrown';
+    if (httpStatusCodeHandler_1.httpStatusCodeHandler.isError(statusCode)) {
+        throw buildErrorHandler(statusCode).build(errorDescription);
+    }
+    else {
+        throw errorHandlers.serverErrorHandler.build(errorDescription);
     }
 }

@@ -11,6 +11,9 @@ const errorHandlers = {
   permissionErrorHandler: buildErrorHandler(httpStatusCodeHandler.HTTP_STATUS_CODE.ERROR.PERMISSION_ERROR),
   notFoundErrorHandler: buildErrorHandler(httpStatusCodeHandler.HTTP_STATUS_CODE.ERROR.NOT_FOUND_ERROR),
   serverErrorHandler: buildErrorHandler(httpStatusCodeHandler.HTTP_STATUS_CODE.ERROR.SERVER_ERROR),
+  lib: {
+    throwFromStatusCode,
+  },
 };
 
 class CustomError extends Error {
@@ -25,7 +28,7 @@ class CustomError extends Error {
 }
 
 function buildErrorHandler(statusCode: errorCodeType) {
-  return { build, check, throwFromStatusCode };
+  return { build, check };
 
   function build(description: string) {
     return new CustomError({ description, statusCode });
@@ -34,13 +37,13 @@ function buildErrorHandler(statusCode: errorCodeType) {
   function check(anotherStatusCode: number) {
     return anotherStatusCode === statusCode;
   }
+}
 
-  function throwFromStatusCode(statusCode: number) {
-    const errorDescription = 'A custom error has been thrown';
-    if (httpStatusCodeHandler.isError(statusCode)) {
-      throw buildErrorHandler(statusCode as errorCodeType).build(errorDescription);
-    } else {
-      throw errorHandlers.serverErrorHandler.build(errorDescription);
-    }
+function throwFromStatusCode(statusCode: number) {
+  const errorDescription = 'A custom error has been thrown';
+  if (httpStatusCodeHandler.isError(statusCode)) {
+    throw buildErrorHandler(statusCode as errorCodeType).build(errorDescription);
+  } else {
+    throw errorHandlers.serverErrorHandler.build(errorDescription);
   }
 }

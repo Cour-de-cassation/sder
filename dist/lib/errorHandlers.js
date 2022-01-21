@@ -13,7 +13,7 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.throwFromStatusCode = exports.errorHandlers = exports.CustomError = void 0;
+exports.errorHandlers = exports.CustomError = void 0;
 var httpStatusCodeHandler_1 = require("./httpStatusCodeHandler");
 var errorHandlers = {
     authenticationErrorHandler: buildErrorHandler(httpStatusCodeHandler_1.httpStatusCodeHandler.HTTP_STATUS_CODE.ERROR.AUTHENTICATION_ERROR),
@@ -35,21 +35,20 @@ var CustomError = /** @class */ (function (_super) {
 }(Error));
 exports.CustomError = CustomError;
 function buildErrorHandler(statusCode) {
-    return { build: build, check: check };
+    return { build: build, check: check, throwFromStatusCode: throwFromStatusCode };
     function build(description) {
         return new CustomError({ description: description, statusCode: statusCode });
     }
     function check(anotherStatusCode) {
         return anotherStatusCode === statusCode;
     }
-}
-function throwFromStatusCode(statusCode) {
-    var errorDescription = 'A custom error has been thrown';
-    if (httpStatusCodeHandler_1.httpStatusCodeHandler.isError(statusCode)) {
-        throw buildErrorHandler(statusCode).build(errorDescription);
+    function throwFromStatusCode(statusCode) {
+        var errorDescription = 'A custom error has been thrown';
+        if (httpStatusCodeHandler_1.httpStatusCodeHandler.isError(statusCode)) {
+            throw buildErrorHandler(statusCode).build(errorDescription);
+        }
+        else {
+            throw errorHandlers.serverErrorHandler.build(errorDescription);
+        }
     }
-    else {
-        throw errorHandlers.serverErrorHandler.build(errorDescription);
-    }
 }
-exports.throwFromStatusCode = throwFromStatusCode;

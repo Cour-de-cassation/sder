@@ -1,21 +1,10 @@
 import { idModule } from '../../id';
-import { userType } from '../userType';
 import { computeHashedPassword } from './computeHashedPassword';
 import { formatEmail } from './formatEmail';
 
-export { buildUser };
+export { buildBaseUser };
 
-async function buildUser({
-  email,
-  name,
-  password,
-  role,
-}: {
-  email: string;
-  name: string;
-  password: string;
-  role: userType['role'];
-}): Promise<userType> {
+async function buildBaseUser({ email, name, password }: { email: string; name: string; password: string }) {
   const hashedPassword = await computeHashedPassword(password);
 
   return {
@@ -26,6 +15,5 @@ async function buildUser({
     isActivated: true,
     passwordLastUpdateDate: new Date().getTime(),
     name,
-    role,
   };
 }

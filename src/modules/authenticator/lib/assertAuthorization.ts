@@ -1,9 +1,8 @@
 import { errorHandlers } from '../../../lib';
-import { userType } from '../userType';
 
 export { assertAuthorization };
 
-function assertAuthorization(user: userType) {
+function assertAuthorization(user: { email: string; isActivated: boolean; deletionDate: number }) {
   if (!user.isActivated) {
     throw errorHandlers.authenticationErrorHandler.build(`The user ${user.email} is deactivated`);
   }

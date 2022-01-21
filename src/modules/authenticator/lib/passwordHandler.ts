@@ -1,10 +1,8 @@
 import { range } from 'lodash';
 import { hasher } from '../../../lib';
-import { passwordTimeValidityStatusType, userType } from '../userType';
+import { passwordTimeValidityStatusType } from '../types';
 
 export { passwordHandler };
-
-export type { passwordTimeValidityStatusType };
 
 const MIN_LOWER_CASE_CHARACTERS_COUNT = 2;
 
@@ -28,11 +26,11 @@ const ONE_MONTH = 30 * 24 * 3600 * 1000;
 const MAX_PASSWORD_TIME_VALIDITY = 6 * ONE_MONTH;
 
 const passwordHandler = {
-  checkUser(user: userType, password: string) {
+  checkUser(user: { hashedPassword: string }, password: string) {
     return hasher.compare(password, user.hashedPassword);
   },
 
-  getPasswordTimeValidityStatus(user: userType): passwordTimeValidityStatusType {
+  getPasswordTimeValidityStatus(user: { passwordLastUpdateDate: number }): passwordTimeValidityStatusType {
     const passwordStatus = Date.now() - user.passwordLastUpdateDate < MAX_PASSWORD_TIME_VALIDITY ? 'valid' : 'outdated';
     return passwordStatus;
   },

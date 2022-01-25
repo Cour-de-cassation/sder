@@ -49,16 +49,16 @@ function setIndexesOnAllCollections() {
                 return __generator(this, function (_b) {
                     switch (_b.label) {
                         case 0:
-                            runMongo = utils_1.buildRunMongo(collection.name);
+                            runMongo = (0, utils_1.buildRunMongo)(collection.name);
                             _loop_1 = function (index) {
-                                return __generator(this, function (_a) {
-                                    switch (_a.label) {
+                                return __generator(this, function (_c) {
+                                    switch (_c.label) {
                                         case 0: return [4 /*yield*/, runMongo(function (_a) {
                                                 var collection = _a.collection;
                                                 return collection.createIndex(index);
                                             })];
                                         case 1:
-                                            _a.sent();
+                                            _c.sent();
                                             return [2 /*return*/];
                                     }
                                 });
@@ -84,19 +84,19 @@ function setIndexesOnAllCollections() {
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
-                    environment = environment_1.getEnvironment();
-                    console.log("Connecting to MongoDb: " + environment.SDER_DB_URL);
-                    console.log("Setting indexes on the " + environment.SDER_DB_NAME + " DB");
+                    environment = (0, environment_1.getEnvironment)();
+                    console.log("Connecting to MongoDb: ".concat(environment.SDER_DB_URL));
+                    console.log("Setting indexes on the ".concat(environment.SDER_DB_NAME, " DB"));
                     _i = 0, collections_1 = collections;
                     _a.label = 1;
                 case 1:
                     if (!(_i < collections_1.length)) return [3 /*break*/, 4];
                     collection = collections_1[_i];
-                    console.log("Setting indexes on collection " + collection.name);
+                    console.log("Setting indexes on collection ".concat(collection.name));
                     return [4 /*yield*/, setIndexes(collection)];
                 case 2:
                     _a.sent();
-                    console.log("Indexes of collection " + collection.name + " DONE");
+                    console.log("Indexes of collection ".concat(collection.name, " DONE"));
                     _a.label = 3;
                 case 3:
                     _i++;

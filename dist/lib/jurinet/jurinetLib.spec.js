@@ -225,7 +225,7 @@ describe('jurinetLib', function () {
                 return __generator(this, function (_a) {
                     titleNumberCategory = Math.floor(Math.random() * 5) + 1;
                     xml = buildJurinetXml([
-                        "TEXT1 <h" + titleNumberCategory + " class=\"CLASS\"> TEXT2 </h" + titleNumberCategory + "> TEXT3",
+                        "TEXT1 <h".concat(titleNumberCategory, " class=\"CLASS\"> TEXT2 </h").concat(titleNumberCategory, "> TEXT3"),
                     ]);
                     cleanedText = jurinetLib_1.jurinetLib.cleanText(xml);
                     expect(cleanedText).toEqual('<CAT_PUB></CAT_PUB><TEXTE_ARRET>TEXT1 TEXT2 \n TEXT3</TEXTE_ARRET>');
@@ -374,7 +374,7 @@ describe('jurinetLib', function () {
 });
 function buildJurinetXml(textArrets, header) {
     if (header === void 0) { header = '<CAT_PUB></CAT_PUB>'; }
-    var textArretsWithTags = textArrets.map(function (textArret) { return "<TEXTE_ARRET>" + textArret + "</TEXTE_ARRET>"; });
-    var xmlDocument = "" + header + textArretsWithTags.join('');
+    var textArretsWithTags = textArrets.map(function (textArret) { return "<TEXTE_ARRET>".concat(textArret, "</TEXTE_ARRET>"); });
+    var xmlDocument = "".concat(header).concat(textArretsWithTags.join(''));
     return xmlDocument;
 }

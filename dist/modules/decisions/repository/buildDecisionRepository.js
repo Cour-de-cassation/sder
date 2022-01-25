@@ -44,7 +44,7 @@ function buildDecisionRepository() {
     return __awaiter(this, void 0, void 0, function () {
         var runMongo;
         return __generator(this, function (_a) {
-            runMongo = utils_1.buildRunMongo(decisionCollectionName_1.decisionCollectionName);
+            runMongo = (0, utils_1.buildRunMongo)(decisionCollectionName_1.decisionCollectionName);
             return [2 /*return*/, {
                     clear: function () {
                         return __awaiter(this, void 0, void 0, function () {
@@ -252,7 +252,7 @@ function buildDecisionRepository() {
                                                     case 1:
                                                         result = _b.sent();
                                                         if (!result) {
-                                                            throw new Error("No matching " + decisionCollectionName_1.decisionCollectionName + " for _id " + id);
+                                                            throw new Error("No matching ".concat(decisionCollectionName_1.decisionCollectionName, " for _id ").concat(id));
                                                         }
                                                         return [2 /*return*/, result];
                                                 }
@@ -298,7 +298,7 @@ function buildDecisionRepository() {
                                                     case 1:
                                                         result = _b.sent();
                                                         if (!result) {
-                                                            throw new Error("No matching " + decisionCollectionName_1.decisionCollectionName + " for sourceId " + decisionId);
+                                                            throw new Error("No matching ".concat(decisionCollectionName_1.decisionCollectionName, " for sourceId ").concat(decisionId));
                                                         }
                                                         return [2 /*return*/, result];
                                                 }
@@ -314,7 +314,7 @@ function buildDecisionRepository() {
                                 switch (_a.label) {
                                     case 0: return [4 /*yield*/, runMongo(function (_a) {
                                             var collection = _a.collection;
-                                            return collection.insert(decision);
+                                            return collection.insertOne(decision);
                                         })];
                                     case 1:
                                         _a.sent();

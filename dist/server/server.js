@@ -10,7 +10,7 @@ var environment_1 = require("../environment");
 var server = express();
 exports.server = server;
 function startServer() {
-    var environment = environment_1.getEnvironment();
+    var environment = (0, environment_1.getEnvironment)();
     server.listen(environment.port);
 }
 exports.startServer = startServer;

@@ -41,14 +41,12 @@ var mongodb_1 = require("mongodb");
 var environment_1 = require("../environment");
 function buildRunMongo(collectionName) {
     var _this = this;
-    var environment = environment_1.getEnvironment();
+    var environment = (0, environment_1.getEnvironment)();
     return function (command) { return __awaiter(_this, void 0, void 0, function () {
         var client, dbName, db, collection, output;
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, new mongodb_1.MongoClient(environment.SDER_DB_URL, {
-                        useUnifiedTopology: true,
-                    }).connect()];
+                case 0: return [4 /*yield*/, new mongodb_1.MongoClient(environment.SDER_DB_URL).connect()];
                 case 1:
                     client = _a.sent();
                     dbName = environment.SDER_DB_NAME;

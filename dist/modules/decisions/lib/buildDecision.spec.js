@@ -43,8 +43,8 @@ describe('buildDecision', function () {
     it('should build a decision with a _rev at 0', function () { return __awaiter(void 0, void 0, void 0, function () {
         var decisionField, decision;
         return __generator(this, function (_a) {
-            decisionField = lodash_1.omit(generateDecision_1.generateDecision(), ['_id', 'labelTreatments']);
-            decision = buildDecision_1.buildDecision(decisionField);
+            decisionField = (0, lodash_1.omit)((0, generateDecision_1.generateDecision)(), ['_id', 'labelTreatments']);
+            decision = (0, buildDecision_1.buildDecision)(decisionField);
             expect(decision._rev).toEqual(0);
             return [2 /*return*/];
         });
@@ -52,8 +52,8 @@ describe('buildDecision', function () {
     it('should build a decision with an empty labelTreatments', function () { return __awaiter(void 0, void 0, void 0, function () {
         var decisionField, decision;
         return __generator(this, function (_a) {
-            decisionField = lodash_1.omit(generateDecision_1.generateDecision(), ['_id', 'labelTreatments']);
-            decision = buildDecision_1.buildDecision(decisionField);
+            decisionField = (0, lodash_1.omit)((0, generateDecision_1.generateDecision)(), ['_id', 'labelTreatments']);
+            decision = (0, buildDecision_1.buildDecision)(decisionField);
             expect(decision.labelTreatments).toEqual([]);
             return [2 /*return*/];
         });
@@ -61,8 +61,8 @@ describe('buildDecision', function () {
     it("should build a decision with a 'toBeTreated' label status", function () { return __awaiter(void 0, void 0, void 0, function () {
         var decisionField, decision;
         return __generator(this, function (_a) {
-            decisionField = lodash_1.omit(generateDecision_1.generateDecision(), ['_id', 'labelTreatments']);
-            decision = buildDecision_1.buildDecision(decisionField);
+            decisionField = (0, lodash_1.omit)((0, generateDecision_1.generateDecision)(), ['_id', 'labelTreatments']);
+            decision = (0, buildDecision_1.buildDecision)(decisionField);
             expect(decision.labelStatus).toEqual('toBeTreated');
             return [2 /*return*/];
         });

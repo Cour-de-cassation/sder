@@ -38,16 +38,16 @@ function xmlToJson(xml, opt) {
         }
         if (opt.htmlDecode === true) {
             // HTML-decode JSON values:
-            finalData = htmlDecode_1.htmlDecode(finalData);
+            finalData = (0, htmlDecode_1.htmlDecode)(finalData);
         }
         if (opt.toLowerCase === true) {
             // Convert JSON keys to lower case:
-            finalData = convertKeysToLowerCase_1.convertKeysToLowerCase(finalData);
+            finalData = (0, convertKeysToLowerCase_1.convertKeysToLowerCase)(finalData);
         }
         return finalData;
     }
     else {
-        throw new Error("JurinetUtils.XMLToJSON: Invalid XML document: " + valid + ".");
+        throw new Error("JurinetUtils.XMLToJSON: Invalid XML document: ".concat(valid, "."));
     }
 }
 exports.xmlToJson = xmlToJson;

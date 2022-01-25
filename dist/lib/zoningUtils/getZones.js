@@ -52,7 +52,7 @@ function getZones(id, source, text) {
                         source: source,
                         text: text,
                     });
-                    return [4 /*yield*/, needle_1.default('post', 'http://10.16.64.7:8090/zonage', zoneData, {
+                    return [4 /*yield*/, (0, needle_1.default)('post', 'http://10.16.64.7:8090/zonage', zoneData, {
                             json: true,
                         })];
                 case 1:

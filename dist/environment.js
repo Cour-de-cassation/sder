@@ -8,7 +8,7 @@ function getEnvironment() {
         return environment[RUN_MODE];
     }
     else {
-        throw new Error("Found no environment for RUN_MODE: " + RUN_MODE);
+        throw new Error("Found no environment for RUN_MODE: ".concat(RUN_MODE));
     }
 }
 exports.getEnvironment = getEnvironment;

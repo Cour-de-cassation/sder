@@ -46,12 +46,12 @@ function buildBaseUser(_a) {
         var hashedPassword;
         return __generator(this, function (_b) {
             switch (_b.label) {
-                case 0: return [4 /*yield*/, computeHashedPassword_1.computeHashedPassword(password)];
+                case 0: return [4 /*yield*/, (0, computeHashedPassword_1.computeHashedPassword)(password)];
                 case 1:
                     hashedPassword = _b.sent();
                     return [2 /*return*/, {
                             deletionDate: undefined,
-                            email: formatEmail_1.formatEmail(email),
+                            email: (0, formatEmail_1.formatEmail)(email),
                             hashedPassword: hashedPassword,
                             _id: id_1.idModule.lib.buildId(),
                             isActivated: true,

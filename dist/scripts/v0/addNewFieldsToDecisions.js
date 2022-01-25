@@ -55,12 +55,12 @@ function addNewFieldsToDecisions() {
                     return [4 /*yield*/, decisionRepository.findAllIdsWithoutLabelFields()];
                 case 2:
                     decisionIds = _a.sent();
-                    console.log(decisionIds.length + " decisions to update");
+                    console.log("".concat(decisionIds.length, " decisions to update"));
                     index = 0;
                     _a.label = 3;
                 case 3:
                     if (!(index < decisionIds.length)) return [3 /*break*/, 6];
-                    console.log("Treatment of decision " + (index + 1) + "/" + decisionIds.length);
+                    console.log("Treatment of decision ".concat(index + 1, "/").concat(decisionIds.length));
                     return [4 /*yield*/, decisionRepository.updateById(decisionIds[index], { labelStatus: 'toBeTreated', labelTreatments: [] })];
                 case 4:
                     _a.sent();

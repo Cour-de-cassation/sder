@@ -161,7 +161,7 @@ function buildDecisionFakeRepository() {
                             return __generator(this, function (_a) {
                                 result = collection.find(function (decision) { return id_1.idModule.lib.equalId(decision._id, id); });
                                 if (!result) {
-                                    throw new Error("No matching " + collectionName + " for _id " + id);
+                                    throw new Error("No matching ".concat(collectionName, " for _id ").concat(id));
                                 }
                                 return [2 /*return*/, result];
                             });
@@ -181,7 +181,7 @@ function buildDecisionFakeRepository() {
                             return __generator(this, function (_a) {
                                 result = collection.find(function (decision) { return decision.sourceId === decisionId; });
                                 if (!result) {
-                                    throw new Error("No matching " + collectionName + " for sourceId " + decisionId);
+                                    throw new Error("No matching ".concat(collectionName, " for sourceId ").concat(decisionId));
                                 }
                                 return [2 /*return*/, result];
                             });

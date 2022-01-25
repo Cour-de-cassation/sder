@@ -48,19 +48,19 @@ function normalize(document, previousVersion, ignorePreviousContent) {
             pseudoStatus = document.IND_ANO;
             if (document.JDEC_HTML_SOURCE) {
                 try {
-                    originalText = cleanHTML_1.cleanHTML(document.JDEC_HTML_SOURCE);
+                    originalText = (0, cleanHTML_1.cleanHTML)(document.JDEC_HTML_SOURCE);
                 }
                 catch (e) {
-                    console.warn("JuricaUtils.Normalize: Could not properly clean the original text of document '" + document._id + "'.");
+                    console.warn("JuricaUtils.Normalize: Could not properly clean the original text of document '".concat(document._id, "'."));
                     console.warn(e);
                 }
             }
             if (document.HTMLA) {
                 try {
-                    pseudoText = cleanHTML_1.cleanHTML(document.HTMLA);
+                    pseudoText = (0, cleanHTML_1.cleanHTML)(document.HTMLA);
                 }
                 catch (e) {
-                    console.warn("JuricaUtils.Normalize: Could not properly clean the pseudonymized text of document '" + document._id + "'.");
+                    console.warn("JuricaUtils.Normalize: Could not properly clean the pseudonymized text of document '".concat(document._id, "'."));
                     console.warn(e);
                 }
             }
@@ -85,7 +85,7 @@ function normalize(document, previousVersion, ignorePreviousContent) {
                 dateDecision.setMilliseconds(0);
             }
             if (dateDecision && !isNaN(dateDecision.valueOf())) {
-                console.warn("JuricaUtils.Normalize: could not process decision date '" + document.JDEC_DATE + "'");
+                console.warn("JuricaUtils.Normalize: could not process decision date '".concat(document.JDEC_DATE, "'"));
                 dateDecision = document.JDEC_DATE;
             }
             dateCreation = null;
@@ -101,7 +101,7 @@ function normalize(document, previousVersion, ignorePreviousContent) {
                 dateCreation.setMilliseconds(0);
             }
             if (dateCreation && isNaN(dateCreation.valueOf())) {
-                console.warn("JuricaUtils.Normalize: could not process decision creation date '" + document.JDEC_DATE_CREATION + "'");
+                console.warn("JuricaUtils.Normalize: could not process decision creation date '".concat(document.JDEC_DATE_CREATION, "'"));
                 dateCreation = document.JDEC_DATE_CREATION;
             }
             normalizedDecision = {
@@ -114,7 +114,7 @@ function normalize(document, previousVersion, ignorePreviousContent) {
                 jurisdictionName: document.JDEC_JURIDICTION,
                 chamberId: document.JDEC_CODE_AUTORITE,
                 chamberName: document.JDEC_LIB_AUTORITE,
-                registerNumber: document.JDEC_NUM_RG + " " + document.JDEC_NUM_REGISTRE,
+                registerNumber: "".concat(document.JDEC_NUM_RG, " ").concat(document.JDEC_NUM_REGISTRE),
                 pubCategory: document.JDEC_NOTICE_FORMAT,
                 dateDecision: dateDecision === null || dateDecision === void 0 ? void 0 : dateDecision.toString(),
                 dateCreation: dateCreation === null || dateCreation === void 0 ? void 0 : dateCreation.toString(),
@@ -177,7 +177,7 @@ function normalize(document, previousVersion, ignorePreviousContent) {
                 }
             }
             if (!normalizedDecision.originalText) {
-                throw new Error("JuricaUtils.Normalize: Document '" + normalizedDecision.sourceId + "' has no text.");
+                throw new Error("JuricaUtils.Normalize: Document '".concat(normalizedDecision.sourceId, "' has no text."));
             }
             return [2 /*return*/, normalizedDecision];
         });

@@ -56,7 +56,7 @@ function normalize(document, previousVersion, ignorePreviousContent) {
                     pseudoStatus = document.IND_ANO;
                     try {
                         cleanedXml = jurinet_1.jurinetLib.cleanText(document.XML);
-                        cleanedJson = xmlToJson_1.xmlToJson(cleanedXml, {
+                        cleanedJson = (0, xmlToJson_1.xmlToJson)(cleanedXml, {
                             filter: false,
                             htmlDecode: true,
                             toLowerCase: true,
@@ -66,7 +66,7 @@ function normalize(document, previousVersion, ignorePreviousContent) {
                     catch (ignore) { }
                     try {
                         cleanedXmlAnonymized = jurinet_1.jurinetLib.cleanText(document.XMLA);
-                        cleanedJsonAnonymized = xmlToJson_1.xmlToJson(cleanedXmlAnonymized, {
+                        cleanedJsonAnonymized = (0, xmlToJson_1.xmlToJson)(cleanedXmlAnonymized, {
                             filter: false,
                             htmlDecode: true,
                             toLowerCase: true,
@@ -282,12 +282,12 @@ function normalize(document, previousVersion, ignorePreviousContent) {
                     //     }
                     //   }
                     // });
-                    normalizedDecision.occultation.categoriesToOmit = convertOccultationBlockToCategoriesToOmit_1.convertOccultationBlockInCategoriesToOmit(document._bloc_occultation);
+                    normalizedDecision.occultation.categoriesToOmit = (0, convertOccultationBlockToCategoriesToOmit_1.convertOccultationBlockInCategoriesToOmit)(document._bloc_occultation);
                     if (!!document.OCCULTATION_SUPPLEMENTAIRE) {
                         normalizedDecision.occultation.additionalTerms = document.OCCULTATION_SUPPLEMENTAIRE;
                     }
                     if (!normalizedDecision.originalText) {
-                        throw new Error("JurinetUtils.Normalize: Document '" + normalizedDecision.sourceId + "' has not text.");
+                        throw new Error("JurinetUtils.Normalize: Document '".concat(normalizedDecision.sourceId, "' has not text."));
                     }
                     return [2 /*return*/, normalizedDecision];
             }

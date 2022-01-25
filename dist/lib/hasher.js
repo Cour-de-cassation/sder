@@ -47,14 +47,14 @@ exports.hasher = hasher;
 function hash(textToHash) {
     return __awaiter(this, void 0, void 0, function () {
         return __generator(this, function (_a) {
-            return [2 /*return*/, bcryptjs_1.hash(textToHash, SALT_ROUNDS)];
+            return [2 /*return*/, (0, bcryptjs_1.hash)(textToHash, SALT_ROUNDS)];
         });
     });
 }
 function compare(textToCompare, encryptedText) {
     return __awaiter(this, void 0, void 0, function () {
         return __generator(this, function (_a) {
-            return [2 /*return*/, bcryptjs_1.compare(textToCompare, encryptedText)];
+            return [2 /*return*/, (0, bcryptjs_1.compare)(textToCompare, encryptedText)];
         });
     });
 }

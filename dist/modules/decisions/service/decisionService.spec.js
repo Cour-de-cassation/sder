@@ -47,17 +47,17 @@ describe('decisionService', function () {
             var decisionRepository, decisionField, decision;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, repository_1.buildDecisionRepository()];
+                    case 0: return [4 /*yield*/, (0, repository_1.buildDecisionRepository)()];
                     case 1:
                         decisionRepository = _a.sent();
-                        decisionField = lodash_1.omit(lib_1.generateDecision(), ['_id', '_rev', 'labelStatus', 'labelTreatments']);
+                        decisionField = (0, lodash_1.omit)((0, lib_1.generateDecision)(), ['_id', '_rev', 'labelStatus', 'labelTreatments']);
                         return [4 /*yield*/, decisionService_1.decisionService.createDecision(decisionField)];
                     case 2:
                         _a.sent();
                         return [4 /*yield*/, decisionRepository.findByDecisionId(decisionField.sourceId)];
                     case 3:
                         decision = _a.sent();
-                        expect(lodash_1.omit(decision, ['_id', '_rev', 'labelStatus', 'labelTreatments'])).toEqual(decisionField);
+                        expect((0, lodash_1.omit)(decision, ['_id', '_rev', 'labelStatus', 'labelTreatments'])).toEqual(decisionField);
                         return [2 /*return*/];
                 }
             });
@@ -66,10 +66,10 @@ describe('decisionService', function () {
             var decisionRepository, decisionField, decision;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, repository_1.buildDecisionRepository()];
+                    case 0: return [4 /*yield*/, (0, repository_1.buildDecisionRepository)()];
                     case 1:
                         decisionRepository = _a.sent();
-                        decisionField = lodash_1.omit(lib_1.generateDecision(), ['_id', '_rev', 'labelStatus', 'labelTreatments']);
+                        decisionField = (0, lodash_1.omit)((0, lib_1.generateDecision)(), ['_id', '_rev', 'labelStatus', 'labelTreatments']);
                         return [4 /*yield*/, decisionService_1.decisionService.createDecision(decisionField)];
                     case 2:
                         _a.sent();
@@ -85,10 +85,10 @@ describe('decisionService', function () {
             var decisionRepository, decisionField, decision;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, repository_1.buildDecisionRepository()];
+                    case 0: return [4 /*yield*/, (0, repository_1.buildDecisionRepository)()];
                     case 1:
                         decisionRepository = _a.sent();
-                        decisionField = lodash_1.omit(lib_1.generateDecision(), ['_id', '_rev', 'labelStatus', 'labelTreatments']);
+                        decisionField = (0, lodash_1.omit)((0, lib_1.generateDecision)(), ['_id', '_rev', 'labelStatus', 'labelTreatments']);
                         return [4 /*yield*/, decisionService_1.decisionService.createDecision(decisionField)];
                     case 2:
                         _a.sent();
@@ -104,10 +104,10 @@ describe('decisionService', function () {
             var decisionRepository, decisionField, decision;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, repository_1.buildDecisionRepository()];
+                    case 0: return [4 /*yield*/, (0, repository_1.buildDecisionRepository)()];
                     case 1:
                         decisionRepository = _a.sent();
-                        decisionField = lodash_1.omit(lib_1.generateDecision(), ['_id', '_rev', 'labelStatus', 'labelTreatments']);
+                        decisionField = (0, lodash_1.omit)((0, lib_1.generateDecision)(), ['_id', '_rev', 'labelStatus', 'labelTreatments']);
                         return [4 /*yield*/, decisionService_1.decisionService.createDecision(decisionField)];
                     case 2:
                         _a.sent();
@@ -125,7 +125,7 @@ describe('decisionService', function () {
             var decisionRepository, decisions, fetchedDecision;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, repository_1.buildDecisionRepository()];
+                    case 0: return [4 /*yield*/, (0, repository_1.buildDecisionRepository)()];
                     case 1:
                         decisionRepository = _a.sent();
                         decisions = [
@@ -151,7 +151,7 @@ describe('decisionService', function () {
             var decisionRepository, decisions, fetchedDecisions;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, repository_1.buildDecisionRepository()];
+                    case 0: return [4 /*yield*/, (0, repository_1.buildDecisionRepository)()];
                     case 1:
                         decisionRepository = _a.sent();
                         decisions = [
@@ -220,7 +220,7 @@ describe('decisionService', function () {
             var decisionRepository, decisions, fetchedDecisions;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, repository_1.buildDecisionRepository()];
+                    case 0: return [4 /*yield*/, (0, repository_1.buildDecisionRepository)()];
                     case 1:
                         decisionRepository = _a.sent();
                         decisions = [
@@ -258,7 +258,7 @@ describe('decisionService', function () {
             var decisionRepository, decisions, fetchedDecisions;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, repository_1.buildDecisionRepository()];
+                    case 0: return [4 /*yield*/, (0, repository_1.buildDecisionRepository)()];
                     case 1:
                         decisionRepository = _a.sent();
                         decisions = [
@@ -291,7 +291,7 @@ describe('decisionService', function () {
             var decisionRepository, decisions, fetchedDecisions;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, repository_1.buildDecisionRepository()];
+                    case 0: return [4 /*yield*/, (0, repository_1.buildDecisionRepository)()];
                     case 1:
                         decisionRepository = _a.sent();
                         decisions = [
@@ -336,7 +336,7 @@ describe('decisionService', function () {
             var decisionRepository, decisions, fetchedDecisions;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, repository_1.buildDecisionRepository()];
+                    case 0: return [4 /*yield*/, (0, repository_1.buildDecisionRepository)()];
                     case 1:
                         decisionRepository = _a.sent();
                         decisions = [
@@ -383,7 +383,7 @@ describe('decisionService', function () {
             var decisionRepository, decisions, pseudonymisations;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, repository_1.buildDecisionRepository()];
+                    case 0: return [4 /*yield*/, (0, repository_1.buildDecisionRepository)()];
                     case 1:
                         decisionRepository = _a.sent();
                         decisions = [
@@ -418,7 +418,7 @@ describe('decisionService', function () {
             var decisionRepository, decisions, updatedDecision0, updatedDecision1, updatedDecision2;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, repository_1.buildDecisionRepository()];
+                    case 0: return [4 /*yield*/, (0, repository_1.buildDecisionRepository)()];
                     case 1:
                         decisionRepository = _a.sent();
                         decisions = [
@@ -444,10 +444,10 @@ describe('decisionService', function () {
                         return [4 /*yield*/, decisionRepository.findById(decisions[2]._id)];
                     case 6:
                         updatedDecision2 = _a.sent();
-                        expect(lodash_1.omit(updatedDecision0, 'labelStatus')).toEqual(lodash_1.omit(decisions[0], 'labelStatus'));
+                        expect((0, lodash_1.omit)(updatedDecision0, 'labelStatus')).toEqual((0, lodash_1.omit)(decisions[0], 'labelStatus'));
                         expect(updatedDecision0.labelStatus).toEqual('loaded');
                         expect(updatedDecision1).toEqual(decisions[1]);
-                        expect(lodash_1.omit(updatedDecision2, 'labelStatus')).toEqual(lodash_1.omit(decisions[2], 'labelStatus'));
+                        expect((0, lodash_1.omit)(updatedDecision2, 'labelStatus')).toEqual((0, lodash_1.omit)(decisions[2], 'labelStatus'));
                         expect(updatedDecision2.labelStatus).toEqual('loaded');
                         return [2 /*return*/];
                 }
@@ -455,7 +455,7 @@ describe('decisionService', function () {
         }); });
     });
     describe('updateDecisionPseudonymisation', function () {
-        var decision = lib_1.generateDecision();
+        var decision = (0, lib_1.generateDecision)();
         var treatmenst = [
             {
                 annotations: [{ category: 'CATEGORY', entityId: 'ENTITY_ID', start: 0, text: 'TEXT' }],
@@ -467,7 +467,7 @@ describe('decisionService', function () {
             var decisionRepository, updatedDecision;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, repository_1.buildDecisionRepository()];
+                    case 0: return [4 /*yield*/, (0, repository_1.buildDecisionRepository)()];
                     case 1:
                         decisionRepository = _a.sent();
                         return [4 /*yield*/, decisionRepository.insert(decision)];
@@ -493,7 +493,7 @@ describe('decisionService', function () {
             var decisionRepository, updatedDecision;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, repository_1.buildDecisionRepository()];
+                    case 0: return [4 /*yield*/, (0, repository_1.buildDecisionRepository)()];
                     case 1:
                         decisionRepository = _a.sent();
                         return [4 /*yield*/, decisionRepository.insert(decision)];

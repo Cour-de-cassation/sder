@@ -92,7 +92,7 @@ async function buildDecisionRepository(): Promise<decisionRepositoryType> {
 
     async findById(id) {
       return runMongo(async ({ collection }) => {
-        const result = await collection.findOne({ _id: id } as any);
+        const result = await collection.findOne({ _id: id });
 
         if (!result) {
           throw new Error(`No matching ${decisionCollectionName} for _id ${id}`);
@@ -112,7 +112,7 @@ async function buildDecisionRepository(): Promise<decisionRepositoryType> {
 
     async findByDecisionId(decisionId) {
       return runMongo(async ({ collection }) => {
-        const result = await collection.findOne({ sourceId: decisionId } as any);
+        const result = await collection.findOne({ sourceId: decisionId });
 
         if (!result) {
           throw new Error(`No matching ${decisionCollectionName} for sourceId ${decisionId}`);
@@ -123,7 +123,7 @@ async function buildDecisionRepository(): Promise<decisionRepositoryType> {
     },
 
     async insert(decision) {
-      await runMongo(({ collection }) => collection.insert(decision));
+      await runMongo(({ collection }) => collection.insertOne(decision));
     },
 
     async updateById(id, decisionField) {

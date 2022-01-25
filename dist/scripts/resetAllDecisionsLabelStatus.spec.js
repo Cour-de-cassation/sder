@@ -55,7 +55,7 @@ describe('resetAllDecisionsLabelStatus', function () {
                     return [4 /*yield*/, Promise.all(decisions.map(decisionRepository.insert))];
                 case 2:
                     _a.sent();
-                    return [4 /*yield*/, resetAllDecisionsLabelStatus_1.resetAllDecisionsLabelStatus()];
+                    return [4 /*yield*/, (0, resetAllDecisionsLabelStatus_1.resetAllDecisionsLabelStatus)()];
                 case 3:
                     _a.sent();
                     return [4 /*yield*/, decisionRepository.findAll()];

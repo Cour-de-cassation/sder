@@ -4,10 +4,10 @@ exports.assertAuthorization = void 0;
 var lib_1 = require("../../../lib");
 function assertAuthorization(user) {
     if (!user.isActivated) {
-        throw lib_1.errorHandlers.authenticationErrorHandler.build("The user " + user.email + " is deactivated");
+        throw lib_1.errorHandlers.authenticationErrorHandler.build("The user ".concat(user.email, " is deactivated"));
     }
     if (!!user.deletionDate) {
-        throw lib_1.errorHandlers.authenticationErrorHandler.build("The user " + user.email + " has been deleted");
+        throw lib_1.errorHandlers.authenticationErrorHandler.build("The user ".concat(user.email, " has been deleted"));
     }
 }
 exports.assertAuthorization = assertAuthorization;

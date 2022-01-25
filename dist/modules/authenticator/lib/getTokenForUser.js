@@ -44,7 +44,7 @@ function buildGetTokenForUser(privateKey) {
         return __awaiter(this, void 0, void 0, function () {
             var jwtSigner, token;
             return __generator(this, function (_a) {
-                jwtSigner = lib_1.buildJwtSigner(privateKey);
+                jwtSigner = (0, lib_1.buildJwtSigner)(privateKey);
                 token = jwtSigner.sign(user._id);
                 return [2 /*return*/, token];
             });

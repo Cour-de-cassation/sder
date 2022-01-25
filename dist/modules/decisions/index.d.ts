@@ -11,7 +11,7 @@ declare const decisionModule: {
         generateDecision: typeof generateDecision;
     };
     service: {
-        createDecision(decisionFields: Pick<decisionType, "public" | "_version" | "analysis" | "appeals" | "chamberId" | "chamberName" | "dateCreation" | "dateDecision" | "decatt" | "jurisdictionCode" | "jurisdictionId" | "jurisdictionName" | "locked" | "occultation" | "originalText" | "parties" | "pseudoStatus" | "pseudoText" | "pubCategory" | "registerNumber" | "solution" | "sourceId" | "sourceName" | "zoning" | "publication" | "formation" | "blocOccultation" | "natureAffaireCivil" | "natureAffairePenal" | "codeMatiereCivil" | "NACCode" | "endCaseCode">): Promise<void>;
+        createDecision(decisionFields: Omit<decisionType, "_id" | "labelStatus" | "labelTreatments" | "_rev">): Promise<void>;
         fetchDecisionBySourceIdAndSourceName(sourceId: number, sourceName: string): Promise<decisionType | undefined>;
         fetchPseudonymisationsToExport(): Promise<{
             decisionId: number;
@@ -37,7 +37,7 @@ declare const decisionModule: {
             labelStatus: import("./decisionType").labelStatusType;
         }): Promise<void>;
         updateDecisionsLabelStatus({ decisionIds, labelStatus, }: {
-            decisionIds: import("bson").ObjectId[];
+            decisionIds: import("bson").ObjectID[];
             labelStatus: import("./decisionType").labelStatusType;
         }): Promise<void>;
         depracatedUpdateDecisionPseudonymisation({ decisionId, decisionPseudonymisedText, labelTreatments, }: {
@@ -46,7 +46,7 @@ declare const decisionModule: {
             labelTreatments: import("./decisionType").labelTreatmentsType;
         }): Promise<void>;
         updateDecisionPseudonymisation({ decisionId, decisionPseudonymisedText, labelTreatments, }: {
-            decisionId: import("bson").ObjectId;
+            decisionId: import("bson").ObjectID;
             decisionPseudonymisedText: string;
             labelTreatments: import("./decisionType").labelTreatmentsType;
         }): Promise<void>;

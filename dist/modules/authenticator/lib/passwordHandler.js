@@ -35,7 +35,7 @@ var passwordHandler = {
         ].join('');
         return shuffleString(generatedPassword);
         function generateFromPossibleCharacters(possibleCharacters, length) {
-            return lodash_1.range(length)
+            return (0, lodash_1.range)(length)
                 .map(function () {
                 var characterIndex = Math.floor(Math.random() * possibleCharacters.length);
                 return possibleCharacters[characterIndex];

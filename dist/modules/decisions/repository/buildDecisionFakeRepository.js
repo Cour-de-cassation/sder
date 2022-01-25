@@ -129,6 +129,23 @@ function buildDecisionFakeRepository() {
                             });
                         });
                     },
+                    findAllBySourceAndJurisdictionBetween: function (_a) {
+                        var startDate = _a.startDate, endDate = _a.endDate, source = _a.source, jurisdiction = _a.jurisdiction;
+                        return __awaiter(this, void 0, void 0, function () {
+                            var jurisdictionRegex;
+                            return __generator(this, function (_b) {
+                                jurisdictionRegex = new RegExp(jurisdiction, 'i');
+                                return [2 /*return*/, collection.filter(function (decision) {
+                                        return decision.dateCreation &&
+                                            new Date(decision.dateCreation) >= startDate &&
+                                            decision.dateCreation &&
+                                            new Date(decision.dateCreation) < endDate &&
+                                            decision.sourceName === source &&
+                                            jurisdictionRegex.test(decision.jurisdictionName);
+                                    })];
+                            });
+                        });
+                    },
                     findAllPublicBySourceAndJurisdictionBetween: function (_a) {
                         var startDate = _a.startDate, endDate = _a.endDate, source = _a.source, jurisdiction = _a.jurisdiction, labelStatus = _a.labelStatus;
                         return __awaiter(this, void 0, void 0, function () {

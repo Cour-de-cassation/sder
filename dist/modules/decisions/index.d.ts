@@ -17,6 +17,12 @@ declare const decisionModule: {
             decisionId: number;
             pseudoText: string;
         }[]>;
+        fetchAllDecisionsBySourceAndJurisdictionsBetween({ startDate, endDate, source, jurisdictions, }: {
+            startDate: Date;
+            endDate: Date;
+            source: string;
+            jurisdictions: string[];
+        }): Promise<decisionType[]>;
         fetchPublicDecisionsBySourceAndJurisdictionsBetween({ startDate, endDate, source, jurisdictions, }: {
             startDate: Date;
             endDate: Date;

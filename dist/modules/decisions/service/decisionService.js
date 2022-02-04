@@ -112,7 +112,7 @@ var decisionService = {
             return __generator(this, function (_b) {
                 switch (_b.label) {
                     case 0:
-                        console.log("fetchPublicDecisionsBySourceAndJurisdictionsBetween({startDate: " + startDate.toISOString() + ", endDate: " + endDate.toISOString() + ", source: " + source + ", jurisdictions: [" + jurisdictions.join(', ') + "]})");
+                        console.log("fetchAllDecisionsBySourceAndJurisdictionsBetween({startDate: " + startDate.toISOString() + ", endDate: " + endDate.toISOString() + ", source: " + source + ", jurisdictions: [" + jurisdictions.join(', ') + "]})");
                         return [4 /*yield*/, repository_1.buildDecisionRepository()];
                     case 1:
                         decisionRepository = _b.sent();
@@ -142,40 +142,49 @@ var decisionService = {
             });
         });
     },
-    fetchPublicDecisionsBySourceAndJurisdictionsBetween: function (_a) {
-        var startDate = _a.startDate, endDate = _a.endDate, source = _a.source, jurisdictions = _a.jurisdictions;
+    fetchPublicDecisionsBySourceAndJurisdictionsAndChambersBetween: function (_a) {
+        var startDate = _a.startDate, endDate = _a.endDate, source = _a.source, jurisdictions = _a.jurisdictions, chambers = _a.chambers;
         return __awaiter(this, void 0, void 0, function () {
-            var decisionRepository, decisions, _i, jurisdictions_2, jurisdiction, decisionsForJuridiction;
-            return __generator(this, function (_b) {
-                switch (_b.label) {
+            var decisionRepository, decisions, _i, jurisdictions_2, jurisdiction, _b, chambers_1, chamberId, decisionsForJuridiction;
+            return __generator(this, function (_c) {
+                switch (_c.label) {
                     case 0:
-                        console.log("fetchPublicDecisionsBySourceAndJurisdictionsBetween({startDate: " + startDate.toISOString() + ", endDate: " + endDate.toISOString() + ", source: " + source + ", jurisdictions: [" + jurisdictions.join(', ') + "]})");
+                        console.log("fetchPublicDecisionsBySourceAndJurisdictionsAndChambersBetween({startDate: " + startDate.toISOString() + ", endDate: " + endDate.toISOString() + ", source: " + source + ", jurisdictions: [" + jurisdictions.join(', ') + "], chambers: [" + chambers.join(', ') + "]})");
                         return [4 /*yield*/, repository_1.buildDecisionRepository()];
                     case 1:
-                        decisionRepository = _b.sent();
+                        decisionRepository = _c.sent();
                         decisions = [];
                         _i = 0, jurisdictions_2 = jurisdictions;
-                        _b.label = 2;
+                        _c.label = 2;
                     case 2:
-                        if (!(_i < jurisdictions_2.length)) return [3 /*break*/, 5];
+                        if (!(_i < jurisdictions_2.length)) return [3 /*break*/, 7];
                         jurisdiction = jurisdictions_2[_i];
-                        console.log("Fetching decisions for jurisdiction " + jurisdiction);
-                        return [4 /*yield*/, decisionRepository.findAllPublicBySourceAndJurisdictionBetween({
+                        _b = 0, chambers_1 = chambers;
+                        _c.label = 3;
+                    case 3:
+                        if (!(_b < chambers_1.length)) return [3 /*break*/, 6];
+                        chamberId = chambers_1[_b];
+                        console.log("Fetching decisions for jurisdiction " + jurisdiction + " and chamber " + chamberId);
+                        return [4 /*yield*/, decisionRepository.findAllPublicBySourceAndJurisdictionAndChamberBetween({
                                 endDate: endDate,
                                 startDate: startDate,
                                 jurisdiction: jurisdiction,
+                                chamberId: chamberId,
                                 source: source,
                                 labelStatus: 'toBeTreated',
                             })];
-                    case 3:
-                        decisionsForJuridiction = _b.sent();
+                    case 4:
+                        decisionsForJuridiction = _c.sent();
                         console.log(decisionsForJuridiction.length + " decisions found for jurisdiction \"" + jurisdiction + "\", source \"" + source + "\" and between " + startDate.toISOString() + " and " + endDate.toISOString());
                         decisions.push.apply(decisions, decisionsForJuridiction);
-                        _b.label = 4;
-                    case 4:
+                        _c.label = 5;
+                    case 5:
+                        _b++;
+                        return [3 /*break*/, 3];
+                    case 6:
                         _i++;
                         return [3 /*break*/, 2];
-                    case 5: return [2 /*return*/, decisions];
+                    case 7: return [2 /*return*/, decisions];
                 }
             });
         });

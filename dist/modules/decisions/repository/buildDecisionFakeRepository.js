@@ -146,12 +146,13 @@ function buildDecisionFakeRepository() {
                             });
                         });
                     },
-                    findAllPublicBySourceAndJurisdictionBetween: function (_a) {
-                        var startDate = _a.startDate, endDate = _a.endDate, source = _a.source, jurisdiction = _a.jurisdiction, labelStatus = _a.labelStatus;
+                    findAllPublicBySourceAndJurisdictionAndChamberBetween: function (_a) {
+                        var startDate = _a.startDate, endDate = _a.endDate, source = _a.source, jurisdiction = _a.jurisdiction, chamberId = _a.chamberId, labelStatus = _a.labelStatus;
                         return __awaiter(this, void 0, void 0, function () {
-                            var jurisdictionRegex;
+                            var jurisdictionRegex, chamberRegex;
                             return __generator(this, function (_b) {
                                 jurisdictionRegex = new RegExp(jurisdiction, 'i');
+                                chamberRegex = new RegExp(chamberId, 'i');
                                 return [2 /*return*/, collection.filter(function (decision) {
                                         return decision.labelStatus === labelStatus &&
                                             !!decision.public &&
@@ -160,7 +161,8 @@ function buildDecisionFakeRepository() {
                                             decision.dateCreation &&
                                             new Date(decision.dateCreation) < endDate &&
                                             decision.sourceName === source &&
-                                            jurisdictionRegex.test(decision.jurisdictionName);
+                                            jurisdictionRegex.test(decision.jurisdictionName) &&
+                                            chamberRegex.test(decision.chamberId);
                                     })];
                             });
                         });

@@ -69,8 +69,16 @@ async function buildDecisionFakeRepository(): Promise<decisionRepositoryType> {
       );
     },
 
-    async findAllPublicBySourceAndJurisdictionBetween({ startDate, endDate, source, jurisdiction, labelStatus }) {
+    async findAllPublicBySourceAndJurisdictionAndChamberBetween({
+      startDate,
+      endDate,
+      source,
+      jurisdiction,
+      chamberId,
+      labelStatus,
+    }) {
       const jurisdictionRegex = new RegExp(jurisdiction, 'i');
+      const chamberRegex = new RegExp(chamberId, 'i');
 
       return collection.filter(
         (decision) =>
@@ -81,7 +89,8 @@ async function buildDecisionFakeRepository(): Promise<decisionRepositoryType> {
           decision.dateCreation &&
           new Date(decision.dateCreation) < endDate &&
           decision.sourceName === source &&
-          jurisdictionRegex.test(decision.jurisdictionName),
+          jurisdictionRegex.test(decision.jurisdictionName) &&
+          chamberRegex.test(decision.chamberId),
       );
     },
 

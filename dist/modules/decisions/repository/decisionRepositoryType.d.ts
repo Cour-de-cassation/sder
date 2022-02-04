@@ -28,11 +28,12 @@ declare type decisionRepositoryType = {
         source: string;
         jurisdiction: string;
     }) => Promise<decisionType[]>;
-    findAllPublicBySourceAndJurisdictionBetween: (params: {
+    findAllPublicBySourceAndJurisdictionAndChamberBetween: (params: {
         startDate: Date;
         endDate: Date;
         source: string;
         jurisdiction: string;
+        chamberId: string;
         labelStatus: decisionType['labelStatus'];
     }) => Promise<decisionType[]>;
     findAllIdsWithoutLabelFields: () => Promise<Array<decisionType['_id']>>;

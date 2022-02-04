@@ -146,7 +146,7 @@ describe('decisionService', function () {
             });
         }); });
     });
-    describe('fetchPublicDecisionsBySourceAndJurisdictionsBetween', function () {
+    describe('fetchPublicDecisionsBySourceAndJurisdictionsAndChambersBetween', function () {
         it('should fetch the right decision', function () { return __awaiter(void 0, void 0, void 0, function () {
             var decisionRepository, decisions, fetchedDecisions;
             return __generator(this, function (_a) {
@@ -159,50 +159,65 @@ describe('decisionService', function () {
                                 public: true,
                                 sourceName: 'jurica',
                                 jurisdictionName: "cour d'appel de bordeaux",
+                                chamberId: 'CR',
                                 dateCreation: utils_1.dateBuilder.daysAgo(3),
                             },
                             {
                                 public: false,
                                 sourceName: 'jurica',
                                 jurisdictionName: "Cour d'appel de bordeaux",
+                                chamberId: 'CR',
                                 dateCreation: utils_1.dateBuilder.daysAgo(3),
                             },
                             {
                                 public: null,
                                 sourceName: 'jurica',
                                 jurisdictionName: "Cour d'appel de bordeaux",
+                                chamberId: 'Other',
                                 dateCreation: utils_1.dateBuilder.daysAgo(3),
                             },
                             {
                                 public: true,
                                 sourceName: 'jurinet',
                                 jurisdictionName: "Cour d'appel de Bordeaux",
+                                chamberId: 'CR',
                                 dateCreation: utils_1.dateBuilder.daysAgo(3),
                             },
                             {
                                 public: true,
                                 sourceName: 'jurica',
                                 jurisdictionName: "Cour d'appel de Dijon",
+                                chamberId: 'CR',
                                 dateCreation: utils_1.dateBuilder.daysAgo(3),
                             },
                             {
                                 public: true,
                                 sourceName: 'jurica',
                                 jurisdictionName: "Cour d'appel de Dijon",
+                                chamberId: 'CR',
                                 dateCreation: utils_1.dateBuilder.daysAgo(8),
                             },
                             {
                                 public: true,
                                 sourceName: 'jurica',
                                 jurisdictionName: "Cour d'appel de Paris",
+                                chamberId: 'CR',
+                                dateCreation: utils_1.dateBuilder.daysAgo(3),
+                            },
+                            {
+                                public: true,
+                                sourceName: 'jurinet',
+                                jurisdictionName: "Cour d'appel de Bordeaux",
+                                chamberId: 'Other',
                                 dateCreation: utils_1.dateBuilder.daysAgo(3),
                             },
                         ].map(lib_1.generateDecision);
                         return [4 /*yield*/, Promise.all(decisions.map(decisionRepository.insert))];
                     case 2:
                         _a.sent();
-                        return [4 /*yield*/, decisionService_1.decisionService.fetchPublicDecisionsBySourceAndJurisdictionsBetween({
+                        return [4 /*yield*/, decisionService_1.decisionService.fetchPublicDecisionsBySourceAndJurisdictionsAndChambersBetween({
                                 jurisdictions: ["Cour d'appel de Bordeaux", "Cour d'appel de Dijon"],
+                                chambers: ['CR'],
                                 source: 'jurica',
                                 startDate: new Date(utils_1.dateBuilder.daysAgo(5)),
                                 endDate: new Date(utils_1.dateBuilder.daysAgo(1)),

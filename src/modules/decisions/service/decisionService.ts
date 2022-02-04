@@ -67,40 +67,45 @@ const decisionService = {
     return decisions;
   },
 
-  async fetchPublicDecisionsBySourceAndJurisdictionsBetween({
+  async fetchPublicDecisionsBySourceAndJurisdictionsAndChambersBetween({
     startDate,
     endDate,
     source,
     jurisdictions,
+    chambers,
   }: {
     startDate: Date;
     endDate: Date;
     source: string;
     jurisdictions: string[];
+    chambers: string[];
   }) {
     console.log(
-      `fetchPublicDecisionsBySourceAndJurisdictionsBetween({startDate: ${startDate.toISOString()}, endDate: ${endDate.toISOString()}, source: ${source}, jurisdictions: [${jurisdictions.join(
+      `fetchPublicDecisionsBySourceAndJurisdictionsAndChambersBetween({startDate: ${startDate.toISOString()}, endDate: ${endDate.toISOString()}, source: ${source}, jurisdictions: [${jurisdictions.join(
         ', ',
-      )}]})`,
+      )}], chambers: [${chambers.join(', ')}]})`,
     );
     const decisionRepository = await buildDecisionRepository();
 
     const decisions: decisionType[] = [];
     for (const jurisdiction of jurisdictions) {
-      console.log(`Fetching decisions for jurisdiction ${jurisdiction}`);
-      const decisionsForJuridiction = await decisionRepository.findAllPublicBySourceAndJurisdictionBetween({
-        endDate,
-        startDate,
-        jurisdiction,
-        source,
-        labelStatus: 'toBeTreated',
-      });
-      console.log(
-        `${
-          decisionsForJuridiction.length
-        } decisions found for jurisdiction "${jurisdiction}", source "${source}" and between ${startDate.toISOString()} and ${endDate.toISOString()}`,
-      );
-      decisions.push(...decisionsForJuridiction);
+      for (const chamberId of chambers) {
+        console.log(`Fetching decisions for jurisdiction ${jurisdiction} and chamber ${chamberId}`);
+        const decisionsForJuridiction = await decisionRepository.findAllPublicBySourceAndJurisdictionAndChamberBetween({
+          endDate,
+          startDate,
+          jurisdiction,
+          chamberId,
+          source,
+          labelStatus: 'toBeTreated',
+        });
+        console.log(
+          `${
+            decisionsForJuridiction.length
+          } decisions found for jurisdiction "${jurisdiction}", source "${source}" and between ${startDate.toISOString()} and ${endDate.toISOString()}`,
+        );
+        decisions.push(...decisionsForJuridiction);
+      }
     }
 
     return decisions;

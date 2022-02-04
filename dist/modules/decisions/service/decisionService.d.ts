@@ -13,11 +13,12 @@ declare const decisionService: {
         source: string;
         jurisdictions: string[];
     }): Promise<decisionType[]>;
-    fetchPublicDecisionsBySourceAndJurisdictionsBetween({ startDate, endDate, source, jurisdictions, }: {
+    fetchPublicDecisionsBySourceAndJurisdictionsAndChambersBetween({ startDate, endDate, source, jurisdictions, chambers, }: {
         startDate: Date;
         endDate: Date;
         source: string;
         jurisdictions: string[];
+        chambers: string[];
     }): Promise<decisionType[]>;
     fetchChainedJuricaDecisionsToPseudonymiseBetween({ startDate, endDate }: {
         startDate: Date;

@@ -209,12 +209,13 @@ function buildDecisionRepository() {
                             });
                         });
                     },
-                    findAllPublicBySourceAndJurisdictionBetween: function (_a) {
-                        var startDate = _a.startDate, endDate = _a.endDate, source = _a.source, jurisdiction = _a.jurisdiction, labelStatus = _a.labelStatus;
+                    findAllPublicBySourceAndJurisdictionAndChamberBetween: function (_a) {
+                        var startDate = _a.startDate, endDate = _a.endDate, source = _a.source, jurisdiction = _a.jurisdiction, chamberId = _a.chamberId, labelStatus = _a.labelStatus;
                         return __awaiter(this, void 0, void 0, function () {
-                            var jurisdictionRegex;
+                            var jurisdictionRegex, chamberRegex;
                             return __generator(this, function (_b) {
                                 jurisdictionRegex = new RegExp(jurisdiction, 'i');
+                                chamberRegex = new RegExp(chamberId, 'i');
                                 return [2 /*return*/, runMongo(function (_a) {
                                         var collection = _a.collection;
                                         return collection
@@ -222,6 +223,7 @@ function buildDecisionRepository() {
                                             dateDecision: { $gte: startDate.toISOString(), $lt: endDate.toISOString() },
                                             sourceName: source,
                                             jurisdictionName: jurisdictionRegex,
+                                            chamberId: chamberRegex,
                                             public: true,
                                             labelStatus: labelStatus,
                                         })

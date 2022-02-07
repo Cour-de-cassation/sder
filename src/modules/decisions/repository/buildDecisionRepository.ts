@@ -85,15 +85,13 @@ async function buildDecisionRepository(): Promise<decisionRepositoryType> {
       chamberId,
       labelStatus,
     }) {
-      const jurisdictionRegex = new RegExp(jurisdiction, 'i');
-      const chamberRegex = new RegExp(chamberId, 'i');
       return runMongo(({ collection }) =>
         collection
           .find({
             dateDecision: { $gte: startDate.toISOString() as any, $lt: endDate.toISOString() as any },
             sourceName: source,
-            jurisdictionName: jurisdictionRegex,
-            chamberId: chamberRegex,
+            jurisdictionName: jurisdiction && new RegExp(jurisdiction, 'i'),
+            chamberId: chamberId && new RegExp(chamberId, 'i'),
             public: true,
             labelStatus,
           })

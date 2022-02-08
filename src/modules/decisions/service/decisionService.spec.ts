@@ -64,53 +64,61 @@ describe('decisionService', () => {
     });
   });
 
-  describe('fetchAllDecisionsBySourceAndJurisdictionsAndChambersBetween', () => {
+  describe('fetchPublicDecisionsBySourceAndJurisdictionsAndChambersBetween', () => {
     it('should fetch the right decision', async () => {
       const decisionRepository = await buildDecisionRepository();
       const decisions = [
         {
+          public: true,
           sourceName: 'jurica',
           jurisdictionName: "cour d'appel de bordeaux",
           chamberId: 'CR',
           dateCreation: dateBuilder.daysAgo(3),
         },
         {
+          public: false,
           sourceName: 'jurica',
           jurisdictionName: "Cour d'appel de bordeaux",
           chamberId: 'CR',
           dateCreation: dateBuilder.daysAgo(3),
         },
         {
+          public: null,
           sourceName: 'jurica',
           jurisdictionName: "Cour d'appel de bordeaux",
           chamberId: 'Other',
           dateCreation: dateBuilder.daysAgo(3),
         },
         {
+          public: true,
           sourceName: 'jurinet',
           jurisdictionName: "Cour d'appel de Bordeaux",
           chamberId: 'CR',
           dateCreation: dateBuilder.daysAgo(3),
         },
         {
+          public: true,
           sourceName: 'jurica',
           jurisdictionName: "Cour d'appel de Dijon",
           chamberId: 'CR',
           dateCreation: dateBuilder.daysAgo(3),
         },
         {
+          public: true,
           sourceName: 'jurica',
           jurisdictionName: "Cour d'appel de Dijon",
           chamberId: 'CR',
           dateCreation: dateBuilder.daysAgo(8),
         },
         {
+          public: true,
           sourceName: 'jurica',
           jurisdictionName: "Cour d'appel de Paris",
           chamberId: 'CR',
           dateCreation: dateBuilder.daysAgo(3),
         },
         {
+          public: true,
           sourceName: 'jurinet',
           jurisdictionName: "Cour d'appel de Bordeaux",
           chamberId: 'Other',
@@ -119,7 +127,7 @@ describe('decisionService', () => {
       ].map(generateDecision);
       await Promise.all(decisions.map(decisionRepository.insert));
 
-      const fetchedDecisions = await decisionService.fetchAllDecisionsBySourceAndJurisdictionsAndChambersBetween({
+      const fetchedDecisions = await decisionService.fetchPublicDecisionsBySourceAndJurisdictionsAndChambersBetween({
         jurisdictions: ["Cour d'appel de Bordeaux", "Cour d'appel de Dijon"],
         chambers: ['CR'],
         source: 'jurica',
@@ -127,7 +135,7 @@ describe('decisionService', () => {
         endDate: new Date(dateBuilder.daysAgo(1)),
       });
 
-      expect(fetchedDecisions.sort()).toEqual([decisions[0], decisions[1], decisions[4]].sort());
+      expect(fetchedDecisions.sort()).toEqual([decisions[0], decisions[4]].sort());
     });
   });
 

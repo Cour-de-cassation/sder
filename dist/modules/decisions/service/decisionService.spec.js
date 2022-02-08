@@ -215,7 +215,7 @@ describe('decisionService', function () {
                         return [4 /*yield*/, Promise.all(decisions.map(decisionRepository.insert))];
                     case 2:
                         _a.sent();
-                        return [4 /*yield*/, decisionService_1.decisionService.fetchAllDecisionsBySourceAndJurisdictionsAndChambersBetween({
+                        return [4 /*yield*/, decisionService_1.decisionService.fetchPublicDecisionsBySourceAndJurisdictionsAndChambersBetween({
                                 jurisdictions: ["Cour d'appel de Bordeaux", "Cour d'appel de Dijon"],
                                 chambers: ['CR'],
                                 source: 'jurica',

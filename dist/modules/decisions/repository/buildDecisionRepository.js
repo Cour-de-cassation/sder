@@ -209,7 +209,25 @@ function buildDecisionRepository() {
                             });
                         });
                     },
-                    findAllPublicBySourceAndJurisdictionAndChamberBetween: function (_a) {
+                    findAllBySourceAndJurisdictionAndChamberBetween: function (_a) {
+                        var startDate = _a.startDate, endDate = _a.endDate, source = _a.source, jurisdiction = _a.jurisdiction, chamberId = _a.chamberId;
+                        return __awaiter(this, void 0, void 0, function () {
+                            return __generator(this, function (_b) {
+                                return [2 /*return*/, runMongo(function (_a) {
+                                        var collection = _a.collection;
+                                        return collection
+                                            .find({
+                                            dateDecision: { $gte: startDate.toISOString(), $lt: endDate.toISOString() },
+                                            sourceName: source,
+                                            jurisdictionName: jurisdiction && new RegExp(jurisdiction, 'i'),
+                                            chamberId: chamberId && new RegExp(chamberId, 'i'),
+                                        })
+                                            .toArray();
+                                    })];
+                            });
+                        });
+                    },
+                    findAllPublicBySourceAndJurisdictionAndChamberBetweenWithLabelStatus: function (_a) {
                         var startDate = _a.startDate, endDate = _a.endDate, source = _a.source, jurisdiction = _a.jurisdiction, chamberId = _a.chamberId, labelStatus = _a.labelStatus;
                         return __awaiter(this, void 0, void 0, function () {
                             return __generator(this, function (_b) {

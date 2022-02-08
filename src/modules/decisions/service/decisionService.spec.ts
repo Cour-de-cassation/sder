@@ -127,7 +127,7 @@ describe('decisionService', () => {
       ].map(generateDecision);
       await Promise.all(decisions.map(decisionRepository.insert));
 
-      const fetchedDecisions = await decisionService.fetchPublicDecisionsBySourceAndJurisdictionsAndChambersBetween({
+      const fetchedDecisions = await decisionService.fetchAllDecisionsBySourceAndJurisdictionsAndChambersBetween({
         jurisdictions: ["Cour d'appel de Bordeaux", "Cour d'appel de Dijon"],
         chambers: ['CR'],
         source: 'jurica',

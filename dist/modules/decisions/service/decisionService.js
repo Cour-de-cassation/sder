@@ -142,14 +142,14 @@ var decisionService = {
             });
         });
     },
-    fetchPublicDecisionsBySourceAndJurisdictionsAndChambersBetween: function (_a) {
+    fetchAllDecisionsBySourceAndJurisdictionsAndChambersBetween: function (_a) {
         var startDate = _a.startDate, endDate = _a.endDate, source = _a.source, jurisdictions = _a.jurisdictions, chambers = _a.chambers;
         return __awaiter(this, void 0, void 0, function () {
             var decisionRepository, decisions, _i, jurisdictions_2, jurisdiction, _b, chambers_1, chamberId, decisionsForJuridiction;
             return __generator(this, function (_c) {
                 switch (_c.label) {
                     case 0:
-                        console.log("fetchPublicDecisionsBySourceAndJurisdictionsAndChambersBetween({startDate: " + startDate.toISOString() + ", endDate: " + endDate.toISOString() + ", source: " + source + ", jurisdictions: [" + jurisdictions.join(', ') + "], chambers: [" + chambers.join(', ') + "]})");
+                        console.log("fetchAllDecisionsBySourceAndJurisdictionsAndChambersBetween({startDate: " + startDate.toISOString() + ", endDate: " + endDate.toISOString() + ", source: " + source + ", jurisdictions: [" + jurisdictions.join(', ') + "], chambers: [" + chambers.join(', ') + "]})");
                         return [4 /*yield*/, repository_1.buildDecisionRepository()];
                     case 1:
                         decisionRepository = _c.sent();
@@ -165,13 +165,12 @@ var decisionService = {
                         if (!(_b < chambers_1.length)) return [3 /*break*/, 6];
                         chamberId = chambers_1[_b];
                         console.log("Fetching decisions for jurisdiction " + jurisdiction + " and chamber " + chamberId);
-                        return [4 /*yield*/, decisionRepository.findAllPublicBySourceAndJurisdictionAndChamberBetween({
+                        return [4 /*yield*/, decisionRepository.findAllBySourceAndJurisdictionAndChamberBetween({
                                 endDate: endDate,
                                 startDate: startDate,
                                 jurisdiction: jurisdiction,
                                 chamberId: chamberId,
                                 source: source,
-                                labelStatus: 'toBeTreated',
                             })];
                     case 4:
                         decisionsForJuridiction = _c.sent();

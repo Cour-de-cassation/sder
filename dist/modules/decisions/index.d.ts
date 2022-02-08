@@ -23,7 +23,7 @@ declare const decisionModule: {
             source: string;
             jurisdictions: string[];
         }): Promise<decisionType[]>;
-        fetchPublicDecisionsBySourceAndJurisdictionsAndChambersBetween({ startDate, endDate, source, jurisdictions, chambers, }: {
+        fetchAllDecisionsBySourceAndJurisdictionsAndChambersBetween({ startDate, endDate, source, jurisdictions, chambers, }: {
             startDate: Date;
             endDate: Date;
             source: string;

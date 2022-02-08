@@ -29,7 +29,14 @@ type decisionRepositoryType = {
     source: string;
     jurisdiction: string;
   }) => Promise<decisionType[]>;
-  findAllPublicBySourceAndJurisdictionAndChamberBetween: (params: {
+  findAllBySourceAndJurisdictionAndChamberBetween: (params: {
+    startDate: Date;
+    endDate: Date;
+    source: string;
+    jurisdiction: string;
+    chamberId: string;
+  }) => Promise<decisionType[]>;
+  findAllPublicBySourceAndJurisdictionAndChamberBetweenWithLabelStatus: (params: {
     startDate: Date;
     endDate: Date;
     source: string;

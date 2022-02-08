@@ -146,15 +146,17 @@ function buildDecisionFakeRepository() {
                             });
                         });
                     },
-                    findAllBySourceAndJurisdictionAndChamberBetween: function (_a) {
-                        var startDate = _a.startDate, endDate = _a.endDate, source = _a.source, jurisdiction = _a.jurisdiction, chamberId = _a.chamberId;
+                    findAllPublicBySourceAndJurisdictionAndChamberBetween: function (_a) {
+                        var startDate = _a.startDate, endDate = _a.endDate, source = _a.source, jurisdiction = _a.jurisdiction, chamberId = _a.chamberId, labelStatus = _a.labelStatus;
                         return __awaiter(this, void 0, void 0, function () {
                             var jurisdictionRegex, chamberRegex;
                             return __generator(this, function (_b) {
                                 jurisdictionRegex = new RegExp(jurisdiction, 'i');
                                 chamberRegex = new RegExp(chamberId, 'i');
                                 return [2 /*return*/, collection.filter(function (decision) {
-                                        return decision.dateCreation &&
+                                        return decision.labelStatus === labelStatus &&
+                                            !!decision.public &&
+                                            decision.dateCreation &&
                                             new Date(decision.dateCreation) >= startDate &&
                                             decision.dateCreation &&
                                             new Date(decision.dateCreation) < endDate &&

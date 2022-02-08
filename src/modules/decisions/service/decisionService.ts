@@ -67,7 +67,7 @@ const decisionService = {
     return decisions;
   },
 
-  async fetchAllDecisionsBySourceAndJurisdictionsAndChambersBetween({
+  async fetchPublicDecisionsBySourceAndJurisdictionsAndChambersBetween({
     startDate,
     endDate,
     source,
@@ -81,7 +81,7 @@ const decisionService = {
     chambers: string[];
   }) {
     console.log(
-      `fetchAllDecisionsBySourceAndJurisdictionsAndChambersBetween({startDate: ${startDate.toISOString()}, endDate: ${endDate.toISOString()}, source: ${source}, jurisdictions: [${jurisdictions.join(
+      `fetchPublicDecisionsBySourceAndJurisdictionsAndChambersBetween({startDate: ${startDate.toISOString()}, endDate: ${endDate.toISOString()}, source: ${source}, jurisdictions: [${jurisdictions.join(
         ', ',
       )}], chambers: [${chambers.join(', ')}]})`,
     );
@@ -91,12 +91,13 @@ const decisionService = {
     for (const jurisdiction of jurisdictions) {
       for (const chamberId of chambers) {
         console.log(`Fetching decisions for jurisdiction ${jurisdiction} and chamber ${chamberId}`);
-        const decisionsForJuridiction = await decisionRepository.findAllBySourceAndJurisdictionAndChamberBetween({
+        const decisionsForJuridiction = await decisionRepository.findAllPublicBySourceAndJurisdictionAndChamberBetween({
           endDate,
           startDate,
           jurisdiction,
           chamberId,
           source,
+          labelStatus: 'toBeTreated',
         });
         console.log(
           `${

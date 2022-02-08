@@ -191,25 +191,25 @@ var decisionService = {
     fetchPublicDecisionsBySourceAndJurisdictionsAndChambersBetween: function (_a) {
         var startDate = _a.startDate, endDate = _a.endDate, source = _a.source, jurisdictions = _a.jurisdictions, chambers = _a.chambers;
         return __awaiter(this, void 0, void 0, function () {
-            var decisionRepository, decisions, _i, jurisdictions_3, jurisdiction, _b, chambers_2, chamberId, decisionsForJuridiction;
-            return __generator(this, function (_c) {
-                switch (_c.label) {
+            var decisionRepository, decisions, _i, _b, jurisdiction, _c, _d, chamberId, decisionsForJuridiction;
+            return __generator(this, function (_e) {
+                switch (_e.label) {
                     case 0:
                         console.log("fetchPublicDecisionsBySourceAndJurisdictionsAndChambersBetween({startDate: " + startDate.toISOString() + ", endDate: " + endDate.toISOString() + ", source: " + source + ", jurisdictions: [" + jurisdictions.join(', ') + "], chambers: [" + chambers.join(', ') + "]})");
                         return [4 /*yield*/, repository_1.buildDecisionRepository()];
                     case 1:
-                        decisionRepository = _c.sent();
+                        decisionRepository = _e.sent();
                         decisions = [];
-                        _i = 0, jurisdictions_3 = jurisdictions;
-                        _c.label = 2;
+                        _i = 0, _b = jurisdictions !== null && jurisdictions !== void 0 ? jurisdictions : [''];
+                        _e.label = 2;
                     case 2:
-                        if (!(_i < jurisdictions_3.length)) return [3 /*break*/, 7];
-                        jurisdiction = jurisdictions_3[_i];
-                        _b = 0, chambers_2 = chambers;
-                        _c.label = 3;
+                        if (!(_i < _b.length)) return [3 /*break*/, 7];
+                        jurisdiction = _b[_i];
+                        _c = 0, _d = chambers !== null && chambers !== void 0 ? chambers : [''];
+                        _e.label = 3;
                     case 3:
-                        if (!(_b < chambers_2.length)) return [3 /*break*/, 6];
-                        chamberId = chambers_2[_b];
+                        if (!(_c < _d.length)) return [3 /*break*/, 6];
+                        chamberId = _d[_c];
                         console.log("Fetching decisions for jurisdiction " + jurisdiction + " and chamber " + chamberId);
                         return [4 /*yield*/, decisionRepository.findAllPublicBySourceAndJurisdictionAndChamberBetweenWithLabelStatus({
                                 endDate: endDate,
@@ -220,12 +220,12 @@ var decisionService = {
                                 labelStatus: 'toBeTreated',
                             })];
                     case 4:
-                        decisionsForJuridiction = _c.sent();
+                        decisionsForJuridiction = _e.sent();
                         console.log(decisionsForJuridiction.length + " decisions found for jurisdiction \"" + jurisdiction + "\", source \"" + source + "\" and between " + startDate.toISOString() + " and " + endDate.toISOString());
                         decisions.push.apply(decisions, decisionsForJuridiction);
-                        _c.label = 5;
+                        _e.label = 5;
                     case 5:
-                        _b++;
+                        _c++;
                         return [3 /*break*/, 3];
                     case 6:
                         _i++;

@@ -131,8 +131,8 @@ const decisionService = {
     const decisionRepository = await buildDecisionRepository();
 
     const decisions: decisionType[] = [];
-    for (const jurisdiction of jurisdictions) {
-      for (const chamberId of chambers) {
+    for (const jurisdiction of jurisdictions ?? ['']) {
+      for (const chamberId of chambers ?? ['']) {
         console.log(`Fetching decisions for jurisdiction ${jurisdiction} and chamber ${chamberId}`);
         const decisionsForJuridiction = await decisionRepository.findAllPublicBySourceAndJurisdictionAndChamberBetweenWithLabelStatus(
           {

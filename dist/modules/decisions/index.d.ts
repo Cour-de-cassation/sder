@@ -1,8 +1,8 @@
 import { collectionType } from '../collectionType';
-import { decisionType } from './decisionType';
+import { decisionType, labelStatusType, labelTreatmentsType } from './decisionType';
 import { buildDecision, generateDecision } from './lib';
 export { decisionModule };
-export type { decisionType };
+export type { decisionType, labelStatusType, labelTreatmentsType };
 declare const decisionModule: {
     buildRepository: typeof import("./repository/buildDecisionFakeRepository").buildDecisionFakeRepository;
     collection: collectionType<decisionType>;
@@ -48,21 +48,21 @@ declare const decisionModule: {
         }): Promise<decisionType[]>;
         deprecatedUpdateDecisionsLabelStatus({ decisionIds, labelStatus, }: {
             decisionIds: number[];
-            labelStatus: import("./decisionType").labelStatusType;
+            labelStatus: labelStatusType;
         }): Promise<void>;
         updateDecisionsLabelStatus({ decisionIds, labelStatus, }: {
             decisionIds: import("bson").ObjectId[];
-            labelStatus: import("./decisionType").labelStatusType;
+            labelStatus: labelStatusType;
         }): Promise<void>;
         depracatedUpdateDecisionPseudonymisation({ decisionId, decisionPseudonymisedText, labelTreatments, }: {
             decisionId: number;
             decisionPseudonymisedText: string;
-            labelTreatments: import("./decisionType").labelTreatmentsType;
+            labelTreatments: labelTreatmentsType;
         }): Promise<void>;
         updateDecisionPseudonymisation({ decisionId, decisionPseudonymisedText, labelTreatments, }: {
             decisionId: import("bson").ObjectId;
             decisionPseudonymisedText: string;
-            labelTreatments: import("./decisionType").labelTreatmentsType;
+            labelTreatments: labelTreatmentsType;
         }): Promise<void>;
     };
 };

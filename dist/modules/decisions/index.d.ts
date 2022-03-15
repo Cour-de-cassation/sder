@@ -46,6 +46,11 @@ declare const decisionModule: {
             startDate: Date;
             endDate: Date;
         }): Promise<decisionType[]>;
+        fetchDecisionsToPseudonymiseBetweenDateCreation({ source, startDate, endDate, }: {
+            source: string;
+            startDate: Date;
+            endDate: Date;
+        }): Promise<decisionType[]>;
         deprecatedUpdateDecisionsLabelStatus({ decisionIds, labelStatus, }: {
             decisionIds: number[];
             labelStatus: labelStatusType;

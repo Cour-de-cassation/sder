@@ -47,6 +47,17 @@ async function buildDecisionFakeRepository(): Promise<decisionRepositoryType> {
     async findAllBetween({ startDate, endDate, source }) {
       return collection.filter(
         (decision) =>
+          decision.dateDecision &&
+          new Date(decision.dateDecision) >= startDate &&
+          decision.dateDecision &&
+          new Date(decision.dateDecision) < endDate &&
+          decision.sourceName === source,
+      );
+    },
+
+    async findAllBetweenDateCreation({ startDate, endDate, source }) {
+      return collection.filter(
+        (decision) =>
           decision.dateCreation &&
           new Date(decision.dateCreation) >= startDate &&
           decision.dateCreation &&

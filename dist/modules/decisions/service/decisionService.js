@@ -308,6 +308,30 @@ var decisionService = {
             });
         });
     },
+    fetchDecisionsToPseudonymiseBetweenDateCreation: function (_a) {
+        var source = _a.source, startDate = _a.startDate, endDate = _a.endDate;
+        return __awaiter(this, void 0, void 0, function () {
+            var decisionRepository, decisions;
+            return __generator(this, function (_b) {
+                switch (_b.label) {
+                    case 0:
+                        console.log("fetchDecisionsToPseudonymiseBetweenDateCreation({startDate: " + startDate.toISOString() + ", endDate: " + endDate.toISOString() + ", source: " + source + "]})");
+                        return [4 /*yield*/, repository_1.buildDecisionRepository()];
+                    case 1:
+                        decisionRepository = _b.sent();
+                        return [4 /*yield*/, decisionRepository.findAllBetweenDateCreation({
+                                startDate: startDate,
+                                endDate: endDate,
+                                source: source,
+                                labelStatus: 'toBeTreated',
+                            })];
+                    case 2:
+                        decisions = _b.sent();
+                        return [2 /*return*/, decisions.filter(function (decision) { return !decision.pseudoText; })];
+                }
+            });
+        });
+    },
     deprecatedUpdateDecisionsLabelStatus: function (_a) {
         var decisionIds = _a.decisionIds, labelStatus = _a.labelStatus;
         return __awaiter(this, void 0, void 0, function () {

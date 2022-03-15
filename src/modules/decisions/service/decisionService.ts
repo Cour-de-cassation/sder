@@ -232,6 +232,30 @@ const decisionService = {
     return decisions.filter((decision) => !decision.pseudoText);
   },
 
+  async fetchDecisionsToPseudonymiseBetweenDateCreation({
+    source,
+    startDate,
+    endDate,
+  }: {
+    source: decisionType['sourceName'];
+    startDate: Date;
+    endDate: Date;
+  }) {
+    console.log(
+      `fetchDecisionsToPseudonymiseBetweenDateCreation({startDate: ${startDate.toISOString()}, endDate: ${endDate.toISOString()}, source: ${source}]})`,
+    );
+    const decisionRepository = await buildDecisionRepository();
+
+    const decisions = await decisionRepository.findAllBetweenDateCreation({
+      startDate,
+      endDate,
+      source,
+      labelStatus: 'toBeTreated',
+    });
+
+    return decisions.filter((decision) => !decision.pseudoText);
+  },
+
   async deprecatedUpdateDecisionsLabelStatus({
     decisionIds,
     labelStatus,

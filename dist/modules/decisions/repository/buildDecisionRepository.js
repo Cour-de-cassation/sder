@@ -190,6 +190,23 @@ function buildDecisionRepository() {
                             });
                         });
                     },
+                    findAllBetweenDateCreation: function (_a) {
+                        var startDate = _a.startDate, endDate = _a.endDate, source = _a.source, labelStatus = _a.labelStatus;
+                        return __awaiter(this, void 0, void 0, function () {
+                            return __generator(this, function (_b) {
+                                return [2 /*return*/, runMongo(function (_a) {
+                                        var collection = _a.collection;
+                                        return collection
+                                            .find({
+                                            dateCreation: { $gte: startDate.toISOString(), $lt: endDate.toISOString() },
+                                            sourceName: source,
+                                            labelStatus: labelStatus || { $in: decisionType_1.labelStatuses },
+                                        })
+                                            .toArray();
+                                    })];
+                            });
+                        });
+                    },
                     findAllBySourceAndJurisdictionBetween: function (_a) {
                         var startDate = _a.startDate, endDate = _a.endDate, source = _a.source, jurisdiction = _a.jurisdiction;
                         return __awaiter(this, void 0, void 0, function () {

@@ -64,6 +64,18 @@ async function buildDecisionRepository(): Promise<decisionRepositoryType> {
       );
     },
 
+    async findAllBetweenDateCreation({ startDate, endDate, source, labelStatus }) {
+      return runMongo(({ collection }) =>
+        collection
+          .find({
+            dateCreation: { $gte: startDate.toISOString() as any, $lt: endDate.toISOString() as any },
+            sourceName: source,
+            labelStatus: labelStatus || { $in: labelStatuses },
+          })
+          .toArray(),
+      );
+    },
+
     async findAllBySourceAndJurisdictionBetween({ startDate, endDate, source, jurisdiction }) {
       const jurisdictionRegex = new RegExp(jurisdiction, 'i');
       return runMongo(({ collection }) =>

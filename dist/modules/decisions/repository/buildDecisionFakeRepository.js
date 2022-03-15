@@ -120,6 +120,20 @@ function buildDecisionFakeRepository() {
                         return __awaiter(this, void 0, void 0, function () {
                             return __generator(this, function (_b) {
                                 return [2 /*return*/, collection.filter(function (decision) {
+                                        return decision.dateDecision &&
+                                            new Date(decision.dateDecision) >= startDate &&
+                                            decision.dateDecision &&
+                                            new Date(decision.dateDecision) < endDate &&
+                                            decision.sourceName === source;
+                                    })];
+                            });
+                        });
+                    },
+                    findAllBetweenDateCreation: function (_a) {
+                        var startDate = _a.startDate, endDate = _a.endDate, source = _a.source;
+                        return __awaiter(this, void 0, void 0, function () {
+                            return __generator(this, function (_b) {
+                                return [2 /*return*/, collection.filter(function (decision) {
                                         return decision.dateCreation &&
                                             new Date(decision.dateCreation) >= startDate &&
                                             decision.dateCreation &&

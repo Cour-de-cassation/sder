@@ -47,6 +47,17 @@ async function buildDecisionFakeRepository(): Promise<decisionRepositoryType> {
     async findAllBetween({ startDate, endDate, source }) {
       return collection.filter(
         (decision) =>
+          decision.dateDecision &&
+          new Date(decision.dateDecision) >= startDate &&
+          decision.dateDecision &&
+          new Date(decision.dateDecision) < endDate &&
+          decision.sourceName === source,
+      );
+    },
+
+    async findAllBetweenDateCreation({ startDate, endDate, source }) {
+      return collection.filter(
+        (decision) =>
           decision.dateCreation &&
           new Date(decision.dateCreation) >= startDate &&
           decision.dateCreation &&
@@ -60,10 +71,10 @@ async function buildDecisionFakeRepository(): Promise<decisionRepositoryType> {
 
       return collection.filter(
         (decision) =>
-          decision.dateCreation &&
-          new Date(decision.dateCreation) >= startDate &&
-          decision.dateCreation &&
-          new Date(decision.dateCreation) < endDate &&
+          decision.dateDecision &&
+          new Date(decision.dateDecision) >= startDate &&
+          decision.dateDecision &&
+          new Date(decision.dateDecision) < endDate &&
           decision.sourceName === source &&
           jurisdictionRegex.test(decision.jurisdictionName),
       );
@@ -75,10 +86,10 @@ async function buildDecisionFakeRepository(): Promise<decisionRepositoryType> {
 
       return collection.filter(
         (decision) =>
-          decision.dateCreation &&
-          new Date(decision.dateCreation) >= startDate &&
-          decision.dateCreation &&
-          new Date(decision.dateCreation) < endDate &&
+          decision.dateDecision &&
+          new Date(decision.dateDecision) >= startDate &&
+          decision.dateDecision &&
+          new Date(decision.dateDecision) < endDate &&
           decision.sourceName === source &&
           jurisdictionRegex.test(decision.jurisdictionName) &&
           chamberRegex.test(decision.chamberId),
@@ -100,10 +111,10 @@ async function buildDecisionFakeRepository(): Promise<decisionRepositoryType> {
         (decision) =>
           decision.labelStatus === labelStatus &&
           !!decision.public &&
-          decision.dateCreation &&
-          new Date(decision.dateCreation) >= startDate &&
-          decision.dateCreation &&
-          new Date(decision.dateCreation) < endDate &&
+          decision.dateDecision &&
+          new Date(decision.dateDecision) >= startDate &&
+          decision.dateDecision &&
+          new Date(decision.dateDecision) < endDate &&
           decision.sourceName === source &&
           jurisdictionRegex.test(decision.jurisdictionName) &&
           chamberRegex.test(decision.chamberId),

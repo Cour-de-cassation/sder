@@ -23,6 +23,12 @@ type decisionRepositoryType = {
     source: string;
     labelStatus?: decisionType['labelStatus'];
   }) => Promise<decisionType[]>;
+  findAllBetweenDateCreation: (params: {
+    startDate: Date;
+    endDate: Date;
+    source: string;
+    labelStatus?: decisionType['labelStatus'];
+  }) => Promise<decisionType[]>;
   findAllBySourceAndJurisdictionBetween: (params: {
     startDate: Date;
     endDate: Date;

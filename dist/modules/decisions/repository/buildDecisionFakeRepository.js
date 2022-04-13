@@ -150,10 +150,10 @@ function buildDecisionFakeRepository() {
                             return __generator(this, function (_b) {
                                 jurisdictionRegex = new RegExp(jurisdiction, 'i');
                                 return [2 /*return*/, collection.filter(function (decision) {
-                                        return decision.dateCreation &&
-                                            new Date(decision.dateCreation) >= startDate &&
-                                            decision.dateCreation &&
-                                            new Date(decision.dateCreation) < endDate &&
+                                        return decision.dateDecision &&
+                                            new Date(decision.dateDecision) >= startDate &&
+                                            decision.dateDecision &&
+                                            new Date(decision.dateDecision) < endDate &&
                                             decision.sourceName === source &&
                                             jurisdictionRegex.test(decision.jurisdictionName);
                                     })];
@@ -168,10 +168,10 @@ function buildDecisionFakeRepository() {
                                 jurisdictionRegex = new RegExp(jurisdiction, 'i');
                                 chamberRegex = new RegExp(chamberId, 'i');
                                 return [2 /*return*/, collection.filter(function (decision) {
-                                        return decision.dateCreation &&
-                                            new Date(decision.dateCreation) >= startDate &&
-                                            decision.dateCreation &&
-                                            new Date(decision.dateCreation) < endDate &&
+                                        return decision.dateDecision &&
+                                            new Date(decision.dateDecision) >= startDate &&
+                                            decision.dateDecision &&
+                                            new Date(decision.dateDecision) < endDate &&
                                             decision.sourceName === source &&
                                             jurisdictionRegex.test(decision.jurisdictionName) &&
                                             chamberRegex.test(decision.chamberId);
@@ -189,10 +189,10 @@ function buildDecisionFakeRepository() {
                                 return [2 /*return*/, collection.filter(function (decision) {
                                         return decision.labelStatus === labelStatus &&
                                             !!decision.public &&
-                                            decision.dateCreation &&
-                                            new Date(decision.dateCreation) >= startDate &&
-                                            decision.dateCreation &&
-                                            new Date(decision.dateCreation) < endDate &&
+                                            decision.dateDecision &&
+                                            new Date(decision.dateDecision) >= startDate &&
+                                            decision.dateDecision &&
+                                            new Date(decision.dateDecision) < endDate &&
                                             decision.sourceName === source &&
                                             jurisdictionRegex.test(decision.jurisdictionName) &&
                                             chamberRegex.test(decision.chamberId);

@@ -1,7 +1,7 @@
 import { mongoIdType } from '../../utils';
 export { labelStatuses };
 export type { decisionType, labelStatusType, labelTreatmentsType };
-declare type labelStatusType = 'toBeTreated' | 'loaded' | 'done' | 'exported';
+declare type labelStatusType = 'toBeTreated' | 'loaded' | 'done' | 'exported' | 'locked';
 declare const labelStatuses: labelStatusType[];
 declare type decisionType = {
     _id: mongoIdType;
@@ -28,7 +28,7 @@ declare type decisionType = {
     jurisdictionName: string;
     labelStatus: typeof labelStatuses[number];
     labelTreatments: labelTreatmentsType;
-    locked: false;
+    locked: boolean;
     occultation: {
         additionalTerms: string;
         categoriesToOmit: string[];

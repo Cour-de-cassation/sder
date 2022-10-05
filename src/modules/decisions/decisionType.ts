@@ -4,9 +4,9 @@ export { labelStatuses };
 
 export type { decisionType, labelStatusType, labelTreatmentsType };
 
-type labelStatusType = 'toBeTreated' | 'loaded' | 'done' | 'exported';
+type labelStatusType = 'toBeTreated' | 'loaded' | 'done' | 'exported' | 'locked';
 
-const labelStatuses = ['toBeTreated', 'loaded', 'done', 'exported'] as labelStatusType[];
+const labelStatuses = ['toBeTreated', 'loaded', 'done', 'exported', 'locked'] as labelStatusType[];
 
 type decisionType = {
   _id: mongoIdType;
@@ -33,7 +33,7 @@ type decisionType = {
   jurisdictionName: string;
   labelStatus: typeof labelStatuses[number];
   labelTreatments: labelTreatmentsType;
-  locked: false;
+  locked: boolean;
   occultation: {
     additionalTerms: string;
     categoriesToOmit: string[];

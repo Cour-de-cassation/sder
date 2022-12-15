@@ -1,3 +1,4 @@
+import { idModule } from '../../id';
 import { decisionType, labelTreatmentsType } from '../decisionType';
 import { buildDecision } from '../lib';
 import { buildDecisionRepository } from '../repository';
@@ -10,6 +11,13 @@ const decisionService = {
 
     const decision = buildDecision({ ...decisionFields, _rev: 0, labelStatus: 'toBeTreated' });
     await decisionRepository.insert(decision);
+  },
+
+  async fetchCourtDecisionById(id: decisionType['_id']) {
+    console.log(`fetchCourtDecisionById({id: ${id}})`);
+    const decisionRepository = await buildDecisionRepository();
+
+    return decisionRepository.findById(idModule.lib.buildId(id));
   },
 
   async fetchDecisionBySourceIdAndSourceName(

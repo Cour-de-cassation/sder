@@ -55,6 +55,7 @@ var __spreadArrays = (this && this.__spreadArrays) || function () {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.decisionService = void 0;
+var id_1 = require("../../id");
 var lib_1 = require("../lib");
 var repository_1 = require("../repository");
 var decisionService = {
@@ -71,6 +72,21 @@ var decisionService = {
                     case 2:
                         _a.sent();
                         return [2 /*return*/];
+                }
+            });
+        });
+    },
+    fetchCourtDecisionById: function (id) {
+        return __awaiter(this, void 0, void 0, function () {
+            var decisionRepository;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        console.log("fetchCourtDecisionById({id: " + id + "})");
+                        return [4 /*yield*/, repository_1.buildDecisionRepository()];
+                    case 1:
+                        decisionRepository = _a.sent();
+                        return [2 /*return*/, decisionRepository.findById(id_1.idModule.lib.buildId(id))];
                 }
             });
         });

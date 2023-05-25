@@ -27,9 +27,7 @@ describe('juricaLib', () => {
     });
 
     it('should throw if the parameter is not a string', async () => {
-      expect(() => juricaLib.cleanText((0 as unknown) as string)).toThrow(
-        'juricaLib.cleanText: text must be a string.',
-      );
+      expect(() => juricaLib.cleanText(0 as unknown as string)).toThrow('juricaLib.cleanText: text must be a string.');
     });
 
     it('should throw if the parameter is an empty string', async () => {

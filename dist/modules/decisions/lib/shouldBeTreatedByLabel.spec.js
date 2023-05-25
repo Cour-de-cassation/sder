@@ -14,7 +14,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     function verb(n) { return function (v) { return step([n, v]); }; }
     function step(op) {
         if (f) throw new TypeError("Generator is already executing.");
-        while (_) try {
+        while (g && (g = 0, op[0] && (_ = 0)), _) try {
             if (f = 1, y && (t = op[0] & 2 ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) && t.call(y), 0) : y.next) && !(t = t.call(y, op[1])).done) return t;
             if (y = 0, t) op = [op[0] & 2, t.value];
             switch (op[0]) {
@@ -42,8 +42,8 @@ describe('shouldBeTreatedByLabel', function () {
     it('should return true if the decision is toBeTreated and does not have a speudo text yet', function () { return __awaiter(void 0, void 0, void 0, function () {
         var decision, result;
         return __generator(this, function (_a) {
-            decision = generateDecision_1.generateDecision({ labelStatus: 'toBeTreated', pseudoText: '' });
-            result = shouldBeTreatedByLabel_1.shouldBeTreatedByLabel(decision);
+            decision = (0, generateDecision_1.generateDecision)({ labelStatus: 'toBeTreated', pseudoText: '' });
+            result = (0, shouldBeTreatedByLabel_1.shouldBeTreatedByLabel)(decision);
             expect(result).toEqual(true);
             return [2 /*return*/];
         });
@@ -51,8 +51,8 @@ describe('shouldBeTreatedByLabel', function () {
     it('should return false if labelStatus is not toBeTreated', function () { return __awaiter(void 0, void 0, void 0, function () {
         var decision, result;
         return __generator(this, function (_a) {
-            decision = generateDecision_1.generateDecision({ labelStatus: 'loaded', pseudoText: '' });
-            result = shouldBeTreatedByLabel_1.shouldBeTreatedByLabel(decision);
+            decision = (0, generateDecision_1.generateDecision)({ labelStatus: 'loaded', pseudoText: '' });
+            result = (0, shouldBeTreatedByLabel_1.shouldBeTreatedByLabel)(decision);
             expect(result).toEqual(false);
             return [2 /*return*/];
         });
@@ -60,8 +60,8 @@ describe('shouldBeTreatedByLabel', function () {
     it('should return false if the pseudo text is not empty', function () { return __awaiter(void 0, void 0, void 0, function () {
         var decision, result;
         return __generator(this, function (_a) {
-            decision = generateDecision_1.generateDecision({ labelStatus: 'toBeTreated', pseudoText: 'PSEUDO_TEXT' });
-            result = shouldBeTreatedByLabel_1.shouldBeTreatedByLabel(decision);
+            decision = (0, generateDecision_1.generateDecision)({ labelStatus: 'toBeTreated', pseudoText: 'PSEUDO_TEXT' });
+            result = (0, shouldBeTreatedByLabel_1.shouldBeTreatedByLabel)(decision);
             expect(result).toEqual(false);
             return [2 /*return*/];
         });

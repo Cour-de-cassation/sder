@@ -4,7 +4,8 @@ export { CustomError, errorHandlers };
 
 export type { errorCodeType };
 
-type errorCodeType = typeof httpStatusCodeHandler.HTTP_STATUS_CODE.ERROR[keyof typeof httpStatusCodeHandler.HTTP_STATUS_CODE.ERROR];
+type errorCodeType =
+  (typeof httpStatusCodeHandler.HTTP_STATUS_CODE.ERROR)[keyof typeof httpStatusCodeHandler.HTTP_STATUS_CODE.ERROR];
 
 const errorHandlers = {
   authenticationErrorHandler: buildErrorHandler(httpStatusCodeHandler.HTTP_STATUS_CODE.ERROR.AUTHENTICATION_ERROR),

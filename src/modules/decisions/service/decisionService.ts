@@ -142,16 +142,15 @@ const decisionService = {
     for (const jurisdiction of jurisdictions ?? ['']) {
       for (const chamberId of chambers ?? ['']) {
         console.log(`Fetching decisions for jurisdiction ${jurisdiction} and chamber ${chamberId}`);
-        const decisionsForJuridiction = await decisionRepository.findAllPublicBySourceAndJurisdictionAndChamberBetweenWithLabelStatus(
-          {
+        const decisionsForJuridiction =
+          await decisionRepository.findAllPublicBySourceAndJurisdictionAndChamberBetweenWithLabelStatus({
             endDate,
             startDate,
             jurisdiction,
             chamberId,
             source,
             labelStatus: 'toBeTreated',
-          },
-        );
+          });
         console.log(
           `${
             decisionsForJuridiction.length

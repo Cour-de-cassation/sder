@@ -1,8 +1,8 @@
-import { Db, Collection, ObjectId } from 'mongodb';
+import { Db, Collection, ObjectId, Document } from 'mongodb';
 export { buildRunMongo };
 export type { mongoIdType };
-declare type mongoIdType = ObjectId;
-declare function buildRunMongo<T>(collectionName: string): <U>(command: (param: {
+type mongoIdType = ObjectId;
+declare function buildRunMongo<T extends Document>(collectionName: string): <U>(command: (param: {
     db: Db;
     collection: Collection<T>;
 }) => Promise<U>) => Promise<U>;

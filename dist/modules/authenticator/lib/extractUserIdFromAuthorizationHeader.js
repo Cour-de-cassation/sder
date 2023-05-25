@@ -6,7 +6,7 @@ var lib_1 = require("../../../lib");
 function buildExtractUserIdFromAuthorizationHeader(privateKey) {
     return extractUserIdFromAuthorizationHeader;
     function extractUserIdFromAuthorizationHeader(authorization) {
-        var jwtSigner = lib_1.buildJwtSigner(privateKey);
+        var jwtSigner = (0, lib_1.buildJwtSigner)(privateKey);
         if (authorization) {
             var token = authorization.split(' ')[1];
             var userId = jwtSigner.verifyToken(token);

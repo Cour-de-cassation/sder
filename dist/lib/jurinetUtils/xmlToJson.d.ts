@@ -1,5 +1,5 @@
 export { xmlToJson };
-declare type xmlToJsonOptionType = {
+type xmlToJsonOptionType = {
     filter?: boolean;
     htmlDecode?: boolean;
     toLowerCase?: boolean;

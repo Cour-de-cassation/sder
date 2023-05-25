@@ -92,7 +92,7 @@ function replaceTextArrets(decisionText, texteArrets) {
     newDecisionText = cleanXmlSpecialCharacter(newDecisionText);
     newDecisionText = serializeNumPourvoi(newDecisionText);
     return newDecisionText
-        .replace(whereToInjectTexteArrets, whereToInjectTexteArrets + "<TEXTE_ARRET>" + texteArrets.join(' ').trim() + '</TEXTE_ARRET>')
+        .replace(whereToInjectTexteArrets, "".concat(whereToInjectTexteArrets, "<TEXTE_ARRET>") + texteArrets.join(' ').trim() + '</TEXTE_ARRET>')
         .trim();
     function computeWhereToInjectTexteArrets(str) {
         if (str.indexOf('</CAT_PUB><TEXTE_ARRET>') !== -1) {

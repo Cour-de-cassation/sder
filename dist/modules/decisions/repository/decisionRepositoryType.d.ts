@@ -1,7 +1,7 @@
 import { mongoIdType } from '../../../utils';
 import { decisionType } from '../decisionType';
 export type { decisionRepositoryType };
-declare type decisionRepositoryType = {
+type decisionRepositoryType = {
     clear: () => void;
     findAll: () => Promise<Array<decisionType>>;
     findAllByDecisionIds: (decisionIds: Array<decisionType['sourceId']>) => Promise<decisionType[]>;

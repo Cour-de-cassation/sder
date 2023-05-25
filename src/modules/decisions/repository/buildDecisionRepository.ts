@@ -168,7 +168,7 @@ async function buildDecisionRepository(): Promise<decisionRepositoryType> {
     },
 
     async insert(decision) {
-      await runMongo(({ collection }) => collection.insert(decision));
+      await runMongo(({ collection }) => collection.insertOne(decision));
     },
 
     async updateById(id, decisionField) {

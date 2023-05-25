@@ -31,7 +31,7 @@ type decisionType = {
   jurisdictionCode: string;
   jurisdictionId: string;
   jurisdictionName: string;
-  labelStatus: typeof labelStatuses[number];
+  labelStatus: (typeof labelStatuses)[number];
   labelTreatments: labelTreatmentsType;
   locked: boolean;
   occultation: {

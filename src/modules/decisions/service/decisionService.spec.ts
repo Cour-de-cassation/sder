@@ -217,22 +217,24 @@ describe('decisionService', () => {
   describe('fetchDecisionsToPseudonymiseBetween', () => {
     it('should fetch the jurinet decisions between the given date', async () => {
       const decisionRepository = await buildDecisionRepository();
-      const decisions = ([
-        {
-          sourceId: 300,
-          sourceName: 'jurica',
-          dateDecision: dateBuilder.daysAgo(3),
-          pseudoText: '',
-          labelStatus: 'toBeTreated',
-        },
-        {
-          sourceId: 200,
-          sourceName: 'jurinet',
-          dateDecision: dateBuilder.daysAgo(3),
-          pseudoText: '',
-          labelStatus: 'toBeTreated',
-        },
-      ] as const).map(generateDecision);
+      const decisions = (
+        [
+          {
+            sourceId: 300,
+            sourceName: 'jurica',
+            dateDecision: dateBuilder.daysAgo(3),
+            pseudoText: '',
+            labelStatus: 'toBeTreated',
+          },
+          {
+            sourceId: 200,
+            sourceName: 'jurinet',
+            dateDecision: dateBuilder.daysAgo(3),
+            pseudoText: '',
+            labelStatus: 'toBeTreated',
+          },
+        ] as const
+      ).map(generateDecision);
       await Promise.all(decisions.map(decisionRepository.insert));
 
       const fetchedDecisions = await decisionService.fetchDecisionsToPseudonymiseBetween({
@@ -246,15 +248,17 @@ describe('decisionService', () => {
 
     it('should not fetch the jurinet decisions between the given date already treated', async () => {
       const decisionRepository = await buildDecisionRepository();
-      const decisions = ([
-        {
-          sourceId: 200,
-          sourceName: 'jurinet',
-          dateDecision: dateBuilder.daysAgo(3),
-          pseudoText: 'TEXT',
-          labelStatus: 'done',
-        },
-      ] as const).map(generateDecision);
+      const decisions = (
+        [
+          {
+            sourceId: 200,
+            sourceName: 'jurinet',
+            dateDecision: dateBuilder.daysAgo(3),
+            pseudoText: 'TEXT',
+            labelStatus: 'done',
+          },
+        ] as const
+      ).map(generateDecision);
       await Promise.all(decisions.map(decisionRepository.insert));
 
       const fetchedDecisions = await decisionService.fetchDecisionsToPseudonymiseBetween({
@@ -344,12 +348,14 @@ describe('decisionService', () => {
   describe('fetchPseudonymisationsToExport', () => {
     it(`should fetch all the pseudonymisation text and id of the decisions ready to be exported`, async () => {
       const decisionRepository = await buildDecisionRepository();
-      const decisions = ([
-        { labelStatus: 'done' },
-        { labelStatus: 'loaded' },
-        { labelStatus: 'done' },
-        { labelStatus: 'toBeTreated' },
-      ] as const).map(generateDecision);
+      const decisions = (
+        [
+          { labelStatus: 'done' },
+          { labelStatus: 'loaded' },
+          { labelStatus: 'done' },
+          { labelStatus: 'toBeTreated' },
+        ] as const
+      ).map(generateDecision);
       await Promise.all(decisions.map(decisionRepository.insert));
 
       const pseudonymisations = await decisionService.fetchPseudonymisationsToExport();
@@ -372,11 +378,9 @@ describe('decisionService', () => {
   describe('updateDecisionsLabelStatus', () => {
     it('should update labelStatus for the given decision ids', async () => {
       const decisionRepository = await buildDecisionRepository();
-      const decisions = ([
-        { labelStatus: 'toBeTreated' },
-        { labelStatus: 'toBeTreated' },
-        { labelStatus: 'toBeTreated' },
-      ] as const).map(generateDecision);
+      const decisions = (
+        [{ labelStatus: 'toBeTreated' }, { labelStatus: 'toBeTreated' }, { labelStatus: 'toBeTreated' }] as const
+      ).map(generateDecision);
       await Promise.all(decisions.map(decisionRepository.insert));
 
       await decisionService.updateDecisionsLabelStatus({

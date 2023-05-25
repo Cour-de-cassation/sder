@@ -18,9 +18,9 @@ function cleanHTML(html) {
     html = html.replace(/\\t/gim, ''); // That could happen...
     html = html.replace(/\f/gim, '');
     html = html.replace(/\\f/gim, ''); // That could happen too...
-    html = removeMultipleSpaces_1.removeMultipleSpaces(html);
+    html = (0, removeMultipleSpaces_1.removeMultipleSpaces)(html);
     // Mysterious chars (cf. https://www.compart.com/fr/unicode/U+0080, etc.):
-    html = replaceErroneousChars_1.replaceErroneousChars(html);
+    html = (0, replaceErroneousChars_1.replaceErroneousChars)(html);
     // Decode HTML entities:
     return he_1.default.decode(html);
 }

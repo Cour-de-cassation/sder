@@ -9,12 +9,12 @@ function buildJwtSigner(privateKey) {
         verifyToken: verifyToken,
     };
     function sign(userId) {
-        return jsonwebtoken_1.sign({ userId: userId }, privateKey, { expiresIn: ONE_WEEK });
+        return (0, jsonwebtoken_1.sign)({ userId: userId }, privateKey, { expiresIn: ONE_WEEK });
     }
     function verifyToken(token) {
-        var decodedToken = jsonwebtoken_1.verify(token, privateKey);
+        var decodedToken = (0, jsonwebtoken_1.verify)(token, privateKey);
         if (typeof decodedToken === 'string' || !decodedToken || !decodedToken.userId) {
-            throw new Error("Invalid userId in decoded token : " + JSON.stringify(decodedToken));
+            throw new Error("Invalid userId in decoded token : ".concat(JSON.stringify(decodedToken)));
         }
         return decodedToken.userId;
     }

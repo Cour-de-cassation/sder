@@ -1,6 +1,6 @@
 import { OCCULTATION_CATEGORIES_FIELDS } from './constants';
 export type { jurinetDecisionType };
-declare type jurinetDecisionType = {
+type jurinetDecisionType = {
     _id: number;
     _titrage: Array<referenceType>;
     _analyse: Array<referenceType>;
@@ -28,5 +28,5 @@ declare type jurinetDecisionType = {
     IND_COMMUNIQUE?: number;
     _bloc_occultation?: number;
     OCCULTATION_SUPPLEMENTAIRE?: string;
-} & Record<typeof OCCULTATION_CATEGORIES_FIELDS[number], number>;
-declare type referenceType = any;
+} & Record<(typeof OCCULTATION_CATEGORIES_FIELDS)[number], number>;
+type referenceType = any;

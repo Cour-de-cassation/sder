@@ -14,7 +14,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     function verb(n) { return function (v) { return step([n, v]); }; }
     function step(op) {
         if (f) throw new TypeError("Generator is already executing.");
-        while (_) try {
+        while (g && (g = 0, op[0] && (_ = 0)), _) try {
             if (f = 1, y && (t = op[0] & 2 ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) && t.call(y), 0) : y.next) && !(t = t.call(y, op[1])).done) return t;
             if (y = 0, t) op = [op[0] & 2, t.value];
             switch (op[0]) {
@@ -55,12 +55,12 @@ function addNewFieldsToDecisions() {
                     return [4 /*yield*/, decisionRepository.findAllIdsWithoutLabelFields()];
                 case 2:
                     decisionIds = _a.sent();
-                    console.log(decisionIds.length + " decisions to update");
+                    console.log("".concat(decisionIds.length, " decisions to update"));
                     index = 0;
                     _a.label = 3;
                 case 3:
                     if (!(index < decisionIds.length)) return [3 /*break*/, 6];
-                    console.log("Treatment of decision " + (index + 1) + "/" + decisionIds.length);
+                    console.log("Treatment of decision ".concat(index + 1, "/").concat(decisionIds.length));
                     return [4 /*yield*/, decisionRepository.updateById(decisionIds[index], { labelStatus: 'toBeTreated', labelTreatments: [] })];
                 case 4:
                     _a.sent();

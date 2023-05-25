@@ -25,7 +25,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     function verb(n) { return function (v) { return step([n, v]); }; }
     function step(op) {
         if (f) throw new TypeError("Generator is already executing.");
-        while (_) try {
+        while (g && (g = 0, op[0] && (_ = 0)), _) try {
             if (f = 1, y && (t = op[0] & 2 ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) && t.call(y), 0) : y.next) && !(t = t.call(y, op[1])).done) return t;
             if (y = 0, t) op = [op[0] & 2, t.value];
             switch (op[0]) {
@@ -46,12 +46,14 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
-var __spreadArrays = (this && this.__spreadArrays) || function () {
-    for (var s = 0, i = 0, il = arguments.length; i < il; i++) s += arguments[i].length;
-    for (var r = Array(s), k = 0, i = 0; i < il; i++)
-        for (var a = arguments[i], j = 0, jl = a.length; j < jl; j++, k++)
-            r[k] = a[j];
-    return r;
+var __spreadArray = (this && this.__spreadArray) || function (to, from, pack) {
+    if (pack || arguments.length === 2) for (var i = 0, l = from.length, ar; i < l; i++) {
+        if (ar || !(i in from)) {
+            if (!ar) ar = Array.prototype.slice.call(from, 0, i);
+            ar[i] = from[i];
+        }
+    }
+    return to.concat(ar || Array.prototype.slice.call(from));
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.decisionService = void 0;
@@ -64,10 +66,10 @@ var decisionService = {
             var decisionRepository, decision;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, repository_1.buildDecisionRepository()];
+                    case 0: return [4 /*yield*/, (0, repository_1.buildDecisionRepository)()];
                     case 1:
                         decisionRepository = _a.sent();
-                        decision = lib_1.buildDecision(__assign(__assign({}, decisionFields), { _rev: 0, labelStatus: 'toBeTreated' }));
+                        decision = (0, lib_1.buildDecision)(__assign(__assign({}, decisionFields), { _rev: 0, labelStatus: 'toBeTreated' }));
                         return [4 /*yield*/, decisionRepository.insert(decision)];
                     case 2:
                         _a.sent();
@@ -82,8 +84,8 @@ var decisionService = {
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
-                        console.log("fetchCourtDecisionById({id: " + id + "})");
-                        return [4 /*yield*/, repository_1.buildDecisionRepository()];
+                        console.log("fetchCourtDecisionById({id: ".concat(id, "})"));
+                        return [4 /*yield*/, (0, repository_1.buildDecisionRepository)()];
                     case 1:
                         decisionRepository = _a.sent();
                         return [2 /*return*/, decisionRepository.findById(id_1.idModule.lib.buildId(id))];
@@ -97,8 +99,8 @@ var decisionService = {
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
-                        console.log("fetchDecisionBySourceIdAndSourceName({sourceId: " + sourceId + ", sourceName: " + sourceName + "})");
-                        return [4 /*yield*/, repository_1.buildDecisionRepository()];
+                        console.log("fetchDecisionBySourceIdAndSourceName({sourceId: ".concat(sourceId, ", sourceName: ").concat(sourceName, "})"));
+                        return [4 /*yield*/, (0, repository_1.buildDecisionRepository)()];
                     case 1:
                         decisionRepository = _a.sent();
                         return [2 /*return*/, decisionRepository.findBySourceIdAndSourceName({ sourceId: sourceId, sourceName: sourceName })];
@@ -113,7 +115,7 @@ var decisionService = {
                 switch (_a.label) {
                     case 0:
                         console.log("fetchPseudonymisationsToExport()");
-                        return [4 /*yield*/, repository_1.buildDecisionRepository()];
+                        return [4 /*yield*/, (0, repository_1.buildDecisionRepository)()];
                     case 1:
                         decisionRepository = _a.sent();
                         return [2 /*return*/, decisionRepository.findAllPseudonymisationToExport()];
@@ -128,8 +130,8 @@ var decisionService = {
             return __generator(this, function (_b) {
                 switch (_b.label) {
                     case 0:
-                        console.log("fetchAllDecisionsBySourceAndJurisdictionsBetween({startDate: " + startDate.toISOString() + ", endDate: " + endDate.toISOString() + ", source: " + source + ", jurisdictions: [" + jurisdictions.join(', ') + "]})");
-                        return [4 /*yield*/, repository_1.buildDecisionRepository()];
+                        console.log("fetchAllDecisionsBySourceAndJurisdictionsBetween({startDate: ".concat(startDate.toISOString(), ", endDate: ").concat(endDate.toISOString(), ", source: ").concat(source, ", jurisdictions: [").concat(jurisdictions.join(', '), "]})"));
+                        return [4 /*yield*/, (0, repository_1.buildDecisionRepository)()];
                     case 1:
                         decisionRepository = _b.sent();
                         decisions = [];
@@ -138,7 +140,7 @@ var decisionService = {
                     case 2:
                         if (!(_i < jurisdictions_1.length)) return [3 /*break*/, 5];
                         jurisdiction = jurisdictions_1[_i];
-                        console.log("Fetching decisions for jurisdiction " + jurisdiction);
+                        console.log("Fetching decisions for jurisdiction ".concat(jurisdiction));
                         return [4 /*yield*/, decisionRepository.findAllBySourceAndJurisdictionBetween({
                                 endDate: endDate,
                                 startDate: startDate,
@@ -147,7 +149,7 @@ var decisionService = {
                             })];
                     case 3:
                         decisionsForJuridiction = _b.sent();
-                        console.log(decisionsForJuridiction.length + " decisions found for jurisdiction \"" + jurisdiction + "\", source \"" + source + "\" and between " + startDate.toISOString() + " and " + endDate.toISOString());
+                        console.log("".concat(decisionsForJuridiction.length, " decisions found for jurisdiction \"").concat(jurisdiction, "\", source \"").concat(source, "\" and between ").concat(startDate.toISOString(), " and ").concat(endDate.toISOString()));
                         decisions.push.apply(decisions, decisionsForJuridiction);
                         _b.label = 4;
                     case 4:
@@ -165,8 +167,8 @@ var decisionService = {
             return __generator(this, function (_c) {
                 switch (_c.label) {
                     case 0:
-                        console.log("fetchAllDecisionsBySourceAndJurisdictionsAndChambersBetween({startDate: " + startDate.toISOString() + ", endDate: " + endDate.toISOString() + ", source: " + source + ", jurisdictions: [" + jurisdictions.join(', ') + "], chambers: [" + chambers.join(', ') + "]})");
-                        return [4 /*yield*/, repository_1.buildDecisionRepository()];
+                        console.log("fetchAllDecisionsBySourceAndJurisdictionsAndChambersBetween({startDate: ".concat(startDate.toISOString(), ", endDate: ").concat(endDate.toISOString(), ", source: ").concat(source, ", jurisdictions: [").concat(jurisdictions.join(', '), "], chambers: [").concat(chambers.join(', '), "]})"));
+                        return [4 /*yield*/, (0, repository_1.buildDecisionRepository)()];
                     case 1:
                         decisionRepository = _c.sent();
                         decisions = [];
@@ -180,7 +182,7 @@ var decisionService = {
                     case 3:
                         if (!(_b < chambers_1.length)) return [3 /*break*/, 6];
                         chamberId = chambers_1[_b];
-                        console.log("Fetching decisions for jurisdiction " + jurisdiction + " and chamber " + chamberId);
+                        console.log("Fetching decisions for jurisdiction ".concat(jurisdiction, " and chamber ").concat(chamberId));
                         return [4 /*yield*/, decisionRepository.findAllBySourceAndJurisdictionAndChamberBetween({
                                 endDate: endDate,
                                 startDate: startDate,
@@ -190,7 +192,7 @@ var decisionService = {
                             })];
                     case 4:
                         decisionsForJuridiction = _c.sent();
-                        console.log(decisionsForJuridiction.length + " decisions found for jurisdiction \"" + jurisdiction + "\", source \"" + source + "\" and between " + startDate.toISOString() + " and " + endDate.toISOString());
+                        console.log("".concat(decisionsForJuridiction.length, " decisions found for jurisdiction \"").concat(jurisdiction, "\", source \"").concat(source, "\" and between ").concat(startDate.toISOString(), " and ").concat(endDate.toISOString()));
                         decisions.push.apply(decisions, decisionsForJuridiction);
                         _c.label = 5;
                     case 5:
@@ -211,8 +213,8 @@ var decisionService = {
             return __generator(this, function (_e) {
                 switch (_e.label) {
                     case 0:
-                        console.log("fetchPublicDecisionsBySourceAndJurisdictionsAndChambersBetween({startDate: " + startDate.toISOString() + ", endDate: " + endDate.toISOString() + ", source: " + source + ", jurisdictions: [" + jurisdictions.join(', ') + "], chambers: [" + chambers.join(', ') + "]})");
-                        return [4 /*yield*/, repository_1.buildDecisionRepository()];
+                        console.log("fetchPublicDecisionsBySourceAndJurisdictionsAndChambersBetween({startDate: ".concat(startDate.toISOString(), ", endDate: ").concat(endDate.toISOString(), ", source: ").concat(source, ", jurisdictions: [").concat(jurisdictions.join(', '), "], chambers: [").concat(chambers.join(', '), "]})"));
+                        return [4 /*yield*/, (0, repository_1.buildDecisionRepository)()];
                     case 1:
                         decisionRepository = _e.sent();
                         decisions = [];
@@ -226,7 +228,7 @@ var decisionService = {
                     case 3:
                         if (!(_c < _d.length)) return [3 /*break*/, 6];
                         chamberId = _d[_c];
-                        console.log("Fetching decisions for jurisdiction " + jurisdiction + " and chamber " + chamberId);
+                        console.log("Fetching decisions for jurisdiction ".concat(jurisdiction, " and chamber ").concat(chamberId));
                         return [4 /*yield*/, decisionRepository.findAllPublicBySourceAndJurisdictionAndChamberBetweenWithLabelStatus({
                                 endDate: endDate,
                                 startDate: startDate,
@@ -237,7 +239,7 @@ var decisionService = {
                             })];
                     case 4:
                         decisionsForJuridiction = _e.sent();
-                        console.log(decisionsForJuridiction.length + " decisions found for jurisdiction \"" + jurisdiction + "\", source \"" + source + "\" and between " + startDate.toISOString() + " and " + endDate.toISOString());
+                        console.log("".concat(decisionsForJuridiction.length, " decisions found for jurisdiction \"").concat(jurisdiction, "\", source \"").concat(source, "\" and between ").concat(startDate.toISOString(), " and ").concat(endDate.toISOString()));
                         decisions.push.apply(decisions, decisionsForJuridiction);
                         _e.label = 5;
                     case 5:
@@ -258,8 +260,8 @@ var decisionService = {
             return __generator(this, function (_b) {
                 switch (_b.label) {
                     case 0:
-                        console.log("fetchChainedJuricaDecisionsToPseudonymiseBetween({startDate: " + startDate.toISOString() + ", endDate: " + endDate.toISOString() + "]})");
-                        return [4 /*yield*/, repository_1.buildDecisionRepository()];
+                        console.log("fetchChainedJuricaDecisionsToPseudonymiseBetween({startDate: ".concat(startDate.toISOString(), ", endDate: ").concat(endDate.toISOString(), "]})"));
+                        return [4 /*yield*/, (0, repository_1.buildDecisionRepository)()];
                     case 1:
                         decisionRepository = _b.sent();
                         return [4 /*yield*/, decisionRepository.findAllBetween({
@@ -269,14 +271,14 @@ var decisionService = {
                             })];
                     case 2:
                         jurinetDecisions = _b.sent();
-                        console.log(jurinetDecisions.length + " jurinet decisions found between " + startDate.toISOString() + " and " + endDate.toISOString());
+                        console.log("".concat(jurinetDecisions.length, " jurinet decisions found between ").concat(startDate.toISOString(), " and ").concat(endDate.toISOString()));
                         juricaChainedDecisionSourceIds = [];
                         jurinetDecisions.forEach(function (decision) {
                             if (decision.decatt) {
                                 decision.decatt.forEach(function (sourceId) { return juricaChainedDecisionSourceIds.push(sourceId); });
                             }
                         });
-                        console.log(juricaChainedDecisionSourceIds.length + " sourceIds found");
+                        console.log("".concat(juricaChainedDecisionSourceIds.length, " sourceIds found"));
                         return [4 /*yield*/, decisionRepository.findAllByLabelStatusAndSourceIdsAndSourceName({
                                 sourceIds: juricaChainedDecisionSourceIds,
                                 sourceName: 'jurica',
@@ -291,10 +293,10 @@ var decisionService = {
                             })];
                     case 4:
                         juricaExportedChainedDecisions = _b.sent();
-                        juricaChainedDecisions = __spreadArrays(juricaToBeTreatedChainedDecisions, juricaExportedChainedDecisions);
-                        console.log(juricaChainedDecisions.length + " jurica chained decisions found (" + juricaToBeTreatedChainedDecisions.length + " toBeTreated and " + juricaExportedChainedDecisions.length + " exported)");
+                        juricaChainedDecisions = __spreadArray(__spreadArray([], juricaToBeTreatedChainedDecisions, true), juricaExportedChainedDecisions, true);
+                        console.log("".concat(juricaChainedDecisions.length, " jurica chained decisions found (").concat(juricaToBeTreatedChainedDecisions.length, " toBeTreated and ").concat(juricaExportedChainedDecisions.length, " exported)"));
                         filteredJuricaChainedDecisions = juricaChainedDecisions.filter(function (decision) { return !decision.pseudoText; });
-                        console.log(filteredJuricaChainedDecisions.length + " jurica chained decisions with no pseudoText found");
+                        console.log("".concat(filteredJuricaChainedDecisions.length, " jurica chained decisions with no pseudoText found"));
                         return [2 /*return*/, filteredJuricaChainedDecisions];
                 }
             });
@@ -307,8 +309,8 @@ var decisionService = {
             return __generator(this, function (_b) {
                 switch (_b.label) {
                     case 0:
-                        console.log("fetchDecisionsToPseudonymiseBetween({startDate: " + startDate.toISOString() + ", endDate: " + endDate.toISOString() + ", source: " + source + "]})");
-                        return [4 /*yield*/, repository_1.buildDecisionRepository()];
+                        console.log("fetchDecisionsToPseudonymiseBetween({startDate: ".concat(startDate.toISOString(), ", endDate: ").concat(endDate.toISOString(), ", source: ").concat(source, "]})"));
+                        return [4 /*yield*/, (0, repository_1.buildDecisionRepository)()];
                     case 1:
                         decisionRepository = _b.sent();
                         return [4 /*yield*/, decisionRepository.findAllBetween({
@@ -331,8 +333,8 @@ var decisionService = {
             return __generator(this, function (_b) {
                 switch (_b.label) {
                     case 0:
-                        console.log("fetchDecisionsToPseudonymiseBetweenDateCreation({startDate: " + startDate.toISOString() + ", endDate: " + endDate.toISOString() + ", source: " + source + "]})");
-                        return [4 /*yield*/, repository_1.buildDecisionRepository()];
+                        console.log("fetchDecisionsToPseudonymiseBetweenDateCreation({startDate: ".concat(startDate.toISOString(), ", endDate: ").concat(endDate.toISOString(), ", source: ").concat(source, "]})"));
+                        return [4 /*yield*/, (0, repository_1.buildDecisionRepository)()];
                     case 1:
                         decisionRepository = _b.sent();
                         return [4 /*yield*/, decisionRepository.findAllBetweenDateCreation({
@@ -354,7 +356,7 @@ var decisionService = {
             var decisionRepository, decisions;
             return __generator(this, function (_b) {
                 switch (_b.label) {
-                    case 0: return [4 /*yield*/, repository_1.buildDecisionRepository()];
+                    case 0: return [4 /*yield*/, (0, repository_1.buildDecisionRepository)()];
                     case 1:
                         decisionRepository = _b.sent();
                         return [4 /*yield*/, decisionRepository.findAllByDecisionIds(decisionIds)];
@@ -374,7 +376,7 @@ var decisionService = {
             var decisionRepository;
             return __generator(this, function (_b) {
                 switch (_b.label) {
-                    case 0: return [4 /*yield*/, repository_1.buildDecisionRepository()];
+                    case 0: return [4 /*yield*/, (0, repository_1.buildDecisionRepository)()];
                     case 1:
                         decisionRepository = _b.sent();
                         return [4 /*yield*/, decisionRepository.updateByIds(decisionIds, { labelStatus: labelStatus })];
@@ -391,7 +393,7 @@ var decisionService = {
             var decisionRepository, decision;
             return __generator(this, function (_b) {
                 switch (_b.label) {
-                    case 0: return [4 /*yield*/, repository_1.buildDecisionRepository()];
+                    case 0: return [4 /*yield*/, (0, repository_1.buildDecisionRepository)()];
                     case 1:
                         decisionRepository = _b.sent();
                         return [4 /*yield*/, decisionRepository.findByDecisionId(decisionId)];
@@ -416,7 +418,7 @@ var decisionService = {
             var decisionRepository, decision;
             return __generator(this, function (_b) {
                 switch (_b.label) {
-                    case 0: return [4 /*yield*/, repository_1.buildDecisionRepository()];
+                    case 0: return [4 /*yield*/, (0, repository_1.buildDecisionRepository)()];
                     case 1:
                         decisionRepository = _b.sent();
                         return [4 /*yield*/, decisionRepository.findById(decisionId)];

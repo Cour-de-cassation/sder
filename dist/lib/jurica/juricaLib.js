@@ -8,7 +8,7 @@ var juricaLib = {
         text = removeHTMLTags(text);
         text = handleNewLines(text);
         text = removeExtraSpaces(text);
-        return he_1.decode(text); // Decode HTML entities
+        return (0, he_1.decode)(text); // Decode HTML entities
     },
 };
 exports.juricaLib = juricaLib;

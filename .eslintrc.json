@@ -14,7 +14,9 @@
     "project": "tsconfig.json",
     "sourceType": "module"
   },
-  "plugins": ["@typescript-eslint/eslint-plugin"],
+  "plugins": [
+    "@typescript-eslint/eslint-plugin"
+  ],
   "root": true,
   "rules": {
     "@typescript-eslint/interface-name-prefix": "off",

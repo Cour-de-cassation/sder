@@ -14,7 +14,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     function verb(n) { return function (v) { return step([n, v]); }; }
     function step(op) {
         if (f) throw new TypeError("Generator is already executing.");
-        while (_) try {
+        while (g && (g = 0, op[0] && (_ = 0)), _) try {
             if (f = 1, y && (t = op[0] & 2 ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) && t.call(y), 0) : y.next) && !(t = t.call(y, op[1])).done) return t;
             if (y = 0, t) op = [op[0] & 2, t.value];
             switch (op[0]) {
@@ -49,7 +49,7 @@ function setValidationOnAllCollections() {
                 return __generator(this, function (_a) {
                     switch (_a.label) {
                         case 0:
-                            runMongo = utils_1.buildRunMongo(collection.name);
+                            runMongo = (0, utils_1.buildRunMongo)(collection.name);
                             return [4 /*yield*/, runMongo(function (_a) {
                                     var db = _a.db;
                                     return db.command({
@@ -70,19 +70,19 @@ function setValidationOnAllCollections() {
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
-                    environment = environment_1.getEnvironment();
-                    console.log("Connecting to MongoDb: " + environment.SDER_DB_URL);
-                    console.log("Setting validation on the " + environment.SDER_DB_NAME + " DB");
+                    environment = (0, environment_1.getEnvironment)();
+                    console.log("Connecting to MongoDb: ".concat(environment.SDER_DB_URL));
+                    console.log("Setting validation on the ".concat(environment.SDER_DB_NAME, " DB"));
                     _i = 0, collections_1 = collections;
                     _a.label = 1;
                 case 1:
                     if (!(_i < collections_1.length)) return [3 /*break*/, 4];
                     collection = collections_1[_i];
-                    console.log("Setting validation on collection " + collection.name);
+                    console.log("Setting validation on collection ".concat(collection.name));
                     return [4 /*yield*/, setValidation(collection)];
                 case 2:
                     _a.sent();
-                    console.log("Validation of collection " + collection.name + " DONE");
+                    console.log("Validation of collection ".concat(collection.name, " DONE"));
                     _a.label = 3;
                 case 3:
                     _i++;

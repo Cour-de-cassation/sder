@@ -30,6 +30,6 @@ type jurinetDecisionType = {
   IND_COMMUNIQUE?: number;
   _bloc_occultation?: number;
   OCCULTATION_SUPPLEMENTAIRE?: string;
-} & Record<typeof OCCULTATION_CATEGORIES_FIELDS[number], number>;
+} & Record<(typeof OCCULTATION_CATEGORIES_FIELDS)[number], number>;
 
 type referenceType = any;

@@ -1,6 +1,6 @@
 import { OCCULTATION_CATEGORIES_FIELDS } from './constants';
 export type { juricaDecisionType };
-declare type juricaDecisionType = {
+type juricaDecisionType = {
     _id: number;
     _titrage: Array<referenceType>;
     _analyse: Array<referenceType>;
@@ -44,5 +44,5 @@ declare type juricaDecisionType = {
     JDEC_NUM_REGISTRE: string;
     JDEC_NOTICE_FORMAT: string;
     JDEC_LIBELLE: string;
-} & Record<typeof OCCULTATION_CATEGORIES_FIELDS[number], number>;
-declare type referenceType = any;
+} & Record<(typeof OCCULTATION_CATEGORIES_FIELDS)[number], number>;
+type referenceType = any;

@@ -14,7 +14,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     function verb(n) { return function (v) { return step([n, v]); }; }
     function step(op) {
         if (f) throw new TypeError("Generator is already executing.");
-        while (_) try {
+        while (g && (g = 0, op[0] && (_ = 0)), _) try {
             if (f = 1, y && (t = op[0] & 2 ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) && t.call(y), 0) : y.next) && !(t = t.call(y, op[1])).done) return t;
             if (y = 0, t) op = [op[0] & 2, t.value];
             switch (op[0]) {
@@ -35,12 +35,14 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
-var __spreadArrays = (this && this.__spreadArrays) || function () {
-    for (var s = 0, i = 0, il = arguments.length; i < il; i++) s += arguments[i].length;
-    for (var r = Array(s), k = 0, i = 0; i < il; i++)
-        for (var a = arguments[i], j = 0, jl = a.length; j < jl; j++, k++)
-            r[k] = a[j];
-    return r;
+var __spreadArray = (this && this.__spreadArray) || function (to, from, pack) {
+    if (pack || arguments.length === 2) for (var i = 0, l = from.length, ar; i < l; i++) {
+        if (ar || !(i in from)) {
+            if (!ar) ar = Array.prototype.slice.call(from, 0, i);
+            ar[i] = from[i];
+        }
+    }
+    return to.concat(ar || Array.prototype.slice.call(from));
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.resetAllDecisionsLabelStatus = void 0;
@@ -48,30 +50,31 @@ var modules_1 = require("../modules");
 resetAllDecisionsLabelStatus();
 function resetAllDecisionsLabelStatus() {
     return __awaiter(this, void 0, void 0, function () {
-        var decisionRepository, decisionIds, _a;
-        return __generator(this, function (_b) {
-            switch (_b.label) {
+        var decisionRepository, decisionIds, _a, _b, _c;
+        return __generator(this, function (_d) {
+            switch (_d.label) {
                 case 0:
                     console.log('resetAllDecisionsLabelStatus');
                     console.log('Init decision repository');
                     return [4 /*yield*/, modules_1.decisionModule.buildRepository()];
                 case 1:
-                    decisionRepository = _b.sent();
+                    decisionRepository = _d.sent();
                     console.log('Fetching decision ids to reset');
+                    _a = [[]];
                     return [4 /*yield*/, decisionRepository.findAllIdsByLabelStatus('loaded')];
                 case 2:
-                    _a = [(_b.sent())];
+                    _b = [__spreadArray.apply(void 0, _a.concat([(_d.sent()), true]))];
                     return [4 /*yield*/, decisionRepository.findAllIdsByLabelStatus('done')];
                 case 3:
-                    _a = _a.concat([(_b.sent())]);
+                    _c = [__spreadArray.apply(void 0, _b.concat([(_d.sent()), true]))];
                     return [4 /*yield*/, decisionRepository.findAllIdsByLabelStatus('exported')];
                 case 4:
-                    decisionIds = __spreadArrays.apply(void 0, _a.concat([(_b.sent())]));
-                    console.log(decisionIds.length + " decisions fetched");
+                    decisionIds = __spreadArray.apply(void 0, _c.concat([(_d.sent()), true]));
+                    console.log("".concat(decisionIds.length, " decisions fetched"));
                     console.log('Reset label status to toBeTreated');
                     return [4 /*yield*/, modules_1.decisionModule.service.updateDecisionsLabelStatus({ decisionIds: decisionIds, labelStatus: 'toBeTreated' })];
                 case 5:
-                    _b.sent();
+                    _d.sent();
                     console.log('DONE');
                     return [2 /*return*/];
             }

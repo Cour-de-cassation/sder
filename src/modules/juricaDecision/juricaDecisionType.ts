@@ -46,6 +46,6 @@ type juricaDecisionType = {
   JDEC_NUM_REGISTRE: string;
   JDEC_NOTICE_FORMAT: string;
   JDEC_LIBELLE: string;
-} & Record<typeof OCCULTATION_CATEGORIES_FIELDS[number], number>;
+} & Record<(typeof OCCULTATION_CATEGORIES_FIELDS)[number], number>;
 
 type referenceType = any;

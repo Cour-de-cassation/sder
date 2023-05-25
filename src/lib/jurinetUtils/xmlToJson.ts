@@ -1,4 +1,4 @@
-import parser, { X2jOptionsOptional } from 'fast-xml-parser';
+import { XMLParser, XMLValidator, X2jOptionsOptional } from 'fast-xml-parser';
 import { convertKeysToLowerCase } from './convertKeysToLowerCase';
 import { htmlDecode } from './htmlDecode';
 
@@ -31,10 +31,11 @@ function xmlToJson(xml: string, opt: xmlToJsonOptionType) {
   opt.htmlDecode = opt.htmlDecode || false;
   opt.toLowerCase = opt.toLowerCase || false;
 
-  const valid = parser.validate(xml);
+  const valid = XMLValidator.validate(xml);
   if (valid === true) {
     // Convert the XML document to JSON:
-    let finalData = parser.parse(xml, fastXmlParserOptions);
+    const parser = new XMLParser(fastXmlParserOptions);
+    let finalData = parser.parse(xml);
 
     finalData = finalData.DOCUMENT[0];
 

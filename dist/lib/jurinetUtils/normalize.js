@@ -14,7 +14,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     function verb(n) { return function (v) { return step([n, v]); }; }
     function step(op) {
         if (f) throw new TypeError("Generator is already executing.");
-        while (_) try {
+        while (g && (g = 0, op[0] && (_ = 0)), _) try {
             if (f = 1, y && (t = op[0] & 2 ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) && t.call(y), 0) : y.next) && !(t = t.call(y, op[1])).done) return t;
             if (y = 0, t) op = [op[0] & 2, t.value];
             switch (op[0]) {
@@ -56,7 +56,7 @@ function normalize(document, previousVersion, ignorePreviousContent) {
                     pseudoStatus = document.IND_ANO;
                     try {
                         cleanedXml = jurinet_1.jurinetLib.cleanText(document.XML);
-                        cleanedJson = xmlToJson_1.xmlToJson(cleanedXml, {
+                        cleanedJson = (0, xmlToJson_1.xmlToJson)(cleanedXml, {
                             filter: false,
                             htmlDecode: true,
                             toLowerCase: true,
@@ -66,7 +66,7 @@ function normalize(document, previousVersion, ignorePreviousContent) {
                     catch (ignore) { }
                     try {
                         cleanedXmlAnonymized = jurinet_1.jurinetLib.cleanText(document.XMLA);
-                        cleanedJsonAnonymized = xmlToJson_1.xmlToJson(cleanedXmlAnonymized, {
+                        cleanedJsonAnonymized = (0, xmlToJson_1.xmlToJson)(cleanedXmlAnonymized, {
                             filter: false,
                             htmlDecode: true,
                             toLowerCase: true,
@@ -282,12 +282,12 @@ function normalize(document, previousVersion, ignorePreviousContent) {
                     //     }
                     //   }
                     // });
-                    normalizedDecision.occultation.categoriesToOmit = convertOccultationBlockToCategoriesToOmit_1.convertOccultationBlockInCategoriesToOmit(document._bloc_occultation);
+                    normalizedDecision.occultation.categoriesToOmit = (0, convertOccultationBlockToCategoriesToOmit_1.convertOccultationBlockInCategoriesToOmit)(document._bloc_occultation);
                     if (!!document.OCCULTATION_SUPPLEMENTAIRE) {
                         normalizedDecision.occultation.additionalTerms = document.OCCULTATION_SUPPLEMENTAIRE;
                     }
                     if (!normalizedDecision.originalText) {
-                        throw new Error("JurinetUtils.Normalize: Document '" + normalizedDecision.sourceId + "' has not text.");
+                        throw new Error("JurinetUtils.Normalize: Document '".concat(normalizedDecision.sourceId, "' has not text."));
                     }
                     return [2 /*return*/, normalizedDecision];
             }

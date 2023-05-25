@@ -1,7 +1,7 @@
 import { httpStatusCodeHandler } from './httpStatusCodeHandler';
 export { CustomError, errorHandlers };
 export type { errorCodeType };
-declare type errorCodeType = typeof httpStatusCodeHandler.HTTP_STATUS_CODE.ERROR[keyof typeof httpStatusCodeHandler.HTTP_STATUS_CODE.ERROR];
+type errorCodeType = (typeof httpStatusCodeHandler.HTTP_STATUS_CODE.ERROR)[keyof typeof httpStatusCodeHandler.HTTP_STATUS_CODE.ERROR];
 declare const errorHandlers: {
     authenticationErrorHandler: {
         build: (description: string) => CustomError;

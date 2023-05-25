@@ -13,9 +13,9 @@ function buildAuthenticator(privateKey) {
         assertAuthorization: assertAuthorization_1.assertAuthorization,
         buildBaseUser: buildBaseUser_1.buildBaseUser,
         computeHashedPassword: computeHashedPassword_1.computeHashedPassword,
-        extractUserIdFromAuthorizationHeader: extractUserIdFromAuthorizationHeader_1.buildExtractUserIdFromAuthorizationHeader(privateKey),
+        extractUserIdFromAuthorizationHeader: (0, extractUserIdFromAuthorizationHeader_1.buildExtractUserIdFromAuthorizationHeader)(privateKey),
         formatEmail: formatEmail_1.formatEmail,
-        getTokenForUser: getTokenForUser_1.buildGetTokenForUser(privateKey),
+        getTokenForUser: (0, getTokenForUser_1.buildGetTokenForUser)(privateKey),
         passwordHandler: passwordHandler_1.passwordHandler,
     };
 }

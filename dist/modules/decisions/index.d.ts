@@ -11,7 +11,7 @@ declare const decisionModule: {
         generateDecision: typeof generateDecision;
     };
     service: {
-        createDecision(decisionFields: Pick<decisionType, "public" | "_version" | "analysis" | "appeals" | "chamberId" | "chamberName" | "dateCreation" | "dateDecision" | "decatt" | "jurisdictionCode" | "jurisdictionId" | "jurisdictionName" | "locked" | "occultation" | "originalText" | "parties" | "pseudoStatus" | "pseudoText" | "pubCategory" | "registerNumber" | "solution" | "sourceId" | "sourceName" | "zoning" | "publication" | "formation" | "blocOccultation" | "natureAffaireCivil" | "natureAffairePenal" | "codeMatiereCivil" | "NACCode" | "endCaseCode">): Promise<void>;
+        createDecision(decisionFields: Omit<decisionType, "_id" | "labelStatus" | "labelTreatments" | "_rev">): Promise<void>;
         fetchCourtDecisionById(id: import("bson").ObjectId): Promise<decisionType>;
         fetchDecisionBySourceIdAndSourceName(sourceId: number, sourceName: string): Promise<decisionType | undefined>;
         fetchPseudonymisationsToExport(): Promise<{

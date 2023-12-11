@@ -1,5 +1,5 @@
 import { idModule } from '../../id';
-import { decisionType, labelTreatmentsType } from '../decisionType';
+import { decisionType, labelTreatmentsType, publishStatusType } from '../decisionType';
 import { buildDecision } from '../lib';
 import { buildDecisionRepository } from '../repository';
 
@@ -65,8 +65,7 @@ const decisionService = {
         source,
       });
       console.log(
-        `${
-          decisionsForJuridiction.length
+        `${decisionsForJuridiction.length
         } decisions found for jurisdiction "${jurisdiction}", source "${source}" and between ${startDate.toISOString()} and ${endDate.toISOString()}`,
       );
       decisions.push(...decisionsForJuridiction);
@@ -107,8 +106,7 @@ const decisionService = {
           source,
         });
         console.log(
-          `${
-            decisionsForJuridiction.length
+          `${decisionsForJuridiction.length
           } decisions found for jurisdiction "${jurisdiction}", source "${source}" and between ${startDate.toISOString()} and ${endDate.toISOString()}`,
         );
         decisions.push(...decisionsForJuridiction);
@@ -153,8 +151,7 @@ const decisionService = {
           },
         );
         console.log(
-          `${
-            decisionsForJuridiction.length
+          `${decisionsForJuridiction.length
           } decisions found for jurisdiction "${jurisdiction}", source "${source}" and between ${startDate.toISOString()} and ${endDate.toISOString()}`,
         );
         decisions.push(...decisionsForJuridiction);
@@ -177,8 +174,7 @@ const decisionService = {
     });
 
     console.log(
-      `${
-        jurinetDecisions.length
+      `${jurinetDecisions.length
       } jurinet decisions found between ${startDate.toISOString()} and ${endDate.toISOString()}`,
     );
 
@@ -318,10 +314,12 @@ const decisionService = {
     decisionId,
     decisionPseudonymisedText,
     labelTreatments,
+    publishStatus,
   }: {
     decisionId: decisionType['_id'];
     decisionPseudonymisedText: string;
     labelTreatments: labelTreatmentsType;
+    publishStatus: publishStatusType,
   }) {
     const decisionRepository = await buildDecisionRepository();
 
@@ -330,6 +328,7 @@ const decisionService = {
     await decisionRepository.updateById(decision._id, {
       _rev: decision._rev + 1,
       labelStatus: 'done',
+      publishStatus: publishStatus,
       labelTreatments,
       pseudoText: decisionPseudonymisedText,
     });

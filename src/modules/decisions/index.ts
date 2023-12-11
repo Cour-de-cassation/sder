@@ -1,6 +1,6 @@
 import { collectionType } from '../collectionType';
 import { decisionCollectionName } from './decisionCollectionName';
-import { decisionType, labelStatusType, labelTreatmentsType } from './decisionType';
+import { decisionType, labelStatusType, labelTreatmentsType, publishStatusType } from './decisionType';
 import { decisionsIndexes } from './indexes';
 import { buildDecision, generateDecision } from './lib';
 import { buildDecisionRepository } from './repository';
@@ -9,7 +9,7 @@ import { decisionsValidationSchema } from './validation';
 
 export { decisionModule };
 
-export type { decisionType, labelStatusType, labelTreatmentsType };
+export type { decisionType, labelStatusType, labelTreatmentsType, publishStatusType };
 
 const decisionCollection: collectionType<decisionType> = {
   indexes: decisionsIndexes,

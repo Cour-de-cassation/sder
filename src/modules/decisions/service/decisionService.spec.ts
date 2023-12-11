@@ -413,6 +413,7 @@ describe('decisionService', () => {
         decisionId: decision._id,
         decisionPseudonymisedText: 'NEW_PSEUDONYMISATION',
         labelTreatments: treatmenst,
+        publishStatus: "toBePublished",
       });
 
       const updatedDecision = await decisionRepository.findById(decision._id);
@@ -428,6 +429,7 @@ describe('decisionService', () => {
         decisionId: decision._id,
         decisionPseudonymisedText: 'NEW_PSEUDONYMISATION',
         labelTreatments: treatmenst,
+        publishStatus: "toBePublished",
       });
 
       const updatedDecision = await decisionRepository.findById(decision._id);

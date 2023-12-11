@@ -411,7 +411,7 @@ var decisionService = {
         });
     },
     updateDecisionPseudonymisation: function (_a) {
-        var decisionId = _a.decisionId, decisionPseudonymisedText = _a.decisionPseudonymisedText, labelTreatments = _a.labelTreatments;
+        var decisionId = _a.decisionId, decisionPseudonymisedText = _a.decisionPseudonymisedText, labelTreatments = _a.labelTreatments, publishStatus = _a.publishStatus;
         return __awaiter(this, void 0, void 0, function () {
             var decisionRepository, decision;
             return __generator(this, function (_b) {
@@ -425,6 +425,7 @@ var decisionService = {
                         return [4 /*yield*/, decisionRepository.updateById(decision._id, {
                                 _rev: decision._rev + 1,
                                 labelStatus: 'done',
+                                publishStatus: publishStatus,
                                 labelTreatments: labelTreatments,
                                 pseudoText: decisionPseudonymisedText,
                             })];

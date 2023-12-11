@@ -1,8 +1,10 @@
 import { mongoIdType } from '../../utils';
 export { labelStatuses };
-export type { decisionType, labelStatusType, labelTreatmentsType };
+export type { decisionType, labelStatusType, labelTreatmentsType, publishStatusType };
 declare type labelStatusType = 'toBeTreated' | 'loaded' | 'done' | 'exported' | 'blocked';
 declare const labelStatuses: labelStatusType[];
+declare type publishStatusType = 'toBePublished' | 'pending' | 'sucess' | 'failure_preparing' | 'failure_indexing' | 'blocked' | 'unpublished';
+declare const publishStatuses: publishStatusType[];
 declare type decisionType = {
     _id: mongoIdType;
     _rev: number;
@@ -27,6 +29,7 @@ declare type decisionType = {
     jurisdictionId: string;
     jurisdictionName: string;
     labelStatus: typeof labelStatuses[number];
+    publishStatus?: typeof publishStatuses[number];
     labelTreatments: labelTreatmentsType;
     locked: boolean;
     occultation: {

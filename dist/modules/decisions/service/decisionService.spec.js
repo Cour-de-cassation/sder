@@ -576,6 +576,7 @@ describe('decisionService', function () {
                                 decisionId: decision._id,
                                 decisionPseudonymisedText: 'NEW_PSEUDONYMISATION',
                                 labelTreatments: treatmenst,
+                                publishStatus: "toBePublished",
                             })];
                     case 3:
                         _a.sent();
@@ -602,6 +603,7 @@ describe('decisionService', function () {
                                 decisionId: decision._id,
                                 decisionPseudonymisedText: 'NEW_PSEUDONYMISATION',
                                 labelTreatments: treatmenst,
+                                publishStatus: "toBePublished",
                             })];
                     case 3:
                         _a.sent();

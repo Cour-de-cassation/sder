@@ -1,4 +1,4 @@
-import { decisionType, labelTreatmentsType } from '../decisionType';
+import { decisionType, labelTreatmentsType, publishStatusType } from '../decisionType';
 export { decisionService };
 declare const decisionService: {
     createDecision(decisionFields: Omit<decisionType, '_id' | '_rev' | 'labelStatus' | 'labelTreatments'>): Promise<void>;
@@ -55,9 +55,10 @@ declare const decisionService: {
         decisionPseudonymisedText: string;
         labelTreatments: labelTreatmentsType;
     }): Promise<void>;
-    updateDecisionPseudonymisation({ decisionId, decisionPseudonymisedText, labelTreatments, }: {
+    updateDecisionPseudonymisation({ decisionId, decisionPseudonymisedText, labelTreatments, publishStatus, }: {
         decisionId: decisionType['_id'];
         decisionPseudonymisedText: string;
         labelTreatments: labelTreatmentsType;
+        publishStatus: publishStatusType;
     }): Promise<void>;
 };

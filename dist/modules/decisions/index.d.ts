@@ -1,8 +1,8 @@
 import { collectionType } from '../collectionType';
-import { decisionType, labelStatusType, labelTreatmentsType } from './decisionType';
+import { decisionType, labelStatusType, labelTreatmentsType, publishStatusType } from './decisionType';
 import { buildDecision, generateDecision } from './lib';
 export { decisionModule };
-export type { decisionType, labelStatusType, labelTreatmentsType };
+export type { decisionType, labelStatusType, labelTreatmentsType, publishStatusType };
 declare const decisionModule: {
     buildRepository: typeof import("./repository/buildDecisionFakeRepository").buildDecisionFakeRepository;
     collection: collectionType<decisionType>;
@@ -11,7 +11,7 @@ declare const decisionModule: {
         generateDecision: typeof generateDecision;
     };
     service: {
-        createDecision(decisionFields: Pick<decisionType, "public" | "_version" | "analysis" | "appeals" | "chamberId" | "chamberName" | "dateCreation" | "dateDecision" | "decatt" | "jurisdictionCode" | "jurisdictionId" | "jurisdictionName" | "locked" | "occultation" | "originalText" | "parties" | "pseudoStatus" | "pseudoText" | "pubCategory" | "registerNumber" | "solution" | "sourceId" | "sourceName" | "zoning" | "publication" | "formation" | "blocOccultation" | "natureAffaireCivil" | "natureAffairePenal" | "codeMatiereCivil" | "NACCode" | "endCaseCode">): Promise<void>;
+        createDecision(decisionFields: Pick<decisionType, "public" | "_version" | "analysis" | "appeals" | "chamberId" | "chamberName" | "dateCreation" | "dateDecision" | "decatt" | "jurisdictionCode" | "jurisdictionId" | "jurisdictionName" | "publishStatus" | "locked" | "occultation" | "originalText" | "parties" | "pseudoStatus" | "pseudoText" | "pubCategory" | "registerNumber" | "solution" | "sourceId" | "sourceName" | "zoning" | "publication" | "formation" | "blocOccultation" | "natureAffaireCivil" | "natureAffairePenal" | "codeMatiereCivil" | "NACCode" | "endCaseCode">): Promise<void>;
         fetchCourtDecisionById(id: import("bson").ObjectId): Promise<decisionType>;
         fetchDecisionBySourceIdAndSourceName(sourceId: number, sourceName: string): Promise<decisionType | undefined>;
         fetchPseudonymisationsToExport(): Promise<{
@@ -65,10 +65,11 @@ declare const decisionModule: {
             decisionPseudonymisedText: string;
             labelTreatments: labelTreatmentsType;
         }): Promise<void>;
-        updateDecisionPseudonymisation({ decisionId, decisionPseudonymisedText, labelTreatments, }: {
+        updateDecisionPseudonymisation({ decisionId, decisionPseudonymisedText, labelTreatments, publishStatus, }: {
             decisionId: import("bson").ObjectId;
             decisionPseudonymisedText: string;
             labelTreatments: labelTreatmentsType;
+            publishStatus: publishStatusType;
         }): Promise<void>;
     };
 };

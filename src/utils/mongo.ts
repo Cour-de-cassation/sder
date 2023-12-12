@@ -10,7 +10,7 @@ type mongoIdType = ObjectId;
 function buildRunMongo<T>(collectionName: string) {
   const environment = getEnvironment();
   return async <U>(command: (param: { db: Db; collection: Collection<T> }) => Promise<U>) => {
-    console.log(`[sder lib] Connecting to MongoDb: ${environment.SDER_DB_URL} ${environment.SDER_DB_NAME}`);
+    console.log(`[sder lib] Connecting to MongoDb: ${environment.SDER_DB_NAME}`);
     const client = await new MongoClient(environment.SDER_DB_URL, {
       useUnifiedTopology: true,
     }).connect();

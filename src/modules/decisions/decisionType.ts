@@ -2,11 +2,30 @@ import { mongoIdType } from '../../utils';
 
 export { labelStatuses };
 
-export type { decisionType, labelStatusType, labelTreatmentsType };
+export type { decisionType, labelStatusType, labelTreatmentsType, publishStatusType };
 
 type labelStatusType = 'toBeTreated' | 'loaded' | 'done' | 'exported' | 'blocked';
 
 const labelStatuses = ['toBeTreated', 'loaded', 'done', 'exported', 'blocked'] as labelStatusType[];
+
+type publishStatusType =
+  | 'toBePublished'
+  | 'pending'
+  | 'sucess'
+  | 'failure_preparing'
+  | 'failure_indexing'
+  | 'blocked'
+  | 'unpublished';
+
+const publishStatuses = [
+  'toBePublished',
+  'pending',
+  'sucess',
+  'failure_preparing',
+  'failure_indexing',
+  'blocked',
+  'unpublished',
+] as publishStatusType[];
 
 type decisionType = {
   _id: mongoIdType;
@@ -32,6 +51,7 @@ type decisionType = {
   jurisdictionId: string;
   jurisdictionName: string;
   labelStatus: typeof labelStatuses[number];
+  publishStatus?: typeof publishStatuses[number];
   labelTreatments: labelTreatmentsType;
   locked: boolean;
   occultation: {

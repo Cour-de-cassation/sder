@@ -1,5 +1,5 @@
 import { idModule } from '../../id';
-import { decisionType, labelTreatmentsType } from '../decisionType';
+import { decisionType, labelTreatmentsType, publishStatusType } from '../decisionType';
 import { buildDecision } from '../lib';
 import { buildDecisionRepository } from '../repository';
 
@@ -318,10 +318,12 @@ const decisionService = {
     decisionId,
     decisionPseudonymisedText,
     labelTreatments,
+    publishStatus,
   }: {
     decisionId: decisionType['_id'];
     decisionPseudonymisedText: string;
     labelTreatments: labelTreatmentsType;
+    publishStatus?: publishStatusType;
   }) {
     const decisionRepository = await buildDecisionRepository();
 
@@ -330,6 +332,7 @@ const decisionService = {
     await decisionRepository.updateById(decision._id, {
       _rev: decision._rev + 1,
       labelStatus: 'done',
+      publishStatus: publishStatus ? publishStatus : 'toBePublished',
       labelTreatments,
       pseudoText: decisionPseudonymisedText,
     });

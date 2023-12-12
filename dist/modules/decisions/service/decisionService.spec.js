@@ -576,6 +576,7 @@ describe('decisionService', function () {
                                 decisionId: decision._id,
                                 decisionPseudonymisedText: 'NEW_PSEUDONYMISATION',
                                 labelTreatments: treatmenst,
+                                publishStatus: 'toBePublished',
                             })];
                     case 3:
                         _a.sent();
@@ -602,6 +603,7 @@ describe('decisionService', function () {
                                 decisionId: decision._id,
                                 decisionPseudonymisedText: 'NEW_PSEUDONYMISATION',
                                 labelTreatments: treatmenst,
+                                publishStatus: 'toBePublished',
                             })];
                     case 3:
                         _a.sent();
@@ -609,6 +611,57 @@ describe('decisionService', function () {
                     case 4:
                         updatedDecision = _a.sent();
                         expect(updatedDecision._rev).toEqual(decision._rev + 1);
+                        return [2 /*return*/];
+                }
+            });
+        }); });
+        it('should update publish status to toBePublished if not referenced', function () { return __awaiter(void 0, void 0, void 0, function () {
+            var decisionRepository, updatedDecision;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, repository_1.buildDecisionRepository()];
+                    case 1:
+                        decisionRepository = _a.sent();
+                        return [4 /*yield*/, decisionRepository.insert(decision)];
+                    case 2:
+                        _a.sent();
+                        return [4 /*yield*/, decisionService_1.decisionService.updateDecisionPseudonymisation({
+                                decisionId: decision._id,
+                                decisionPseudonymisedText: 'NEW_PSEUDONYMISATION',
+                                labelTreatments: treatmenst,
+                            })];
+                    case 3:
+                        _a.sent();
+                        return [4 /*yield*/, decisionRepository.findById(decision._id)];
+                    case 4:
+                        updatedDecision = _a.sent();
+                        expect(updatedDecision.publishStatus).toEqual('toBePublished');
+                        return [2 /*return*/];
+                }
+            });
+        }); });
+        it('should update publish status', function () { return __awaiter(void 0, void 0, void 0, function () {
+            var decisionRepository, updatedDecision;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, repository_1.buildDecisionRepository()];
+                    case 1:
+                        decisionRepository = _a.sent();
+                        return [4 /*yield*/, decisionRepository.insert(decision)];
+                    case 2:
+                        _a.sent();
+                        return [4 /*yield*/, decisionService_1.decisionService.updateDecisionPseudonymisation({
+                                decisionId: decision._id,
+                                decisionPseudonymisedText: 'NEW_PSEUDONYMISATION',
+                                labelTreatments: treatmenst,
+                                publishStatus: 'blocked',
+                            })];
+                    case 3:
+                        _a.sent();
+                        return [4 /*yield*/, decisionRepository.findById(decision._id)];
+                    case 4:
+                        updatedDecision = _a.sent();
+                        expect(updatedDecision.publishStatus).toEqual('blocked');
                         return [2 /*return*/];
                 }
             });

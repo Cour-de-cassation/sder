@@ -1,5 +1,5 @@
 import { collectionType, genericCollectionType } from './collectionType';
-import { decisionModule, decisionType, labelStatusType, labelTreatmentsType } from './decisions';
+import { decisionModule, decisionType, labelStatusType, labelTreatmentsType, publishStatusType } from './decisions';
 import { idModule, idType, omitIdType } from './id';
 import { buildAuthenticator, passwordTimeValidityStatus, passwordTimeValidityStatusType } from './authenticator';
 
@@ -10,6 +10,7 @@ export type {
   decisionType,
   labelStatusType,
   labelTreatmentsType,
+  publishStatusType,
   genericCollectionType,
   idType,
   omitIdType,

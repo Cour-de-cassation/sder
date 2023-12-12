@@ -413,6 +413,7 @@ describe('decisionService', () => {
         decisionId: decision._id,
         decisionPseudonymisedText: 'NEW_PSEUDONYMISATION',
         labelTreatments: treatmenst,
+        publishStatus: 'toBePublished',
       });
 
       const updatedDecision = await decisionRepository.findById(decision._id);
@@ -428,10 +429,40 @@ describe('decisionService', () => {
         decisionId: decision._id,
         decisionPseudonymisedText: 'NEW_PSEUDONYMISATION',
         labelTreatments: treatmenst,
+        publishStatus: 'toBePublished',
       });
 
       const updatedDecision = await decisionRepository.findById(decision._id);
       expect(updatedDecision._rev).toEqual(decision._rev + 1);
+    });
+
+    it('should update publish status to toBePublished if not referenced', async () => {
+      const decisionRepository = await buildDecisionRepository();
+      await decisionRepository.insert(decision);
+
+      await decisionService.updateDecisionPseudonymisation({
+        decisionId: decision._id,
+        decisionPseudonymisedText: 'NEW_PSEUDONYMISATION',
+        labelTreatments: treatmenst,
+      });
+
+      const updatedDecision = await decisionRepository.findById(decision._id);
+      expect(updatedDecision.publishStatus).toEqual('toBePublished');
+    });
+
+    it('should update publish status', async () => {
+      const decisionRepository = await buildDecisionRepository();
+      await decisionRepository.insert(decision);
+
+      await decisionService.updateDecisionPseudonymisation({
+        decisionId: decision._id,
+        decisionPseudonymisedText: 'NEW_PSEUDONYMISATION',
+        labelTreatments: treatmenst,
+        publishStatus: 'blocked',
+      });
+
+      const updatedDecision = await decisionRepository.findById(decision._id);
+      expect(updatedDecision.publishStatus).toEqual('blocked');
     });
   });
 });

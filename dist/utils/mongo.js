@@ -47,7 +47,7 @@ function buildRunMongo(collectionName) {
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
-                    console.log("[sder lib] Connecting to MongoDb: " + environment.SDER_DB_URL + " " + environment.SDER_DB_NAME);
+                    console.log("[sder lib] Connecting to MongoDb: " + environment.SDER_DB_NAME);
                     return [4 /*yield*/, new mongodb_1.MongoClient(environment.SDER_DB_URL, {
                             useUnifiedTopology: true,
                         }).connect()];

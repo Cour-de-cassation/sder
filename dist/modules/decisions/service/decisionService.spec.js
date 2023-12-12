@@ -576,7 +576,7 @@ describe('decisionService', function () {
                                 decisionId: decision._id,
                                 decisionPseudonymisedText: 'NEW_PSEUDONYMISATION',
                                 labelTreatments: treatmenst,
-                                publishStatus: "toBePublished",
+                                publishStatus: 'toBePublished',
                             })];
                     case 3:
                         _a.sent();
@@ -603,7 +603,7 @@ describe('decisionService', function () {
                                 decisionId: decision._id,
                                 decisionPseudonymisedText: 'NEW_PSEUDONYMISATION',
                                 labelTreatments: treatmenst,
-                                publishStatus: "toBePublished",
+                                publishStatus: 'toBePublished',
                             })];
                     case 3:
                         _a.sent();
@@ -635,7 +635,7 @@ describe('decisionService', function () {
                         return [4 /*yield*/, decisionRepository.findById(decision._id)];
                     case 4:
                         updatedDecision = _a.sent();
-                        expect(updatedDecision.publishStatus).toEqual("toBePublished");
+                        expect(updatedDecision.publishStatus).toEqual('toBePublished');
                         return [2 /*return*/];
                 }
             });

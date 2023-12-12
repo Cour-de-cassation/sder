@@ -59,6 +59,6 @@ declare const decisionService: {
         decisionId: decisionType['_id'];
         decisionPseudonymisedText: string;
         labelTreatments: labelTreatmentsType;
-        publishStatus: publishStatusType;
+        publishStatus?: "pending" | "blocked" | "toBePublished" | "sucess" | "failure_preparing" | "failure_indexing" | "unpublished" | undefined;
     }): Promise<void>;
 };

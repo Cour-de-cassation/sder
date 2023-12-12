@@ -425,7 +425,7 @@ var decisionService = {
                         return [4 /*yield*/, decisionRepository.updateById(decision._id, {
                                 _rev: decision._rev + 1,
                                 labelStatus: 'done',
-                                publishStatus: publishStatus,
+                                publishStatus: publishStatus ? publishStatus : "toBePublished",
                                 labelTreatments: labelTreatments,
                                 pseudoText: decisionPseudonymisedText,
                             })];

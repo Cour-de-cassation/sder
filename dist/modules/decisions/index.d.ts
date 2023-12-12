@@ -69,7 +69,7 @@ declare const decisionModule: {
             decisionId: import("bson").ObjectId;
             decisionPseudonymisedText: string;
             labelTreatments: labelTreatmentsType;
-            publishStatus: publishStatusType;
+            publishStatus?: "pending" | "blocked" | "toBePublished" | "sucess" | "failure_preparing" | "failure_indexing" | "unpublished" | undefined;
         }): Promise<void>;
     };
 };

@@ -8,9 +8,24 @@ type labelStatusType = 'toBeTreated' | 'loaded' | 'done' | 'exported' | 'blocked
 
 const labelStatuses = ['toBeTreated', 'loaded', 'done', 'exported', 'blocked'] as labelStatusType[];
 
-type publishStatusType = 'toBePublished' | 'pending' | 'sucess' | 'failure_preparing' | 'failure_indexing' | 'blocked' | 'unpublished';
+type publishStatusType =
+  | 'toBePublished'
+  | 'pending'
+  | 'sucess'
+  | 'failure_preparing'
+  | 'failure_indexing'
+  | 'blocked'
+  | 'unpublished';
 
-const publishStatuses = ['toBePublished', 'pending', 'sucess', 'failure_preparing', 'failure_indexing', 'blocked', 'unpublished'] as publishStatusType[];
+const publishStatuses = [
+  'toBePublished',
+  'pending',
+  'sucess',
+  'failure_preparing',
+  'failure_indexing',
+  'blocked',
+  'unpublished',
+] as publishStatusType[];
 
 type decisionType = {
   _id: mongoIdType;

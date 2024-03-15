@@ -329,12 +329,17 @@ const decisionService = {
 
     const decision = await decisionRepository.findById(decisionId);
 
-    await decisionRepository.updateById(decision._id, {
+    const updatedData = {
       _rev: decision._rev + 1,
       labelStatus: 'done',
-      publishStatus: publishStatus ? publishStatus : 'toBePublished',
       labelTreatments,
       pseudoText: decisionPseudonymisedText,
-    });
+    } as any;
+
+    if (publishStatus !== undefined) {
+      updatedData.publishStatus = publishStatus;
+    }
+
+    await decisionRepository.updateById(decision._id, updatedData);
   },
 };

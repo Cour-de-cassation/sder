@@ -436,7 +436,7 @@ describe('decisionService', () => {
       expect(updatedDecision._rev).toEqual(decision._rev + 1);
     });
 
-    it('should update publish status to toBePublished if not referenced', async () => {
+    it('should not update publish status if not referenced', async () => {
       const decisionRepository = await buildDecisionRepository();
       await decisionRepository.insert(decision);
 
@@ -447,7 +447,7 @@ describe('decisionService', () => {
       });
 
       const updatedDecision = await decisionRepository.findById(decision._id);
-      expect(updatedDecision.publishStatus).toEqual('toBePublished');
+      expect(updatedDecision.publishStatus).toEqual(decision.publishStatus);
     });
 
     it('should update publish status', async () => {

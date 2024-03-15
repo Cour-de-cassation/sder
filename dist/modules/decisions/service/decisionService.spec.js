@@ -615,7 +615,7 @@ describe('decisionService', function () {
                 }
             });
         }); });
-        it('should update publish status to toBePublished if not referenced', function () { return __awaiter(void 0, void 0, void 0, function () {
+        it('should not update publish status if not referenced', function () { return __awaiter(void 0, void 0, void 0, function () {
             var decisionRepository, updatedDecision;
             return __generator(this, function (_a) {
                 switch (_a.label) {
@@ -635,7 +635,7 @@ describe('decisionService', function () {
                         return [4 /*yield*/, decisionRepository.findById(decision._id)];
                     case 4:
                         updatedDecision = _a.sent();
-                        expect(updatedDecision.publishStatus).toEqual('toBePublished');
+                        expect(updatedDecision.publishStatus).toEqual(decision.publishStatus);
                         return [2 /*return*/];
                 }
             });

@@ -53,6 +53,7 @@ function generateDecision(decisionFields: Partial<decisionType> = {}): decisionT
     },
     natureAffaireCivil: `NATURE_AFFAIRE_CIVIL_${Math.random()}`,
     natureAffairePenal: `NATURE_AFFAIRE_PENAL_${Math.random()}`,
+    publishStatus: 'toBePublished',
     ...decisionFields,
   };
 }

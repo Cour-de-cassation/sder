@@ -336,8 +336,8 @@ const decisionService = {
       pseudoText: decisionPseudonymisedText,
     } as any;
 
-    if (publishStatus !== undefined) {
-      updatedData.publishStatus = publishStatus;
+    if (decision.publishStatus !== 'blocked' && (publishStatus !== undefined || decision.publishStatus === undefined)) {
+      updatedData.publishStatus = publishStatus !== undefined ? publishStatus : 'toBePublished';
     }
 
     await decisionRepository.updateById(decision._id, updatedData);

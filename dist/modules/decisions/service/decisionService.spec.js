@@ -615,24 +615,25 @@ describe('decisionService', function () {
                 }
             });
         }); });
-        it('should update publishStatus to toBePublished if not referenced and origianl publishStatus is not blocked', function () { return __awaiter(void 0, void 0, void 0, function () {
-            var decisionRepository, updatedDecision;
+        it('should update publishStatus to toBePublished if not referenced and original publishStatus is not blocked', function () { return __awaiter(void 0, void 0, void 0, function () {
+            var decisionRepository, randomPublishStatusDecision, updatedDecision;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0: return [4 /*yield*/, repository_1.buildDecisionRepository()];
                     case 1:
                         decisionRepository = _a.sent();
-                        return [4 /*yield*/, decisionRepository.insert(decision)];
+                        randomPublishStatusDecision = lib_1.generateDecision({ publishStatus: 'pending' });
+                        return [4 /*yield*/, decisionRepository.insert(randomPublishStatusDecision)];
                     case 2:
                         _a.sent();
                         return [4 /*yield*/, decisionService_1.decisionService.updateDecisionPseudonymisation({
-                                decisionId: decision._id,
+                                decisionId: randomPublishStatusDecision._id,
                                 decisionPseudonymisedText: 'NEW_PSEUDONYMISATION',
                                 labelTreatments: treatmenst,
                             })];
                     case 3:
                         _a.sent();
-                        return [4 /*yield*/, decisionRepository.findById(decision._id)];
+                        return [4 /*yield*/, decisionRepository.findById(randomPublishStatusDecision._id)];
                     case 4:
                         updatedDecision = _a.sent();
                         expect(updatedDecision.publishStatus).toEqual('toBePublished');

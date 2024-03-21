@@ -336,7 +336,7 @@ const decisionService = {
       pseudoText: decisionPseudonymisedText,
     } as any;
 
-    if (decision.publishStatus !== 'blocked' && (publishStatus !== undefined || decision.publishStatus === undefined)) {
+    if (decision.publishStatus !== 'blocked') {
       updatedData.publishStatus = publishStatus !== undefined ? publishStatus : 'toBePublished';
     }
 

@@ -28,21 +28,37 @@ const publishStatuses = [
 ] as publishStatusType[];
 
 type zoning = {
-  zones?: zoningZones
+  zones?: {
+    'introduction'?: {
+      start: number,
+      end: number,
+    },
+    'moyens'?: {
+      start: number,
+      end: number,
+    },
+    'expose du litige'?: {
+      start: number,
+      end: number,
+    },
+    'motivations'?: {
+      start: number,
+      end: number,
+    },
+    'dispositif'?: {
+      start: number,
+      end: number,
+    },
+    'moyens annexes'?: {
+      start: number,
+      end: number,
+    },
+  }
   introduction_subzonage?: zoningIntroductionSubzonage
   visa?: string[]
-  is_public?: boolean
+  is_public?: number
   is_public_text?: string[]
   arret_id: number
-}
-
-type zoningZones = {
-  'introduction'?: object,
-  'moyens'?: object[],
-  'expose du litige'?: object[],
-  'motivations'?: object[],
-  'dispositif'?: object,
-  'moyens annexes'?: object
 }
 
 type zoningIntroductionSubzonage = {
@@ -109,7 +125,7 @@ type decisionType = {
   codeMatiereCivil?: string;
   NACCode?: string;
   endCaseCode?: string;
-  originalTextZoning: zoning;
+  originalTextZoning?: zoning;
 };
 
 type labelTreatmentsType = Array<{

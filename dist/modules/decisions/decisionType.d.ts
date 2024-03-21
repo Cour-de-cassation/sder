@@ -5,6 +5,48 @@ declare type labelStatusType = 'toBeTreated' | 'loaded' | 'done' | 'exported' | 
 declare const labelStatuses: labelStatusType[];
 declare type publishStatusType = 'toBePublished' | 'pending' | 'sucess' | 'failure_preparing' | 'failure_indexing' | 'blocked' | 'unpublished';
 declare const publishStatuses: publishStatusType[];
+declare type zoning = {
+    zones?: {
+        'introduction'?: {
+            start: number;
+            end: number;
+        };
+        'moyens'?: {
+            start: number;
+            end: number;
+        };
+        'expose du litige'?: {
+            start: number;
+            end: number;
+        };
+        'motivations'?: {
+            start: number;
+            end: number;
+        };
+        'dispositif'?: {
+            start: number;
+            end: number;
+        };
+        'moyens annexes'?: {
+            start: number;
+            end: number;
+        };
+    };
+    introduction_subzonage?: zoningIntroductionSubzonage;
+    visa?: string[];
+    is_public?: number;
+    is_public_text?: string[];
+    arret_id: number;
+};
+declare type zoningIntroductionSubzonage = {
+    'n_arret'?: string;
+    'formation'?: string;
+    'publication'?: string[];
+    'juridiction': string;
+    'chambre': string;
+    'pourvoi'?: string[];
+    'composition'?: object;
+};
 declare type decisionType = {
     _id: mongoIdType;
     _rev: number;
@@ -59,6 +101,7 @@ declare type decisionType = {
     codeMatiereCivil?: string;
     NACCode?: string;
     endCaseCode?: string;
+    originalTextZoning?: zoning;
 };
 declare type labelTreatmentsType = Array<{
     annotations: Array<{

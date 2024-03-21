@@ -27,6 +27,34 @@ const publishStatuses = [
   'unpublished',
 ] as publishStatusType[];
 
+type zoning = {
+  zones?: zoningZones
+  introduction_subzonage?: zoningIntroductionSubzonage
+  visa?: string[]
+  is_public?: boolean
+  is_public_text?: string[]
+  arret_id: number
+}
+
+type zoningZones = {
+  'introduction'?: object,
+  'moyens'?: object[],
+  'expose du litige'?: object[],
+  'motivations'?: object[],
+  'dispositif'?: object,
+  'moyens annexes'?: object
+}
+
+type zoningIntroductionSubzonage = {
+  'n_arret'?: string
+  'formation'?: string
+  'publication'?: string[]
+  'juridiction': string
+  'chambre': string
+  'pourvoi'?: string[]
+  'composition'?: object
+}
+
 type decisionType = {
   _id: mongoIdType;
   _rev: number;
@@ -81,6 +109,7 @@ type decisionType = {
   codeMatiereCivil?: string;
   NACCode?: string;
   endCaseCode?: string;
+  originalTextZoning: zoning;
 };
 
 type labelTreatmentsType = Array<{

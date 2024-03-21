@@ -428,8 +428,8 @@ var decisionService = {
                             labelTreatments: labelTreatments,
                             pseudoText: decisionPseudonymisedText,
                         };
-                        if (publishStatus !== undefined) {
-                            updatedData.publishStatus = publishStatus;
+                        if (decision.publishStatus !== 'blocked' && (publishStatus !== undefined || decision.publishStatus === undefined)) {
+                            updatedData.publishStatus = publishStatus !== undefined ? publishStatus : 'toBePublished';
                         }
                         return [4 /*yield*/, decisionRepository.updateById(decision._id, updatedData)];
                     case 3:

@@ -32,20 +32,22 @@ declare type zoning = {
             end: number;
         };
     };
-    introduction_subzonage?: zoningIntroductionSubzonage;
+    introduction_subzonage?: {
+        'n_arret'?: string;
+        'formation'?: string;
+        'publication'?: string[];
+        'juridiction': string;
+        'chambre': string;
+        'pourvoi'?: string[];
+        'composition'?: {
+            start: number;
+            end: number;
+        };
+    };
     visa?: string[];
     is_public?: number;
     is_public_text?: string[];
     arret_id: number;
-};
-declare type zoningIntroductionSubzonage = {
-    'n_arret'?: string;
-    'formation'?: string;
-    'publication'?: string[];
-    'juridiction': string;
-    'chambre': string;
-    'pourvoi'?: string[];
-    'composition'?: object;
 };
 declare type decisionType = {
     _id: mongoIdType;

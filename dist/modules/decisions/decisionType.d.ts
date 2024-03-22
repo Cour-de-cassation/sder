@@ -104,6 +104,7 @@ declare type decisionType = {
     NACCode?: string;
     endCaseCode?: string;
     originalTextZoning?: zoning;
+    partiallyPublic?: boolean;
 };
 declare type labelTreatmentsType = Array<{
     annotations: Array<{

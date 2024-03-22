@@ -32,6 +32,6 @@ function generateDecision(decisionFields) {
             introduction_subzonage: {
                 publication: [],
             },
-        }, natureAffaireCivil: "NATURE_AFFAIRE_CIVIL_" + Math.random(), natureAffairePenal: "NATURE_AFFAIRE_PENAL_" + Math.random(), publishStatus: 'toBePublished' }, decisionFields);
+        }, natureAffaireCivil: "NATURE_AFFAIRE_CIVIL_" + Math.random(), natureAffairePenal: "NATURE_AFFAIRE_PENAL_" + Math.random(), publishStatus: 'toBePublished', partiallyPublic: false }, decisionFields);
 }
 exports.generateDecision = generateDecision;

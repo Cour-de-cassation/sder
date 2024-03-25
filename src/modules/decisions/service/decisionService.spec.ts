@@ -436,7 +436,69 @@ describe('decisionService', () => {
       expect(updatedDecision._rev).toEqual(decision._rev + 1);
     });
 
-    it('should update publish status to toBePublished if not referenced', async () => {
+    it('should update publishStatus to toBePublished if not referenced and original publishStatus is not blocked', async () => {
+      const decisionRepository = await buildDecisionRepository();
+      const randomPublishStatusDecision = generateDecision({ publishStatus: 'pending' });
+      await decisionRepository.insert(randomPublishStatusDecision);
+
+      await decisionService.updateDecisionPseudonymisation({
+        decisionId: randomPublishStatusDecision._id,
+        decisionPseudonymisedText: 'NEW_PSEUDONYMISATION',
+        labelTreatments: treatmenst,
+      });
+
+      const updatedDecision = await decisionRepository.findById(randomPublishStatusDecision._id);
+      expect(updatedDecision.publishStatus).toEqual('toBePublished');
+    });
+
+    it('should update publish status if original publishStatus is not blocked', async () => {
+      const decisionRepository = await buildDecisionRepository();
+      await decisionRepository.insert(decision);
+
+      await decisionService.updateDecisionPseudonymisation({
+        decisionId: decision._id,
+        decisionPseudonymisedText: 'NEW_PSEUDONYMISATION',
+        labelTreatments: treatmenst,
+        publishStatus: 'pending',
+      });
+
+      const updatedDecision = await decisionRepository.findById(decision._id);
+      expect(updatedDecision.publishStatus).toEqual('pending');
+    });
+
+    it('should not update publish status if original publishStatus is blocked', async () => {
+      const decisionRepository = await buildDecisionRepository();
+      const blockedPublishStatusDecision = generateDecision({ publishStatus: 'blocked' });
+      await decisionRepository.insert(blockedPublishStatusDecision);
+
+      await decisionService.updateDecisionPseudonymisation({
+        decisionId: blockedPublishStatusDecision._id,
+        decisionPseudonymisedText: 'NEW_PSEUDONYMISATION',
+        labelTreatments: treatmenst,
+        publishStatus: 'toBePublished',
+      });
+
+      const updatedDecision = await decisionRepository.findById(blockedPublishStatusDecision._id);
+      expect(updatedDecision.publishStatus).toEqual('blocked');
+    });
+
+    it('should update publish status if original publishStatus is undefined', async () => {
+      const decisionRepository = await buildDecisionRepository();
+      const undefinedPublishStatusDecision = generateDecision({ publishStatus: undefined });
+      await decisionRepository.insert(undefinedPublishStatusDecision);
+
+      await decisionService.updateDecisionPseudonymisation({
+        decisionId: undefinedPublishStatusDecision._id,
+        decisionPseudonymisedText: 'NEW_PSEUDONYMISATION',
+        labelTreatments: treatmenst,
+        publishStatus: 'toBePublished',
+      });
+
+      const updatedDecision = await decisionRepository.findById(undefinedPublishStatusDecision._id);
+      expect(updatedDecision.publishStatus).toEqual('toBePublished');
+    });
+
+    it('should set publishStatus to toBePublished if no publishStatus is provided and original publishStatus is not blocked', async () => {
       const decisionRepository = await buildDecisionRepository();
       await decisionRepository.insert(decision);
 
@@ -448,21 +510,6 @@ describe('decisionService', () => {
 
       const updatedDecision = await decisionRepository.findById(decision._id);
       expect(updatedDecision.publishStatus).toEqual('toBePublished');
-    });
-
-    it('should update publish status', async () => {
-      const decisionRepository = await buildDecisionRepository();
-      await decisionRepository.insert(decision);
-
-      await decisionService.updateDecisionPseudonymisation({
-        decisionId: decision._id,
-        decisionPseudonymisedText: 'NEW_PSEUDONYMISATION',
-        labelTreatments: treatmenst,
-        publishStatus: 'blocked',
-      });
-
-      const updatedDecision = await decisionRepository.findById(decision._id);
-      expect(updatedDecision.publishStatus).toEqual('blocked');
     });
   });
 });

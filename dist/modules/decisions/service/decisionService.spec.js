@@ -615,7 +615,113 @@ describe('decisionService', function () {
                 }
             });
         }); });
-        it('should update publish status to toBePublished if not referenced', function () { return __awaiter(void 0, void 0, void 0, function () {
+        it('should update publishStatus to toBePublished if not referenced and original publishStatus is not blocked', function () { return __awaiter(void 0, void 0, void 0, function () {
+            var decisionRepository, randomPublishStatusDecision, updatedDecision;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, repository_1.buildDecisionRepository()];
+                    case 1:
+                        decisionRepository = _a.sent();
+                        randomPublishStatusDecision = lib_1.generateDecision({ publishStatus: 'pending' });
+                        return [4 /*yield*/, decisionRepository.insert(randomPublishStatusDecision)];
+                    case 2:
+                        _a.sent();
+                        return [4 /*yield*/, decisionService_1.decisionService.updateDecisionPseudonymisation({
+                                decisionId: randomPublishStatusDecision._id,
+                                decisionPseudonymisedText: 'NEW_PSEUDONYMISATION',
+                                labelTreatments: treatmenst,
+                            })];
+                    case 3:
+                        _a.sent();
+                        return [4 /*yield*/, decisionRepository.findById(randomPublishStatusDecision._id)];
+                    case 4:
+                        updatedDecision = _a.sent();
+                        expect(updatedDecision.publishStatus).toEqual('toBePublished');
+                        return [2 /*return*/];
+                }
+            });
+        }); });
+        it('should update publish status if original publishStatus is not blocked', function () { return __awaiter(void 0, void 0, void 0, function () {
+            var decisionRepository, updatedDecision;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, repository_1.buildDecisionRepository()];
+                    case 1:
+                        decisionRepository = _a.sent();
+                        return [4 /*yield*/, decisionRepository.insert(decision)];
+                    case 2:
+                        _a.sent();
+                        return [4 /*yield*/, decisionService_1.decisionService.updateDecisionPseudonymisation({
+                                decisionId: decision._id,
+                                decisionPseudonymisedText: 'NEW_PSEUDONYMISATION',
+                                labelTreatments: treatmenst,
+                                publishStatus: 'pending',
+                            })];
+                    case 3:
+                        _a.sent();
+                        return [4 /*yield*/, decisionRepository.findById(decision._id)];
+                    case 4:
+                        updatedDecision = _a.sent();
+                        expect(updatedDecision.publishStatus).toEqual('pending');
+                        return [2 /*return*/];
+                }
+            });
+        }); });
+        it('should not update publish status if original publishStatus is blocked', function () { return __awaiter(void 0, void 0, void 0, function () {
+            var decisionRepository, blockedPublishStatusDecision, updatedDecision;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, repository_1.buildDecisionRepository()];
+                    case 1:
+                        decisionRepository = _a.sent();
+                        blockedPublishStatusDecision = lib_1.generateDecision({ publishStatus: 'blocked' });
+                        return [4 /*yield*/, decisionRepository.insert(blockedPublishStatusDecision)];
+                    case 2:
+                        _a.sent();
+                        return [4 /*yield*/, decisionService_1.decisionService.updateDecisionPseudonymisation({
+                                decisionId: blockedPublishStatusDecision._id,
+                                decisionPseudonymisedText: 'NEW_PSEUDONYMISATION',
+                                labelTreatments: treatmenst,
+                                publishStatus: 'toBePublished',
+                            })];
+                    case 3:
+                        _a.sent();
+                        return [4 /*yield*/, decisionRepository.findById(blockedPublishStatusDecision._id)];
+                    case 4:
+                        updatedDecision = _a.sent();
+                        expect(updatedDecision.publishStatus).toEqual('blocked');
+                        return [2 /*return*/];
+                }
+            });
+        }); });
+        it('should update publish status if original publishStatus is undefined', function () { return __awaiter(void 0, void 0, void 0, function () {
+            var decisionRepository, undefinedPublishStatusDecision, updatedDecision;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, repository_1.buildDecisionRepository()];
+                    case 1:
+                        decisionRepository = _a.sent();
+                        undefinedPublishStatusDecision = lib_1.generateDecision({ publishStatus: undefined });
+                        return [4 /*yield*/, decisionRepository.insert(undefinedPublishStatusDecision)];
+                    case 2:
+                        _a.sent();
+                        return [4 /*yield*/, decisionService_1.decisionService.updateDecisionPseudonymisation({
+                                decisionId: undefinedPublishStatusDecision._id,
+                                decisionPseudonymisedText: 'NEW_PSEUDONYMISATION',
+                                labelTreatments: treatmenst,
+                                publishStatus: 'toBePublished',
+                            })];
+                    case 3:
+                        _a.sent();
+                        return [4 /*yield*/, decisionRepository.findById(undefinedPublishStatusDecision._id)];
+                    case 4:
+                        updatedDecision = _a.sent();
+                        expect(updatedDecision.publishStatus).toEqual('toBePublished');
+                        return [2 /*return*/];
+                }
+            });
+        }); });
+        it('should set publishStatus to toBePublished if no publishStatus is provided and original publishStatus is not blocked', function () { return __awaiter(void 0, void 0, void 0, function () {
             var decisionRepository, updatedDecision;
             return __generator(this, function (_a) {
                 switch (_a.label) {
@@ -636,32 +742,6 @@ describe('decisionService', function () {
                     case 4:
                         updatedDecision = _a.sent();
                         expect(updatedDecision.publishStatus).toEqual('toBePublished');
-                        return [2 /*return*/];
-                }
-            });
-        }); });
-        it('should update publish status', function () { return __awaiter(void 0, void 0, void 0, function () {
-            var decisionRepository, updatedDecision;
-            return __generator(this, function (_a) {
-                switch (_a.label) {
-                    case 0: return [4 /*yield*/, repository_1.buildDecisionRepository()];
-                    case 1:
-                        decisionRepository = _a.sent();
-                        return [4 /*yield*/, decisionRepository.insert(decision)];
-                    case 2:
-                        _a.sent();
-                        return [4 /*yield*/, decisionService_1.decisionService.updateDecisionPseudonymisation({
-                                decisionId: decision._id,
-                                decisionPseudonymisedText: 'NEW_PSEUDONYMISATION',
-                                labelTreatments: treatmenst,
-                                publishStatus: 'blocked',
-                            })];
-                    case 3:
-                        _a.sent();
-                        return [4 /*yield*/, decisionRepository.findById(decision._id)];
-                    case 4:
-                        updatedDecision = _a.sent();
-                        expect(updatedDecision.publishStatus).toEqual('blocked');
                         return [2 /*return*/];
                 }
             });

@@ -436,17 +436,18 @@ describe('decisionService', () => {
       expect(updatedDecision._rev).toEqual(decision._rev + 1);
     });
 
-    it('should update publishStatus to toBePublished if not referenced and origianl publishStatus is not blocked', async () => {
+    it('should update publishStatus to toBePublished if not referenced and original publishStatus is not blocked', async () => {
       const decisionRepository = await buildDecisionRepository();
-      await decisionRepository.insert(decision);
+      const randomPublishStatusDecision = generateDecision({ publishStatus: 'pending' });
+      await decisionRepository.insert(randomPublishStatusDecision);
 
       await decisionService.updateDecisionPseudonymisation({
-        decisionId: decision._id,
+        decisionId: randomPublishStatusDecision._id,
         decisionPseudonymisedText: 'NEW_PSEUDONYMISATION',
         labelTreatments: treatmenst,
       });
 
-      const updatedDecision = await decisionRepository.findById(decision._id);
+      const updatedDecision = await decisionRepository.findById(randomPublishStatusDecision._id);
       expect(updatedDecision.publishStatus).toEqual('toBePublished');
     });
 

@@ -110,6 +110,7 @@ type decisionType = {
   pubCategory: string;
   public: boolean | null;
   registerNumber: string;
+  numeroRoleGeneral?: string;
   solution: string;
   sourceId: number;
   sourceName: string;

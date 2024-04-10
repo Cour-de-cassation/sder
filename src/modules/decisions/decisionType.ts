@@ -128,7 +128,7 @@ type decisionType = {
   NACCode?: string;
   endCaseCode?: string;
   originalTextZoning?: zoning;
-  partiallyPublic?: boolean;
+  debatPublic?: boolean;
 };
 
 type labelTreatmentsType = Array<{

@@ -27,6 +27,40 @@ const publishStatuses = [
   'unpublished',
 ] as publishStatusType[];
 
+type zone = {
+  start: number;
+  end: number;
+};
+
+type zoneArray = zone[];
+
+type zoning = {
+  zones?: {
+    introduction?: zone;
+    moyens?: zone | zoneArray;
+    'expose du litige'?: zone | zoneArray;
+    motivations?: zone | zoneArray;
+    dispositif?: zone;
+    'moyens annexes'?: zone;
+  };
+  introduction_subzonage?: {
+    n_arret?: string;
+    formation?: string;
+    publication?: string[];
+    juridiction: string;
+    chambre: string;
+    pourvoi?: string[];
+    composition?: {
+      start: number;
+      end: number;
+    };
+  };
+  visa?: string[];
+  is_public?: number;
+  is_public_text?: string[];
+  arret_id: number;
+};
+
 type decisionType = {
   _id: mongoIdType;
   _rev: number;
@@ -82,6 +116,8 @@ type decisionType = {
   codeMatiereCivil?: string;
   NACCode?: string;
   endCaseCode?: string;
+  originalTextZoning?: zoning;
+  debatPublic?: boolean;
 };
 
 type labelTreatmentsType = Array<{

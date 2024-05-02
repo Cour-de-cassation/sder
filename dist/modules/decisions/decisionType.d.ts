@@ -5,6 +5,37 @@ declare type labelStatusType = 'toBeTreated' | 'loaded' | 'done' | 'exported' | 
 declare const labelStatuses: labelStatusType[];
 declare type publishStatusType = 'toBePublished' | 'pending' | 'sucess' | 'failure_preparing' | 'failure_indexing' | 'blocked' | 'unpublished';
 declare const publishStatuses: publishStatusType[];
+declare type zone = {
+    start: number;
+    end: number;
+};
+declare type zoneArray = zone[];
+declare type zoning = {
+    zones?: {
+        introduction?: zone;
+        moyens?: zone | zoneArray;
+        'expose du litige'?: zone | zoneArray;
+        motivations?: zone | zoneArray;
+        dispositif?: zone;
+        'moyens annexes'?: zone;
+    };
+    introduction_subzonage?: {
+        n_arret?: string;
+        formation?: string;
+        publication?: string[];
+        juridiction: string;
+        chambre: string;
+        pourvoi?: string[];
+        composition?: {
+            start: number;
+            end: number;
+        };
+    };
+    visa?: string[];
+    is_public?: number;
+    is_public_text?: string[];
+    arret_id: number;
+};
 declare type decisionType = {
     _id: mongoIdType;
     _rev: number;
@@ -60,6 +91,8 @@ declare type decisionType = {
     codeMatiereCivil?: string;
     NACCode?: string;
     endCaseCode?: string;
+    originalTextZoning?: zoning;
+    debatPublic?: boolean;
 };
 declare type labelTreatmentsType = Array<{
     annotations: Array<{

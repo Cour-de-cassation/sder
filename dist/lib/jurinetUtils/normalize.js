@@ -130,6 +130,7 @@ function normalize(document, previousVersion, ignorePreviousContent) {
                         occultation: {
                             additionalTerms: '',
                             categoriesToOmit: [],
+                            motivationOccultation: undefined,
                         },
                         blocOccultation: undefined,
                     });

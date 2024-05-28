@@ -91,7 +91,7 @@ type decisionType = {
   occultation: {
     additionalTerms: string;
     categoriesToOmit: string[];
-    motivationOccultation: boolean;
+    motivationOccultation?: boolean;
   };
   originalText: string;
   parties: Array<any>;

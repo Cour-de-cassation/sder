@@ -91,6 +91,7 @@ type decisionType = {
   occultation: {
     additionalTerms: string;
     categoriesToOmit: string[];
+    motivationOccultation: boolean;
   };
   originalText: string;
   parties: Array<any>;
@@ -117,7 +118,6 @@ type decisionType = {
   NACCode?: string;
   endCaseCode?: string;
   originalTextZoning?: zoning;
-  debatPublic?: boolean;
 };
 
 type labelTreatmentsType = Array<{

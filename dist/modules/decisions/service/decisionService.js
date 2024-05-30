@@ -319,7 +319,7 @@ var decisionService = {
                             })];
                     case 2:
                         decisions = _b.sent();
-                        return [2 /*return*/, decisions.filter(function (decision) { return !decision.pseudoText; })];
+                        return [2 /*return*/, decisions];
                 }
             });
         });
@@ -343,7 +343,7 @@ var decisionService = {
                             })];
                     case 2:
                         decisions = _b.sent();
-                        return [2 /*return*/, decisions.filter(function (decision) { return !decision.pseudoText; })];
+                        return [2 /*return*/, decisions];
                 }
             });
         });

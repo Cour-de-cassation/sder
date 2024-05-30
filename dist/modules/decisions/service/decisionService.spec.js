@@ -353,37 +353,6 @@ describe('decisionService', function () {
                 }
             });
         }); });
-        it('should not fetch the jurinet decisions between the given date already treated', function () { return __awaiter(void 0, void 0, void 0, function () {
-            var decisionRepository, decisions, fetchedDecisions;
-            return __generator(this, function (_a) {
-                switch (_a.label) {
-                    case 0: return [4 /*yield*/, repository_1.buildDecisionRepository()];
-                    case 1:
-                        decisionRepository = _a.sent();
-                        decisions = [
-                            {
-                                sourceId: 200,
-                                sourceName: 'jurinet',
-                                dateDecision: utils_1.dateBuilder.daysAgo(3),
-                                pseudoText: 'TEXT',
-                                labelStatus: 'done',
-                            },
-                        ].map(lib_1.generateDecision);
-                        return [4 /*yield*/, Promise.all(decisions.map(decisionRepository.insert))];
-                    case 2:
-                        _a.sent();
-                        return [4 /*yield*/, decisionService_1.decisionService.fetchDecisionsToPseudonymiseBetween({
-                                startDate: new Date(utils_1.dateBuilder.daysAgo(5)),
-                                endDate: new Date(utils_1.dateBuilder.daysAgo(1)),
-                                source: 'jurinet',
-                            })];
-                    case 3:
-                        fetchedDecisions = _a.sent();
-                        expect(fetchedDecisions.sort()).toEqual([].sort());
-                        return [2 /*return*/];
-                }
-            });
-        }); });
     });
     describe('fetchChainedJuricaDecisionsToPseudonymiseBetween', function () {
         it('should fetch the jurica decisions chained to jurinet decision between the given date already treated', function () { return __awaiter(void 0, void 0, void 0, function () {

@@ -87,6 +87,43 @@ var decisionsValidationSchema = {
                         },
                         source: { bsonType: 'string' },
                         order: { bsonType: 'int' },
+                        nlpVersions: {
+                            bsonType: 'object',
+                            additionalProperties: false,
+                            properties: {
+                                juriSpacyTokenizer: {
+                                    bsonType: 'object',
+                                    additionalProperties: false,
+                                    properties: {
+                                        version: { bsonType: 'string' },
+                                        date: { bsonType: 'string' },
+                                    }
+                                },
+                                juritools: {
+                                    bsonType: 'object',
+                                    additionalProperties: false,
+                                    properties: {
+                                        version: { bsonType: 'string' },
+                                        date: { bsonType: 'string' },
+                                    }
+                                },
+                                pseudonymisationApi: {
+                                    bsonType: 'object',
+                                    additionalProperties: false,
+                                    properties: {
+                                        version: { bsonType: 'string' },
+                                        date: { bsonType: 'string' },
+                                    }
+                                },
+                                model: {
+                                    bsonType: 'object',
+                                    additionalProperties: false,
+                                    properties: {
+                                        name: { bsonType: 'string' },
+                                    }
+                                },
+                            },
+                        }
                     },
                 },
             },

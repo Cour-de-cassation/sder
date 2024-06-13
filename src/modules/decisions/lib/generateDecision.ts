@@ -35,6 +35,7 @@ function generateDecision(decisionFields: Partial<decisionType> = {}): decisionT
     occultation: {
       additionalTerms: '',
       categoriesToOmit: [],
+      motivationOccultation: undefined,
     },
     originalText: `ORIGINAL_TEXT_${Math.random()}`,
     parties: [`PARTIES_${Math.random()}`],

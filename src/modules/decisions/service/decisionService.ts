@@ -237,7 +237,7 @@ const decisionService = {
       labelStatus: 'toBeTreated',
     });
 
-    return decisions.filter((decision) => !decision.pseudoText);
+    return decisions;
   },
 
   async fetchDecisionsToPseudonymiseBetweenDateCreation({
@@ -261,7 +261,7 @@ const decisionService = {
       labelStatus: 'toBeTreated',
     });
 
-    return decisions.filter((decision) => !decision.pseudoText);
+    return decisions;
   },
 
   async deprecatedUpdateDecisionsLabelStatus({

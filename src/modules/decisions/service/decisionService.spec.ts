@@ -243,28 +243,6 @@ describe('decisionService', () => {
 
       expect(fetchedDecisions.sort()).toEqual([decisions[1]].sort());
     });
-
-    it('should not fetch the jurinet decisions between the given date already treated', async () => {
-      const decisionRepository = await buildDecisionRepository();
-      const decisions = ([
-        {
-          sourceId: 200,
-          sourceName: 'jurinet',
-          dateDecision: dateBuilder.daysAgo(3),
-          pseudoText: 'TEXT',
-          labelStatus: 'done',
-        },
-      ] as const).map(generateDecision);
-      await Promise.all(decisions.map(decisionRepository.insert));
-
-      const fetchedDecisions = await decisionService.fetchDecisionsToPseudonymiseBetween({
-        startDate: new Date(dateBuilder.daysAgo(5)),
-        endDate: new Date(dateBuilder.daysAgo(1)),
-        source: 'jurinet',
-      });
-
-      expect(fetchedDecisions.sort()).toEqual([].sort());
-    });
   });
 
   describe('fetchChainedJuricaDecisionsToPseudonymiseBetween', () => {

@@ -97,6 +97,7 @@ async function normalize(
     occultation: {
       additionalTerms: '',
       categoriesToOmit: [],
+      motivationOccultation: undefined,
     },
     blocOccultation: undefined,
   });

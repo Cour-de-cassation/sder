@@ -96,7 +96,7 @@ const decisionsValidationSchema = {
                   properties: {
                     version: { bsonType: 'string' },
                     date: { bsonType: 'string' },
-                  }
+                  },
                 },
                 juritools: {
                   bsonType: 'object',
@@ -104,7 +104,7 @@ const decisionsValidationSchema = {
                   properties: {
                     version: { bsonType: 'string' },
                     date: { bsonType: 'string' },
-                  }
+                  },
                 },
                 pseudonymisationApi: {
                   bsonType: 'object',
@@ -112,17 +112,17 @@ const decisionsValidationSchema = {
                   properties: {
                     version: { bsonType: 'string' },
                     date: { bsonType: 'string' },
-                  }
+                  },
                 },
                 model: {
                   bsonType: 'object',
                   additionalProperties: false,
                   properties: {
                     name: { bsonType: 'string' },
-                  }
+                  },
                 },
               },
-            }
+            },
           },
         },
       },

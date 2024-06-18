@@ -130,7 +130,7 @@ declare const decisionsValidationSchema: {
                         order: {
                             bsonType: string;
                         };
-                        nlpVersions: {
+                        version: {
                             bsonType: string;
                             additionalProperties: boolean;
                             properties: {

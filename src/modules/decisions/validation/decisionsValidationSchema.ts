@@ -86,7 +86,7 @@ const decisionsValidationSchema = {
             },
             source: { bsonType: 'string' },
             order: { bsonType: 'int' },
-            nlpVersions: {
+            version: {
               bsonType: 'object',
               additionalProperties: false,
               properties: {

@@ -130,6 +130,57 @@ declare const decisionsValidationSchema: {
                         order: {
                             bsonType: string;
                         };
+                        version: {
+                            bsonType: string;
+                            additionalProperties: boolean;
+                            properties: {
+                                juriSpacyTokenizer: {
+                                    bsonType: string;
+                                    additionalProperties: boolean;
+                                    properties: {
+                                        version: {
+                                            bsonType: string;
+                                        };
+                                        date: {
+                                            bsonType: string;
+                                        };
+                                    };
+                                };
+                                juritools: {
+                                    bsonType: string;
+                                    additionalProperties: boolean;
+                                    properties: {
+                                        version: {
+                                            bsonType: string;
+                                        };
+                                        date: {
+                                            bsonType: string;
+                                        };
+                                    };
+                                };
+                                pseudonymisationApi: {
+                                    bsonType: string;
+                                    additionalProperties: boolean;
+                                    properties: {
+                                        version: {
+                                            bsonType: string;
+                                        };
+                                        date: {
+                                            bsonType: string;
+                                        };
+                                    };
+                                };
+                                model: {
+                                    bsonType: string;
+                                    additionalProperties: boolean;
+                                    properties: {
+                                        name: {
+                                            bsonType: string;
+                                        };
+                                    };
+                                };
+                            };
+                        };
                     };
                 };
             };

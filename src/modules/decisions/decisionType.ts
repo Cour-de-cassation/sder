@@ -127,6 +127,20 @@ type labelTreatmentsType = Array<{
     start: number;
     text: string;
   }>;
+  version?: nlpVersions;
   source: string;
   order: number;
 }>;
+
+type nlpVersionDetails = {
+  version: string;
+  date: string;
+};
+type nlpVersions = {
+  juriSpacyTokenizer: nlpVersionDetails;
+  juritools: nlpVersionDetails;
+  pseudonymisationApi: nlpVersionDetails;
+  model: {
+    name: string;
+  };
+};

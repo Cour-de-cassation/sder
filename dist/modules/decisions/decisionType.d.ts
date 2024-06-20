@@ -101,6 +101,19 @@ declare type labelTreatmentsType = Array<{
         start: number;
         text: string;
     }>;
+    version?: nlpVersions;
     source: string;
     order: number;
 }>;
+declare type nlpVersionDetails = {
+    version: string;
+    date: string;
+};
+declare type nlpVersions = {
+    juriSpacyTokenizer: nlpVersionDetails;
+    juritools: nlpVersionDetails;
+    pseudonymisationApi: nlpVersionDetails;
+    model: {
+        name: string;
+    };
+};

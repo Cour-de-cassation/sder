@@ -329,10 +329,18 @@ const decisionService = {
 
     const decision = await decisionRepository.findById(decisionId);
 
+    if (decision.labelTreatments.length != 0) {
+      labelTreatments.forEach((labelTreatment) => {
+        labelTreatment.order += decision.labelTreatments[decision.labelTreatments.length].order;
+      });
+    }
+
+    const updatedLabelTreatments = decision.labelTreatments.concat(labelTreatments);
+
     const updatedData = {
       _rev: decision._rev + 1,
       labelStatus: 'done',
-      labelTreatments,
+      updatedLabelTreatments,
       pseudoText: decisionPseudonymisedText,
     } as any;
 

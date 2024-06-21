@@ -413,7 +413,7 @@ var decisionService = {
     updateDecisionPseudonymisation: function (_a) {
         var decisionId = _a.decisionId, decisionPseudonymisedText = _a.decisionPseudonymisedText, labelTreatments = _a.labelTreatments, publishStatus = _a.publishStatus;
         return __awaiter(this, void 0, void 0, function () {
-            var decisionRepository, decision, updatedData;
+            var decisionRepository, decision, updatedLabelTreatments, updatedData;
             return __generator(this, function (_b) {
                 switch (_b.label) {
                     case 0: return [4 /*yield*/, repository_1.buildDecisionRepository()];
@@ -422,10 +422,16 @@ var decisionService = {
                         return [4 /*yield*/, decisionRepository.findById(decisionId)];
                     case 2:
                         decision = _b.sent();
+                        if (decision.labelTreatments.length != 0) {
+                            labelTreatments.forEach(function (labelTreatment) {
+                                labelTreatment.order += decision.labelTreatments[decision.labelTreatments.length].order;
+                            });
+                        }
+                        updatedLabelTreatments = decision.labelTreatments.concat(labelTreatments);
                         updatedData = {
                             _rev: decision._rev + 1,
                             labelStatus: 'done',
-                            labelTreatments: labelTreatments,
+                            updatedLabelTreatments: updatedLabelTreatments,
                             pseudoText: decisionPseudonymisedText,
                         };
                         if (decision.publishStatus !== 'blocked') {

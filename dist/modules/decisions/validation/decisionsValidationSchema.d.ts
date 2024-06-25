@@ -132,7 +132,6 @@ declare const decisionsValidationSchema: {
                         };
                         version: {
                             bsonType: string;
-                            additionalProperties: boolean;
                             properties: {
                                 juriSpacyTokenizer: {
                                     bsonType: string;

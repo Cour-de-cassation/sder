@@ -88,7 +88,7 @@ const decisionsValidationSchema = {
             order: { bsonType: 'int' },
             version: {
               bsonType: 'object',
-              additionalProperties: false,
+              // additionalProperties: false,
               properties: {
                 juriSpacyTokenizer: {
                   bsonType: 'object',

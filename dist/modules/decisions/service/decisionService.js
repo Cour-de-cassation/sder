@@ -422,16 +422,16 @@ var decisionService = {
                         return [4 /*yield*/, decisionRepository.findById(decisionId)];
                     case 2:
                         decision = _b.sent();
-                        if (decision.labelTreatments.length != 0) {
+                        if (decision.labelTreatments && decision.labelTreatments.length > 0) {
                             labelTreatments.forEach(function (labelTreatment) {
-                                labelTreatment.order += decision.labelTreatments[decision.labelTreatments.length].order;
+                                labelTreatment.order += decision.labelTreatments.length;
                             });
                         }
                         updatedLabelTreatments = decision.labelTreatments.concat(labelTreatments);
                         updatedData = {
                             _rev: decision._rev + 1,
                             labelStatus: 'done',
-                            updatedLabelTreatments: updatedLabelTreatments,
+                            labelTreatments: updatedLabelTreatments,
                             pseudoText: decisionPseudonymisedText,
                         };
                         if (decision.publishStatus !== 'blocked') {

@@ -87,7 +87,7 @@ var decisionsValidationSchema = {
                         },
                         source: { bsonType: 'string' },
                         order: { bsonType: 'int' },
-                        nlpVersions: {
+                        version: {
                             bsonType: 'object',
                             additionalProperties: false,
                             properties: {
@@ -97,7 +97,7 @@ var decisionsValidationSchema = {
                                     properties: {
                                         version: { bsonType: 'string' },
                                         date: { bsonType: 'string' },
-                                    }
+                                    },
                                 },
                                 juritools: {
                                     bsonType: 'object',
@@ -105,7 +105,7 @@ var decisionsValidationSchema = {
                                     properties: {
                                         version: { bsonType: 'string' },
                                         date: { bsonType: 'string' },
-                                    }
+                                    },
                                 },
                                 pseudonymisationApi: {
                                     bsonType: 'object',
@@ -113,17 +113,17 @@ var decisionsValidationSchema = {
                                     properties: {
                                         version: { bsonType: 'string' },
                                         date: { bsonType: 'string' },
-                                    }
+                                    },
                                 },
                                 model: {
                                     bsonType: 'object',
                                     additionalProperties: false,
                                     properties: {
                                         name: { bsonType: 'string' },
-                                    }
+                                    },
                                 },
                             },
-                        }
+                        },
                     },
                 },
             },

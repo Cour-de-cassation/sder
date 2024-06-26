@@ -422,16 +422,12 @@ var decisionService = {
                         return [4 /*yield*/, decisionRepository.findById(decisionId)];
                     case 2:
                         decision = _b.sent();
-                        console.log("original new labelTreatments : " + labelTreatments.toString());
                         if (decision.labelTreatments && decision.labelTreatments.length > 0) {
-                            console.log("Found old labelTreatments, increase new labelTreatments order");
                             labelTreatments.forEach(function (labelTreatment) {
                                 labelTreatment.order += decision.labelTreatments.length;
                             });
-                            console.log("reordered new labelTreatments : " + labelTreatments.toString());
                         }
                         updatedLabelTreatments = decision.labelTreatments.concat(labelTreatments);
-                        console.log("concat labelTreatments : " + updatedLabelTreatments.toString());
                         updatedData = {
                             _rev: decision._rev + 1,
                             labelStatus: 'done',

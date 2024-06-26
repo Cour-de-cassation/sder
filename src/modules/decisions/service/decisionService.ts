@@ -329,18 +329,12 @@ const decisionService = {
 
     const decision = await decisionRepository.findById(decisionId);
 
-    console.log(`original new labelTreatments : ${labelTreatments.toString()}`);
-
     if (decision.labelTreatments && decision.labelTreatments.length > 0) {
-      console.log(`Found old labelTreatments, increase new labelTreatments order`);
       labelTreatments.forEach((labelTreatment) => {
         labelTreatment.order += decision.labelTreatments.length;
       });
-      console.log(`reordered new labelTreatments : ${labelTreatments.toString()}`);
     }
     const updatedLabelTreatments = decision.labelTreatments.concat(labelTreatments);
-
-    console.log(`concat labelTreatments : ${updatedLabelTreatments.toString()}`);
 
     const updatedData = {
       _rev: decision._rev + 1,

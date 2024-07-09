@@ -130,6 +130,7 @@ type labelTreatmentsType = Array<{
   version?: nlpVersions;
   source: string;
   order: number;
+  treatmentDate?: number;
 }>;
 
 type nlpVersionDetails = {

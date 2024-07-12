@@ -104,7 +104,7 @@ declare type labelTreatmentsType = Array<{
     version?: nlpVersions;
     source: string;
     order: number;
-    treatmentDate?: number;
+    treatmentDate?: string;
 }>;
 declare type nlpVersionDetails = {
     version: string;

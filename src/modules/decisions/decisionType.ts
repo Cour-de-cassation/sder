@@ -130,7 +130,7 @@ type labelTreatmentsType = Array<{
   version?: nlpVersions;
   source: string;
   order: number;
-  treatmentDate?: number;
+  treatmentDate?: string;
 }>;
 
 type nlpVersionDetails = {

@@ -422,16 +422,17 @@ var decisionService = {
                         return [4 /*yield*/, decisionRepository.findById(decisionId)];
                     case 2:
                         decision = _b.sent();
+                        updatedLabelTreatments = undefined;
                         if (decision.labelTreatments && decision.labelTreatments.length > 0) {
                             labelTreatments.forEach(function (labelTreatment) {
                                 labelTreatment.order += decision.labelTreatments.length;
                             });
+                            updatedLabelTreatments = decision.labelTreatments.concat(labelTreatments);
                         }
-                        updatedLabelTreatments = decision.labelTreatments.concat(labelTreatments);
                         updatedData = {
                             _rev: decision._rev + 1,
                             labelStatus: 'done',
-                            labelTreatments: updatedLabelTreatments,
+                            labelTreatments: updatedLabelTreatments ? updatedLabelTreatments : labelTreatments,
                             pseudoText: decisionPseudonymisedText,
                         };
                         if (decision.publishStatus !== 'blocked') {

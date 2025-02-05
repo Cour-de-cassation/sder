@@ -1,3 +1,9 @@
+# This repository is archived
+
+All interactions with the SDER database now go through [dbsder-api](https://github.com/Cour-de-cassation/dbsder-api/)
+
+___
+
 # SDER Administration of the database
 
 Here, we handle all the SDER database administration.
